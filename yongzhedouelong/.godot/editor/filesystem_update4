@@ -1,0 +1,7 @@
+res://Sceen/Main.tscn
+res://Scripts/bullet.gd
+res://prefab/player.tscn
+res://prefab/bullet.tscn
+res://prefab/weapon.tscn
+res://prefab/Enemey.tscn
+res://Sceen/main_ui.tscn
