@@ -25,7 +25,7 @@ animations = [{
 collision_layer = 2
 mass = 5.0
 script = ExtResource("1_mg8au")
-hp = 3
+max_hp = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yi04b")
@@ -36,7 +36,7 @@ frame_progress = 0.22853
 flip_h = true
 
 [node name="HitTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.15
 
 [connection signal="body_entered" from="." to="." method="_beHurt"]
 [connection signal="timeout" from="HitTimer" to="." method="_hitDisplayEnd"]
