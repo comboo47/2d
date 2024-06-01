@@ -42,7 +42,6 @@ wait_time = 0.1
 
 [node name="canPickUp" parent="." instance=ExtResource("4_q3ybg")]
 targetPosition = Vector2(0, -16)
-totalTime = 0.5
 
 [connection signal="body_entered" from="." to="." method="_beHurt"]
 [connection signal="timeout" from="HitTimer" to="." method="_hitDisplayEnd"]

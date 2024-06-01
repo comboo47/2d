@@ -25,7 +25,13 @@ func _ready():
 	pass # Replace with function body.
 
 func pickUpCard(number,flower):
-	$GridContainer.get_child((number-1)*4 + flower).modulate = Color.AQUA
+	#$GridContainer.get_child((number-1)*4 + flower).modulate = Color.AQUA
+	if number >1 && number <= 5:
+		$GridContainer.get_child((number-1)*4 + flower).modulate = Color.WHITE
+	if (number >=6 && number <= 9) || (number >=10 && number < 13):
+		$GridContainer.get_child((number-1)*4 + flower).modulate = Color.SKY_BLUE
+	if number == 10 || number ==1 || number ==13:
+		$GridContainer.get_child((number-1)*4 + flower).modulate = Color.ORANGE
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func dropUpCard(number,flower):
