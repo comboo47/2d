@@ -1,8 +1,8 @@
+Control
 Area2D
 HSlider
 TextureRect
 GridContainer
-Control
 Panel
 HBoxContainer
 HScrollBar
@@ -12,4 +12,3 @@ ColorRect
 CanvasLayer
 Timer
 Marker2D
-Node2D

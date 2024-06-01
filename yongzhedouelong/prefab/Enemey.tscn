@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8tjow5urcoc8"]
 
 [ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://art/SpriteFrams/Enemy/Skull00.png" id="1_eaxet"]
-[ext_resource type="Script" path="res://prefab/Enemey.gd" id="1_mg8au"]
+[ext_resource type="Script" path="res://Scripts/Enemey.gd" id="1_mg8au"]
 [ext_resource type="Texture2D" uid="uid://02ndbd32mgs8" path="res://art/SpriteFrams/Enemy/Skull01.png" id="2_4tm4f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yi04b"]
@@ -25,7 +25,7 @@ animations = [{
 collision_layer = 2
 mass = 5.0
 script = ExtResource("1_mg8au")
-max_hp = 3
+max_hp = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yi04b")
@@ -36,7 +36,7 @@ frame_progress = 0.22853
 flip_h = true
 
 [node name="HitTimer" type="Timer" parent="."]
-wait_time = 0.15
+wait_time = 0.1
 
 [connection signal="body_entered" from="." to="." method="_beHurt"]
 [connection signal="timeout" from="HitTimer" to="." method="_hitDisplayEnd"]

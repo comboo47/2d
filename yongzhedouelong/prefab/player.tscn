@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://dkfjjgl6natjs"]
 
-[ext_resource type="Script" path="res://Scripts/CharacterBody2D.gd" id="1_oow1o"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_55f7r"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_ip1dv"]
 [ext_resource type="PackedScene" uid="uid://bo160q62p0caw" path="res://prefab/weapon.tscn" id="2_o33q7"]
 
@@ -146,7 +146,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(34, 114)
-script = ExtResource("1_oow1o")
+script = ExtResource("1_55f7r")
 metadata/_edit_group_ = true
 
 [node name="Weapon" parent="." instance=ExtResource("2_o33q7")]

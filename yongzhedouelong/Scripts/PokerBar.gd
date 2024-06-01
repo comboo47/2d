@@ -14,18 +14,23 @@ func _ready():
 		file_name = str(v+1)+"_"+str(h) 
 		$GridContainer.get_child(i).texture = ResourceLoader.load(path+file_name+file_end)
 		$GridContainer.get_child(i).modulate = Color.DIM_GRAY
-	for i in range(5):
-		_pickupCard(randi()%12+1,randi()%3)
-	_pickupCard(1,0)
-	_pickupCard(1,3)
-	_pickupCard(13,0)
-	_pickupCard(13,3)
+	
+	#测试模块
+	#for i in range(5):
+		#pickUpCard(randi()%12+1,randi()%3)
+	#pickUpCard(1,0)
+	#pickUpCard(1,3)
+	#pickUpCard(13,0)
+	#pickUpCard(13,3)
 	pass # Replace with function body.
 
-func _pickupCard(number,flower):
+func pickUpCard(number,flower):
 	$GridContainer.get_child((number-1)*4 + flower).modulate = Color.AQUA
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+func dropUpCard(number,flower):
+	$GridContainer.get_child((number-1)*4 + flower).modulate = Color.DIM_GRAY
+	pass
 func _process(delta):
 	
 	pass
