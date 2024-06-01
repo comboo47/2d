@@ -2,6 +2,7 @@ extends Node
 
 var oriPosition = 0
 var picker
+var canPickUp = true
 @export var targetPosition = Vector2(0,-16)
 @export var totalTime = float(0.5)
 
@@ -13,6 +14,7 @@ func _ready():
 	pass
 
 func pickUp(node:Node):
+	canPickUp = false
 	$Timer.start()
 	$TotalTimer.start()
 	picker = node

@@ -30,7 +30,7 @@ animations = [{
 
 [node name="InterActionShow" type="Area2D"]
 visibility_layer = 2
-collision_layer = 32
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_47io7")
 
