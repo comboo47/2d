@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://d21b0ddlr0ntf"]
+
+[ext_resource type="Script" path="res://Scripts/Interface/canPickUp.gd" id="1_6wl88"]
+
+[node name="canPickUp" type="Node"]
+script = ExtResource("1_6wl88")
+targetPosition = Vector2(5, 16)
+
+[node name="TotalTimer" type="Timer" parent="."]
+wait_time = 0.05
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+
+[connection signal="timeout" from="TotalTimer" to="." method="_releaseSelf"]
+[connection signal="timeout" from="Timer" to="." method="pickUpDisplay"]

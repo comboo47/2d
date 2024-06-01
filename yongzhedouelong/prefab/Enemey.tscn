@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8tjow5urcoc8"]
+[gd_scene load_steps=7 format=3 uid="uid://b8tjow5urcoc8"]
 
 [ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://art/SpriteFrams/Enemy/Skull00.png" id="1_eaxet"]
 [ext_resource type="Script" path="res://Scripts/Enemey.gd" id="1_mg8au"]
 [ext_resource type="Texture2D" uid="uid://02ndbd32mgs8" path="res://art/SpriteFrams/Enemy/Skull01.png" id="2_4tm4f"]
+[ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://Scripts/Interface/can_pick_up.tscn" id="4_q3ybg"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yi04b"]
-size = Vector2(14, 14)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a30io"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b8ray"]
 animations = [{
@@ -21,14 +21,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[node name="SkullEnemy" type="RigidBody2D"]
 collision_layer = 2
 mass = 5.0
+contact_monitor = true
 script = ExtResource("1_mg8au")
 max_hp = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_yi04b")
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_a30io")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_b8ray")
@@ -37,6 +39,10 @@ flip_h = true
 
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="canPickUp" parent="." instance=ExtResource("4_q3ybg")]
+targetPosition = Vector2(0, -16)
+totalTime = 0.5
 
 [connection signal="body_entered" from="." to="." method="_beHurt"]
 [connection signal="timeout" from="HitTimer" to="." method="_hitDisplayEnd"]

@@ -1,8 +1,13 @@
 res://prefab/interaction_interface.tscn
 res://Scripts/bullet.gd
+res://Scripts/InteractionShow.gd
 res://Sceen/Main.tscn
 res://prefab/player.tscn
+res://prefab/interactionShow.tscn
 res://prefab/bullet.tscn
 res://prefab/weapon.tscn
 res://prefab/Enemey.tscn
 res://Sceen/main_ui.tscn
+res://Scripts/Interface/can_pick_up.tscn
+res://Scripts/Player.gd
+res://Scripts/Interface/canPickUp.gd

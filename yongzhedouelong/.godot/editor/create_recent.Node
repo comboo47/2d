@@ -1,5 +1,7 @@
 CollisionShape2D
 Area2D
+AnimatedSprite2D
+Timer
 Node
 Control
 HSlider
@@ -10,5 +12,3 @@ HBoxContainer
 HScrollBar
 Label
 Sprite2D
-ColorRect
-CanvasLayer

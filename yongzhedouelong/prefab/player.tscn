@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_55f7r"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_ip1dv"]
 [ext_resource type="PackedScene" uid="uid://bo160q62p0caw" path="res://prefab/weapon.tscn" id="2_o33q7"]
-[ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/interaction_interface.tscn" id="4_slfcf"]
+[ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/interactionShow.tscn" id="4_slfcf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxugv"]
 size = Vector2(10, 17)

@@ -8,3 +8,4 @@ func _ready():
 	var weapon = player.get_child(0)
 	weapon.connect("player_fired_bullet",Callable(bullet_manager,"handle_bullet_spawn"))
 	player.connect("pickUpPoker",Callable(mainUI,"pickUpPoker"))
+	
