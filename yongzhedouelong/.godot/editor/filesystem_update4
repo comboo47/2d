@@ -1,5 +1,6 @@
-res://Sceen/Main.tscn
+res://prefab/interaction_interface.tscn
 res://Scripts/bullet.gd
+res://Sceen/Main.tscn
 res://prefab/player.tscn
 res://prefab/bullet.tscn
 res://prefab/weapon.tscn

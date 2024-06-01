@@ -1,5 +1,7 @@
-Control
+CollisionShape2D
 Area2D
+Node
+Control
 HSlider
 TextureRect
 GridContainer
@@ -10,5 +12,3 @@ Label
 Sprite2D
 ColorRect
 CanvasLayer
-Timer
-Marker2D
