@@ -7,6 +7,7 @@ extends RigidBody2D
 var ori_modulate
 var ori_scale
 var hp
+var isDead = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,9 +26,12 @@ func _process(delta):
 func _beHurt(dmg):
 	hp = hp - dmg
 	if(hp <= 0):
-		setDead()
+		if !isDead:
+			setDead()
 	_hitDisplay()
 func setDead():
+	isDead = true
+	$".".set_collision_layer_value(2,false)
 	if get_node("/root/DropManager"):
 		get_node("/root/DropManager").dropPoker(self)
 	var tween = create_tween()
