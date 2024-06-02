@@ -332,53 +332,53 @@ metadata/_edit_lock_ = true
 [node name="Test" type="Node" parent="."]
 
 [node name="Poker" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(164, 215)
+position = Vector2(238, 132)
 timeIndex = 0.5
 
 [node name="Poker2" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(244, 216)
+position = Vector2(260, 120)
 timeIndex = 0.5
 
 [node name="Poker3" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(262, 201)
+position = Vector2(251, 41)
 timeIndex = 0.5
 
 [node name="Poker4" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(173, 151)
+position = Vector2(119, 68)
 timeIndex = 0.5
 
 [node name="Poker5" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(281, 183)
+position = Vector2(266, 98)
 timeIndex = 0.5
 
 [node name="Poker6" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(280, 121)
+position = Vector2(286, 89)
 timeIndex = 0.5
 
 [node name="Poker7" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(102, 122)
+position = Vector2(102, 101)
 timeIndex = 0.5
 
 [node name="Poker8" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(188, 201)
+position = Vector2(158, 111)
 timeIndex = 0.5
 
 [node name="Poker9" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(226, 214)
+position = Vector2(252, 162)
 timeIndex = 0.5
 
 [node name="Poker10" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(103, 181)
+position = Vector2(102, 171)
 timeIndex = 0.5
 
 [node name="Poker11" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(213, 151)
+position = Vector2(150, 76)
 timeIndex = 0.5
 
 [node name="Poker12" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(138, 214)
+position = Vector2(138, 124)
 timeIndex = 0.5
 
 [node name="Poker13" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(223, 119)
+position = Vector2(230, 102)
 timeIndex = 0.5

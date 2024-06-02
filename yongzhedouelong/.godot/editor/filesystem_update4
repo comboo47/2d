@@ -12,3 +12,4 @@ res://prefab/card.tscn
 res://Scripts/Interface/canPickUp.gd
 res://Scripts/Poker.gd
 res://Scripts/PokerBar.gd
+res://Scripts/Player.gd

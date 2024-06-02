@@ -4,28 +4,25 @@
 [ext_resource type="Texture2D" uid="uid://ds6fe4rb6vwvv" path="res://art/SpriteFrams/UI/card_2_3.tres" id="1_ho5oi"]
 [ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://Scripts/Interface/can_pick_up.tscn" id="2_bxehu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gtnx"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_besba"]
+size = Vector2(14, 14)
 
-[node name="Poker" type="Area2D"]
-collision_layer = 2
-collision_mask = 0
+[node name="Poker" type="RigidBody2D"]
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("1_33bvb")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="EndTimer" type="Timer" parent="."]
 wait_time = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ho5oi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.65, 0.7)
-shape = SubResource("RectangleShape2D_2gtnx")
+shape = SubResource("RectangleShape2D_besba")
 
 [node name="canPickUp" parent="." instance=ExtResource("2_bxehu")]
-targetPosition = Vector2(0, -16)
-
-[node name="EndTimer" type="Timer" parent="."]
-wait_time = 0.5
-
-[connection signal="timeout" from="Timer" to="." method="randomCard"]
-[connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]
+scale = Vector2(0.67, 0.7)

@@ -18,11 +18,11 @@ func pickUp(node:Node):
 	$Timer.start()
 	$TotalTimer.start()
 	picker = node
-	$".".get_parent().pickEffect(picker)
+	if $".".get_parent().has_method("pickEffect"):
+		$".".get_parent().pickEffect(picker)
 	pass
 func pickUpDisplay():
-	
-	$".".get_parent().position += targetPosition
+	$".".get_parent().global_position += targetPosition
 	#$".".get_parent().get_node("AnimatedSprite2D").flip_h = !$".".get_parent().get_node("AnimatedSprite2D").flip_h 
 	print($".".get_parent().position)
 	
