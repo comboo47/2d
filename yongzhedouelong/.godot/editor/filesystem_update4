@@ -9,6 +9,9 @@ res://Sceen/main_ui.tscn
 res://Scripts/Interface/can_pick_up.tscn
 res://prefab/interactionShow.tscn
 res://prefab/card.tscn
-res://Scripts/Interface/canPickUp.gd
-res://Scripts/Player.gd
-res://Scripts/InteractionShow.gd
+res://Manager/Main.tscn
+res://Sceen/drop_managet.tscn
+res://Scripts/Manager/DropMgr.gd
+res://Manager/main_ui.tscn
+res://Scripts/Enemey.gd
+res://Manager/drop_manager.tscn

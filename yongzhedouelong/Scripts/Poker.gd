@@ -7,14 +7,17 @@ extends Node
 var picker = null
 var onTween = false
 var isInTimer = false
+var isRandomCard = false
 var oriPosition
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	$Timer.wait_time = timeIndex
 	setCardDisplay(number,flower)
-	$Timer.start()
 	if flower == 4:
 		flower = randi() % 3
+	if isRandomCard:
+		$Timer.start()
 	dropDisplay()
 	pass # Replace with function body.
 
@@ -61,8 +64,8 @@ func _on_end_timer_timeout():
 	pass # Replace with function body.
 	
 func dropDisplay():
+	onTween =true
 	oriPosition = $".".position
-	
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_BOUNCE)
 	tween.set_ease(Tween.EASE_OUT)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwmlssqrwdwj4"]
 
-[ext_resource type="Script" path="res://Scripts/main_ui_Mgr.gd" id="1_o0m1u"]
+[ext_resource type="Script" path="res://Scripts/Manager/main_ui_Mgr.gd" id="1_o0m1u"]
 [ext_resource type="Texture2D" uid="uid://csg022il85y8h" path="res://art/SpriteFrams/UI/Heart.tres" id="1_xi14b"]
 [ext_resource type="Script" path="res://Scripts/PokerBar.gd" id="2_tva1y"]
 

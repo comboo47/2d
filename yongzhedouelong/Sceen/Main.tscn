@@ -1,12 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bruvv78x8gkah"]
+[gd_scene load_steps=10 format=3 uid="uid://bruvv78x8gkah"]
 
-[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_nacb5"]
+[ext_resource type="Script" path="res://Scripts/LevelScript/Main.gd" id="1_nacb5"]
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/1bitpack_kenney/Tilesheet/colored.png" id="1_vo45i"]
 [ext_resource type="PackedScene" uid="uid://b8tjow5urcoc8" path="res://prefab/Enemey.tscn" id="2_qrudm"]
 [ext_resource type="PackedScene" uid="uid://dkfjjgl6natjs" path="res://prefab/player.tscn" id="2_wl6l7"]
-[ext_resource type="Script" path="res://Scripts/BulletManager.gd" id="4_oiflh"]
-[ext_resource type="PackedScene" uid="uid://bwmlssqrwdwj4" path="res://Sceen/main_ui.tscn" id="6_r4kfq"]
-[ext_resource type="PackedScene" uid="uid://du6v7ebpkwxem" path="res://prefab/card.tscn" id="7_lxi8c"]
+[ext_resource type="Script" path="res://Scripts/Manager/BulletManager.gd" id="4_oiflh"]
+[ext_resource type="PackedScene" uid="uid://bwmlssqrwdwj4" path="res://Manager/main_ui.tscn" id="6_jskjw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtu8f"]
 texture = ExtResource("1_vo45i")
@@ -309,7 +308,7 @@ position = Vector2(255, 69)
 gravity_scale = 0.0
 
 [node name="RigidBody2D4" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(200, 87)
+position = Vector2(212, 145)
 gravity_scale = 0.0
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -320,65 +319,13 @@ layer_0/tile_data = PackedInt32Array(917522, 1245189, 1, 917509, 1245189, 1, 917
 script = SubResource("GDScript_jdi0w")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_wl6l7")]
-position = Vector2(187, 136)
+position = Vector2(171, 145)
 
 [node name="BulletManager" type="Node2D" parent="."]
 script = ExtResource("4_oiflh")
 
-[node name="MainUI" parent="." instance=ExtResource("6_r4kfq")]
+[node name="MainUI" parent="." instance=ExtResource("6_jskjw")]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="Test" type="Node" parent="."]
-
-[node name="Poker" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(164, 215)
-timeIndex = 0.5
-
-[node name="Poker2" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(244, 216)
-timeIndex = 0.5
-
-[node name="Poker3" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(262, 201)
-timeIndex = 0.5
-
-[node name="Poker4" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(127, 98)
-timeIndex = 0.5
-
-[node name="Poker5" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(281, 183)
-timeIndex = 0.5
-
-[node name="Poker6" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(280, 121)
-timeIndex = 0.5
-
-[node name="Poker7" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(102, 122)
-timeIndex = 0.5
-
-[node name="Poker8" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(188, 201)
-timeIndex = 0.5
-
-[node name="Poker9" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(226, 214)
-timeIndex = 0.5
-
-[node name="Poker10" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(103, 181)
-timeIndex = 0.5
-
-[node name="Poker11" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(249, 119)
-timeIndex = 0.5
-
-[node name="Poker12" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(138, 214)
-timeIndex = 0.5
-
-[node name="Poker13" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(223, 119)
-timeIndex = 0.5
