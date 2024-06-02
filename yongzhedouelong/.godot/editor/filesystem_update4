@@ -14,3 +14,4 @@ res://prefab/canDropDisplay.tscn
 res://prefab/dropDisplay.tscn
 res://Scripts/Interface/dropDisplay.gd
 res://Scripts/Poker.gd
+res://Scripts/Weapon.gd

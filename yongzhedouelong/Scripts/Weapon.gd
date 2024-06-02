@@ -2,7 +2,7 @@ extends Node2D
 @export var bullet: PackedScene
 signal player_fired_bullet(bullet,position,direction,speed)
 
-var mousePos
+var mousePos = Vector2()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -16,10 +16,11 @@ func _process(delta):
 	pass
 
 func fire():
-	var _bullet = bullet.instantiate()
-	var direction = Vector2.ZERO
-	direction = mousePos - get_parent().position
-	#_bullet.rotation = $".".rotation
-	#_bullet.linear_velocity = direction.normalized()  * 250
-	emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,direction)
+	if get_parent():
+		var _bullet = bullet.instantiate()
+		var direction = Vector2.ZERO
+		direction = mousePos - get_parent().position
+		#_bullet.rotation = $".".rotation
+		#_bullet.linear_velocity = direction.normalized()  * 250
+		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,direction)
 	

@@ -299,12 +299,43 @@ func _process(delta):
 script = ExtResource("1_nacb5")
 
 [node name="RigidBody2D3" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(193, 54)
+position = Vector2(233, 42)
+gravity_scale = 0.0
+metadata/_edit_group_ = true
+
+[node name="RigidBody2D6" parent="." instance=ExtResource("2_qrudm")]
+position = Vector2(136, 52)
+gravity_scale = 0.0
+metadata/_edit_group_ = true
+
+[node name="RigidBody2D7" parent="." instance=ExtResource("2_qrudm")]
+position = Vector2(161, 73)
+gravity_scale = 0.0
+metadata/_edit_group_ = true
+
+[node name="RigidBody2D8" parent="." instance=ExtResource("2_qrudm")]
+position = Vector2(193, 50)
 gravity_scale = 0.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D5" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(255, 69)
+gravity_scale = 0.0
+
+[node name="RigidBody2D9" parent="." instance=ExtResource("2_qrudm")]
+position = Vector2(216, 96)
+gravity_scale = 0.0
+
+[node name="RigidBody2D10" parent="." instance=ExtResource("2_qrudm")]
+position = Vector2(262, 103)
+gravity_scale = 0.0
+
+[node name="RigidBody2D11" parent="." instance=ExtResource("2_qrudm")]
+position = Vector2(274, 53)
+gravity_scale = 0.0
+
+[node name="RigidBody2D12" parent="." instance=ExtResource("2_qrudm")]
+position = Vector2(158, 31)
 gravity_scale = 0.0
 
 [node name="RigidBody2D4" parent="." instance=ExtResource("2_qrudm")]

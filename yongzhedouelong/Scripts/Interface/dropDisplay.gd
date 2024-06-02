@@ -19,19 +19,23 @@ func _physics_process(delta):
 				hitPoint = $".".get_collision_point() + Vector2(0,-8)
 				isHit = true
 				dropDisplayOn()
-	if onTween:
-		$".".get_parent().position = oriPosition + $Path2D/PathFollow2D.position
-		pass
+	#if onTween:
+		#parent.position = oriPosition + $Path2D/PathFollow2D.position
+		#pass
 	pass
 	#print($".".get_collision_point())
 func dropDisplayOn():
-	$".".get_parent().global_position = hitPoint
-	onTween =true
-	print(parent.name)
-	oriPosition = $".".get_parent().position
-	var tween = create_tween()
-	tween.set_trans(Tween.TRANS_BOUNCE)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property($Path2D/PathFollow2D,"progress_ratio",float(1.0),0.5)
-	await tween.finished
-	onTween = false
+	var dropTween = create_tween()
+	dropTween.set_trans(Tween.TRANS_BOUNCE)
+	dropTween.set_ease(Tween.EASE_OUT)
+	dropTween.tween_property(parent,"global_position",hitPoint,0.75)
+	await dropTween.finished
+	#onTween =true
+	#print(parent.name)
+	#oriPosition = $".".get_parent().position
+	#var tween = create_tween()
+	#tween.set_trans(Tween.TRANS_BOUNCE)
+	#tween.set_ease(Tween.EASE_OUT)
+	#tween.tween_property($Path2D/PathFollow2D,"progress_ratio",float(1.0),0.5)
+	#await tween.finished
+	#onTween = false
