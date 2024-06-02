@@ -1,3 +1,5 @@
+PathFollow2D
+Path2D
 Node
 RayCast2D
 Timer
@@ -11,4 +13,3 @@ TextureRect
 GridContainer
 Panel
 HBoxContainer
-HScrollBar

@@ -1,6 +1,6 @@
 extends Node
 
-var interactionItem = null
+var interactionItem:Node = null
 var displayOn = true
 # Called when the node enters the scene tree for the first time.
 
@@ -23,6 +23,7 @@ func hideCanPickUp():
 
 func _process(delta):
 	#if displayOn:
+	var interactionList:Array
 	if interactionItem == null:
 		hideCanPickUp()
 		if $".".has_overlapping_areas():
@@ -32,6 +33,21 @@ func _process(delta):
 					break
 	if interactionItem != null:
 		showCanPickUp()
+		if $".".has_overlapping_areas():
+			for i in $".".get_overlapping_areas():
+				if i.get_node("canPickUp") && i.get_node("canPickUp").canPickUp:
+					interactionList.append(i)
+			if interactionList.size() > 0:
+				var dis = float(999)
+				var item:Node
+				for j in interactionList:
+					var disTemp
+					disTemp = Vector2(j.global_position - $".".get_parent().global_position).length()
+					if disTemp< dis:
+						item = j
+						dis = disTemp
+					print("item:",j.name,"   distance:",disTemp,"   dis:",dis)
+				interactionItem = item
 		$AnimatedSprite2D.global_position = interactionItem.global_position - Vector2(0,16)
 		if interactionItem.get_node("canPickUp") && !interactionItem.get_node("canPickUp").canPickUp:
 			interactionItem = null

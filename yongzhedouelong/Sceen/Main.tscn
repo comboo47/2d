@@ -344,7 +344,7 @@ position = Vector2(262, 201)
 timeIndex = 0.5
 
 [node name="Poker4" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(173, 151)
+position = Vector2(127, 98)
 timeIndex = 0.5
 
 [node name="Poker5" parent="Test" instance=ExtResource("7_lxi8c")]
@@ -372,7 +372,7 @@ position = Vector2(103, 181)
 timeIndex = 0.5
 
 [node name="Poker11" parent="Test" instance=ExtResource("7_lxi8c")]
-position = Vector2(213, 151)
+position = Vector2(249, 119)
 timeIndex = 0.5
 
 [node name="Poker12" parent="Test" instance=ExtResource("7_lxi8c")]
