@@ -1,5 +1,7 @@
-res://Sceen/Main.tscn
+res://Manager/drop_manager.tscn
 res://Scripts/bullet.gd
+res://Scripts/Manager/DropMgr.gd
+res://Sceen/Main.tscn
 res://prefab/player.tscn
 res://prefab/bullet.tscn
 res://prefab/weapon.tscn
@@ -8,10 +10,4 @@ res://Manager/main_ui.tscn
 res://Scripts/Interface/can_pick_up.tscn
 res://prefab/interactionShow.tscn
 res://prefab/card.tscn
-res://Manager/drop_manager.tscn
-res://Scripts/Enemey.gd
-res://prefab/canDropDisplay.tscn
 res://prefab/dropDisplay.tscn
-res://Scripts/Interface/dropDisplay.gd
-res://Scripts/Poker.gd
-res://Scripts/Weapon.gd

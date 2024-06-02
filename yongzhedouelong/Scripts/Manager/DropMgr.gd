@@ -23,23 +23,20 @@ func dropPoker(droper:Node):
 	var poker = Poker.instantiate()
 	var number
 	var flower
+	var randomPoker = pokerWaitDropDic.pick_random()
+	number = randomPoker.x
+	flower = randomPoker.y
 	if droper.has_method("getID"):
 		var droperID = droper.getID()
 		dropItem = getDropItem(droperID)
-	if dropItem == Vector2(0,0):
-		var randomPoker = pokerWaitDropDic.pick_random()
-		number = pokerWaitDropDic[randomPoker].x
-		flower = pokerWaitDropDic[randomPoker].y
-		dropDicOperate(pokerWaitDropDic[randomPoker])
-	elif dropItem != Vector2(0,0):
-		number = randi() %12+1
-		flower = randi() %3
+	if dropItem != Vector2(0,0):
 		for i in pokerWaitDropDic:
 			print(i)
 			if i == dropItem:
 				number = i.x
 				flower = i.y
 				dropDicOperate(i)
+	dropDicOperate(Vector2(number,flower))
 	poker.number = number
 	poker.flower = flower
 	poker.position = droper.global_position
@@ -50,5 +47,7 @@ func dropDicOperate(dropItem:Vector2):
 	pokerDropedDic.append(dropItem)
 	pokerWaitDropDic.erase(dropItem)
 	if(pokerWaitDropDic.size() == 0):
-		pokerWaitDropDic = pokerDropedDic
+		for i in pokerDropedDic:
+			pokerWaitDropDic.append(i)
 		pokerDropedDic.clear()
+		
