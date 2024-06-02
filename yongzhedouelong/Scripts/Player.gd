@@ -22,7 +22,7 @@ func _process(delta):
 			var i = $InteractionInterface.interactionItem
 			if i.get_node("canPickUp"):
 				i.get_node("canPickUp").pickUp(self)
-			print(i)
+			#print(i)
 	if Input.is_action_pressed("left"):
 		_velocity.x -= 1
 	if Input.is_action_pressed("right"):

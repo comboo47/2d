@@ -6,6 +6,7 @@ extends Node
 
 var picker = null
 var onTween = false
+var isInTimer = false
 var oriPosition
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,7 +23,7 @@ func _ready():
 func _physics_process(delta):
 	if onTween:
 		$".".position = oriPosition + $Path2D/PathFollow2D.position
-		print($Path2D/PathFollow2D.position)
+		#print($Path2D/PathFollow2D.position)
 	
 	pass
 func setCardDisplay(number,flower):
@@ -45,17 +46,23 @@ func randomCard():
 	setCardDisplay(number,flower)
 
 func pickEffect(node):
-	$Timer.stop()
-	$EndTimer.start()
-	picker = node
+	if isInTimer == false:
+		print("card be pickUp display:::",$".".name)
+		$Timer.stop()
+		isInTimer = true
+		$EndTimer.start()
+		picker = node
+		
 
 func _on_end_timer_timeout():
+	print("card be pickUp timeOut:::",$".".name)
 	picker.addPoker(number,flower)
+	$".".queue_free()
 	pass # Replace with function body.
 	
 func dropDisplay():
 	oriPosition = $".".position
-	onTween = true
+	
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_BOUNCE)
 	tween.set_ease(Tween.EASE_OUT)
@@ -63,17 +70,3 @@ func dropDisplay():
 	await tween.finished
 	onTween = false
 	pass
-func _cubic_bezier(ctrole0: Vector2, ctrole1: Vector2, t: float):
-	var p0 = Vector2(0,0)
-	var p3 = Vector2(1,1)
-	var p1 = p0 + ctrole0
-	var p2 = p3 - ctrole1
-	var q0 = p0.lerp(p1, t)
-	var q1 = p1.lerp(p2, t)
-	var q2 = p2.lerp(p3, t)
-
-	var r0 = q0.lerp(q1, t)
-	var r1 = q1.lerp(q2, t)
-
-	var s = r0.lerp(r1, t)
-	return s

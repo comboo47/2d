@@ -22,10 +22,16 @@ func _process(delta):
 func _beHurt(dmg):
 	hp = hp - dmg
 	if(hp <= 0):
-		_releaseSelf()
+		setDead()
 	_hitDisplay()
-func _releaseSelf():
+func setDead():
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property($".","scale",Vector2(),0.2)
+	await tween.finished
 	$".".queue_free()
+	pass
 
 func _hitDisplay():
 	ori_modulate.a = (float(hp)/float(max_hp))

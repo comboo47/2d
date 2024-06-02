@@ -46,7 +46,7 @@ func _process(delta):
 					if disTemp< dis:
 						item = j
 						dis = disTemp
-					print("item:",j.name,"   distance:",disTemp,"   dis:",dis)
+					#print("item:",j.name,"   distance:",disTemp,"   dis:",dis)
 				interactionItem = item
 		$AnimatedSprite2D.global_position = interactionItem.global_position - Vector2(0,16)
 		if interactionItem.get_node("canPickUp") && !interactionItem.get_node("canPickUp").canPickUp:

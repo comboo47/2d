@@ -9,5 +9,6 @@ res://Sceen/main_ui.tscn
 res://Scripts/Interface/can_pick_up.tscn
 res://prefab/interactionShow.tscn
 res://prefab/card.tscn
-res://Scripts/InteractionShow.gd
 res://Scripts/Interface/canPickUp.gd
+res://Scripts/Player.gd
+res://Scripts/InteractionShow.gd
