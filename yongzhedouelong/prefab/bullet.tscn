@@ -3,7 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_eh8vd"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="1_w0yq7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgxa4"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hai6f"]
+radius = 6.0
+height = 12.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_snkgp"]
 atlas = ExtResource("1_w0yq7")
@@ -30,7 +32,7 @@ script = ExtResource("1_eh8vd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_mgxa4")
+shape = SubResource("CapsuleShape2D_hai6f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
