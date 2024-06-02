@@ -327,5 +327,3 @@ script = ExtResource("4_oiflh")
 [node name="MainUI" parent="." instance=ExtResource("6_jskjw")]
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
-
-[node name="Test" type="Node" parent="."]

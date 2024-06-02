@@ -8,7 +8,6 @@ var picker = null
 var onTween = false
 var isInTimer = false
 var isRandomCard = false
-var oriPosition
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -18,15 +17,11 @@ func _ready():
 		flower = randi() % 3
 	if isRandomCard:
 		$Timer.start()
-	dropDisplay()
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if onTween:
-		$".".position = oriPosition + $Path2D/PathFollow2D.position
-		#print($Path2D/PathFollow2D.position)
 	
 	pass
 func setCardDisplay(number,flower):
@@ -62,14 +57,4 @@ func _on_end_timer_timeout():
 	picker.addPoker(number,flower)
 	$".".queue_free()
 	pass # Replace with function body.
-	
-func dropDisplay():
-	onTween =true
-	oriPosition = $".".position
-	var tween = create_tween()
-	tween.set_trans(Tween.TRANS_BOUNCE)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property($Path2D/PathFollow2D,"progress_ratio",float(1.0),0.5)
-	await tween.finished
-	onTween = false
-	pass
+

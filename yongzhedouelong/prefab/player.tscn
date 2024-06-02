@@ -152,6 +152,7 @@ metadata/_edit_group_ = true
 [node name="Weapon" parent="." instance=ExtResource("2_o33q7")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.5, 1)
 shape = SubResource("RectangleShape2D_yxugv")
 metadata/_edit_group_ = true
 

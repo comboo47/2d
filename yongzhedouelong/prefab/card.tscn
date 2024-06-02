@@ -3,15 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/Poker.gd" id="1_33bvb"]
 [ext_resource type="Texture2D" uid="uid://ds6fe4rb6vwvv" path="res://art/SpriteFrams/UI/card_2_3.tres" id="1_ho5oi"]
 [ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://Scripts/Interface/can_pick_up.tscn" id="2_bxehu"]
+[ext_resource type="PackedScene" uid="uid://4d8xi811oiv" path="res://prefab/dropDisplay.tscn" id="4_ogla3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2gtnx"]
-
-[sub_resource type="Curve2D" id="Curve2D_ytl5k"]
-resource_local_to_scene = true
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, -32, 0, 0, 0, 0, 0, 0)
-}
-point_count = 2
 
 [node name="Poker" type="Area2D"]
 collision_layer = 2
@@ -36,13 +30,8 @@ targetPosition = Vector2(0, -16)
 [node name="EndTimer" type="Timer" parent="."]
 wait_time = 0.5
 
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_ytl5k")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+[node name="dropDisplay" parent="." instance=ExtResource("4_ogla3")]
 position = Vector2(0, -32)
-rotation = 1.5708
-loop = false
 
 [connection signal="timeout" from="Timer" to="." method="randomCard"]
 [connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]

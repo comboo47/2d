@@ -10,3 +10,7 @@ res://prefab/interactionShow.tscn
 res://prefab/card.tscn
 res://Manager/drop_manager.tscn
 res://Scripts/Enemey.gd
+res://prefab/canDropDisplay.tscn
+res://prefab/dropDisplay.tscn
+res://Scripts/Interface/dropDisplay.gd
+res://Scripts/Poker.gd
