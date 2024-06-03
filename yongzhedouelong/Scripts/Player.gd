@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -310.0
+var holdFireTime = float(0)
 
 signal pickUpPoker(number,flower)
 
@@ -28,9 +29,12 @@ func _process(delta):
 	if Input.is_action_pressed("right"):
 		_velocity.x += 1
 	if Input.is_action_pressed("fire"):
-		$Weapon.holdFire()
+		holdFireTime += delta
+		if holdFireTime >= 0.1:
+			$Weapon.holdFire()
 		
 	if Input.is_action_just_released("fire"):
+		holdFireTime = 0
 		$Weapon.fire()
 	if _velocity.length() > 0:
 		_velocity = _velocity.normalized() * SPEED

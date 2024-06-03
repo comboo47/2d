@@ -6,6 +6,7 @@ var mousePos = Vector2()
 var defaultSpeed
 var addSpeed = float(0)
 var direction = Vector2.ZERO
+var hold = false
 var fireVector
 var stepX
 var stepY
@@ -26,21 +27,26 @@ func _process(delta):
 	mousePos = get_viewport().get_mouse_position()
 	direction = mousePos - get_parent().position
 	fireVector = direction.normalized() * (defaultSpeed + addSpeed)
-	stepX = fireVector.x
-	stepY = fireVector.y
-	#print("fireVector:",fireVector,"direction:",direction.normalized())
-	#print("X:",stepX,"y:",stepY)
-	$Line2D.clear_points()
-	for i in range(20):
-		$Line2D.add_point(Vector2(stepX*i*delta,(stepY+4.9*i)*i*delta))
-		pass
+	if hold:
+		addSpeed += 10
+		stepX = fireVector.x
+		stepY = fireVector.y
+		#print("fireVector:",fireVector,"direction:",direction.normalized())
+		#print("X:",stepX,"y:",stepY)
+		$Line2D.clear_points()
+		for i in range(15):
+			$Line2D.add_point(Vector2(stepX*i*delta,(stepY+490*i*delta)*i*delta))
+			pass
+	else:
+		$Line2D.clear_points()
 	#get_parent().position
 	pass
 func holdFire():
-	addSpeed += 10
+	hold = true
 
 func fire():
 	addSpeed = 0
+	hold = false
 	if get_parent():
 		var _bullet = bullet.instantiate()
 		#_bullet.rotation = $".".rotation
