@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://d21b0ddlr0ntf"]
 
-[ext_resource type="Script" path="res://Scripts/Interface/canPickUp.gd" id="1_6wl88"]
+[ext_resource type="Script" path="res://Scripts/Interface/canPickUp.gd" id="1_fdlsq"]
 
 [node name="canPickUp" type="Node"]
-script = ExtResource("1_6wl88")
+script = ExtResource("1_fdlsq")
 targetPosition = Vector2(5, 16)

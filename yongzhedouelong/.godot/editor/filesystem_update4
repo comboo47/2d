@@ -1,5 +1,6 @@
 res://Sceen/Main.tscn
 res://Scripts/bullet.gd
+res://art/Weapon/Weapon01.tres
 res://prefab/player.tscn
 res://prefab/bullet.tscn
 res://prefab/weapon.tscn
@@ -10,11 +11,8 @@ res://prefab/interactionShow.tscn
 res://prefab/card.tscn
 res://Manager/drop_manager.tscn
 res://prefab/dropDisplay.tscn
-res://art/Weapon/Weapon01.tres
-res://art/Weapon/Weapon11.tres
-res://art/Weapon/Weapon21.tres
-res://art/Weapon/Weapon31.tres
-res://art/Weapon/Weapon41.tres
-res://art/Weapon/Weapon51.tres
-res://art/Weapon/Weapon61.tres
-res://art/Weapon/Weapon71.tres
+res://prefab/bullet_path.tscn
+res://prefab/can_pick_up.tscn
+res://Scripts/Weapon.gd
+res://Scripts/Player.gd
+res://Scripts/Manager/BulletManager.gd

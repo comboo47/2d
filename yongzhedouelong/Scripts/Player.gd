@@ -27,7 +27,10 @@ func _process(delta):
 		_velocity.x -= 1
 	if Input.is_action_pressed("right"):
 		_velocity.x += 1
-	if Input.is_action_just_pressed("fire"):
+	if Input.is_action_pressed("fire"):
+		$Weapon.holdFire()
+		
+	if Input.is_action_just_released("fire"):
 		$Weapon.fire()
 	if _velocity.length() > 0:
 		_velocity = _velocity.normalized() * SPEED

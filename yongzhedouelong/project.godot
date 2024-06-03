@@ -24,6 +24,7 @@ DropManager="*res://Manager/drop_manager.tscn"
 window/size/viewport_width=384
 window/size/viewport_height=240
 window/size/mode=2
+window/size/initial_position_type=3
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 
