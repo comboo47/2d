@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://castr5mwhvbap"]
+
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="1_u63ao"]
+
+[resource]
+atlas = ExtResource("1_u63ao")
+region = Rect2(85, 408, 16, 16)
