@@ -13,3 +13,4 @@ res://prefab/card.tscn
 res://Manager/drop_manager.tscn
 res://prefab/dropDisplay.tscn
 res://prefab/bullet_path.tscn
+res://prefab/weapon_Bow.tscn
