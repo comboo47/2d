@@ -4,7 +4,7 @@ res://Scripts/bullet.gd
 res://art/Weapon/Weapon01.tres
 res://prefab/player.tscn
 res://prefab/bullet.tscn
-res://prefab/weapon.tscn
+res://prefab/weapon_Bow.tscn
 res://prefab/Enemey.tscn
 res://Manager/main_ui.tscn
 res://prefab/can_pick_up.tscn
@@ -12,5 +12,4 @@ res://prefab/interactionShow.tscn
 res://prefab/card.tscn
 res://Manager/drop_manager.tscn
 res://prefab/dropDisplay.tscn
-res://prefab/bullet_path.tscn
-res://prefab/weapon_Bow.tscn
+res://Scripts/Weapon.gd

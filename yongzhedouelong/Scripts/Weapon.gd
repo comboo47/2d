@@ -26,9 +26,11 @@ func _process(delta):
 	$Line2D.rotation = -$".".rotation
 	mousePos = get_viewport().get_mouse_position()
 	direction = mousePos - get_parent().position
-	fireVector = direction.normalized() * (defaultSpeed + addSpeed)
+	fireVector = direction.normalized() * defaultSpeed
 	if hold:
 		addSpeed += 10
+		addSpeed = clamp(addSpeed,0,400)
+		fireVector = direction.normalized() * (defaultSpeed + addSpeed)
 		stepX = fireVector.x
 		stepY = fireVector.y
 		#print("fireVector:",fireVector,"direction:",direction.normalized())
