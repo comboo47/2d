@@ -31,11 +31,12 @@ func _process(delta):
 	if Input.is_action_pressed("fire"):
 		holdFireTime += delta
 		if holdFireTime >= 0.1:
-			$Weapon.holdFire()
+			$".".get_meta("Weapon_Bottle").holdFire()
+			#$Weapon.holdFire()
 		
 	if Input.is_action_just_released("fire"):
 		holdFireTime = 0
-		$Weapon.fire()
+		$".".get_meta("Weapon_Bottle").fire()
 	if _velocity.length() > 0:
 		_velocity = _velocity.normalized() * SPEED
 		$AnimatedSprite2D.play("walk")

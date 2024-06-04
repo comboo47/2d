@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://chgpllnygnq30"]
+
+[ext_resource type="Script" path="res://Scripts/Weapon_Bottle.gd" id="1_ub1y3"]
+[ext_resource type="PackedScene" uid="uid://emyqoa2k5c5v" path="res://prefab/Bullet/bullet_bottle.tscn" id="2_u55bv"]
+[ext_resource type="Texture2D" uid="uid://daio65xu0bmcw" path="res://art/Weapon/Weapon61.tres" id="3_cah50"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="3_cirao"]
+[ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://art/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="4_xmkae"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqxu0"]
+atlas = ExtResource("4_xmkae")
+region = Rect2(306, 444, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvlge"]
+atlas = ExtResource("4_xmkae")
+region = Rect2(306, 442, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1t82"]
+atlas = ExtResource("3_cirao")
+region = Rect2(306, 425, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1hexj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_cah50")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_tqxu0")
+}, {
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_hvlge")
+}],
+"loop": true,
+"name": &"shake",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1t82")
+}],
+"loop": true,
+"name": &"shakeOver",
+"speed": 5.0
+}]
+
+[node name="Weapon_Bottle" type="Node2D"]
+position = Vector2(-7.62939e-06, 0)
+script = ExtResource("1_ub1y3")
+bullet = ExtResource("2_u55bv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8.00001, 3)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_1hexj")
+animation = &"shake"
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(8.00001, 5)
+metadata/_edit_group_ = true
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 1.0
+default_color = Color(1, 0.363602, 0.580028, 1)
+metadata/_edit_group_ = true
+
+[node name="Line2D2" type="Line2D" parent="."]
+width = 1.0
+default_color = Color(1, 0.363602, 0.580028, 1)
+metadata/_edit_group_ = true
+
+[node name="Line2D3" type="Line2D" parent="."]
+width = 1.0
+default_color = Color(1, 0.363602, 0.580028, 1)
+metadata/_edit_group_ = true

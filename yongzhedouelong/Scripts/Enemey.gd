@@ -1,12 +1,12 @@
 extends RigidBody2D
 
 @export var EnemyID = 1001
-@export var max_hp = 0
+@export var max_hp = float(0)
 @export var damage = 1
 @export var speed = 50
 var ori_modulate
 var ori_scale
-var hp
+var hp = float(0)
 var isDead = false
 
 # Called when the node enters the scene tree for the first time.

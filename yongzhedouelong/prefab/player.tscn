@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://dkfjjgl6natjs"]
+[gd_scene load_steps=21 format=3 uid="uid://dkfjjgl6natjs"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_55f7r"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_ip1dv"]
 [ext_resource type="PackedScene" uid="uid://bo160q62p0caw" path="res://prefab/weapon_Bow.tscn" id="2_o33q7"]
+[ext_resource type="PackedScene" uid="uid://chgpllnygnq30" path="res://prefab/weapon_Bottle.tscn" id="2_qomo0"]
 [ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/interactionShow.tscn" id="4_slfcf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxugv"]
@@ -149,7 +150,11 @@ animations = [{
 script = ExtResource("1_55f7r")
 metadata/_edit_group_ = true
 
-[node name="Weapon" parent="." instance=ExtResource("2_o33q7")]
+[node name="Weapon_Bottle" parent="." instance=ExtResource("2_qomo0")]
+position = Vector2(-1.52588e-05, 0)
+
+[node name="Weapon_Bow" parent="." instance=ExtResource("2_o33q7")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1.5, 1)

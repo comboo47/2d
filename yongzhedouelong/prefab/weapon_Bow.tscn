@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://bo160q62p0caw"]
 
-[ext_resource type="Script" path="res://Scripts/Weapon.gd" id="1_6wdki"]
-[ext_resource type="PackedScene" uid="uid://bccgwgg6qrf05" path="res://prefab/bullet.tscn" id="2_ylkky"]
+[ext_resource type="Script" path="res://Scripts/Weapon_Bow.gd" id="1_lvbnc"]
+[ext_resource type="PackedScene" uid="uid://bccgwgg6qrf05" path="res://prefab/Bullet/bullet.tscn" id="2_ylkky"]
 [ext_resource type="Texture2D" uid="uid://ddl3fkpjkchdd" path="res://art/Weapon/Weapon01.tres" id="3_dp6i7"]
 [ext_resource type="PackedScene" uid="uid://b7fqh0av33eec" path="res://prefab/bullet_path.tscn" id="4_hw7nb"]
 
 [node name="Weapon" type="Node2D"]
 position = Vector2(-7.62939e-06, 0)
-script = ExtResource("1_6wdki")
+script = ExtResource("1_lvbnc")
 bullet = ExtResource("2_ylkky")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]

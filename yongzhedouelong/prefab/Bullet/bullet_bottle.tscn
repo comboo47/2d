@@ -1,0 +1,107 @@
+[gd_scene load_steps=13 format=3 uid="uid://emyqoa2k5c5v"]
+
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_k3a3m"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_bg64r"]
+[ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://art/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="3_smorx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hai6f"]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxl8u"]
+atlas = ExtResource("2_bg64r")
+region = Rect2(306, 425, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yx6qw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxl8u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yogol"]
+atlas = ExtResource("3_smorx")
+region = Rect2(459, 187, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26uio"]
+atlas = ExtResource("3_smorx")
+region = Rect2(493, 204, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5otqn"]
+atlas = ExtResource("3_smorx")
+region = Rect2(476, 204, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fd66"]
+atlas = ExtResource("3_smorx")
+region = Rect2(510, 204, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6npvr"]
+animations = [{
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_yogol")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_26uio")
+}, {
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_5otqn")
+}, {
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_5fd66")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pkhck"]
+radius = 16.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_layer = 256
+collision_mask = 16
+mass = 999.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_k3a3m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_hai6f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_yx6qw")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="BoomAnimated" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_6npvr")
+
+[node name="BoomArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoomArea"]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("CircleShape2D_pkhck")
+
+[node name="bulletArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletArea"]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_hai6f")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_releaseSelf"]
+[connection signal="body_entered" from="bulletArea" to="." method="_on_bullet_hit"]

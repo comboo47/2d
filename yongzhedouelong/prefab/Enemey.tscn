@@ -26,7 +26,6 @@ collision_layer = 2
 mass = 5.0
 contact_monitor = true
 script = ExtResource("1_mg8au")
-max_hp = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.8, 0.8)

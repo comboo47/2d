@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://bccgwgg6qrf05"]
 
-[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_eh8vd"]
-[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="1_w0yq7"]
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_a0sw4"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_am3xs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hai6f"]
 radius = 6.0
 height = 12.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ux0e"]
-atlas = ExtResource("1_w0yq7")
+atlas = ExtResource("2_am3xs")
 region = Rect2(391, 425, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yx6qw"]
@@ -28,7 +28,7 @@ collision_mask = 16
 mass = 999.0
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("1_eh8vd")
+script = ExtResource("1_a0sw4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
