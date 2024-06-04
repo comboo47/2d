@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyty1o6rphkf1"]
+
+[ext_resource type="Script" path="res://Scripts/WeaponScripts/Weapon_Crossbow.gd" id="1_dseo1"]
+[ext_resource type="PackedScene" uid="uid://55v5vcl1nnyx" path="res://prefab/Weapon/CrossBow/bullet_crossbow.tscn" id="2_xlsf3"]
+[ext_resource type="Texture2D" uid="uid://nvu8ly47bo1t" path="res://art/Weapon/Weapon11.tres" id="3_nlqyx"]
+
+[node name="Weapon_Crossbow" type="Node2D"]
+position = Vector2(-7.62939e-06, 0)
+script = ExtResource("1_dseo1")
+bullet = ExtResource("2_xlsf3")
+subSpeed = 4.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(8, 0)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_nlqyx")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(10, 0)
+metadata/_edit_group_ = true
+
+[node name="RefreshTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="SubTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="RefreshTimer" to="." method="refreshEnerge"]
+[connection signal="timeout" from="SubTimer" to="." method="subEnerge"]

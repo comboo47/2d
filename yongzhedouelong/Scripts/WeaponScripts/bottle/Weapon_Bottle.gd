@@ -13,18 +13,20 @@ var fireVector
 var stepX
 var stepY
 var positionList:Array
+var holdNeedTime = float(0.7)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite2D.play("default")
 	var b = bullet.instantiate()
 	defaultSpeed = b.speed
-	$".".get_parent().set_meta("Weapon_Bottle",self)
+	$".".get_parent().set_meta("CurrentWeapon",self)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$".".look_at(mousePos)
+	$AnimatedSprite2D.rotation = -$".".rotation
 	$Line2D.position = $Marker2D.position
 	$Line2D.rotation = -$".".rotation
 	$Line2D2.position = $Marker2D.position
@@ -37,10 +39,11 @@ func _process(delta):
 	drawLine(direction,delta,$Line2D)
 	if hold:
 		holdTime += delta
-		if holdTime < 0.5:
+		if holdTime < holdNeedTime:
 			$AnimatedSprite2D.play("shake")
-		if holdTime >= 0.5:
-			$AnimatedSprite2D.play("shakeOver")
+		if holdTime >= holdNeedTime:
+			if $AnimatedSprite2D.animation != "shakeOver":
+				$AnimatedSprite2D.play("shakeOver")
 			direction2 = direction.rotated(0.25)
 			drawLine(direction2,delta,$Line2D2)
 			direction3 = direction.rotated(-0.25)
@@ -55,7 +58,7 @@ func holdFire():
 	hold = true
 func fire():
 	$AnimatedSprite2D.play("default")
-	if holdTime >= 0.5:
+	if holdTime >= holdNeedTime:
 		
 		var _bullet = bullet.instantiate()
 		var _bullet2 = bullet.instantiate()
@@ -78,6 +81,6 @@ func drawLine(firedirection,delta,line):
 	#print("fireVector:",fireVector,"direction:",direction.normalized())
 	#print("X:",stepX,"y:",stepY)
 	line.clear_points()
-	for i in range(25):
+	for i in range(35):
 		line.add_point(Vector2(stepX*i*delta,(stepY+490*i*delta)*i*delta))
 	pass

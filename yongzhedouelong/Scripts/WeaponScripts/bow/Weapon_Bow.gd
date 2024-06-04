@@ -15,7 +15,7 @@ var positionList:Array
 func _ready():
 	var b = bullet.instantiate()
 	defaultSpeed = b.speed
-	
+	$".".get_parent().set_meta("CurrentWeapon",self)
 	pass # Replace with function body.
 
 
