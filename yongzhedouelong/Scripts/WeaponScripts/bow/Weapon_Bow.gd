@@ -12,10 +12,13 @@ var stepX
 var stepY
 var positionList:Array
 # Called when the node enters the scene tree for the first time.
+func _enter_tree():
+	$".".get_parent().set_meta("CurrentWeapon",self)
+
 func _ready():
 	var b = bullet.instantiate()
 	defaultSpeed = b.speed
-	$".".get_parent().set_meta("CurrentWeapon",self)
+	
 	pass # Replace with function body.
 
 
@@ -53,5 +56,5 @@ func fire():
 		var _bullet = bullet.instantiate()
 		#_bullet.rotation = $".".rotation
 		#_bullet.linear_velocity = direction.normalized()  * 250
-		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,fireVector)
+		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,$Marker2D.global_rotation,fireVector,0)
 	

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b42tv1nbh4cv8" path="res://prefab/WeaponEnergeBar.tscn" id="2_2ofpt"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_ip1dv"]
 [ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/interactionShow.tscn" id="4_slfcf"]
-[ext_resource type="PackedScene" uid="uid://dyty1o6rphkf1" path="res://prefab/Weapon/CrossBow/weapon_Crossbow.tscn" id="7_islqr"]
+[ext_resource type="PackedScene" uid="uid://bo160q62p0caw" path="res://prefab/Weapon/Bow/weapon_Bow.tscn" id="5_rvsot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxugv"]
 size = Vector2(10, 17)
@@ -163,12 +163,11 @@ metadata/_edit_group_ = true
 
 [node name="InteractionInterface" parent="." instance=ExtResource("4_slfcf")]
 
-[node name="Weapon_Crossbow" parent="." instance=ExtResource("7_islqr")]
-position = Vector2(-7.62939e-06, 4)
-
 [node name="EnergeBar" parent="." instance=ExtResource("2_2ofpt")]
 custom_minimum_size = Vector2(16, 16)
 offset_left = -8.00001
 offset_top = -8.0
 offset_right = 7.99999
 offset_bottom = 8.0
+
+[node name="weapon_Bow" parent="." instance=ExtResource("5_rvsot")]

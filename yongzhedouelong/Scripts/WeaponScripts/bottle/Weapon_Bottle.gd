@@ -1,6 +1,6 @@
 extends Node2D
 @export var bullet: PackedScene
-signal player_fired_bullet(bullet,position,direction,speed)
+signal player_fired_bullet(bullet,_position,_rotation,direction,speed)
 
 var mousePos = Vector2()
 var defaultSpeed
@@ -15,11 +15,13 @@ var stepY
 var positionList:Array
 var holdNeedTime = float(0.7)
 # Called when the node enters the scene tree for the first time.
+func _enter_tree():
+	$".".get_parent().set_meta("CurrentWeapon",self)
+
 func _ready():
 	$AnimatedSprite2D.play("default")
 	var b = bullet.instantiate()
 	defaultSpeed = b.speed
-	$".".get_parent().set_meta("CurrentWeapon",self)
 	pass # Replace with function body.
 
 
@@ -64,16 +66,18 @@ func fire():
 		var _bullet2 = bullet.instantiate()
 		#_bullet.rotation = $".".rotation
 		#_bullet.linear_velocity = direction.normalized()  * 250
-		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,direction2)
-		emit_signal("player_fired_bullet",_bullet2,$Marker2D.global_position,direction3)
+		realFire(_bullet,direction2)
+		realFire(_bullet2,direction3)
 	if get_parent():
 		var _bullet = bullet.instantiate()
 		#_bullet.rotation = $".".rotation
 		#_bullet.linear_velocity = direction.normalized()  * 250
-		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,direction)
+		realFire(_bullet,direction)
 	hold = false
 	holdTime = 0
-	
+func realFire(_bullet,direction):
+	emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,$Marker2D.global_rotation,direction,0)
+
 func drawLine(firedirection,delta,line):
 
 	stepX = firedirection.x

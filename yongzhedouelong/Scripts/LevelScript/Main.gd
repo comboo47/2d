@@ -2,7 +2,7 @@ extends Node2D
 
 
 func _ready():
-	var bullet_manager = $BulletManager
+	var bullet_manager = get_node("/root/BulletManager")
 	var player = $CharacterBody2D
 	var mainUI = $MainUI
 	var weapon = player.get_meta("CurrentWeapon")
