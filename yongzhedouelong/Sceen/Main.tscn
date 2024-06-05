@@ -529,7 +529,7 @@ position = Vector2(215, 145)
 max_hp = 3.0
 
 [node name="RigidBody2D55" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(175, 217)
+position = Vector2(183, 208)
 max_hp = 3.0
 
 [node name="TileMap" type="TileMap" parent="."]

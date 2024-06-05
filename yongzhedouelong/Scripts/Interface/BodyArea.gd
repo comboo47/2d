@@ -6,7 +6,7 @@ var velocity = float(30)
 var enteredArea
 var slide = false
 var direction:Vector2
-var slideTime = float(0.15)
+var slideTime = float(0.25)
 var slideTimeIndex = float(0)
 
 # Called when the node enters the scene tree for the first time.
@@ -26,6 +26,7 @@ func getActorAreaType()->int:
 func _physics_process(delta):
 	if slide:
 		slideTimeIndex += delta
+		$".".get_parent().velocity = direction*velocity
 		$".".get_parent().move_and_slide()
 		if slideTimeIndex >= slideTime:
 			slide = false
@@ -42,18 +43,15 @@ func _on_area_entered(area):
 				0:
 					pass
 				1:#对方是怪物
-					direction = $".".global_position - area.global_position 
-					direction = direction.normalized()*velocity*2
-					$".".get_parent().velocity = direction
+					direction = ($".".global_position - area.global_position).normalized() 
+					direction = direction*2
 					
 					slide = true
 		if actorAreaType == 1:
 			print(actorAreaType,",",areaType)
 			match areaType:
 				0:
-					direction = $".".global_position - area.global_position 
-					direction = direction.normalized()*velocity
-					$".".get_parent().velocity = direction
+					direction = ($".".global_position - area.global_position).normalized() 
 					
 					slide = true
 				1:#对方是怪物
