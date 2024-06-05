@@ -5,13 +5,8 @@ res://prefab/Weapon/CrossBow/weapon_Crossbow.tscn
 res://prefab/Weapon/Bow/bullet_bow.tscn
 res://prefab/Weapon/CrossBow/bullet_crossbow.tscn
 res://prefab/WeaponEnergeBar.tscn
-res://Scripts/Interface/weaponEnergy.gd
-res://Scripts/WeaponScripts/bottle/Weapon_Bottle.gd
 res://Manager/bullet_manager.tscn
-res://Scripts/LevelScript/Main.gd
 res://prefab/Enemey.tscn
-res://Scripts/WeaponScripts/bow/Weapon_Bow.gd
 res://Sceen/superJump.tscn
-res://Scripts/superJump.gd
-res://Scripts/Enemey.gd
 res://Scripts/Interface/BodyArea.gd
+res://Scripts/Player.gd

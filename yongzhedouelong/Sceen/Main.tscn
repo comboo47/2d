@@ -513,23 +513,23 @@ position = Vector2(226, 116)
 max_hp = 3.0
 
 [node name="RigidBody2D51" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(198, 145)
+position = Vector2(175, 208)
 max_hp = 3.0
 
 [node name="RigidBody2D52" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(232, 145)
+position = Vector2(226, 208)
 max_hp = 3.0
 
 [node name="RigidBody2D53" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(249, 145)
+position = Vector2(249, 208)
 max_hp = 3.0
 
 [node name="RigidBody2D54" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(215, 145)
+position = Vector2(201, 208)
 max_hp = 3.0
 
 [node name="RigidBody2D55" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(183, 208)
+position = Vector2(150, 208)
 max_hp = 3.0
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -540,9 +540,9 @@ layer_0/tile_data = PackedInt32Array(917522, 1245189, 1, 917509, 1245189, 1, 917
 script = SubResource("GDScript_jdi0w")
 
 [node name="superJump" parent="." instance=ExtResource("5_03ts5")]
-position = Vector2(200, 217)
+position = Vector2(296, 200)
 
 [node name="PlayerStart" type="Marker2D" parent="."]
-position = Vector2(160, 209)
+position = Vector2(112, 200)
 rotation = -0.785398
 gizmo_extents = 35.8

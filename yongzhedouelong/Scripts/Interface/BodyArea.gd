@@ -2,7 +2,8 @@ extends Area2D
 class_name BodyArea
 
 var actorAreaType = int(1)
-var velocity = float(30)
+var velocityX = float(30)
+var velocityY = float(100)
 var enteredArea
 var slide = false
 var direction:Vector2
@@ -26,15 +27,18 @@ func getActorAreaType()->int:
 func _physics_process(delta):
 	if slide:
 		slideTimeIndex += delta
-		$".".get_parent().velocity = direction*velocity
+		$".".get_parent().velocity.x = (direction*velocityX).x
+		
 		$".".get_parent().move_and_slide()
 		if slideTimeIndex >= slideTime:
 			slide = false
+			
+			
 			slideTimeIndex = 0
 	pass
 
 func _on_area_entered(area):
-	if area.has_method("getActorAreaType")&&slide == false:
+	if area.has_method("getActorAreaType"):
 		enteredArea = area
 		var areaType = area.getActorAreaType()
 		if actorAreaType == 0:
@@ -44,16 +48,15 @@ func _on_area_entered(area):
 					pass
 				1:#对方是怪物
 					direction = ($".".global_position - area.global_position).normalized() 
-					direction = direction*2
-					
+					$".".get_parent().velocity.y = (direction*velocityY).y
 					slide = true
 		if actorAreaType == 1:
 			print(actorAreaType,",",areaType)
 			match areaType:
 				0:
 					direction = ($".".global_position - area.global_position).normalized() 
-					
-					slide = true
+					$".".get_parent().velocity.y = (direction*velocityY).y
+					#slide = true
 				1:#对方是怪物
 					pass	
 		pass # Replace with function body.

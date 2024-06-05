@@ -148,8 +148,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_of1hd"]
-radius = 9.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isxyg"]
+size = Vector2(9, 13)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 16
@@ -184,6 +184,7 @@ collision_mask = 4096
 script = ExtResource("6_0duq3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea"]
-shape = SubResource("CircleShape2D_of1hd")
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_isxyg")
 
 [connection signal="area_entered" from="BodyArea" to="BodyArea" method="_on_area_entered"]
