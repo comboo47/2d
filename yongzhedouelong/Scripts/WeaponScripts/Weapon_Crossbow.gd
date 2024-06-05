@@ -50,7 +50,7 @@ func _process(delta):
 				if currentEnerge>0:
 					realfire()
 		else:
-			$Sprite2D2.rotation += 0.125
+			$Sprite2D2.rotation += 0.25
 	#get_parent().position
 	pass
 func holdFire():
@@ -85,8 +85,10 @@ func refreshEnerge():
 	currentEnerge += refreshSpeed
 	currentEnerge = clamp(currentEnerge,0,MaxEnerge)
 func subEnerge():
-	currentEnerge -= subSpeed
-	currentEnerge = clamp(currentEnerge,0,MaxEnerge)
+	var subedvalue = currentEnerge - subSpeed
+	subedvalue = clamp(subedvalue,0,MaxEnerge)
+	currentEnerge = subedvalue
+	#currentEnerge = clamp(currentEnerge,0,MaxEnerge)
 	if currentEnerge <= 0:
 		var tween = create_tween()
 		tween.set_trans(Tween.TRANS_SINE)

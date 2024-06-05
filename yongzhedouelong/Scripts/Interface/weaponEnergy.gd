@@ -14,6 +14,7 @@ func _ready():
 func _process(delta):
 	if $ProgressBar.max_value != 0:
 		energy = player.get_meta("CurrentWeapon").getWeaponEnerge()
+		energy = clamp(energy,0,$ProgressBar.max_value)
 		$ProgressBar.value = energy
 	pass
 func updateEnergeBarvisible():

@@ -1,6 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://b42tv1nbh4cv8"]
+[gd_scene load_steps=5 format=3 uid="uid://b42tv1nbh4cv8"]
 
 [ext_resource type="Script" path="res://Scripts/Interface/weaponEnergy.gd" id="1_ae2u7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10u6t"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0.949692, 0.749466, 0.668773, 1)
+corner_detail = 4
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_q4hcn"]
+color = Color(0.662452, 0.662452, 0.662452, 1)
+grow_begin = 0.0
+grow_end = 0.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_e64ig"]
+color = Color(0, 0.677058, 1.34766e-06, 1)
+grow_begin = 0.0
+grow_end = 0.0
 
 [node name="EnergeBar" type="Control"]
 layout_mode = 3
@@ -16,8 +33,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ae2u7")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = 2.0
+offset_right = 7.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_10u6t")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 texture_filter = 1
@@ -27,12 +56,19 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -8.0
-offset_right = 8.0
-offset_bottom = 4.0
+offset_left = -7.0
+offset_top = 2.0
+offset_right = 7.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_color = Color(0.92914, 0.930713, 0.969985, 1)
+theme_override_styles/background = SubResource("StyleBoxLine_q4hcn")
+theme_override_styles/fill = SubResource("StyleBoxLine_e64ig")
 value = 50.0
 show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
 
 [connection signal="timeout" from="Timer" to="." method="updateEnergeBarvisible"]
