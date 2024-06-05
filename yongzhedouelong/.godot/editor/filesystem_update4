@@ -13,3 +13,5 @@ res://prefab/Enemey.tscn
 res://Scripts/WeaponScripts/bow/Weapon_Bow.gd
 res://Sceen/superJump.tscn
 res://Scripts/superJump.gd
+res://Scripts/Enemey.gd
+res://Scripts/Interface/BodyArea.gd

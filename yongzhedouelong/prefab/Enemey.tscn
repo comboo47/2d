@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8tjow5urcoc8"]
+[gd_scene load_steps=9 format=3 uid="uid://b8tjow5urcoc8"]
 
 [ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://art/SpriteFrams/Enemy/Skull00.png" id="1_eaxet"]
 [ext_resource type="Script" path="res://Scripts/Enemey.gd" id="1_mg8au"]
 [ext_resource type="Texture2D" uid="uid://02ndbd32mgs8" path="res://art/SpriteFrams/Enemy/Skull01.png" id="2_4tm4f"]
 [ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://prefab/can_pick_up.tscn" id="4_q3ybg"]
+[ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="5_8e340"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a30io"]
 
@@ -21,10 +22,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="SkullEnemy" type="RigidBody2D" groups=["Mob"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l6a7c"]
+size = Vector2(16, 16)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 2
-mass = 5.0
-contact_monitor = true
 script = ExtResource("1_mg8au")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -42,5 +44,11 @@ wait_time = 0.1
 [node name="canPickUp" parent="." instance=ExtResource("4_q3ybg")]
 targetPosition = Vector2(0, -16)
 
-[connection signal="body_entered" from="." to="." method="_beHurt"]
+[node name="BodyArea" type="Area2D" parent="."]
+script = ExtResource("5_8e340")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea"]
+shape = SubResource("RectangleShape2D_l6a7c")
+
 [connection signal="timeout" from="HitTimer" to="." method="_hitDisplayEnd"]
+[connection signal="area_entered" from="BodyArea" to="BodyArea" method="_on_area_entered"]

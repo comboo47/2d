@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bruvv78x8gkah"]
+[gd_scene load_steps=8 format=3 uid="uid://bruvv78x8gkah"]
 
 [ext_resource type="Script" path="res://Scripts/LevelScript/Main.gd" id="1_nacb5"]
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/1bitpack_kenney/Tilesheet/colored.png" id="1_vo45i"]
 [ext_resource type="PackedScene" uid="uid://b8tjow5urcoc8" path="res://prefab/Enemey.tscn" id="2_qrudm"]
-[ext_resource type="PackedScene" uid="uid://dkfjjgl6natjs" path="res://prefab/player.tscn" id="2_wl6l7"]
 [ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Sceen/superJump.tscn" id="5_03ts5"]
-[ext_resource type="PackedScene" uid="uid://bwmlssqrwdwj4" path="res://Manager/main_ui.tscn" id="6_jskjw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtu8f"]
 texture = ExtResource("1_vo45i")
@@ -300,291 +298,238 @@ script = ExtResource("1_nacb5")
 
 [node name="RigidBody2D3" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(192, 31)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D6" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(158, 31)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D7" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(141, 31)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D8" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(175, 31)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D5" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(209, 31)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D9" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(243, 31)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D10" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(260, 31)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D11" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(226, 31)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D4" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(192, 48)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D12" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(158, 48)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D13" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(141, 48)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D14" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(175, 48)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D15" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(209, 48)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D16" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(243, 48)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D17" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(260, 48)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D18" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(226, 48)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D19" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(192, 65)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D20" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(158, 65)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D21" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(141, 65)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D22" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(175, 65)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D23" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(209, 65)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D24" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(243, 65)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D25" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(260, 65)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D26" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(226, 65)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D27" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(192, 82)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D28" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(158, 82)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D29" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(141, 82)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D30" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(175, 82)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D31" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(209, 82)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D32" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(243, 82)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D33" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(260, 82)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D34" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(226, 82)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D35" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(192, 99)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D36" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(158, 99)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D37" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(141, 99)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D38" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(175, 99)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D39" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(209, 99)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D40" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(243, 99)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D41" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(260, 99)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D42" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(226, 99)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D43" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(192, 116)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D44" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(158, 116)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D45" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(141, 116)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D46" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(175, 116)
-gravity_scale = 0.0
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D47" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(209, 116)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D48" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(243, 116)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D49" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(260, 116)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D50" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(226, 116)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D51" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(198, 145)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D52" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(232, 145)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D53" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(249, 145)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D54" parent="." instance=ExtResource("2_qrudm")]
 position = Vector2(215, 145)
-gravity_scale = 0.0
 max_hp = 3.0
 
 [node name="RigidBody2D55" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(294, 181)
-gravity_scale = 0.0
+position = Vector2(175, 217)
 max_hp = 3.0
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -594,12 +539,10 @@ layer_0/name = "Floor"
 layer_0/tile_data = PackedInt32Array(917522, 1245189, 1, 917509, 1245189, 1, 917510, 1245189, 1, 917512, 1245189, 0, 917513, 1245189, 0, 917514, 1245189, 0, 917515, 1245189, 0, 917516, 1245189, 0, 917517, 1245189, 0, 917518, 1245189, 0, 917519, 1245189, 0, 917520, 1245189, 0, 917521, 1245189, 1, 851975, 1310725, 0, 851984, 1179653, 0, 851985, 1245189, 0, 851986, 1245189, 0, 851973, 1245189, 0, 720915, 1179653, 1, 655379, 1179653, 1, 589843, 1179653, 1, 524307, 1179653, 1, 458771, 1179653, 1, 393235, 1179653, 1, 327699, 1179653, 1, 262163, 1179653, 1, 196627, 1179653, 1, 131091, 1179653, 1, 65555, 1179653, 1, 19, 1179653, 1, 786451, 1179653, 1, 851987, 1245189, 0, 917523, 1245189, 1, 786436, 1310725, 1, 851972, 1245189, 0, 917508, 1245189, 1, 720900, 1310725, 1, 655364, 1310725, 1, 589828, 1310725, 1, 524292, 1310725, 1, 458756, 1310725, 1, 393220, 1310725, 1, 327684, 1310725, 1, 262148, 1310725, 1, 196612, 1310725, 1, 131076, 1310725, 1, 65540, 1310725, 1, 4, 1310725, 1, 524306, 1245189, 0, 524305, 1245189, 0, 851974, 1245189, 0, 917511, 1245189, 1, 524294, 1245189, 0, 524293, 1245189, 0, 524295, 1310725, 0, 524304, 1179653, 0)
 script = SubResource("GDScript_jdi0w")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("2_wl6l7")]
-position = Vector2(171, 145)
-
 [node name="superJump" parent="." instance=ExtResource("5_03ts5")]
 position = Vector2(200, 217)
 
-[node name="MainUI" parent="." instance=ExtResource("6_jskjw")]
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
+[node name="PlayerStart" type="Marker2D" parent="."]
+position = Vector2(160, 209)
+rotation = -0.785398
+gizmo_extents = 35.8

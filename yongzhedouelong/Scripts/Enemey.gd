@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends CharacterBody2D
 
 @export var EnemyID = 1001
 @export var max_hp = float(0)
@@ -8,6 +8,7 @@ var ori_modulate
 var ori_scale
 var hp = float(0)
 var isDead = false
+var target
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,6 +22,7 @@ func getID():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	target = get_node("/root/Player")
 	pass
 
 func _beHurt(dmg):

@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 DropManager="*res://Manager/drop_manager.tscn"
 BulletManager="*res://Manager/bullet_manager.tscn"
+Player="*res://prefab/player.tscn"
+MainUI="*res://Manager/main_ui.tscn"
 
 [display]
 
@@ -61,6 +63,7 @@ interaction={
 
 2d_physics/layer_1="地面"
 2d_physics/layer_2="子弹阻挡"
+2d_physics/layer_13="身体碰撞箱"
 
 [rendering]
 
