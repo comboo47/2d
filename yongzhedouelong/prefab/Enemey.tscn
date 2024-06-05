@@ -21,7 +21,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="SkullEnemy" type="RigidBody2D"]
+[node name="SkullEnemy" type="RigidBody2D" groups=["Mob"]]
 collision_layer = 2
 mass = 5.0
 contact_monitor = true

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd1xbvg3u736y"]
+
+[ext_resource type="Script" path="res://Scripts/superJump.gd" id="1_dlxrm"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="1_g3wbs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5371"]
+atlas = ExtResource("1_g3wbs")
+region = Rect2(374, 85, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k4svp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5371")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgsmd"]
+size = Vector2(18, 18)
+
+[node name="superJump" type="Area2D"]
+script = ExtResource("1_dlxrm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_k4svp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cgsmd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

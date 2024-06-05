@@ -11,3 +11,5 @@ res://Manager/bullet_manager.tscn
 res://Scripts/LevelScript/Main.gd
 res://prefab/Enemey.tscn
 res://Scripts/WeaponScripts/bow/Weapon_Bow.gd
+res://Sceen/superJump.tscn
+res://Scripts/superJump.gd
