@@ -33,9 +33,9 @@ func setCardDisplay(number,flower):
 		
 	file_name = str(number)+"_"+str(flower) 
 	$Sprite2D.texture = ResourceLoader.load(path+file_name+file_end)
-	if number >1 && number <= 5:
+	if number >1 and number <= 5:
 		$Sprite2D.modulate = Color.WHITE
-	if (number >=6 && number <= 9) || (number >=10 && number < 13):
+	if (number >=6 and number <= 9) || (number >=10 and number < 13):
 		$Sprite2D.modulate = Color.SKY_BLUE
 	if number == 10 || number ==1 || number ==13:
 		$Sprite2D.modulate = Color.ORANGE

@@ -28,14 +28,14 @@ func _process(delta):
 		hideCanPickUp()
 		if $".".has_overlapping_areas():
 			for i in $".".get_overlapping_areas():
-				if i.get_node("canPickUp") && i.get_node("canPickUp").canPickUp:
+				if i.get_node("canPickUp") and i.get_node("canPickUp").canPickUp:
 					interactionItem = i
 					break
 	if interactionItem != null:
 		showCanPickUp()
 		if $".".has_overlapping_areas():
 			for i in $".".get_overlapping_areas():
-				if i.get_node("canPickUp") && i.get_node("canPickUp").canPickUp:
+				if i.get_node("canPickUp") and i.get_node("canPickUp").canPickUp:
 					interactionList.append(i)
 			if interactionList.size() > 0:
 				var dis = float(999)
@@ -49,7 +49,7 @@ func _process(delta):
 					#print("item:",j.name,"   distance:",disTemp,"   dis:",dis)
 				interactionItem = item
 		$AnimatedSprite2D.global_position = interactionItem.global_position - Vector2(0,16)
-		if interactionItem.get_node("canPickUp") && !interactionItem.get_node("canPickUp").canPickUp:
+		if interactionItem.get_node("canPickUp") and !interactionItem.get_node("canPickUp").canPickUp:
 			interactionItem = null
 			hideCanPickUp()
 		else:

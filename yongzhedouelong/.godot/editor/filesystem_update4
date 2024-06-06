@@ -8,3 +8,10 @@ res://Manager/bullet_manager.tscn
 res://prefab/Enemey.tscn
 res://Sceen/superJump.tscn
 res://prefab/Weapon/Bottle/weapon_Bottle.tscn
+res://Scripts/Interface/BodyArea.gd
+res://Scripts/Player.gd
+res://Scripts/InteractionShow.gd
+res://Scripts/Poker.gd
+res://Scripts/PokerBar.gd
+res://Scripts/superJump.gd
+res://Scripts/WeaponScripts/Weapon_Crossbow.gd

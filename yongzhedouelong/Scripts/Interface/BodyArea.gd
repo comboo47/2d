@@ -32,9 +32,9 @@ func _physics_process(delta):
 		$".".get_parent().move_and_slide()
 		if slideTimeIndex >= slideTime:
 			slide = false
-			
-			
 			slideTimeIndex = 0
+			if actorAreaType == 0:
+				$".".get_parent().underControle = true
 	pass
 
 func _on_area_entered(area):
@@ -47,8 +47,16 @@ func _on_area_entered(area):
 				0:
 					pass
 				1:#对方是怪物
-					direction = ($".".global_position - area.global_position).normalized() 
-					$".".get_parent().velocity.y = (direction*velocityY).y
+					var dis = $".".global_position.distance_to(area.global_position)
+					dis = 16/dis
+					direction = ($".".global_position - area.global_position).normalized() * dis
+					if $".".get_parent().is_on_floor():
+						$".".get_parent().underControle = false
+					if $".".get_parent().velocity.y <= 0 and area.global_position.y <$".".global_position.y:
+						$".".get_parent().velocity.y = 0
+					if $".".get_parent().velocity.y > 0  and area.global_position.y >$".".global_position.y and !$".".get_parent().is_on_floor():
+						$".".get_parent().velocity.y = (direction*velocityY).y
+
 					slide = true
 		if actorAreaType == 1:
 			print(actorAreaType,",",areaType)

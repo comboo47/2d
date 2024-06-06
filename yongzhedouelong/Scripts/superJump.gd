@@ -13,7 +13,7 @@ func _ready():
 
 func _on_body_entered(body):
 	if body.is_in_group("Player"):
-		if body.position.y <= $".".position.y && body.velocity.y > 0:
+		if body.position.y <= $".".position.y and body.velocity.y > 0:
 			body.velocity.y = jumpVelocity
 			$AnimatedSprite2D.play("trigger")
 			await $AnimatedSprite2D.animation_finished

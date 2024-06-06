@@ -297,94 +297,94 @@ func _process(delta):
 script = ExtResource("1_nacb5")
 
 [node name="RigidBody2D3" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(192, 31)
+position = Vector2(243, 217)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D6" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(158, 31)
+position = Vector2(150, 48)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D7" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(141, 31)
+position = Vector2(133, 48)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D8" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(175, 31)
+position = Vector2(167, 48)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D5" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(209, 31)
+position = Vector2(201, 48)
 max_hp = 3.0
 
 [node name="RigidBody2D9" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(243, 31)
+position = Vector2(235, 48)
 max_hp = 3.0
 
 [node name="RigidBody2D10" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(260, 31)
+position = Vector2(252, 48)
 max_hp = 3.0
 
 [node name="RigidBody2D11" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(226, 31)
+position = Vector2(218, 48)
 max_hp = 3.0
 
 [node name="RigidBody2D4" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(192, 48)
+position = Vector2(184, 65)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D12" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(158, 48)
+position = Vector2(150, 65)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D13" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(141, 48)
+position = Vector2(133, 65)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D14" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(175, 48)
+position = Vector2(167, 65)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D15" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(209, 48)
+position = Vector2(201, 65)
 max_hp = 3.0
 
 [node name="RigidBody2D16" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(243, 48)
+position = Vector2(235, 65)
 max_hp = 3.0
 
 [node name="RigidBody2D17" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(260, 48)
+position = Vector2(252, 65)
 max_hp = 3.0
 
 [node name="RigidBody2D18" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(226, 48)
+position = Vector2(218, 65)
 max_hp = 3.0
 
 [node name="RigidBody2D19" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(192, 65)
+position = Vector2(184, 82)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D20" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(158, 65)
+position = Vector2(150, 82)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D21" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(141, 65)
+position = Vector2(133, 82)
 max_hp = 3.0
 metadata/_edit_group_ = true
 
 [node name="RigidBody2D22" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(175, 65)
+position = Vector2(167, 82)
 max_hp = 3.0
 metadata/_edit_group_ = true
 

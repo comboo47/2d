@@ -59,7 +59,7 @@ func holdFire():
 func fire():
 	if hold == false:
 		realfire()
-	elif hold == true && holdTime >= needHoldTime:
+	elif hold == true and holdTime >= needHoldTime:
 		if !$SubTimer.is_stopped():
 			$SubTimer.stop()
 		if	$RefreshTimer.is_stopped():

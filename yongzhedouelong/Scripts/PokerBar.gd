@@ -26,9 +26,9 @@ func _ready():
 
 func pickUpCard(number,flower):
 	#$GridContainer.get_child((number-1)*4 + flower).modulate = Color.AQUA
-	if number >1 && number <= 5:
+	if number >1 and number <= 5:
 		$GridContainer.get_child((number-1)*4 + flower).modulate = Color.WHITE
-	if (number >=6 && number <= 9) || (number >=10 && number < 13):
+	if (number >=6 and number <= 9) || (number >=10 and number < 13):
 		$GridContainer.get_child((number-1)*4 + flower).modulate = Color.SKY_BLUE
 	if number == 10 || number ==1 || number ==13:
 		$GridContainer.get_child((number-1)*4 + flower).modulate = Color.ORANGE
