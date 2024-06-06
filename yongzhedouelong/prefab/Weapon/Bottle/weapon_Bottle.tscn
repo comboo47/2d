@@ -61,6 +61,7 @@ script = ExtResource("1_r6uvf")
 bullet = ExtResource("2_732it")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 50
 position = Vector2(8.00001, 3)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_1hexj")
