@@ -22,6 +22,9 @@ func _on_bullet_hit(body:Node):
 		hurSomeBody(i)
 	boomDisplay()
 func _on_body_entered(body):
+	var boomBody = $BoomArea.get_overlapping_bodies()
+	for i in boomBody:
+		hurSomeBody(i)
 	boomDisplay()
 	
 	pass # Replace with function body.
