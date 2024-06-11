@@ -2,8 +2,6 @@ extends Node2D
 @export var bullet: PackedScene
 signal player_fired_bullet(bullet,_position,_rotation,direction,type)
 
-var mousePos = Vector2()
-
 @export var subSpeed = float(0)
 @export var refreshSpeed = float(3)
 @export var MaxEnerge = float(100)
@@ -18,7 +16,7 @@ var defaultSpeed
 var positionList:Array
 
 var deltaIndex = float(0)
-
+var targetPosition:Vector2
 var hold = false
 # Called when the node enters the scene tree for the first time.
 func _enter_tree():
@@ -33,9 +31,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$".".look_at(mousePos)
-	mousePos = get_viewport().get_mouse_position()
-	direction = mousePos - get_parent().position
+	$".".look_at(targetPosition)
+	targetPosition = get_viewport().get_mouse_position()
+	direction = targetPosition - get_parent().position
 	direction = direction.normalized() * defaultSpeed
 	if hold:
 		holdTime += delta

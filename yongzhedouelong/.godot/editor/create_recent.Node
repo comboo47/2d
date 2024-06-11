@@ -1,3 +1,6 @@
+MoveComponent
+Move_Input_Component
+Node
 CollisionShape2D
 BodyArea
 CharacterBody2D
@@ -9,6 +12,3 @@ Timer
 ProgressBar
 Line2D
 Node2D
-RayCast2D
-Node
-PathFollow2D

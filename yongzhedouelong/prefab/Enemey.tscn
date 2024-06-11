@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8tjow5urcoc8"]
+[gd_scene load_steps=10 format=3 uid="uid://b8tjow5urcoc8"]
 
 [ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://art/SpriteFrams/Enemy/Skull00.png" id="1_eaxet"]
 [ext_resource type="Script" path="res://Scripts/Enemey.gd" id="1_mg8au"]
 [ext_resource type="Texture2D" uid="uid://02ndbd32mgs8" path="res://art/SpriteFrams/Enemy/Skull01.png" id="2_4tm4f"]
 [ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://prefab/can_pick_up.tscn" id="4_q3ybg"]
 [ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="5_8e340"]
+[ext_resource type="Script" path="res://prefab/Component/move_component.gd" id="6_jxhmf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a30io"]
 
@@ -50,6 +51,12 @@ script = ExtResource("5_8e340")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea"]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_l6a7c")
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("6_jxhmf")
+actor = NodePath("..")
+speed = Vector2(15, 15)
+moveDirection = Vector2(0, 1)
 
 [connection signal="timeout" from="HitTimer" to="." method="_hitDisplayEnd"]
 [connection signal="area_entered" from="BodyArea" to="BodyArea" method="_on_area_entered"]
