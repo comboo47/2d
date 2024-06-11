@@ -1,4 +1,5 @@
 MoveComponent
+Timer
 Move_Input_Component
 Node
 CollisionShape2D
@@ -8,7 +9,6 @@ Area2D
 Marker2D
 AnimatedSprite2D
 Panel
-Timer
 ProgressBar
 Line2D
 Node2D

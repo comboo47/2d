@@ -4,3 +4,6 @@
 
 [node name="MoveComponent" type="Node"]
 script = ExtResource("1_rytvh")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

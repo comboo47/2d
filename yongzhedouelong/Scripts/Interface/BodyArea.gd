@@ -1,6 +1,8 @@
 extends Area2D
 class_name BodyArea
 
+@export var movementComponent:MoveComponent
+
 var actorAreaType = int(1)
 var velocityX = float(30)
 var velocityY = float(100)
@@ -20,22 +22,35 @@ func _ready():
 		actorAreaType = 1
 	pass # Replace with function body.
 
+func _process(delta):
+	if $".".get_overlapping_areas():
+		for a in $".".get_overlapping_areas():
+			if a.has_method("getActorAreaType"):
+				var areaType = a.getActorAreaType()
+				if actorAreaType == 0:
+					print(actorAreaType,",",areaType)
+					match areaType:
+						0:
+							pass
+						1:#对方是怪物
+							var dis = $".".global_position.distance_to(a.global_position)
+							dis = 16/dis
+							direction = ($".".global_position - a.global_position).normalized() * dis
+							movementComponent.hitBackSmall(direction,Vector2(40,120),0.3)
+				if actorAreaType == 1:
+					print(actorAreaType,",",areaType)
+					match areaType:
+						0:
+							pass#slide = true
+						1:#对方是怪物
+							var dis = $".".global_position.distance_to(a.global_position)
+							dis = 16/dis
+							direction = ($".".global_position - a.global_position).normalized() * dis
+							movementComponent.hitBackSmall(direction,Vector2(15,15),0.15)
+							pass						
 
 func getActorAreaType()->int:
 	return actorAreaType
-
-func _physics_process(delta):
-	if slide:
-		slideTimeIndex += delta
-		$".".get_parent().velocity.x = (direction*velocityX).x
-		
-		$".".get_parent().move_and_slide()
-		if slideTimeIndex >= slideTime:
-			slide = false
-			slideTimeIndex = 0
-			if actorAreaType == 0:
-				$".".get_parent().underControle = true
-	pass
 
 func _on_area_entered(area):
 	if area.has_method("getActorAreaType"):
@@ -47,25 +62,24 @@ func _on_area_entered(area):
 				0:
 					pass
 				1:#对方是怪物
+	
 					var dis = $".".global_position.distance_to(area.global_position)
 					dis = 16/dis
 					direction = ($".".global_position - area.global_position).normalized() * dis
-					if $".".get_parent().is_on_floor():
-						$".".get_parent().underControle = false
-					if $".".get_parent().velocity.y <= 0 and area.global_position.y <$".".global_position.y:
-						$".".get_parent().velocity.y = 0
-					if $".".get_parent().velocity.y > 0  and area.global_position.y >$".".global_position.y and !$".".get_parent().is_on_floor():
-						$".".get_parent().velocity.y = (direction*velocityY).y
+					movementComponent.hitBackSmall(direction,Vector2(40,120),0.3)
 
 					slide = true
 		if actorAreaType == 1:
 			print(actorAreaType,",",areaType)
 			match areaType:
 				0:
-					direction = ($".".global_position - area.global_position).normalized() 
-					$".".get_parent().velocity.y = (direction*velocityY).y
-					#slide = true
+					
+					pass#slide = true
 				1:#对方是怪物
+					var dis = $".".global_position.distance_to(area.global_position)
+					dis = 16/dis
+					direction = ($".".global_position - area.global_position).normalized() * dis
+					movementComponent.hitBackSmall(direction,Vector2(15,15),0.15)
 					pass	
 		pass # Replace with function body.
 

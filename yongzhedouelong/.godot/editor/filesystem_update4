@@ -1,5 +1,6 @@
-res://Sceen/Main.tscn
 res://prefab/player.tscn
+res://Scripts/Interface/BodyArea.gd
+res://Sceen/Main.tscn
 res://prefab/Weapon/CrossBow/weapon_Crossbow.tscn
 res://prefab/WeaponEnergeBar.tscn
 res://prefab/Enemey.tscn
@@ -7,8 +8,5 @@ res://Sceen/superJump.tscn
 res://prefab/Weapon/Bottle/weapon_Bottle.tscn
 res://prefab/Weapon/Bottle/bullet_bottle.tscn
 res://prefab/Component/move_component.tscn
-res://prefab/Component/move_component.gd
 res://prefab/Component/move_input_component.tscn
-res://prefab/Component/move_input_component.gd
-res://Scripts/Player.gd
-res://Scripts/WeaponScripts/Weapon_Crossbow.gd
+res://prefab/Component/move_component.gd
