@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://bn5q4clyianrt"]
+
+[ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_bw8m7"]
+[ext_resource type="SpriteFrames" uid="uid://dr81vsrfvolcl" path="res://GameResource/FirestEnemy.tres" id="2_m8uk3"]
+[ext_resource type="Resource" uid="uid://u4k1b5ej4ush" path="res://LogicResource/EnemyStats_Remote.tres" id="2_s4afv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_febtf"]
+size = Vector2(11, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8julx"]
+size = Vector2(15, 16)
+
+[node name="BaseEnemy" instance=ExtResource("1_bw8m7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_febtf")
+
+[node name="AnimatedSprite2D" parent="." index="3"]
+sprite_frames = ExtResource("2_m8uk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
+shape = SubResource("RectangleShape2D_8julx")
+
+[node name="BattleStats" parent="." index="6"]
+Stats = ExtResource("2_s4afv")

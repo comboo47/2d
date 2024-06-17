@@ -1,5 +1,9 @@
-res://art/1bitpack_kenney/Tilesheet
+res://FMSAndBT
+res://LogicResource
+res://GameResource
 res://prefab/Component
+res://prefab/Enemy
+res://art/1bitpack_kenney/Tilesheet
 res://Scripts/Interface
 res://Manager
 res://prefab

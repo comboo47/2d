@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://0ro1lauwdc47"]
 
 [ext_resource type="Script" path="res://Scripts/Manager/DropMgr.gd" id="1_xu6v4"]
-[ext_resource type="PackedScene" uid="uid://du6v7ebpkwxem" path="res://prefab/card.tscn" id="2_2p6nr"]
+[ext_resource type="PackedScene" uid="uid://du6v7ebpkwxem" path="res://prefab/Item/card.tscn" id="2_2p6nr"]
 
 [node name="DropManager" type="Node"]
 script = ExtResource("1_xu6v4")

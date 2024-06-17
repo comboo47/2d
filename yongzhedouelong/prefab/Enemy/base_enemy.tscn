@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1qb535sjpuas"]
+
+[ext_resource type="Script" path="res://prefab/Component/move_component.gd" id="1_f7wk3"]
+[ext_resource type="Script" path="res://prefab/Enemy/base_enemy.gd" id="1_hovwj"]
+[ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="3_oxvlv"]
+[ext_resource type="PackedScene" uid="uid://ijdj74f81k0i" path="res://prefab/Component/hurt_display.tscn" id="4_eil4j"]
+[ext_resource type="Script" path="res://LogicResource/BattleStats.gd" id="5_sikxj"]
+[ext_resource type="Script" path="res://LogicResource/BasicStats.gd" id="6_j5hl3"]
+
+[node name="BaseEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 18
+script = ExtResource("1_hovwj")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("1_f7wk3")
+actor = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="BodyArea" type="Area2D" parent="." node_paths=PackedStringArray("movementComponent")]
+script = ExtResource("3_oxvlv")
+movementComponent = NodePath("../MoveComponent")
+
+[node name="HurtDisPlay" parent="." node_paths=PackedStringArray("animSprit2D") instance=ExtResource("4_eil4j")]
+animSprit2D = NodePath("../AnimatedSprite2D")
+
+[node name="BattleStats" type="Node" parent="."]
+script = ExtResource("5_sikxj")
+Stats = ExtResource("6_j5hl3")

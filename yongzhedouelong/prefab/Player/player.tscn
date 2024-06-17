@@ -1,10 +1,10 @@
 [gd_scene load_steps=26 format=3 uid="uid://dkfjjgl6natjs"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_55f7r"]
-[ext_resource type="PackedScene" uid="uid://b42tv1nbh4cv8" path="res://prefab/WeaponEnergeBar.tscn" id="2_2ofpt"]
+[ext_resource type="PackedScene" uid="uid://b42tv1nbh4cv8" path="res://prefab/Weapon/WeaponEnergeBar.tscn" id="2_2ofpt"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_ip1dv"]
 [ext_resource type="Script" path="res://prefab/Component/move_input_component.gd" id="3_8ga5w"]
-[ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/interactionShow.tscn" id="4_slfcf"]
+[ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/Item/interactionShow.tscn" id="4_slfcf"]
 [ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="6_0duq3"]
 [ext_resource type="PackedScene" uid="uid://dyty1o6rphkf1" path="res://prefab/Weapon/CrossBow/weapon_Crossbow.tscn" id="6_255g8"]
 [ext_resource type="PackedScene" uid="uid://bfmofvyqtmgc" path="res://prefab/Component/move_component.tscn" id="8_7ljfa"]

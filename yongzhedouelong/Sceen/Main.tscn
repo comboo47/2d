@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bruvv78x8gkah"]
+[gd_scene load_steps=9 format=3 uid="uid://bruvv78x8gkah"]
 
 [ext_resource type="Script" path="res://Scripts/LevelScript/Main.gd" id="1_nacb5"]
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/1bitpack_kenney/Tilesheet/colored.png" id="1_vo45i"]
-[ext_resource type="PackedScene" uid="uid://b8tjow5urcoc8" path="res://prefab/Enemey.tscn" id="2_qrudm"]
+[ext_resource type="PackedScene" uid="uid://b8tjow5urcoc8" path="res://prefab/Enemy/Enemey.tscn" id="2_qrudm"]
 [ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Sceen/superJump.tscn" id="5_03ts5"]
+[ext_resource type="PackedScene" uid="uid://bn5q4clyianrt" path="res://prefab/Enemy/First_Enemy.tscn" id="5_61ete"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtu8f"]
 texture = ExtResource("1_vo45i")
@@ -296,98 +297,6 @@ func _process(delta):
 [node name="MainSceen" type="Node2D"]
 script = ExtResource("1_nacb5")
 
-[node name="RigidBody2D3" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(227, 217)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D6" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(150, 48)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D7" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(133, 48)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D8" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(167, 48)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D5" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(201, 48)
-max_hp = 5.0
-
-[node name="RigidBody2D9" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(235, 48)
-max_hp = 5.0
-
-[node name="RigidBody2D10" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(252, 48)
-max_hp = 5.0
-
-[node name="RigidBody2D11" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(218, 48)
-max_hp = 5.0
-
-[node name="RigidBody2D4" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(184, 65)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D12" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(150, 65)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D13" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(133, 65)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D14" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(167, 65)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D15" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(201, 65)
-max_hp = 5.0
-
-[node name="RigidBody2D16" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(235, 65)
-max_hp = 5.0
-
-[node name="RigidBody2D17" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(252, 65)
-max_hp = 5.0
-
-[node name="RigidBody2D18" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(218, 65)
-max_hp = 5.0
-
-[node name="RigidBody2D19" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(184, 82)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D20" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(150, 82)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D21" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(133, 82)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
-[node name="RigidBody2D22" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(167, 82)
-max_hp = 5.0
-metadata/_edit_group_ = true
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_e753a")
 format = 2
@@ -402,3 +311,9 @@ position = Vector2(192, 217)
 position = Vector2(112, 200)
 rotation = -0.785398
 gizmo_extents = 35.8
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_qrudm")]
+position = Vector2(230, 211)
+
+[node name="BaseEnemy" parent="." instance=ExtResource("5_61ete")]
+position = Vector2(154, 141)
