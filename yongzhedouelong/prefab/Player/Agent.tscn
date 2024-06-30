@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8f778661m1vg"]
-
-[ext_resource type="Script" path="res://prefab/Player/Agent.gd" id="1_g6vic"]
-
-[node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("1_g6vic")
-
-[node name="Root" type="Node2D" parent="."]

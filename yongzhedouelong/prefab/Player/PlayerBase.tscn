@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8f778661m1vg"]
+
+[ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="2_c6wge"]
+[ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/Item/interactionShow.tscn" id="3_1smxn"]
+[ext_resource type="PackedScene" uid="uid://b42tv1nbh4cv8" path="res://prefab/Weapon/WeaponEnergeBar.tscn" id="4_dtvgp"]
+[ext_resource type="PackedScene" uid="uid://bfmofvyqtmgc" path="res://prefab/Component/move_component.tscn" id="5_3dlrk"]
+[ext_resource type="Script" path="res://LogicResource/BattleStats.gd" id="5_akdn8"]
+[ext_resource type="Resource" uid="uid://bbx5bnxd8alvd" path="res://LogicResource/Player/PlayerStats.tres" id="5_o2165"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 16
+
+[node name="BodyArea" type="Area2D" parent="." node_paths=PackedStringArray("movementComponent")]
+collision_layer = 4096
+collision_mask = 4096
+script = ExtResource("2_c6wge")
+movementComponent = NodePath("../MoveComponent")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="InteractionInterface" parent="." instance=ExtResource("3_1smxn")]
+
+[node name="Root" type="Node2D" parent="."]
+
+[node name="EnergeBar" parent="." instance=ExtResource("4_dtvgp")]
+process_priority = 2
+
+[node name="BattleStats" type="Node" parent="."]
+script = ExtResource("5_akdn8")
+Stats = ExtResource("5_o2165")
+
+[node name="MoveComponent" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("5_3dlrk")]
+enableGravity = true
+actor = NodePath("..")
+speed = Vector2(100, -30)
+jumpSpeed = -310.0

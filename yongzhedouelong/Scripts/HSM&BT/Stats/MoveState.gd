@@ -2,11 +2,11 @@ extends LimboState
 
 
 const VERTICAL_FACTOR := 0.8
-
+@export var moveComponent:MoveComponent
 @export var animator: AnimatedSprite2D
 @export var animation: StringName
 @export var speed: float = 500.0
-@export var moveComponent:MoveComponent
+
 
 func _enter() -> void:
 	animator.play(animation)

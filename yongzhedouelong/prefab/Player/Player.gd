@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends "res://prefab/Player/Agent.gd"
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -310.0
@@ -9,6 +9,7 @@ signal pickUpPoker(number,flower)
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var mousePosition:Vector2
+@onready var stats:BattleStats = $BattleStats as BattleStats
 
 @onready var hsm: LimboHSM = $LimboHSM
 @onready var idle_state: LimboState = $LimboHSM/IdleState

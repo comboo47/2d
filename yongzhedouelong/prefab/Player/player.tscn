@@ -117,10 +117,10 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_mgtba")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_ir77y")
 }, {
 "duration": 1.0,
@@ -129,7 +129,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6q1yp")
 }],
-"loop": true,
+"loop": false,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -189,9 +189,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.036, 1)
 sprite_frames = SubResource("SpriteFrames_1g2qo")
-animation = &"die"
-frame = 4
-frame_progress = 1.0
+animation = &"jump"
 metadata/_edit_group_ = true
 
 [node name="InteractionInterface" parent="." instance=ExtResource("4_d2m3x")]
@@ -226,11 +224,11 @@ script = ExtResource("8_vy18d")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"idle"
 
-[node name="MoveState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("animator", "moveComponent")]
+[node name="MoveState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("moveComponent", "animator")]
 script = ExtResource("9_hy4dd")
+moveComponent = NodePath("../../MoveComponent")
 animator = NodePath("../../AnimatedSprite2D")
 animation = &"walk"
-moveComponent = NodePath("../../MoveComponent")
 
 [node name="JumpState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("animator", "moveComponent")]
 script = ExtResource("10_r12xo")

@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var stats:BasicStats
 @export var EnemyID = 1001
 @export var max_hp = float(0)
 @export var damage = 1

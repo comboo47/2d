@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BasicStats" load_steps=2 format=3 uid="uid://bbx5bnxd8alvd"]
+
+[ext_resource type="Script" path="res://LogicResource/BasicStats.gd" id="1_h52qv"]
+
+[resource]
+script = ExtResource("1_h52qv")
+MaxHealth = 100.0
+AttackPoint = 100.0
+DefencePoint = 100.0
+MoveSpeed = 0.0
+MaxLevel = 5
+AttackTime = 0.0

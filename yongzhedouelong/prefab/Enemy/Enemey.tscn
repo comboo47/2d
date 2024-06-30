@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://art/SpriteFrams/Enemy/Skull00.png" id="1_eaxet"]
 [ext_resource type="Script" path="res://prefab/Enemy/Enemey.gd" id="1_mg8au"]
 [ext_resource type="Texture2D" uid="uid://02ndbd32mgs8" path="res://art/SpriteFrams/Enemy/Skull01.png" id="2_4tm4f"]
-[ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://prefab/Item/can_pick_up.tscn" id="4_q3ybg"]
+[ext_resource type="Resource" uid="uid://u4k1b5ej4ush" path="res://LogicResource/EnemyStats_Remote.tres" id="2_hsjlg"]
 [ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="5_8e340"]
 [ext_resource type="PackedScene" uid="uid://bfmofvyqtmgc" path="res://prefab/Component/move_component.tscn" id="6_ajost"]
 
@@ -31,6 +31,7 @@ size = Vector2(15, 16)
 collision_layer = 2
 collision_mask = 18
 script = ExtResource("1_mg8au")
+stats = ExtResource("2_hsjlg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.8, 0.8)
@@ -43,9 +44,6 @@ flip_h = true
 
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 0.1
-
-[node name="canPickUp" parent="." instance=ExtResource("4_q3ybg")]
-targetPosition = Vector2(0, -16)
 
 [node name="BodyArea" type="Area2D" parent="." node_paths=PackedStringArray("movementComponent")]
 script = ExtResource("5_8e340")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ijdj74f81k0i"]
+
+[ext_resource type="Script" path="res://prefab/Component/hurt_display.gd" id="1_vyx4l"]
+
+[node name="HurtDisPlay" type="Node"]
+script = ExtResource("1_vyx4l")
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true

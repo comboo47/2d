@@ -1,5 +1,6 @@
+BaiscStats
+SpriteFrames
 AtlasTexture
 TileSetAtlasSource
 MeshTexture
 AnimatedTexture
-SpriteFrames
