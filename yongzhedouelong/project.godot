@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 DropManager="*res://Manager/drop_manager.tscn"
 BulletManager="*res://Manager/bullet_manager.tscn"
-Player="*res://prefab/Actor/player.tscn"
+Player="*res://prefab/Player/player.tscn"
 MainUI="*res://Manager/main_ui.tscn"
 
 [display]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://b8tjow5urcoc8"]
 
 [ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://art/SpriteFrams/Enemy/Skull00.png" id="1_eaxet"]
-[ext_resource type="Script" path="res://prefab/Actor/Enemey.gd" id="1_mg8au"]
+[ext_resource type="Script" path="res://prefab/Enemy/Enemey.gd" id="1_mg8au"]
 [ext_resource type="Texture2D" uid="uid://02ndbd32mgs8" path="res://art/SpriteFrams/Enemy/Skull01.png" id="2_4tm4f"]
-[ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://prefab/can_pick_up.tscn" id="4_q3ybg"]
+[ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://prefab/Item/can_pick_up.tscn" id="4_q3ybg"]
 [ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="5_8e340"]
 [ext_resource type="PackedScene" uid="uid://bfmofvyqtmgc" path="res://prefab/Component/move_component.tscn" id="6_ajost"]
 

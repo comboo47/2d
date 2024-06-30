@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://du6v7ebpkwxem"]
 
-[ext_resource type="Script" path="res://prefab/Actor/Poker.gd" id="1_33bvb"]
+[ext_resource type="Script" path="res://prefab/Item/Poker.gd" id="1_33bvb"]
 [ext_resource type="Texture2D" uid="uid://ds6fe4rb6vwvv" path="res://art/SpriteFrams/UI/card_2_3.tres" id="1_ho5oi"]
-[ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://prefab/can_pick_up.tscn" id="3_wqmkb"]
-[ext_resource type="PackedScene" uid="uid://4d8xi811oiv" path="res://prefab/dropDisplay.tscn" id="4_ogla3"]
+[ext_resource type="PackedScene" uid="uid://d21b0ddlr0ntf" path="res://prefab/Item/can_pick_up.tscn" id="3_wqmkb"]
+[ext_resource type="PackedScene" uid="uid://4d8xi811oiv" path="res://prefab/Item/dropDisplay.tscn" id="4_ogla3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2gtnx"]
 
