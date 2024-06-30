@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Manager/main_ui_Mgr.gd" id="1_o0m1u"]
 [ext_resource type="Texture2D" uid="uid://csg022il85y8h" path="res://art/SpriteFrams/UI/Heart.tres" id="1_xi14b"]
-[ext_resource type="Script" path="res://Scripts/PokerBar.gd" id="2_tva1y"]
+[ext_resource type="Script" path="res://Scripts/Actor/PokerBar.gd" id="2_tva1y"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_086bg"]
 load_path = "res://.godot/imported/card_10_0.png-7c0edaa8033d8ee6209a4fd147ec566b.ctex"

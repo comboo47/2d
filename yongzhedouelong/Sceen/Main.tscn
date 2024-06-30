@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/LevelScript/Main.gd" id="1_nacb5"]
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/1bitpack_kenney/Tilesheet/colored.png" id="1_vo45i"]
-[ext_resource type="PackedScene" uid="uid://b8tjow5urcoc8" path="res://prefab/Enemey.tscn" id="2_qrudm"]
+[ext_resource type="PackedScene" uid="uid://b8tjow5urcoc8" path="res://prefab/Actor/Enemey.tscn" id="2_qrudm"]
 [ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Sceen/superJump.tscn" id="5_03ts5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtu8f"]
