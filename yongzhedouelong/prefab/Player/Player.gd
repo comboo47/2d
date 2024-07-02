@@ -18,7 +18,6 @@ var mousePosition:Vector2
 @onready var hurt_state: LimboState = $LimboHSM/HurtState
 @onready var die_state: LimboState = $LimboHSM/DieState
 
-
 var screen_size
 # Called when the node enters the scene tree for the first time.
 func _ready():

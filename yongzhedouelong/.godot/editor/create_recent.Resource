@@ -1,4 +1,5 @@
-BaiscStats
+Equip_Item
+CompressedTexture2D
 SpriteFrames
 AtlasTexture
 TileSetAtlasSource

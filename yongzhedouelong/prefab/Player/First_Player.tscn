@@ -220,6 +220,3 @@ moveComponent = NodePath("../../MoveComponent")
 script = ExtResource("7_6mmwe")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"die"
-
-[node name="MoveComponent" parent="." index="9" node_paths=PackedStringArray("actor")]
-actor = NodePath("..")

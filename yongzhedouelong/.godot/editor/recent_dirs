@@ -1,3 +1,5 @@
+res://prefab/Item/EquipItem
+res://art/SpriteFrams/Enemy
 res://LogicResource/Player
 res://prefab/Player
 res://prefab/Enemy
@@ -12,5 +14,4 @@ res://Sceen
 res://Scripts
 res://art/SpriteFrams/UI
 res://
-res://art/SpriteFrams/Enemy
 res://art/Weapon
