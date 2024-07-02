@@ -2,8 +2,6 @@ extends "res://prefab/Player/Agent.gd"
 
 class_name mainPlayer
 
-const SPEED = 100.0
-const JUMP_VELOCITY = -310.0
 var holdFireTime = float(0)
 var underControle = true
 signal pickUpPoker(number,flower)
@@ -37,15 +35,15 @@ func _process(delta):
 			if i.get_node("canPickUp"):
 				i.get_node("canPickUp").pickUp(self)
 			#print(i)
-	if Input.is_action_pressed("fire"):
-		holdFireTime += delta
-		if holdFireTime >= 0.1:
-			$".".get_meta("CurrentWeapon").holdFire()
-	if Input.is_action_just_released("fire"):
-		holdFireTime = 0
-		$".".get_meta("CurrentWeapon").fire()			
+	if $".".get_meta("CurrentWeapon") != null:
+		if Input.is_action_pressed("fire"):
+			holdFireTime += delta
+			if holdFireTime >= 0.1:
+				$".".get_meta("CurrentWeapon").holdFire()
+		if Input.is_action_just_released("fire"):
+			holdFireTime = 0
+			$".".get_meta("CurrentWeapon").fire()			
 	AnimControle()
-	
 	position = position.clamp(Vector2.ZERO, screen_size)
 	pass
 func _unhandled_input(event: InputEvent) -> void:
@@ -53,10 +51,25 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.is_action_pressed("jump"):
 		_process_jump_input()
+	if event.is_action_pressed("test"):
+		_test_input()
 func _process_jump_input() -> void:
 	if hsm.get_active_state() == jump_state:
 		return
 	hsm.dispatch("jump")
+
+func _process_die_input() -> void:
+	if hsm.get_active_state() == die_state:
+		return
+	if stats.curHp >0:
+		return
+	hsm.dispatch("die")
+func _test_input()-> void:
+	if $WeaponComponent.currentWeapon <2:
+		$WeaponComponent.setCurrentWeapon($WeaponComponent.currentWeapon+1)
+	else:
+		$WeaponComponent.setCurrentWeapon(0)
+	return
 
 
 func _init_state_machine():
@@ -65,7 +78,7 @@ func _init_state_machine():
 	hsm.add_transition(move_state, idle_state, move_state.EVENT_FINISHED)
 	hsm.add_transition(move_state, jump_state, "jump")
 	hsm.add_transition(jump_state, idle_state, jump_state.EVENT_FINISHED)
-	hsm.add_transition(hsm.ANYSTATE, die_state, "dodge!")
+	hsm.add_transition(hsm.ANYSTATE, die_state, "die")
 	hsm.initialize(self)
 	hsm.set_active(true)
 

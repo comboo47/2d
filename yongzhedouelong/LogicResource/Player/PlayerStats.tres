@@ -4,9 +4,14 @@
 
 [resource]
 script = ExtResource("1_h52qv")
-MaxHealth = null
-AttackPoint = null
-DefencePoint = null
-MoveSpeed = null
-MaxLevel = null
-AttackTime = null
+MaxHealth = 100.0
+AttackPoint = 100.0
+DefencePoint = 100.0
+MoveSpeed = 0.0
+AttackTime = 0.0
+MaxLevel = 5
+upHealth = 1.0
+upAttack = 1.0
+upDefencePoint = 1.0
+upMoveSpeed = 0.0
+upAttackTime = 0.0

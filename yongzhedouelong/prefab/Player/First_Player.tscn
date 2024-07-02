@@ -178,6 +178,9 @@ scale = Vector2(1.5, 1)
 shape = SubResource("CapsuleShape2D_nhojw")
 metadata/_edit_group_ = true
 
+[node name="WeaponComponent" parent="." index="1"]
+currentWeapon = 0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_4q6oy")
 
