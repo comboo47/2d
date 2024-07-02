@@ -1,5 +1,7 @@
 extends "res://prefab/Player/Agent.gd"
 
+class_name mainPlayer
+
 const SPEED = 100.0
 const JUMP_VELOCITY = -310.0
 var holdFireTime = float(0)

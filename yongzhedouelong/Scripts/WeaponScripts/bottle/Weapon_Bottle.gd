@@ -15,8 +15,6 @@ var stepY
 var positionList:Array
 var holdNeedTime = float(0.7)
 # Called when the node enters the scene tree for the first time.
-func _enter_tree():
-	$".".get_parent().set_meta("CurrentWeapon",self)
 
 func _ready():
 	$AnimatedSprite2D.play("default")
@@ -36,7 +34,7 @@ func _process(delta):
 	$Line2D3.position = $Marker2D.position
 	$Line2D3.rotation = -$".".rotation
 	mousePos = get_viewport().get_mouse_position()
-	direction = mousePos - get_parent().position
+	direction = mousePos - get_parent().global_position
 	direction = direction.normalized() * defaultSpeed
 	drawLine(direction,delta,$Line2D)
 	if hold:
@@ -54,7 +52,6 @@ func _process(delta):
 		#$Line2D.clear_points()
 		$Line2D2.clear_points()
 		$Line2D3.clear_points()
-	#get_parent().position
 	pass
 func holdFire():
 	hold = true

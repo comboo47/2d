@@ -1,8 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://bsf4te0cyp1e2"]
+[gd_scene load_steps=25 format=3 uid="uid://bsf4te0cyp1e2"]
 
 [ext_resource type="PackedScene" uid="uid://b8f778661m1vg" path="res://prefab/Player/PlayerBase.tscn" id="1_8qvpg"]
 [ext_resource type="Script" path="res://prefab/Player/Player.gd" id="2_ett2r"]
-[ext_resource type="PackedScene" uid="uid://dyty1o6rphkf1" path="res://prefab/Weapon/CrossBow/weapon_Crossbow.tscn" id="2_tolbd"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_w6crh"]
 [ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/IdleState.gd" id="4_na5rg"]
 [ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/MoveState.gd" id="5_tief1"]
@@ -179,8 +178,6 @@ scale = Vector2(1.5, 1)
 shape = SubResource("CapsuleShape2D_nhojw")
 metadata/_edit_group_ = true
 
-[node name="Weapon_Crossbow" parent="." index="1" instance=ExtResource("2_tolbd")]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_4q6oy")
 
@@ -188,14 +185,14 @@ shape = SubResource("RectangleShape2D_4q6oy")
 sprite_frames = SubResource("SpriteFrames_1g2qo")
 animation = &"die"
 
-[node name="EnergeBar" parent="." index="6"]
+[node name="EnergeBar" parent="." index="5"]
 z_index = 2
 offset_left = 0.0
 offset_top = 7.92
 offset_right = 0.0
 offset_bottom = 8.08
 
-[node name="LimboHSM" type="LimboHSM" parent="." index="8"]
+[node name="LimboHSM" type="LimboHSM" parent="." index="7"]
 
 [node name="IdleState" type="LimboState" parent="LimboHSM" index="0" node_paths=PackedStringArray("animator")]
 script = ExtResource("4_na5rg")

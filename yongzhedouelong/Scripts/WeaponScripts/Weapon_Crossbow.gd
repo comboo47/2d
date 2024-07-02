@@ -19,8 +19,6 @@ var deltaIndex = float(0)
 var targetPosition:Vector2
 var hold = false
 # Called when the node enters the scene tree for the first time.
-func _enter_tree():
-	$".".get_parent().set_meta("CurrentWeapon",self)
 
 func _ready():
 	var b = bullet.instantiate()
@@ -33,7 +31,7 @@ func _ready():
 func _process(delta):
 	$".".look_at(targetPosition)
 	targetPosition = get_viewport().get_mouse_position()
-	direction = targetPosition - get_parent().position
+	direction = targetPosition - get_parent().global_position
 	direction = direction.normalized() * defaultSpeed
 	if hold:
 		holdTime += delta

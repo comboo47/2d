@@ -12,8 +12,6 @@ var stepX
 var stepY
 var positionList:Array
 # Called when the node enters the scene tree for the first time.
-func _enter_tree():
-	$".".get_parent().set_meta("CurrentWeapon",self)
 
 func _ready():
 	var b = bullet.instantiate()
@@ -28,10 +26,10 @@ func _process(delta):
 	$Line2D.position = $Marker2D.position
 	$Line2D.rotation = -$".".rotation
 	mousePos = get_viewport().get_mouse_position()
-	direction = mousePos - get_parent().position
+	direction = mousePos - get_parent().global_position
 	fireVector = direction.normalized() * defaultSpeed
 	if hold:
-		addSpeed += 10
+		addSpeed += 5
 		addSpeed = clamp(addSpeed,0,400)
 		fireVector = direction.normalized() * (defaultSpeed + addSpeed)
 		stepX = fireVector.x
@@ -39,7 +37,7 @@ func _process(delta):
 		#print("fireVector:",fireVector,"direction:",direction.normalized())
 		#print("X:",stepX,"y:",stepY)
 		$Line2D.clear_points()
-		for i in range(15):
+		for i in range(30):
 			$Line2D.add_point(Vector2(stepX*i*delta,(stepY+490*i*delta)*i*delta))
 			pass
 	else:
