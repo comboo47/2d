@@ -298,6 +298,7 @@ func _process(delta):
 script = ExtResource("1_nacb5")
 
 [node name="TileMap" type="TileMap" parent="."]
+position = Vector2(-2, 0)
 tile_set = SubResource("TileSet_e753a")
 format = 2
 layer_0/name = "Floor"
@@ -305,16 +306,31 @@ layer_0/tile_data = PackedInt32Array(917522, 1245189, 1, 917509, 1245189, 1, 917
 script = SubResource("GDScript_jdi0w")
 
 [node name="superJump" parent="." instance=ExtResource("5_03ts5")]
-position = Vector2(192, 217)
+position = Vector2(190, 217)
 
 [node name="PlayerStart" type="Marker2D" parent="."]
-position = Vector2(112, 200)
+position = Vector2(110, 200)
 rotation = -0.785398
 gizmo_extents = 35.8
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(230, 211)
+position = Vector2(228, 211)
 stats = null
 
 [node name="BaseEnemy" parent="." instance=ExtResource("5_61ete")]
-position = Vector2(154, 141)
+position = Vector2(152, 141)
+
+[node name="BaseEnemy2" parent="." instance=ExtResource("5_61ete")]
+position = Vector2(208, 115)
+
+[node name="BaseEnemy5" parent="." instance=ExtResource("5_61ete")]
+position = Vector2(232, 124)
+
+[node name="BaseEnemy3" parent="." instance=ExtResource("5_61ete")]
+position = Vector2(169, 115)
+
+[node name="BaseEnemy4" parent="." instance=ExtResource("5_61ete")]
+position = Vector2(211, 142)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(192, 120)

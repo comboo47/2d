@@ -16,7 +16,6 @@ var positionList:Array
 func _ready():
 	var b = bullet.instantiate()
 	defaultSpeed = b.speed
-	
 	pass # Replace with function body.
 
 

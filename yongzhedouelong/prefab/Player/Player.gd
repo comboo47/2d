@@ -65,6 +65,7 @@ func _process_die_input() -> void:
 		return
 	hsm.dispatch("die")
 func _test_input()-> void:
+	hsm.dispatch("hurt")
 	if $WeaponComponent.currentWeapon <2:
 		$WeaponComponent.setCurrentWeapon($WeaponComponent.currentWeapon+1)
 	else:
@@ -75,9 +76,11 @@ func _test_input()-> void:
 func _init_state_machine():
 	hsm.add_transition(idle_state, move_state, idle_state.EVENT_FINISHED)
 	hsm.add_transition(idle_state, jump_state, "jump")
+	hsm.add_transition(idle_state, hurt_state, "hurt")
 	hsm.add_transition(move_state, idle_state, move_state.EVENT_FINISHED)
 	hsm.add_transition(move_state, jump_state, "jump")
 	hsm.add_transition(jump_state, idle_state, jump_state.EVENT_FINISHED)
+	hsm.add_transition(hurt_state, idle_state, hurt_state.EVENT_FINISHED)
 	hsm.add_transition(hsm.ANYSTATE, die_state, "die")
 	hsm.initialize(self)
 	hsm.set_active(true)

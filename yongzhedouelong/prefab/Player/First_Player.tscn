@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bsf4te0cyp1e2"]
+[gd_scene load_steps=26 format=3 uid="uid://bsf4te0cyp1e2"]
 
 [ext_resource type="PackedScene" uid="uid://b8f778661m1vg" path="res://prefab/Player/PlayerBase.tscn" id="1_8qvpg"]
 [ext_resource type="Script" path="res://prefab/Player/Player.gd" id="2_ett2r"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/MoveState.gd" id="5_tief1"]
 [ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/JumpState.gd" id="6_q6pqf"]
 [ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/DieState.gd" id="7_6mmwe"]
+[ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/HurtState.gd" id="7_i15xt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nhojw"]
 radius = 3.33333
@@ -178,9 +179,6 @@ scale = Vector2(1.5, 1)
 shape = SubResource("CapsuleShape2D_nhojw")
 metadata/_edit_group_ = true
 
-[node name="WeaponComponent" parent="." index="1"]
-currentWeapon = 0
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_4q6oy")
 
@@ -214,7 +212,9 @@ animator = NodePath("../../AnimatedSprite2D")
 animationName = &"jump"
 moveComponent = NodePath("../../MoveComponent")
 
-[node name="HurtState" type="LimboState" parent="LimboHSM" index="3"]
+[node name="HurtState" type="LimboState" parent="LimboHSM" index="3" node_paths=PackedStringArray("anim")]
+script = ExtResource("7_i15xt")
+anim = NodePath("../../AnimatedSprite2D")
 
 [node name="DieState" type="LimboState" parent="LimboHSM" index="4" node_paths=PackedStringArray("animator")]
 script = ExtResource("7_6mmwe")

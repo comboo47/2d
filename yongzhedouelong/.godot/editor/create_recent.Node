@@ -1,3 +1,5 @@
+GPUParticles2D
+Camera2D
 BattleStats
 ShaderGlobalsOverride
 MoveComponent
@@ -11,5 +13,3 @@ Node2D
 LimboHSM
 Timer
 Node
-CollisionShape2D
-Marker2D
