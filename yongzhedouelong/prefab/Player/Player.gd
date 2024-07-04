@@ -1,4 +1,4 @@
-extends "res://prefab/Player/Agent.gd"
+extends BattleActor
 
 class_name mainPlayer
 
@@ -20,6 +20,8 @@ var mousePosition:Vector2
 
 var screen_size
 # Called when the node enters the scene tree for the first time.
+func _enter_tree():
+	self.SetStats(stats)
 func _ready():
 	screen_size = get_viewport_rect().size
 	#初始化状态机
