@@ -1,3 +1,11 @@
 res://prefab/Player/First_Player.tscn
 res://LogicResource/EnemyStats_Remote.tres
 res://prefab/BattleBase/BattleEffect.gd
+res://prefab/BattleBase/BattleGlobal.gd
+res://prefab/Weapon/WeaponEnergeBar.tscn
+res://prefab/BattleBase/test.tres
+res://prefab/BattleBase/EffectHandle.gd
+res://prefab/Component/hurt_display.gd
+res://prefab/Weapon/Bow/bullet_bow.tscn
+res://Scripts/WeaponScripts/bow/bow_bullet.gd
+res://prefab/Weapon/Bottle/weapon_Bottle.tscn

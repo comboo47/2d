@@ -1,3 +1,4 @@
+BattleEffect
 Equip_Item
 CompressedTexture2D
 SpriteFrames
