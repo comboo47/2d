@@ -4,10 +4,17 @@
 
 [resource]
 script = ExtResource("1_u6smv")
+EffectType = 0
 periodTime = 0.0
 totalTime = 0.0
-EffectNum = 2
-Effect_0 = 18
-Value_0 = 20
-Effect_1 = 5
-Value_1 = 12
+EffectNum = 5
+Effect_0 = 0
+Value_0 = 45
+Effect_1 = 0
+Value_1 = 35
+Effect_2 = 1
+Value_2 = 35
+Effect_3 = 12
+Value_3 = 15
+Effect_4 = 17
+Value_4 = 12

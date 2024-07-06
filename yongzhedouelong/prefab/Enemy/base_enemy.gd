@@ -12,12 +12,16 @@ var isDead:bool = false
 
 
 func _ready():
+	$BTPlayer.set_active(true)
 	pass
 
 func getID():
 	return EnemyID
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
+func _process(delta):
+	if self.velocity.x<0:
+		animated_sprite_2d.flip_h = true
 func hitDisplay():
 	animated_sprite_2d.modulate.a = (float(stats.curHp)/float(stats.curMaxHp))
 	hurt_display_component.hitDisplay()

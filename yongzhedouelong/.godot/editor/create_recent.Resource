@@ -1,3 +1,5 @@
+BehaviorTree
+Talent_OnCast
 BattleEffect
 Equip_Item
 CompressedTexture2D

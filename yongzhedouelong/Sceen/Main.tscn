@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bruvv78x8gkah"]
+[gd_scene load_steps=8 format=3 uid="uid://bruvv78x8gkah"]
 
 [ext_resource type="Script" path="res://Scripts/LevelScript/Main.gd" id="1_nacb5"]
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/1bitpack_kenney/Tilesheet/colored.png" id="1_vo45i"]
-[ext_resource type="PackedScene" uid="uid://b8tjow5urcoc8" path="res://prefab/Enemy/Enemey.tscn" id="2_qrudm"]
 [ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Sceen/superJump.tscn" id="5_03ts5"]
 [ext_resource type="PackedScene" uid="uid://bn5q4clyianrt" path="res://prefab/Enemy/First_Enemy.tscn" id="5_61ete"]
 
@@ -306,31 +305,15 @@ layer_0/tile_data = PackedInt32Array(917522, 1245189, 1, 917509, 1245189, 1, 917
 script = SubResource("GDScript_jdi0w")
 
 [node name="superJump" parent="." instance=ExtResource("5_03ts5")]
-position = Vector2(190, 217)
+position = Vector2(229, 217)
 
 [node name="PlayerStart" type="Marker2D" parent="."]
 position = Vector2(110, 200)
 rotation = -0.785398
 gizmo_extents = 35.8
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("2_qrudm")]
-position = Vector2(228, 211)
-stats = null
-
 [node name="BaseEnemy" parent="." instance=ExtResource("5_61ete")]
-position = Vector2(152, 141)
-
-[node name="BaseEnemy2" parent="." instance=ExtResource("5_61ete")]
-position = Vector2(208, 115)
-
-[node name="BaseEnemy5" parent="." instance=ExtResource("5_61ete")]
-position = Vector2(232, 124)
-
-[node name="BaseEnemy3" parent="." instance=ExtResource("5_61ete")]
-position = Vector2(169, 115)
-
-[node name="BaseEnemy4" parent="." instance=ExtResource("5_61ete")]
-position = Vector2(211, 142)
+position = Vector2(162, 171)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(192, 120)

@@ -6,6 +6,10 @@ var KeyList = PackedInt32Array([0,0,0,0,0,0,0,0,0,0,0,0,0])
 var ValueList = PackedInt32Array([0,0,0,0,0,0,0,0,0,0,0,0,0])
 
 @export_group("EffectSetting")
+@export_enum("Instance","Duration","Inifi") var EffectType = 0:
+	set(t):
+		EffectType = t
+		notify_property_list_changed()
 @export var periodTime:float
 @export var totalTime:float
 
@@ -18,7 +22,6 @@ var ValueList = PackedInt32Array([0,0,0,0,0,0,0,0,0,0,0,0,0])
 		#EffectDic.clear()
 		notify_property_list_changed()
 var EffectDic:Dictionary = {}
-
 
 func _get_property_list():
 	var result = []

@@ -1,3 +1,6 @@
+AnimationPlayer
+BTPlayer
+BTState
 GPUParticles2D
 Camera2D
 BattleStats
@@ -10,6 +13,3 @@ LimboState
 Move_Input_Component
 Area2D
 Node2D
-LimboHSM
-Timer
-Node

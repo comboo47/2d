@@ -14,17 +14,18 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	pass # Replace with function body.
 
-
+func moveToDirection(vector:Vector2):
+	moveDirection = vector
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if enableGravity and not actor.is_on_floor():
 		actor.velocity.y += gravity * delta	
 	if underControle:
 		if moveDirection.y:
-			actor.velocity.y = moveDirection.y * speed.y
+			actor.velocity.y = moveDirection.y * abs(speed.y)
 			pass
 		if moveDirection.x:
-			actor.velocity.x = moveDirection.x * speed.x
+			actor.velocity.x = moveDirection.x * abs(speed.x)
 		else:
 			actor.velocity.x = move_toward(actor.velocity.x, 0, speed.x)
 	actor.move_and_slide()
