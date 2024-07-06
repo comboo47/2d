@@ -26,7 +26,7 @@ var EffectDic:Dictionary = {}
 func _get_property_list():
 	var result = []
 	var hint:String = ","
-	var a = BattleGlobal.BaseAttribute.keys() + BattleGlobal.WeaponAttribute.keys() + BattleGlobal.SpecialAttribute.keys()
+	var a = BattleGlobal.BaseAttr.keys() + BattleGlobal.WeaponAttr.keys() + BattleGlobal.SpecialAttr.keys()
 	hint = hint.join(a)
 	#print(hint)
 	for i in range(EffectNum):
@@ -68,20 +68,20 @@ func updateValue():
 	for i in EffectDic:
 		EffectDic[i] = 0
 	for index in range(EffectNum):
-		if KeyList[index] < BattleGlobal.BaseAttribute.keys().size():
-			print(KeyList[index],":::",BattleGlobal.BaseAttribute.keys().size())
-			if EffectDic.has(BattleGlobal.BaseAttribute.keys()[KeyList[index]]):
-				EffectDic[BattleGlobal.BaseAttribute.keys()[KeyList[index]]] += ValueList[index]
-		elif KeyList[index] - BattleGlobal.BaseAttribute.keys().size() < BattleGlobal.WeaponAttribute.keys().size():
-			var tempIndex = KeyList[index] -BattleGlobal.BaseAttribute.keys().size()
-			print(KeyList[index],":",tempIndex,":",BattleGlobal.WeaponAttribute.keys().size())
-			if EffectDic.has(BattleGlobal.WeaponAttribute.keys()[tempIndex]):
-				EffectDic[BattleGlobal.WeaponAttribute.keys()[tempIndex]] += ValueList[index]
+		if KeyList[index] < BattleGlobal.BaseAttr.keys().size():
+			print(KeyList[index],":::",BattleGlobal.BaseAttr.keys().size())
+			if EffectDic.has(BattleGlobal.BaseAttr.keys()[KeyList[index]]):
+				EffectDic[BattleGlobal.BaseAttr.keys()[KeyList[index]]] += ValueList[index]
+		elif KeyList[index] - BattleGlobal.BaseAttr.keys().size() < BattleGlobal.WeaponAttr.keys().size():
+			var tempIndex = KeyList[index] -BattleGlobal.BaseAttr.keys().size()
+			print(KeyList[index],":",tempIndex,":",BattleGlobal.WeaponAttr.keys().size())
+			if EffectDic.has(BattleGlobal.WeaponAttr.keys()[tempIndex]):
+				EffectDic[BattleGlobal.WeaponAttr.keys()[tempIndex]] += ValueList[index]
 		else:
-			var tempIndex = KeyList[index] -BattleGlobal.BaseAttribute.keys().size() - BattleGlobal.WeaponAttribute.keys().size()
-			print(KeyList[index],":",tempIndex,":",BattleGlobal.SpecialAttribute.keys().size())
-			if EffectDic.has(BattleGlobal.SpecialAttribute.keys()[tempIndex]):
-				EffectDic[BattleGlobal.SpecialAttribute.keys()[tempIndex]] += ValueList[index]
+			var tempIndex = KeyList[index] -BattleGlobal.BaseAttr.keys().size() - BattleGlobal.WeaponAttr.keys().size()
+			print(KeyList[index],":",tempIndex,":",BattleGlobal.SpecialAttr.keys().size())
+			if EffectDic.has(BattleGlobal.SpecialAttr.keys()[tempIndex]):
+				EffectDic[BattleGlobal.SpecialAttr.keys()[tempIndex]] += ValueList[index]
 	for i in EffectDic:
 		print(i,":",EffectDic[i])
 		pass

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bn5q4clyianrt"]
+[gd_scene load_steps=11 format=3 uid="uid://bn5q4clyianrt"]
 
 [ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_bw8m7"]
 [ext_resource type="SpriteFrames" uid="uid://dr81vsrfvolcl" path="res://GameResource/FirestEnemy.tres" id="2_m8uk3"]
 [ext_resource type="Resource" uid="uid://u4k1b5ej4ush" path="res://LogicResource/EnemyStats_Remote.tres" id="2_s4afv"]
 [ext_resource type="BehaviorTree" uid="uid://74vcupsxdkg3" path="res://Scripts/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres" id="4_jh42y"]
+[ext_resource type="Resource" uid="uid://bd45hyfw30pbj" path="res://prefab/Item/EquipItem/Item_Equip.tres" id="4_wddk1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_febtf"]
 size = Vector2(11, 12)
@@ -45,12 +46,14 @@ speed = Vector2(50, -30)
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = ExtResource("2_m8uk3")
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_8julx")
 
 [node name="BattleStats" parent="." index="5"]
 Stats = ExtResource("2_s4afv")
+equipMent = Array[Resource("res://prefab/Item/EquipItem/EquipBase.gd")]([ExtResource("4_wddk1")])
 
 [node name="BTPlayer" type="BTPlayer" parent="." index="6"]
 behavior_tree = ExtResource("4_jh42y")

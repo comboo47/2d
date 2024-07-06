@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends BattleActor
 
 var isDead:bool = false
 
@@ -22,13 +22,16 @@ func getID():
 func _process(delta):
 	if self.velocity.x<0:
 		animated_sprite_2d.flip_h = true
+	elif self.velocity.x>0:
+		animated_sprite_2d.flip_h = false
 func hitDisplay():
-	animated_sprite_2d.modulate.a = (float(stats.curHp)/float(stats.curMaxHp))
+	animated_sprite_2d.modulate.a = (float(stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]])/float(stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curMaxHp]]))
 	hurt_display_component.hitDisplay()
 
 func _beHurt(dmg):
-	stats.curHp = stats.curHp - dmg
-	if(stats.curHp <= 0):
+	var hp = stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]]
+	stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]] -= 1
+	if(stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]] <= 0): 
 		if !isDead:
 			setDead()
 	hitDisplay()

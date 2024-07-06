@@ -1,6 +1,6 @@
+res://prefab/BattleBase
 res://Scripts/HSM&BT/BehaviorTree/BTTree
 res://prefab/BattleBase/Talent
-res://prefab/BattleBase
 res://prefab/Component
 res://prefab/Item/EquipItem
 res://art/SpriteFrams/Enemy

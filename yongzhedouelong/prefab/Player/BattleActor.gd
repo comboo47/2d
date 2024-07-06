@@ -14,3 +14,4 @@ func GetStatus() -> BattleStats:
 		return self.get_meta("State")
 	else:
 		return null
+

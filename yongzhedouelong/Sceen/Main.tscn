@@ -313,7 +313,7 @@ rotation = -0.785398
 gizmo_extents = 35.8
 
 [node name="BaseEnemy" parent="." instance=ExtResource("5_61ete")]
-position = Vector2(162, 171)
+position = Vector2(236, 89)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(192, 120)

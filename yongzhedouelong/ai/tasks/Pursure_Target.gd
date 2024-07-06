@@ -60,9 +60,8 @@ func _tick(_delta: float) -> Status:
 	if agent.global_position.distance_to(_waypoint) < TOLERANCE:
 		_select_new_waypoint(desired_pos)
 
-	var speed: float = blackboard.get_var(speed_var, 200.0)
+	#var speed: float = blackboard.get_var(speed_var, 200.0)
 	var desired_velocity: Vector2 = agent.global_position.direction_to(_waypoint)
-	print(target,":",desired_velocity,",",_waypoint)
 	mvComponent.moveToDirection(desired_velocity.normalized())
 	#agent.move(desired_velocity)
 	#agent.update_facing()
