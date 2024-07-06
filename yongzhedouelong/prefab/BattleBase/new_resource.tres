@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BattleEffect" load_steps=2 format=3 uid="uid://dwuvff6x0mfme"]
+
+[ext_resource type="Script" path="res://prefab/BattleBase/BattleEffect.gd" id="1_u6smv"]
+
+[resource]
+script = ExtResource("1_u6smv")
+periodTime = 0.0
+totalTime = 0.0
+EffectNum = 2
+Effect_0 = 18
+Value_0 = 20
+Effect_1 = 5
+Value_1 = 12

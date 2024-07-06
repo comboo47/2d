@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="BattleEffect" load_steps=2 format=3 uid="uid://3xvrp83p3vvw"]
-
-[ext_resource type="Script" path="res://prefab/BattleBase/BattleEffect.gd" id="1_bgyjb"]
-
-[resource]
-script = ExtResource("1_bgyjb")
-periodTime = 0.0
-totalTime = 0.0
-EffectList = [null, null]

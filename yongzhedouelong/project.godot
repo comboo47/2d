@@ -21,7 +21,6 @@ DropManager="*res://Manager/drop_manager.tscn"
 BulletManager="*res://Manager/bullet_manager.tscn"
 MainUI="*res://Manager/main_ui.tscn"
 Player="*res://prefab/Player/First_Player.tscn"
-BattleGlobal="*res://prefab/BattleBase/BattleGlobal.gd"
 
 [display]
 

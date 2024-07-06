@@ -1,6 +1,7 @@
 class_name	BasicStats
 extends Resource
 
+
 @export_group("BaseAttribute")
 @export var MaxHealth:float = 100
 @export var AttackPoint:float = 100

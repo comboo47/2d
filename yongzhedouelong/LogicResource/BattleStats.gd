@@ -40,8 +40,12 @@ var exEdrFire:int
 @export var currentLevel:int = 1
 @export var Stats:BasicStats
 @export var equipMent:Array[Equip_Item]
+
+var AttrDic:Dictionary = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	AttrDic = BattleGlobal.initAttributeDic(AttrDic,BattleGlobal.AttType.all)
+	print("StateAttrDic",AttrDic.size())
 	initBasicAttr()
 	initEquipAttribute()
 	pass # Replace with function body.
@@ -59,17 +63,22 @@ func initEquipAttribute():
 		addEquip(i)
 
 func addEquip(equip:Equip_Item):
-		curHpAdd += float(equip.health/10000)
-		atkAdd += float(equip.attack/10000)
-		defAdd += float(equip.armor/10000)
-		speed += float(equip.MoveSpeed/10000)
-		atkTime += float(equip.AttackSpeed/10000)
+	for i in equip.AttrDic:
+		if AttrDic.has(i):
+			AttrDic[i] += equip.AttrDic[i]
+		#curHpAdd += float(equip.health/10000)
+		#atkAdd += float(equip.attack/10000)
+		#defAdd += float(equip.armor/10000)
+		#speed += float(equip.MoveSpeed/10000)
+		#atkTime += float(equip.AttackSpeed/10000)
 func removeEquip(equip:Equip_Item):
 		curHpAdd -= float(equip.health/10000)
 		atkAdd -= float(equip.attack/10000)
 		defAdd -= float(equip.armor/10000)
 		speed -= float(equip.MoveSpeed/10000)
 		atkTime -= float(equip.AttackSpeed/10000)	
-
+func printAttr():
+	for i in AttrDic:
+		print(i,":",AttrDic[i])
 func _process(delta):
 	pass

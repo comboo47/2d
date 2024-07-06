@@ -8,6 +8,7 @@ func _enter()->void:
 
 func _update(_delta: float) -> void:
 	var horizontal_move: float = Input.get_axis("left", "right")
-	var vertical_move: float = Input.get_axis(&"move_up", &"move_down")
+	#var vertical_move: float = Input.get_axis(&"move_up", &"move_down")
+	var vertical_move: float = 0
 	if horizontal_move != 0.0 or vertical_move != 0.0:
 		get_root().dispatch(EVENT_FINISHED)

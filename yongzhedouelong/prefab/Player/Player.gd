@@ -67,6 +67,7 @@ func _process_die_input() -> void:
 		return
 	hsm.dispatch("die")
 func _test_input()-> void:
+	stats.printAttr()
 	hsm.dispatch("hurt")
 	if $WeaponComponent.currentWeapon <2:
 		$WeaponComponent.setCurrentWeapon($WeaponComponent.currentWeapon+1)
