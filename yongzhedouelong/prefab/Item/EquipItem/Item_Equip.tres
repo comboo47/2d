@@ -1,7 +1,14 @@
-[gd_resource type="Resource" script_class="Equip_Item" load_steps=3 format=3 uid="uid://bd45hyfw30pbj"]
+[gd_resource type="Resource" script_class="Equip_Item" load_steps=5 format=3 uid="uid://bd45hyfw30pbj"]
 
 [ext_resource type="Script" path="res://prefab/Item/EquipItem/EquipBase.gd" id="1_5sihk"]
+[ext_resource type="Script" path="res://prefab/BattleBase/DynEffect.gd" id="1_arj7d"]
 [ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://art/SpriteFrams/Enemy/Skull00.png" id="1_jcgtn"]
+
+[sub_resource type="Resource" id="Resource_6mce2"]
+script = ExtResource("1_arj7d")
+EffectNum = 1
+Effect_0 = 3
+Value_0 = 2
 
 [resource]
 script = ExtResource("1_5sihk")
@@ -11,3 +18,4 @@ description = "qeqweqweqwe"
 "可否叠加" = false
 "可否出售" = false
 spell_elements = 0
+DynaEffect = SubResource("Resource_6mce2")

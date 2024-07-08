@@ -17,7 +17,7 @@ extends BTAction
 ## Returns FAILURE, if target is not a valid Node2D instance.
 
 ## How close should the agent be to the desired position to return SUCCESS.
-const TOLERANCE := 30.0
+const TOLERANCE := 15.0
 
 ## Blackboard variable that stores our target (expecting Node2D).
 @export var target_var: StringName = &"target"
@@ -55,6 +55,7 @@ func _tick(_delta: float) -> Status:
 
 	var desired_pos: Vector2 = _get_desired_position(target)
 	if agent.global_position.distance_to(desired_pos) < TOLERANCE:
+		mvComponent.moveToDirection(Vector2(0,0))
 		return SUCCESS
 
 	if agent.global_position.distance_to(_waypoint) < TOLERANCE:
@@ -70,8 +71,8 @@ func _tick(_delta: float) -> Status:
 
 ## Get the closest flanking position to target.
 func _get_desired_position(target: Node2D) -> Vector2:
-	var side: Vector2 = target.global_position - agent.global_position
-	var desired_pos: Vector2 = target.global_position 
+	var side: Vector2 = agent.global_position - target.global_position 
+	var desired_pos: Vector2 = target.global_position + side.normalized() * 5
 	return desired_pos
 
 
@@ -79,4 +80,4 @@ func _get_desired_position(target: Node2D) -> Vector2:
 func _select_new_waypoint(desired_position: Vector2) -> void:
 	var distance_vector: Vector2 = desired_position - agent.global_position
 	var angle_variation: float = randf_range(-0.2, 0.2)
-	_waypoint = agent.global_position + distance_vector.limit_length(50.0).rotated(angle_variation)
+	_waypoint = agent.global_position + distance_vector.limit_length(approach_distance).rotated(angle_variation)

@@ -36,7 +36,7 @@ _data = {
 "default": SubResource("Animation_ub0cx")
 }
 
-[node name="BaseEnemy" instance=ExtResource("1_bw8m7")]
+[node name="BaseEnemy" groups=["\"Mob\""] instance=ExtResource("1_bw8m7")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_febtf")
@@ -46,7 +46,10 @@ speed = Vector2(50, -30)
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = ExtResource("2_m8uk3")
-frame = 1
+
+[node name="BodyArea" parent="." index="3"]
+collision_layer = 4096
+collision_mask = 4096
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_8julx")

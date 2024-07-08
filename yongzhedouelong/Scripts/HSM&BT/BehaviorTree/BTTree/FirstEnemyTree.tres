@@ -26,7 +26,7 @@ resource_name = "MoveComponent"
 script = ExtResource("2_36u13")
 target_var = &"target"
 speed_var = &"speed"
-approach_distance = 50.0
+approach_distance = 32.0
 moveComponent = SubResource("BBNode_844w7")
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_0ixmq"]

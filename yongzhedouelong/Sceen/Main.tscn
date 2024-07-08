@@ -306,6 +306,9 @@ script = SubResource("GDScript_jdi0w")
 
 [node name="superJump" parent="." instance=ExtResource("5_03ts5")]
 position = Vector2(229, 217)
+disable_mode = 2
+collision_layer = 0
+input_pickable = false
 
 [node name="PlayerStart" type="Marker2D" parent="."]
 position = Vector2(110, 200)

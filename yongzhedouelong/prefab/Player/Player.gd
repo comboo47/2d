@@ -47,6 +47,8 @@ func _process(delta):
 			$".".get_meta("CurrentWeapon").fire()			
 	AnimControle()
 	position = position.clamp(Vector2.ZERO, screen_size)
+	if hsm.get_active_state() != jump_state && self.velocity.y >0:
+		hsm.dispatch("falling")
 	pass
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_echo():
@@ -85,6 +87,7 @@ func _init_state_machine():
 	hsm.add_transition(jump_state, idle_state, jump_state.EVENT_FINISHED)
 	hsm.add_transition(hurt_state, idle_state, hurt_state.EVENT_FINISHED)
 	hsm.add_transition(hsm.ANYSTATE, die_state, "die")
+	hsm.add_transition(hsm.ANYSTATE, jump_state, "falling")
 	hsm.initialize(self)
 	hsm.set_active(true)
 
