@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://d2uw48yw1x766"]
+
+[node name="BulletBase" type="RigidBody2D"]

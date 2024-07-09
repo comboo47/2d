@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bruvv78x8gkah"]
+[gd_scene load_steps=9 format=3 uid="uid://bruvv78x8gkah"]
 
 [ext_resource type="Script" path="res://Scripts/LevelScript/Main.gd" id="1_nacb5"]
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/1bitpack_kenney/Tilesheet/colored.png" id="1_vo45i"]
 [ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Sceen/superJump.tscn" id="5_03ts5"]
 [ext_resource type="PackedScene" uid="uid://bn5q4clyianrt" path="res://prefab/Enemy/First_Enemy.tscn" id="5_61ete"]
+[ext_resource type="PackedScene" uid="uid://cxrwvj5jceqj3" path="res://prefab/Enemy/Second_Enemy.tscn" id="5_xibgf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtu8f"]
 texture = ExtResource("1_vo45i")
@@ -320,3 +321,6 @@ position = Vector2(236, 89)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(192, 120)
+
+[node name="BaseEnemy2" parent="." instance=ExtResource("5_xibgf")]
+position = Vector2(175, 101)

@@ -39,12 +39,13 @@ func tryJump():
 		actor.velocity.y = jumpSpeed
 
 func hitBackSmall(direction:Vector2,backSpeed:Vector2,backTime:float):
-	if timer.is_stopped():
-		underControle = false
-		actor.velocity.x = direction.x * backSpeed.x
-		actor.velocity.y = direction.y * backSpeed.y
-		timer.wait_time = backTime
-		timer.start()
-		await timer.timeout
-		underControle = true
+	if timer != null:
+		if timer.is_stopped():
+			underControle = false
+			actor.velocity.x = direction.x * backSpeed.x
+			actor.velocity.y = direction.y * backSpeed.y
+			timer.wait_time = backTime
+			timer.start()
+			await timer.timeout
+			underControle = true
 	pass

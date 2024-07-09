@@ -1,6 +1,6 @@
+BehaviorTree
 DynEffect
 BattleEffect
-BehaviorTree
 Talent_OnCast
 Equip_Item
 CompressedTexture2D

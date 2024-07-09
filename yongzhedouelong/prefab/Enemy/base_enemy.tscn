@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://LogicResource/BattleStats.gd" id="5_sikxj"]
 [ext_resource type="Script" path="res://LogicResource/BasicStats.gd" id="6_j5hl3"]
 
-[node name="BaseEnemy" type="CharacterBody2D"]
+[node name="BaseEnemy" type="CharacterBody2D" groups=["Mob"]]
 collision_layer = 2
 collision_mask = 18
 script = ExtResource("1_hovwj")
