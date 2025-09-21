@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttributeSet" load_steps=7 format=3 uid="uid://cif0w8nqjr28r"]
+
+[ext_resource type="Script" uid="uid://dlqcau2v2boqw" path="res://Scripts/AttributeSystem/Scripts/Attribute.gd" id="1_62qjb"]
+[ext_resource type="Script" uid="uid://dj657jtwpokdb" path="res://Scripts/AttributeSystem/Scripts/AttributeSet.gd" id="2_62qjb"]
+[ext_resource type="Script" uid="uid://b5o7tdvnp0ipo" path="res://Scripts/AttributeSystem/AttributeScripts/Attribute_HP.gd" id="2_wj5e5"]
+[ext_resource type="Script" uid="uid://bslds7630cpb1" path="res://Scripts/AttributeSystem/AttributeScripts/Attribute_Attack.gd" id="3_wj5e5"]
+
+[sub_resource type="Resource" id="Resource_bgvc4"]
+script = ExtResource("2_wj5e5")
+metadata/_custom_type_script = "uid://b5o7tdvnp0ipo"
+
+[sub_resource type="Resource" id="Resource_uxpgh"]
+script = ExtResource("3_wj5e5")
+metadata/_custom_type_script = "uid://bslds7630cpb1"
+
+[resource]
+script = ExtResource("2_62qjb")
+attributes = Array[ExtResource("1_62qjb")]([SubResource("Resource_bgvc4"), SubResource("Resource_uxpgh")])
+metadata/_custom_type_script = "uid://dj657jtwpokdb"

@@ -86,4 +86,3 @@ func updateValue():
 		print(i,":",EffectDic[i])
 		pass
 	pass
-

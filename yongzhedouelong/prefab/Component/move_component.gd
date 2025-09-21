@@ -30,7 +30,6 @@ func _physics_process(delta):
 			actor.velocity.x = move_toward(actor.velocity.x, 0, speed.x)
 			if enableGravity == false:
 				actor.velocity.y = move_toward(actor.velocity.y, 0, speed.y)
-	print(moveDirection)
 	actor.move_and_slide()
 	pass
 

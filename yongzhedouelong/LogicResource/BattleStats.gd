@@ -11,7 +11,6 @@ var DynamicAttrDic:Dictionary = {}
 func _ready():
 	AttrDic = BattleGlobal.initAttributeDic(AttrDic,BattleGlobal.AttType.all)
 	DynamicAttrDic = BattleGlobal.initDynamicAttrDic(DynamicAttrDic)
-	print("StateAttrDic",AttrDic.size())
 	initBasicAttr()
 	initEquipAttribute()
 	pass # Replace with function body.

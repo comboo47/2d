@@ -24,4 +24,3 @@ func _on_body_entered(body):
 func hurSomeBody(body:Node):
 	if body.has_method("_beHurt"):
 		body._beHurt(damage)
-

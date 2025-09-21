@@ -16,5 +16,3 @@ extends Resource
 @export var upDefencePoint:float = 1
 @export var upMoveSpeed:float = 0
 @export var upAttackTime:float = 0
-
-

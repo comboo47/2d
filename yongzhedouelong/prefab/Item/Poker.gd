@@ -25,13 +25,13 @@ func _physics_process(delta):
 	
 	pass
 func setCardDisplay(number,flower):
-	number = clamp(number,1,13)
-	flower = clamp(flower,0,3)
+	number = int(clamp(number,1,13))
+	flower = int(clamp(flower,0,3))
 	var path = "res://art/SpriteFrams/UI/card_"
 	var file_name = "A_0"
 	var file_end = ".tres"
-		
-	file_name = str(number)+"_"+str(flower) 
+	
+	file_name = str(int(number))+"_"+str(int(flower)) 
 	$Sprite2D.texture = ResourceLoader.load(path+file_name+file_end)
 	if number >1 and number <= 5:
 		$Sprite2D.modulate = Color.WHITE
@@ -57,4 +57,3 @@ func _on_end_timer_timeout():
 	picker.addPoker(number,flower)
 	$".".queue_free()
 	pass # Replace with function body.
-

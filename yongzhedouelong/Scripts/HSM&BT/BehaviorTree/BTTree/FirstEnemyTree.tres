@@ -1,7 +1,7 @@
 [gd_resource type="BehaviorTree" load_steps=12 format=3 uid="uid://74vcupsxdkg3"]
 
-[ext_resource type="Script" path="res://ai/tasks/Get_First_In_Group.gd" id="1_qkjx6"]
-[ext_resource type="Script" path="res://ai/tasks/Pursure_Target.gd" id="2_36u13"]
+[ext_resource type="Script" uid="uid://d36e00xc5w8mr" path="res://ai/tasks/Get_First_In_Group.gd" id="1_qkjx6"]
+[ext_resource type="Script" uid="uid://dn4htuas2txr7" path="res://ai/tasks/Pursure_Target.gd" id="2_36u13"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_7ketx"]
 
@@ -16,7 +16,6 @@ animation_name = &"default"
 [sub_resource type="BTAction" id="BTAction_5spko"]
 script = ExtResource("1_qkjx6")
 group = &"Player"
-output_var = &"target"
 
 [sub_resource type="BBNode" id="BBNode_844w7"]
 saved_value = NodePath("MoveComponent")
@@ -24,8 +23,6 @@ resource_name = "MoveComponent"
 
 [sub_resource type="BTAction" id="BTAction_68hop"]
 script = ExtResource("2_36u13")
-target_var = &"target"
-speed_var = &"speed"
 approach_distance = 32.0
 moveComponent = SubResource("BBNode_844w7")
 
