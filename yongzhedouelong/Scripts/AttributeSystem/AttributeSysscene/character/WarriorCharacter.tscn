@@ -1,0 +1,41 @@
+[gd_scene load_steps=12 format=3 uid="uid://bup5jb3rxfb6i"]
+
+[ext_resource type="PackedScene" uid="uid://27cpldo1juhl" path="res://Scripts/AttributeSystem/AttributeSysscene/character/PlayerCharacter.tscn" id="1_dyv6a"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/AttributeSystem/AttributeSysscript/Attribute.gd" id="2_u866g"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/AttributeSystem/AttributeSysresource/attribute/HealthAttribute.gd" id="3_ohuwl"]
+[ext_resource type="Resource" uid="uid://bf7sgfupxu7rq" path="res://Scripts/AttributeSystem/AttributeSysresource/attribute/AttackAttribute.tres" id="3_s2w1m"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="3_sna6v"]
+[ext_resource type="Script" uid="uid://cvro1y5xgfqo" path="res://Scripts/AttributeSystem/AttributeSysresource/attribute/AttackAttribute.gd" id="5_ohuwl"]
+
+[sub_resource type="Resource" id="Resource_s2w1m"]
+script = ExtResource("2_u866g")
+attribute_name = "max_health"
+base_value = 100.0
+metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+
+[sub_resource type="Resource" id="Resource_7fbxr"]
+script = ExtResource("3_ohuwl")
+attribute_name = "health"
+base_value = 100.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
+
+[sub_resource type="Resource" id="Resource_otqsc"]
+script = ExtResource("2_u866g")
+attribute_name = "strength"
+base_value = 1.0
+metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+
+[sub_resource type="Resource" id="Resource_ckvib"]
+script = ExtResource("5_ohuwl")
+metadata/_custom_type_script = "uid://cvro1y5xgfqo"
+
+[sub_resource type="Resource" id="Resource_oftqe"]
+script = ExtResource("3_sna6v")
+attributes = Array[ExtResource("2_u866g")]([SubResource("Resource_s2w1m"), SubResource("Resource_7fbxr"), ExtResource("3_s2w1m"), SubResource("Resource_otqsc"), SubResource("Resource_ckvib")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"
+
+[node name="WarriorCharacter" instance=ExtResource("1_dyv6a")]
+character_name = "战士"
+
+[node name="AttributeComponent" parent="." index="2"]
+attribute_set = SubResource("Resource_oftqe")

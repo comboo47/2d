@@ -1,7 +1,5 @@
-res://Sceen/Main.tscn
-res://Scripts/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres
+res://prefab/Enemy/First_Enemy.tscn
 res://Scripts/HSM&BT/BehaviorTree/BTTree/SecondEnemyTree.tres
-res://prefab/Item/card.tscn
-res://prefab/Item/Poker.gd
-res://LogicResource/BattleStats.gd
-res://prefab/Component/move_component.gd
+res://Scripts/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres
+res://prefab/Enemy/Second_Enemy.tscn
+res://prefab/Enemy/base_enemy.tscn

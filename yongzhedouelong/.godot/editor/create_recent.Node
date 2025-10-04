@@ -1,3 +1,4 @@
+AttributeComponent
 TileMapLayer
 RigidBody2D
 AnimationPlayer
@@ -5,11 +6,9 @@ BTPlayer
 BTState
 GPUParticles2D
 Camera2D
-BattleStats
 ShaderGlobalsOverride
 MoveComponent
 BodyArea
 AnimatedSprite2D
 CharacterBody2D
 LimboState
-Move_Input_Component

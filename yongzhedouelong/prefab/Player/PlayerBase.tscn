@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8f778661m1vg"]
+[gd_scene load_steps=6 format=3 uid="uid://b8f778661m1vg"]
 
-[ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="2_c6wge"]
+[ext_resource type="Script" uid="uid://dm2qp1uq5grj8" path="res://Scripts/Interface/BodyArea.gd" id="2_c6wge"]
 [ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/Item/interactionShow.tscn" id="3_1smxn"]
 [ext_resource type="PackedScene" uid="uid://b42tv1nbh4cv8" path="res://prefab/Weapon/WeaponEnergeBar.tscn" id="4_dtvgp"]
 [ext_resource type="PackedScene" uid="uid://bfmofvyqtmgc" path="res://prefab/Component/move_component.tscn" id="5_3dlrk"]
-[ext_resource type="Script" path="res://LogicResource/BattleStats.gd" id="5_akdn8"]
-[ext_resource type="Resource" uid="uid://bbx5bnxd8alvd" path="res://LogicResource/Player/PlayerStats.tres" id="5_o2165"]
 [ext_resource type="PackedScene" uid="uid://dc6annyq1vx6k" path="res://prefab/Component/Weapon_Component.tscn" id="7_qi2av"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
@@ -25,10 +23,6 @@ movementComponent = NodePath("../MoveComponent")
 
 [node name="EnergeBar" parent="." instance=ExtResource("4_dtvgp")]
 process_priority = 2
-
-[node name="BattleStats" type="Node" parent="."]
-script = ExtResource("5_akdn8")
-Stats = ExtResource("5_o2165")
 
 [node name="MoveComponent" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("5_3dlrk")]
 enableGravity = true

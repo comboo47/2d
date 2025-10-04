@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1qb535sjpuas"]
+[gd_scene load_steps=6 format=3 uid="uid://b1qb535sjpuas"]
 
-[ext_resource type="Script" path="res://prefab/Component/move_component.gd" id="1_f7wk3"]
-[ext_resource type="Script" path="res://prefab/Enemy/base_enemy.gd" id="1_hovwj"]
-[ext_resource type="Script" path="res://Scripts/Interface/BodyArea.gd" id="3_oxvlv"]
+[ext_resource type="Script" uid="uid://bpy1ncrgbepc2" path="res://prefab/Component/move_component.gd" id="1_f7wk3"]
+[ext_resource type="Script" uid="uid://c0oyoy1j241q1" path="res://prefab/Enemy/base_enemy.gd" id="1_hovwj"]
+[ext_resource type="Script" uid="uid://dm2qp1uq5grj8" path="res://Scripts/Interface/BodyArea.gd" id="3_oxvlv"]
 [ext_resource type="PackedScene" uid="uid://ijdj74f81k0i" path="res://prefab/Component/hurt_display.tscn" id="4_eil4j"]
-[ext_resource type="Script" path="res://LogicResource/BattleStats.gd" id="5_sikxj"]
-[ext_resource type="Script" path="res://LogicResource/BasicStats.gd" id="6_j5hl3"]
+[ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://Scripts/AttributeSystem/AttributeSysscene/component/AttributeComponent.gd" id="5_eys0m"]
 
 [node name="BaseEnemy" type="CharacterBody2D" groups=["Mob"]]
 collision_layer = 2
@@ -25,6 +24,6 @@ movementComponent = NodePath("../MoveComponent")
 [node name="HurtDisPlay" parent="." node_paths=PackedStringArray("animSprit2D") instance=ExtResource("4_eil4j")]
 animSprit2D = NodePath("../AnimatedSprite2D")
 
-[node name="BattleStats" type="Node" parent="."]
-script = ExtResource("5_sikxj")
-Stats = ExtResource("6_j5hl3")
+[node name="AttributeComponent" type="Node" parent="."]
+script = ExtResource("5_eys0m")
+metadata/_custom_type_script = "uid://dabqovygaswi1"

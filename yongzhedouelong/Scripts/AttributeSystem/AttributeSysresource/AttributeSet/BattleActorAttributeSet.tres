@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AttributeSet" load_steps=4 format=3 uid="uid://3c38eutepyoi"]
+
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/AttributeSystem/AttributeSysscript/Attribute.gd" id="1_4bn6g"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="2_qhj17"]
+
+[sub_resource type="Resource" id="Resource_4bn6g"]
+script = ExtResource("1_4bn6g")
+attribute_name = "asdad"
+metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+
+[resource]
+script = ExtResource("2_qhj17")
+attributes = Array[ExtResource("1_4bn6g")]([SubResource("Resource_4bn6g")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"

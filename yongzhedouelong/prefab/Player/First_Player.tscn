@@ -1,13 +1,16 @@
-[gd_scene load_steps=26 format=3 uid="uid://bsf4te0cyp1e2"]
+[gd_scene load_steps=31 format=3 uid="uid://bsf4te0cyp1e2"]
 
 [ext_resource type="PackedScene" uid="uid://b8f778661m1vg" path="res://prefab/Player/PlayerBase.tscn" id="1_8qvpg"]
-[ext_resource type="Script" path="res://prefab/Player/Player.gd" id="2_ett2r"]
+[ext_resource type="Script" uid="uid://68mglym1swmy" path="res://prefab/Player/Player.gd" id="2_ett2r"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_w6crh"]
-[ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/IdleState.gd" id="4_na5rg"]
-[ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/MoveState.gd" id="5_tief1"]
-[ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/JumpState.gd" id="6_q6pqf"]
-[ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/DieState.gd" id="7_6mmwe"]
-[ext_resource type="Script" path="res://Scripts/HSM&BT/Stats/HurtState.gd" id="7_i15xt"]
+[ext_resource type="Script" uid="uid://dwfeni3ypyhp8" path="res://Scripts/HSM&BT/Stats/IdleState.gd" id="4_na5rg"]
+[ext_resource type="Script" uid="uid://bky115gysd03k" path="res://Scripts/HSM&BT/Stats/MoveState.gd" id="5_tief1"]
+[ext_resource type="Script" uid="uid://dfrmsgblcs3ec" path="res://Scripts/HSM&BT/Stats/JumpState.gd" id="6_q6pqf"]
+[ext_resource type="Script" uid="uid://b0qoa2eih2v3t" path="res://Scripts/HSM&BT/Stats/DieState.gd" id="7_6mmwe"]
+[ext_resource type="Script" uid="uid://djdll7mujlagb" path="res://Scripts/HSM&BT/Stats/HurtState.gd" id="7_i15xt"]
+[ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://Scripts/AttributeSystem/AttributeSysscene/component/AttributeComponent.gd" id="9_drofh"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/AttributeSystem/AttributeSysscript/Attribute.gd" id="10_pobo7"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="12_tju1s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nhojw"]
 radius = 3.33333
@@ -171,6 +174,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_n8ehl"]
+script = ExtResource("10_pobo7")
+attribute_name = "asdasda"
+base_value = 1.0
+metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+
+[sub_resource type="Resource" id="Resource_c307a"]
+script = ExtResource("12_tju1s")
+attributes = Array[ExtResource("10_pobo7")]([SubResource("Resource_n8ehl")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"
+
 [node name="CharacterBody2D" instance=ExtResource("1_8qvpg")]
 script = ExtResource("2_ett2r")
 
@@ -223,3 +237,8 @@ anim = NodePath("../../AnimatedSprite2D")
 script = ExtResource("7_6mmwe")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"die"
+
+[node name="AttributeComponent" type="Node" parent="." index="8"]
+script = ExtResource("9_drofh")
+attribute_set = SubResource("Resource_c307a")
+metadata/_custom_type_script = "uid://dabqovygaswi1"

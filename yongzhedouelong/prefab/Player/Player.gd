@@ -9,7 +9,7 @@ signal pickUpPoker(number,flower)
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var mousePosition:Vector2
-@onready var stats:BattleStats = $BattleStats as BattleStats
+
 
 @onready var hsm: LimboHSM = $LimboHSM
 @onready var idle_state: LimboState = $LimboHSM/IdleState
@@ -21,7 +21,7 @@ var mousePosition:Vector2
 var screen_size
 # Called when the node enters the scene tree for the first time.
 func _enter_tree():
-	self.SetStats(stats)
+	pass
 func _ready():
 	screen_size = get_viewport_rect().size
 	#初始化状态机
@@ -65,11 +65,11 @@ func _process_jump_input() -> void:
 func _process_die_input() -> void:
 	if hsm.get_active_state() == die_state:
 		return
-	if stats.curHp >0:
+	#if stats.curHp >0:
 		return
 	hsm.dispatch("die")
 func _test_input()-> void:
-	stats.printAttr()
+	#stats.printAttr()
 	hsm.dispatch("hurt")
 	if $WeaponComponent.currentWeapon <2:
 		$WeaponComponent.setCurrentWeapon($WeaponComponent.currentWeapon+1)

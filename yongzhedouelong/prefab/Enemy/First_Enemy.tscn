@@ -1,36 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://bn5q4clyianrt"]
+[gd_scene load_steps=12 format=3 uid="uid://bn5q4clyianrt"]
 
 [ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_bw8m7"]
 [ext_resource type="SpriteFrames" uid="uid://dr81vsrfvolcl" path="res://GameResource/FirestEnemy.tres" id="2_m8uk3"]
-[ext_resource type="Resource" uid="uid://u4k1b5ej4ush" path="res://LogicResource/EnemyStats_Remote.tres" id="3_csycv"]
-[ext_resource type="Script" path="res://prefab/BattleBase/DynEffect.gd" id="3_n14j0"]
 [ext_resource type="BehaviorTree" uid="uid://74vcupsxdkg3" path="res://Scripts/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres" id="4_jh42y"]
-[ext_resource type="Script" path="res://prefab/Item/EquipItem/EquipBase.gd" id="4_r18mc"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/AttributeSystem/AttributeSysscript/Attribute.gd" id="4_w1fpc"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="5_lb1fl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_febtf"]
 size = Vector2(11, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8julx"]
-size = Vector2(15, 16)
-
-[sub_resource type="Resource" id="Resource_ncc76"]
-script = ExtResource("3_n14j0")
-EffectNum = 3
-Effect_0 = 13
-Value_0 = 0
-Effect_1 = 37
-Value_1 = 15
-Effect_2 = 0
-Value_2 = 0
-
-[sub_resource type="Resource" id="Resource_monwq"]
-script = ExtResource("4_r18mc")
-name = ""
-description = ""
-"可否叠加" = false
-"可否出售" = false
-spell_elements = 0
-DynaEffect = SubResource("Resource_ncc76")
+size = Vector2(15.5, 16)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_cj1l2"]
 
@@ -53,8 +33,12 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6bunl"]
 _data = {
-"default": SubResource("Animation_ub0cx")
+&"default": SubResource("Animation_ub0cx")
 }
+
+[sub_resource type="Resource" id="Resource_86ktf"]
+script = ExtResource("5_lb1fl")
+metadata/_custom_type_script = "uid://cdcushggciuu1"
 
 [node name="BaseEnemy" instance=ExtResource("1_bw8m7")]
 
@@ -70,15 +54,14 @@ sprite_frames = ExtResource("2_m8uk3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_8julx")
 
-[node name="BattleStats" parent="." index="5"]
-Stats = ExtResource("3_csycv")
-equipMent = Array[ExtResource("4_r18mc")]([SubResource("Resource_monwq")])
-
-[node name="BTPlayer" type="BTPlayer" parent="." index="6"]
+[node name="BTPlayer" type="BTPlayer" parent="." index="5"]
 behavior_tree = ExtResource("4_jh42y")
 blackboard_plan = SubResource("BlackboardPlan_cj1l2")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
 libraries = {
-"": SubResource("AnimationLibrary_6bunl")
+&"": SubResource("AnimationLibrary_6bunl")
 }
+
+[node name="AttributeComponent" parent="." index="7"]
+attribute_set = SubResource("Resource_86ktf")

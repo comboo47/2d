@@ -8,7 +8,7 @@ var isDead:bool = false
 @onready var animated_sprite_2d:AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var body_area:BodyArea = $BodyArea as BodyArea
 @onready var hurt_display_component:HurtDisplayComponent = $HurtDisPlay as HurtDisplayComponent
-@onready var stats:BattleStats = $BattleStats as BattleStats
+@onready var atc:AttributeComponent = $AttributeComponent as AttributeComponent
 
 
 func _ready():
@@ -25,15 +25,15 @@ func _process(delta):
 	elif self.velocity.x>0:
 		animated_sprite_2d.flip_h = false
 func hitDisplay():
-	animated_sprite_2d.modulate.a = (float(stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]])/float(stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curMaxHp]]))
+	
 	hurt_display_component.hitDisplay()
 
 func _beHurt(dmg):
-	var hp = stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]]
-	stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]] -= 1
-	if(stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]] <= 0): 
-		if !isDead:
-			setDead()
+	#var hp = stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]]
+	#stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]] -= 1
+	#if(stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]] <= 0): 
+		#if !isDead:
+			#setDead()
 	hitDisplay()
 func setDead():
 	isDead = true
