@@ -22,7 +22,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7ptw"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl7wr"]
 size = Vector2(15.5, 16)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_r6r1g"]
@@ -85,7 +85,7 @@ speed = Vector2(32, 12)
 sprite_frames = SubResource("SpriteFrames_fndw4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
-shape = SubResource("RectangleShape2D_k7ptw")
+shape = SubResource("RectangleShape2D_pl7wr")
 
 [node name="BTPlayer" type="BTPlayer" parent="." index="5"]
 behavior_tree = ExtResource("4_pyd5f")

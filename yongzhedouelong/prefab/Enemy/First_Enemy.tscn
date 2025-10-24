@@ -46,10 +46,11 @@ metadata/_custom_type_script = "uid://cdcushggciuu1"
 shape = SubResource("RectangleShape2D_febtf")
 
 [node name="MoveComponent" parent="." index="1"]
-speed = Vector2(50, -30)
+speed = Vector2(50, 30)
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = ExtResource("2_m8uk3")
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_8julx")

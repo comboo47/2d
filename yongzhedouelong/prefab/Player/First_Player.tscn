@@ -210,6 +210,9 @@ offset_top = 7.92
 offset_right = 0.0
 offset_bottom = 8.08
 
+[node name="MoveComponent" parent="." index="6"]
+speed = Vector2(100, 30)
+
 [node name="LimboHSM" type="LimboHSM" parent="." index="7"]
 
 [node name="IdleState" type="LimboState" parent="LimboHSM" index="0" node_paths=PackedStringArray("animator")]

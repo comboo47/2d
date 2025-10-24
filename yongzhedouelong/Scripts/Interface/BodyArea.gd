@@ -9,7 +9,7 @@ var velocityY = float(100)
 var enteredArea
 var slide = false
 var direction:Vector2
-var slideTime = float(0.25)
+var slideTime = float(0.3)
 var slideTimeIndex = float(0)
 
 # Called when the node enters the scene tree for the first time.
@@ -36,7 +36,7 @@ func _process(delta):
 							var dis = $".".global_position.distance_to(a.global_position)
 							dis = 16/dis
 							direction = ($".".global_position - a.global_position).normalized() * dis
-							movementComponent.hitBackSmall(direction,Vector2(40,120),0.3)
+							movementComponent.hitBackSmall(direction,Vector2(40,120),slideTime)
 				if actorAreaType == 1:
 					print(actorAreaType,",",areaType)
 					match areaType:
@@ -46,7 +46,7 @@ func _process(delta):
 							var dis = $".".global_position.distance_to(a.global_position)
 							dis = 16/dis
 							direction = ($".".global_position - a.global_position).normalized() * dis
-							movementComponent.hitBackSmall(direction,Vector2(15,15),0.15)
+							movementComponent.hitBackSmall(direction,Vector2(15,15),slideTime/2)
 							pass						
 
 func getActorAreaType()->int:
@@ -62,11 +62,11 @@ func _on_area_entered(area):
 				0:
 					pass
 				1:#对方是怪物
-	
+					
 					var dis = $".".global_position.distance_to(area.global_position)
 					dis = 16/dis
 					direction = ($".".global_position - area.global_position).normalized() * dis
-					movementComponent.hitBackSmall(direction,Vector2(40,120),0.3)
+					movementComponent.hitBackSmall(direction,Vector2(40,120),slideTime)
 
 					slide = true
 		if actorAreaType == 1:
@@ -79,7 +79,7 @@ func _on_area_entered(area):
 					var dis = $".".global_position.distance_to(area.global_position)
 					dis = 16/dis
 					direction = ($".".global_position - area.global_position).normalized() * dis
-					movementComponent.hitBackSmall(direction,Vector2(15,15),0.15)
+					movementComponent.hitBackSmall(direction,Vector2(15,15),slideTime/2)
 					pass	
 		pass # Replace with function body.
 
