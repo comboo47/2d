@@ -24,11 +24,9 @@ signal dot_triggered(buff: AttributeBuffDOT)
 var cycle_time: float = 0.0
 var charges: int = 0
 
-func _init(_operation := AttributeModifier.OperationType.ADD, _value: float = 0.0, _period: float = 1.0, _max_charges: int = 0, _name := ""):
-	attribute_modifier = AttributeModifier.new(_operation, _value)
-	operation = _operation
-	value = _value
-	buff_name = _name
+func _init(_source:BattleActor,_target:BattleActor, _period: float = 1.0, _max_charges: int = 0):
+	BuffSource = _source
+	BuffTarget = _target
 	policy = DurationPolicy.Period
 	period = _period
 	max_charges = _max_charges
@@ -62,6 +60,9 @@ func _try_to_trigger_dot(delta: float):
 
 
 func apply_to_attribute():
-	if is_instance_valid(applied_attribute):
-		applied_attribute.apply_buff_operation(self)
-		dot_triggered.emit(self)
+	for effect in BuffEffects:
+		effect.EffectGo()
+	dot_triggered.emit(self)
+	#if is_instance_valid(applied_attribute):
+		#applied_attribute.apply_buff_operation(self)
+		#

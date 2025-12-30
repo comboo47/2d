@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name BattleActor
 
-var attribute:AttributeComponent
+var attribute
 
 func SetAttributes(atc:AttributeComponent) -> void:
 	attribute = atc

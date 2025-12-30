@@ -1,7 +1,0 @@
-res://prefab/Enemy/First_Enemy.tscn
-res://Scripts/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres
-res://Scripts/HSM&BT/BehaviorTree/BTTree/SecondEnemyTree.tres
-res://prefab/Enemy/Second_Enemy.tscn
-res://prefab/Player/First_Player.tscn
-res://prefab/Component/move_component.tscn
-res://Scripts/Interface/BodyArea.gd

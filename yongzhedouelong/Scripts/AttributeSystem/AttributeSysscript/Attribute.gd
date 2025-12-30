@@ -6,11 +6,12 @@ signal buff_added(attribute: Attribute, buff: AttributeBuff)
 signal buff_removed(attribute: Attribute, buff: AttributeBuff)
 
 ## 属性名称
-@export var attribute_name : String
-	
+@export var attribute_name : AttributeConfig.AttributeName
+
 	
 ### 属性的原始数值（保持不变）
 @export var base_value := 0.0: set = setter_base_value
+
 
 ## 仅执行计算公式后的数值
 var computed_value := 0.0: set = setter_computed_value
@@ -75,7 +76,7 @@ func get_value() -> float:
 	for _buff in buffs:
 		if _buff.policy != AttributeBuff.DurationPolicy.Period:
 			attribute_value = _buff.operate(attribute_value)
-	attribute_value = post_attribute_value_changed(attribute_value)
+			attribute_value = post_attribute_value_changed(attribute_value)
 	return attribute_value
 
 
@@ -85,20 +86,20 @@ func set_value(_value: float):
 
 
 func add(_value: float):
-	var operated_value = AttributeModifier.add(_value).operate(computed_value)
+	var operated_value = AttributeModifier.add(_value).operate(computed_value) 
 	computed_value = _compute_value(operated_value)
-
-
+#
+#
 func sub(_value: float):
 	var operated_value = AttributeModifier.subtract(_value).operate(computed_value)
 	computed_value = _compute_value(operated_value)
-
-
+#
+#
 func mult(_value: float):
 	var operated_value = AttributeModifier.multiply(_value).operate(computed_value)
 	computed_value = _compute_value(operated_value)
-
-
+#
+#
 func div(_value: float):
 	var operated_value = AttributeModifier.divide(_value).operate(computed_value)
 	computed_value = _compute_value(operated_value)
@@ -168,7 +169,7 @@ func custom_compute(operated_value: float, _compute_params: Array[Attribute]) ->
 
 ## 属性依赖列表
 ## @ return: 返回依赖属性的名称数组
-func derived_from() -> Array[String]:
+func derived_from() -> Array[int]:
 	return []
 
 
@@ -183,8 +184,9 @@ func post_attribute_value_changed(_value: float) -> float:
 func _compute_value(_operated_value: float) -> float:
 	var derived_attributs: Array[Attribute] = []
 	var derived_attribute_names = derived_from()
-	for _name in derived_attribute_names:
-		var attribute = attribute_set.find_attribute(_name)
-		derived_attributs.append(attribute)
+	if derived_attribute_names.size() > 0:
+		for _name in derived_attribute_names:
+			var attribute = attribute_set.find_attribute(_name)
+			derived_attributs.append(attribute)
 	return custom_compute(_operated_value, derived_attributs)
 #endregion

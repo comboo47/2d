@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AttributeBuff" load_steps=3 format=3 uid="uid://de33l4yym4jgh"]
+
+[ext_resource type="Script" uid="uid://dn5ncc2v8hhef" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeBuffEffect.gd" id="1_3gc4c"]
+[ext_resource type="Script" uid="uid://dkwrihpi0kobp" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeBuff.gd" id="2_0vx0e"]
+
+[resource]
+script = ExtResource("2_0vx0e")
+metadata/_custom_type_script = "uid://dkwrihpi0kobp"

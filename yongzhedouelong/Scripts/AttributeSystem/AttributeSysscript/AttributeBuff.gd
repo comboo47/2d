@@ -5,10 +5,15 @@ class_name AttributeBuff extends Resource
 @export var value := 0.0
 @export var policy := DurationPolicy.Infinite
 
+@export var BuffEffects:Array[AttributeBuffEffect]
+
 ## duration_policy == HasDuration生效
 ## 单位：秒
 @export var duration: float = 0.0
 @export var merging := DurationMerging.Restart
+
+var BuffSource:BattleActor 
+var BuffTarget:BattleActor
 
 enum DurationPolicy {
 	Infinite,		## 持久地
@@ -29,12 +34,14 @@ var applied_attribute:
 	get():
 		return applied_attribute.get_ref() if is_instance_valid(applied_attribute) else null
 
-func _init(_operation := AttributeModifier.OperationType.ADD, _value: float = 0.0, _name := ""):
-	attribute_modifier = AttributeModifier.new(_operation, _value)
-	operation = _operation
-	value = _value
-	buff_name = _name
-
+#func _init(_operation := AttributeModifier.OperationType.ADD, _value: float = 0.0, _name := ""):
+	#attribute_modifier = AttributeModifier.new(_operation, _value)
+	#operation = _operation
+	#value = _value
+	#buff_name = _name
+func _init(_source:BattleActor,_target:BattleActor):
+	BuffSource = _source
+	BuffTarget = _target
 
 func duplicate_buff() -> AttributeBuff:
 	if is_instance_valid(attribute_modifier):
@@ -55,20 +62,20 @@ func run_process(delta: float):
 			is_pending_remove = true
 
 
-static func add(_value: float = 0.0, _name := "") -> AttributeBuff:
-	return AttributeBuff.new(AttributeModifier.OperationType.ADD, _value, _name)
-
-
-static func sub(_value: float = 0.0, _name := "") -> AttributeBuff:
-	return AttributeBuff.new(AttributeModifier.OperationType.SUB, _value, _name)
-
-
-static func mult(_value: float = 0.0, _name := "") -> AttributeBuff:
-	return AttributeBuff.new(AttributeModifier.OperationType.MULT, _value, _name)
-
-
-static func div(_value: float = 0.0, _name := "") -> AttributeBuff:
-	return AttributeBuff.new(AttributeModifier.OperationType.DIVIDE, _value, _name)
+#static func add(_value: float = 0.0, _name := "") -> AttributeBuff:
+	#return AttributeBuff.new(AttributeModifier.OperationType.ADD, _value, _name)
+#
+#
+#static func sub(_value: float = 0.0, _name := "") -> AttributeBuff:
+	#return AttributeBuff.new(AttributeModifier.OperationType.SUB, _value, _name)
+#
+#
+#static func mult(_value: float = 0.0, _name := "") -> AttributeBuff:
+	#return AttributeBuff.new(AttributeModifier.OperationType.MULT, _value, _name)
+#
+#
+#static func div(_value: float = 0.0, _name := "") -> AttributeBuff:
+	#return AttributeBuff.new(AttributeModifier.OperationType.DIVIDE, _value, _name)
 
 
 func operate(base_value: float) -> float:

@@ -6,8 +6,6 @@ var holdFireTime = float(0)
 var underControle = true
 signal pickUpPoker(number,flower)
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var mousePosition:Vector2
 
 

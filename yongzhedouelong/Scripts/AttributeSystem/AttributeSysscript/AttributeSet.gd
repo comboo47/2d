@@ -3,7 +3,7 @@ class_name AttributeSet extends Resource
 @export var attributes: Array[Attribute]: set = setter_attributes
 
 ## 运行时数据
-var attributes_runtime_dict: Dictionary[String, Attribute] = {}
+var attributes_runtime_dict: Dictionary[AttributeConfig.AttributeName, Attribute] = {}
 
 ## 记录依赖属性关联下的其它属性
 ## 当该依赖属性发生变化时，通知关联属性更新数值
@@ -14,7 +14,7 @@ var derived_attributes_dict = {}
 #region setter
 func setter_attributes(v):
 	attributes = v
-
+	
 	_create_runtime_attributes()
 	_create_derived_attributes()
 	## 运行时数据和依赖关系建立好之后，初始化属性数值
@@ -30,7 +30,7 @@ func run_process(delta: float):
 		runtime_attribute.run_process(delta)
 
 
-func find_attribute(attribute_name: String) -> Attribute:
+func find_attribute(attribute_name: AttributeConfig.AttributeName) -> Attribute:
 	if attributes_runtime_dict.has(attribute_name):
 		return attributes_runtime_dict[attribute_name]
 	push_error("cann't find attribute | attribute_name: %s" % attribute_name)

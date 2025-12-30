@@ -11,39 +11,41 @@ enum OperationType {
 
 var type: OperationType
 var value: float
+var expressionValue:String
 
 
-func _init(_type: OperationType = OperationType.ADD, _value: float = 0.0):
+func _init(_type:OperationType,_value:float):
 	type = _type
 	value = _value
+	
 
 
 static func add(_base_value: float) -> AttributeModifier:
 	return create(OperationType.ADD, _base_value)
-
-
+#
+#
 static func subtract(_base_value: float) -> AttributeModifier:
 	return create(OperationType.SUB, _base_value)
-
-
+#
+#
 static func multiply(_base_value: float) -> AttributeModifier:
 	return create(OperationType.MULT, _base_value)
-
-
+#
+#
 static func divide(_base_value: float) -> AttributeModifier:
 	return create(OperationType.DIVIDE, _base_value)
-
-
+#
+#
 static func percentage(_base_value: float) -> AttributeModifier:
 	return create(OperationType.PERCENTAGE, _base_value)
-
-
+#
+#
 static func forcefully_set_value(_base_value: float) -> AttributeModifier:
-	return create(OperationType.SET, _base_value)
-
-
-static func create(_type: OperationType, _base_value: float) -> AttributeModifier:
-	return AttributeModifier.new(_type, _base_value)
+	return create(OperationType.SET,_base_value)
+#
+#
+static func create(_type:OperationType,_base_value: float) -> AttributeModifier: 
+	return AttributeModifier.new(_type,_base_value)
 
 
 func operate(_base_value: float) -> float:

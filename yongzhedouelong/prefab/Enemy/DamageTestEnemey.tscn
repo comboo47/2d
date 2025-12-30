@@ -1,0 +1,48 @@
+[gd_scene load_steps=11 format=3 uid="uid://bt2jh8isph5xr"]
+
+[ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_kdclt"]
+[ext_resource type="SpriteFrames" uid="uid://dr81vsrfvolcl" path="res://GameResource/FirestEnemy.tres" id="2_64lt1"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/AttributeSystem/AttributeSysscript/Attribute.gd" id="2_nsq1p"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/AttributeSystem/AttributeSysresource/attribute/HealthAttribute.gd" id="3_n1618"]
+[ext_resource type="PackedScene" uid="uid://b0d25lwjqxghp" path="res://UI/Test/AttributeTest.tscn" id="4_8hkog"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="4_psbiw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdclt"]
+
+[sub_resource type="Resource" id="Resource_2ic4w"]
+script = ExtResource("3_n1618")
+base_value = 20.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
+
+[sub_resource type="Resource" id="Resource_nsq1p"]
+script = ExtResource("2_nsq1p")
+attribute_name = 2
+base_value = 15.0
+metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+
+[sub_resource type="Resource" id="Resource_auxgr"]
+resource_local_to_scene = true
+script = ExtResource("4_psbiw")
+attributes = Array[ExtResource("2_nsq1p")]([SubResource("Resource_2ic4w"), SubResource("Resource_nsq1p")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"
+
+[node name="DamageTestEnemy" instance=ExtResource("1_kdclt")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
+shape = SubResource("RectangleShape2D_kdclt")
+
+[node name="HurtDisPlay" parent="." index="3" node_paths=PackedStringArray("animSprit2D")]
+animSprit2D = NodePath("../AnimatedSprite2D")
+
+[node name="AttributeComponent" parent="." index="4"]
+attribute_set = SubResource("Resource_auxgr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5"]
+sprite_frames = ExtResource("2_64lt1")
+
+[node name="AttributeTest" parent="." index="6" node_paths=PackedStringArray("attributeConpunent") instance=ExtResource("4_8hkog")]
+offset_left = 1.0
+offset_top = -40.0
+offset_right = 1.0
+offset_bottom = -40.0
+attributeConpunent = NodePath("../AttributeComponent")

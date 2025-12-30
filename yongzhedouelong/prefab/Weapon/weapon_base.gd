@@ -3,7 +3,7 @@ extends Node2D
 class_name weapon_base
 
 @export var bullet: PackedScene
-@export var state:BattleStats
+#@export var state:BattleStats
 @export var ownerCharacter:CharacterBody2D
 signal fired_bullet(bullet,_position,_rotation,direction,type)
 

@@ -19,5 +19,5 @@ func get_attribute_set() -> AttributeSet:
 	return attribute_component.attribute_set
 
 
-func get_attribute(_attribute_name: String) -> Attribute:
+func get_attribute(_attribute_name: AttributeConfig.AttributeName) -> Attribute:
 	return attribute_component.find_attribute(_attribute_name)

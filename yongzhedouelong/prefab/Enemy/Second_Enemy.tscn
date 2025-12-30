@@ -1,26 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxrwvj5jceqj3"]
+[gd_scene load_steps=7 format=3 uid="uid://cxrwvj5jceqj3"]
 
 [ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_0m5s5"]
-[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_yfr71"]
 [ext_resource type="BehaviorTree" uid="uid://ciuea6cn0ucil" path="res://Scripts/HSM&BT/BehaviorTree/BTTree/SecondEnemyTree.tres" id="4_pyd5f"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oap6f"]
-size = Vector2(11, 12)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nqcc1"]
-atlas = ExtResource("2_yfr71")
-region = Rect2(442, 136, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_fndw4"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nqcc1")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pl7wr"]
 size = Vector2(15.5, 16)
@@ -75,23 +56,17 @@ _data = {
 
 [node name="BaseEnemy" instance=ExtResource("1_0m5s5")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
-shape = SubResource("RectangleShape2D_oap6f")
-
 [node name="MoveComponent" parent="." index="1"]
 speed = Vector2(32, 12)
-
-[node name="AnimatedSprite2D" parent="." index="2"]
-sprite_frames = SubResource("SpriteFrames_fndw4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
 shape = SubResource("RectangleShape2D_pl7wr")
 
-[node name="BTPlayer" type="BTPlayer" parent="." index="5"]
+[node name="BTPlayer" type="BTPlayer" parent="." index="4"]
 behavior_tree = ExtResource("4_pyd5f")
 blackboard_plan = SubResource("BlackboardPlan_r6r1g")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 libraries = {
 &"": SubResource("AnimationLibrary_6bunl")
 }

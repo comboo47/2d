@@ -1,3 +1,5 @@
+AttributeBuff
+AttributeModifier
 AttributeSet
 BehaviorTree
 DynEffect

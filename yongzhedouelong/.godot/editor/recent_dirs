@@ -1,8 +1,11 @@
+res://Scripts/AttributeSystem/AttributeSysscript/BuffEffect
+res://Manager
+res://prefab/Enemy
+res://Scripts/AttributeSystem/AttributeSysscript
 res://Scripts/AttributeSystem/AttributeSysresource/AttributeSet
 res://Scripts/HSM&BT/BehaviorTree/BTTree
 res://LogicResource
 res://art/1bitpack_kenney/Tilesheet
-res://prefab/Enemy
 res://prefab/BattleBase
 res://prefab/BattleBase/Talent
 res://prefab/Component
@@ -12,10 +15,8 @@ res://LogicResource/Player
 res://prefab/Player
 res://GameResource
 res://Scripts/Interface
-res://Manager
 res://prefab
 res://Sceen
 res://Scripts
 res://art/SpriteFrams/UI
 res://
-res://art/Weapon

@@ -1,16 +1,19 @@
-[gd_scene load_steps=31 format=3 uid="uid://bsf4te0cyp1e2"]
+[gd_scene load_steps=44 format=3 uid="uid://bsf4te0cyp1e2"]
 
 [ext_resource type="PackedScene" uid="uid://b8f778661m1vg" path="res://prefab/Player/PlayerBase.tscn" id="1_8qvpg"]
 [ext_resource type="Script" uid="uid://68mglym1swmy" path="res://prefab/Player/Player.gd" id="2_ett2r"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_w6crh"]
+[ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://art/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="4_drofh"]
 [ext_resource type="Script" uid="uid://dwfeni3ypyhp8" path="res://Scripts/HSM&BT/Stats/IdleState.gd" id="4_na5rg"]
 [ext_resource type="Script" uid="uid://bky115gysd03k" path="res://Scripts/HSM&BT/Stats/MoveState.gd" id="5_tief1"]
 [ext_resource type="Script" uid="uid://dfrmsgblcs3ec" path="res://Scripts/HSM&BT/Stats/JumpState.gd" id="6_q6pqf"]
 [ext_resource type="Script" uid="uid://b0qoa2eih2v3t" path="res://Scripts/HSM&BT/Stats/DieState.gd" id="7_6mmwe"]
 [ext_resource type="Script" uid="uid://djdll7mujlagb" path="res://Scripts/HSM&BT/Stats/HurtState.gd" id="7_i15xt"]
+[ext_resource type="PackedScene" uid="uid://c2grvpueyi5dg" path="res://art/Fx/fx_jump_particle.tscn" id="7_pobo7"]
 [ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://Scripts/AttributeSystem/AttributeSysscene/component/AttributeComponent.gd" id="9_drofh"]
-[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/AttributeSystem/AttributeSysscript/Attribute.gd" id="10_pobo7"]
-[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="12_tju1s"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/AttributeSystem/AttributeSysscript/Attribute.gd" id="12_kydf8"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/AttributeSystem/AttributeSysresource/attribute/HealthAttribute.gd" id="13_tju1s"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="14_sflj1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nhojw"]
 radius = 3.33333
@@ -174,16 +177,86 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_n8ehl"]
-script = ExtResource("10_pobo7")
-attribute_name = "asdasda"
-base_value = 1.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_pobo7"]
+atlas = ExtResource("4_drofh")
+region = Rect2(408, 425, 16, 16)
+
+[sub_resource type="Curve" id="Curve_kydf8"]
+_data = [Vector2(0.004264392, 1), 0.0, 0.0, 0, 0, Vector2(0.98933893, 0.008828282), 0.16556135, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ju55n"]
+curve = SubResource("Curve_kydf8")
+
+[sub_resource type="Curve" id="Curve_tju1s"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0.017057568, 90.08828), 0.0, 230.271, 0, 0, Vector2(0.58635396, 85.914925), 0.0, 0.0, 0, 0, Vector2(0.9957357, 4.5345078), 45.615112, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qsmwy"]
+curve = SubResource("Curve_tju1s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sflj1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 0.3, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 25.0
+initial_velocity_max = 30.0
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = 359.99997
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 125, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 0.99999774
+damping_curve = SubResource("CurveTexture_qsmwy")
+scale_min = 0.29999998
+scale_max = 0.29999998
+color = Color(0.8474744, 0.84747446, 0.84747446, 1)
+alpha_curve = SubResource("CurveTexture_ju55n")
+
+[sub_resource type="Resource" id="Resource_qhj17"]
+script = ExtResource("13_tju1s")
+base_value = 12.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
+
+[sub_resource type="Resource" id="Resource_kydf8"]
+script = ExtResource("12_kydf8")
+attribute_name = 2
+base_value = 15.0
 metadata/_custom_type_script = "uid://bw4kf70rvxlww"
 
 [sub_resource type="Resource" id="Resource_c307a"]
-script = ExtResource("12_tju1s")
-attributes = Array[ExtResource("10_pobo7")]([SubResource("Resource_n8ehl")])
+resource_local_to_scene = true
+script = ExtResource("14_sflj1")
+attributes = Array[ExtResource("12_kydf8")]([SubResource("Resource_qhj17"), SubResource("Resource_kydf8")])
 metadata/_custom_type_script = "uid://cdcushggciuu1"
+
+[sub_resource type="Animation" id="Animation_drofh"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_n8ehl"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"walk"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pobo7"]
+_data = {
+&"RESET": SubResource("Animation_drofh"),
+&"new_animation": SubResource("Animation_n8ehl")
+}
 
 [node name="CharacterBody2D" instance=ExtResource("1_8qvpg")]
 script = ExtResource("2_ett2r")
@@ -203,6 +276,14 @@ shape = SubResource("RectangleShape2D_4q6oy")
 sprite_frames = SubResource("SpriteFrames_1g2qo")
 animation = &"die"
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" index="0"]
+position = Vector2(0, 9)
+emitting = false
+amount = 3
+texture = SubResource("AtlasTexture_pobo7")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_sflj1")
+
 [node name="EnergeBar" parent="." index="5"]
 z_index = 2
 offset_left = 0.0
@@ -220,17 +301,19 @@ script = ExtResource("4_na5rg")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"idle"
 
-[node name="MoveState" type="LimboState" parent="LimboHSM" index="1" node_paths=PackedStringArray("moveComponent", "animator")]
+[node name="MoveState" type="LimboState" parent="LimboHSM" index="1" node_paths=PackedStringArray("moveComponent", "animator", "fx_movedust")]
 script = ExtResource("5_tief1")
 moveComponent = NodePath("../../MoveComponent")
 animator = NodePath("../../AnimatedSprite2D")
 animation = &"walk"
+fx_movedust = NodePath("../../AnimatedSprite2D/GPUParticles2D")
 
 [node name="JumpState" type="LimboState" parent="LimboHSM" index="2" node_paths=PackedStringArray("animator", "moveComponent")]
 script = ExtResource("6_q6pqf")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"jump"
 moveComponent = NodePath("../../MoveComponent")
+fx_jump = ExtResource("7_pobo7")
 
 [node name="HurtState" type="LimboState" parent="LimboHSM" index="3" node_paths=PackedStringArray("anim")]
 script = ExtResource("7_i15xt")
@@ -245,3 +328,11 @@ animationName = &"die"
 script = ExtResource("9_drofh")
 attribute_set = SubResource("Resource_c307a")
 metadata/_custom_type_script = "uid://dabqovygaswi1"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+libraries = {
+&"": SubResource("AnimationLibrary_pobo7")
+}
+
+[connection signal="exited" from="LimboHSM/MoveState" to="LimboHSM/MoveState" method="_on_exited"]
+[connection signal="exited" from="LimboHSM/JumpState" to="LimboHSM/JumpState" method="_on_exited"]

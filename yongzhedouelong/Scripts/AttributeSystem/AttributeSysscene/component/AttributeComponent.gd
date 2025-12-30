@@ -8,13 +8,13 @@ func _physics_process(delta: float) -> void:
 
 
 #region 外部函数
-func get_attribute_value(attribute_name: String) -> float:
+func get_attribute_value(attribute_name: AttributeConfig.AttributeName) -> float:
 	if not is_instance_valid(attribute_set):
 		return 0.0
 	var attribute = attribute_set.find_attribute(attribute_name)
 	return attribute.get_value()
 
 
-func find_attribute(attribute_name: String) -> Attribute:
+func find_attribute(attribute_name: AttributeConfig.AttributeName) -> Attribute:
 	return attribute_set.find_attribute(attribute_name) if is_instance_valid(attribute_set) else null
 #endregion

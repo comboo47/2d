@@ -7,25 +7,21 @@
 
 [sub_resource type="Resource" id="Resource_bgllc"]
 script = ExtResource("2_0d8yw")
-attribute_name = "max_health"
 base_value = 50.0
 metadata/_custom_type_script = "uid://bw4kf70rvxlww"
 
 [sub_resource type="Resource" id="Resource_nlhn4"]
 script = ExtResource("3_bgllc")
-attribute_name = "health"
 base_value = 100.0
 metadata/_custom_type_script = "uid://byfoak0mg8h02"
 
 [sub_resource type="Resource" id="Resource_0d8yw"]
 script = ExtResource("2_0d8yw")
-attribute_name = "attack"
 base_value = 10.0
 metadata/_custom_type_script = "uid://bw4kf70rvxlww"
 
 [sub_resource type="Resource" id="Resource_mccox"]
 script = ExtResource("2_0d8yw")
-attribute_name = "intell"
 base_value = 1.0
 metadata/_custom_type_script = "uid://bw4kf70rvxlww"
 

@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0gv8m2gy8okj"]
+
+[ext_resource type="Script" uid="uid://djior6r1mhefc" path="res://addons/battleresourceeditor/my_window.gd" id="1_7cbov"]
+
+[node name="Window" type="Window"]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(800, 600)
+script = ExtResource("1_7cbov")
+
+[node name="EditorCanvas" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="EditorCanvas"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99700004
+anchor_bottom = 0.998
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 4.3999634
+offset_bottom = 4.200012
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "退出"
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "路径路径路径"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Panel2" type="Panel" parent="VBoxContainer/HSplitContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Panel3" type="Panel" parent="VBoxContainer/HSplitContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "保存"
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "刷新"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]

@@ -5,25 +5,20 @@ var isDead:bool = false
 
 @export var EnemyID = 1001
 @onready var move_component:MoveComponent = $MoveComponent as MoveComponent
-@onready var animated_sprite_2d:AnimatedSprite2D = $AnimatedSprite2D as AnimatedSprite2D
 @onready var body_area:BodyArea = $BodyArea as BodyArea
 @onready var hurt_display_component:HurtDisplayComponent = $HurtDisPlay as HurtDisplayComponent
 @onready var atc:AttributeComponent = $AttributeComponent as AttributeComponent
-
+@export var bt:BehaviorTree
 
 func _ready():
-	$BTPlayer.set_active(true)
+	if bt:
+		bt.set_active(true)
 	pass
 
 func getID():
 	return EnemyID
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 
-func _process(delta):
-	if self.velocity.x<0:
-		animated_sprite_2d.flip_h = true
-	elif self.velocity.x>0:
-		animated_sprite_2d.flip_h = false
 func hitDisplay():
 	
 	hurt_display_component.hitDisplay()
