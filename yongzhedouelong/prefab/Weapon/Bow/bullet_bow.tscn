@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bccgwgg6qrf05"]
 
-[ext_resource type="Script" path="res://Scripts/WeaponScripts/bow/bow_bullet.gd" id="1_2c441"]
-[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_li4sw"]
+[ext_resource type="Script" uid="uid://f8rupyh8o3vf" path="res://Scripts/GameBase/BattleSystemBase/WeaponScripts/bow/bow_bullet.gd" id="1_2c441"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_li4sw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hai6f"]
 radius = 6.0

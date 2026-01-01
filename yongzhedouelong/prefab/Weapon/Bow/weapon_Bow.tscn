@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bo160q62p0caw"]
 
-[ext_resource type="Script" path="res://Scripts/WeaponScripts/bow/Weapon_Bow.gd" id="1_b0cch"]
+[ext_resource type="Script" uid="uid://3t5l4rg525al" path="res://Scripts/GameBase/BattleSystemBase/WeaponScripts/bow/Weapon_Bow.gd" id="1_b0cch"]
 [ext_resource type="PackedScene" uid="uid://bccgwgg6qrf05" path="res://prefab/Weapon/Bow/bullet_bow.tscn" id="2_jiylq"]
-[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="3_elrbb"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/colored_transparent.png" id="3_elrbb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t1vkn"]
 atlas = ExtResource("3_elrbb")

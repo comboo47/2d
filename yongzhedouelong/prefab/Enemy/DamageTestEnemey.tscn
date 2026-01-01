@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_kdclt"]
 [ext_resource type="SpriteFrames" uid="uid://dr81vsrfvolcl" path="res://GameResource/FirestEnemy.tres" id="2_64lt1"]
-[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/AttributeSystem/AttributeSysscript/Attribute.gd" id="2_nsq1p"]
-[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/AttributeSystem/AttributeSysresource/attribute/HealthAttribute.gd" id="3_n1618"]
-[ext_resource type="PackedScene" uid="uid://b0d25lwjqxghp" path="res://UI/Test/AttributeTest.tscn" id="4_8hkog"]
-[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="4_psbiw"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/Attribute.gd" id="2_nsq1p"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysresource/attribute/HealthAttribute.gd" id="3_n1618"]
+[ext_resource type="PackedScene" uid="uid://b0d25lwjqxghp" path="res://art/UIResource/UI/Test/AttributeTest.tscn" id="4_8hkog"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="4_psbiw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kdclt"]
 

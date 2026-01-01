@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b1qb535sjpuas"]
 
 [ext_resource type="Script" uid="uid://bpy1ncrgbepc2" path="res://prefab/Component/move_component.gd" id="1_f7wk3"]
-[ext_resource type="Script" uid="uid://c0oyoy1j241q1" path="res://prefab/Enemy/base_enemy.gd" id="1_hovwj"]
+[ext_resource type="Script" uid="uid://c0oyoy1j241q1" path="res://Scripts/GameBase/BattleSystemBase/BattleActor/base_enemy.gd" id="1_hovwj"]
 [ext_resource type="Script" uid="uid://dm2qp1uq5grj8" path="res://Scripts/Interface/BodyArea.gd" id="3_oxvlv"]
 [ext_resource type="PackedScene" uid="uid://ijdj74f81k0i" path="res://prefab/Component/hurt_display.tscn" id="4_eil4j"]
-[ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://Scripts/AttributeSystem/AttributeSysscene/component/AttributeComponent.gd" id="5_eys0m"]
+[ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscene/component/AttributeComponent.gd" id="5_eys0m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eys0m"]
 size = Vector2(11, 12)

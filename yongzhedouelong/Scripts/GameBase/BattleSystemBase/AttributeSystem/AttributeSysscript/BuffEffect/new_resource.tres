@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="AttributeModify" load_steps=2 format=3 uid="uid://bnnvl1owk4852"]
+
+[ext_resource type="Script" uid="uid://b2eseqarfldd3" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/BuffEffect/E_AttributeModify.gd" id="1_leh7o"]
+
+[resource]
+script = ExtResource("1_leh7o")
+metadata/_custom_type_script = "uid://b2eseqarfldd3"

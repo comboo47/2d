@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bn5q4clyianrt"]
 
 [ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_bw8m7"]
-[ext_resource type="Resource" uid="uid://3c38eutepyoi" path="res://Scripts/AttributeSystem/AttributeSysresource/AttributeSet/BattleActorAttributeSet.tres" id="3_2nuqc"]
-[ext_resource type="BehaviorTree" uid="uid://74vcupsxdkg3" path="res://Scripts/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres" id="4_jh42y"]
+[ext_resource type="Resource" uid="uid://3c38eutepyoi" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysresource/AttributeSet/BattleActorAttributeSet.tres" id="3_2nuqc"]
+[ext_resource type="BehaviorTree" uid="uid://74vcupsxdkg3" path="res://Scripts/GameBase/ai/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres" id="4_jh42y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8julx"]
 size = Vector2(15.5, 16)

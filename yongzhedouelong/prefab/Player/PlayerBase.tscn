@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dm2qp1uq5grj8" path="res://Scripts/Interface/BodyArea.gd" id="2_c6wge"]
 [ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/Item/interactionShow.tscn" id="3_1smxn"]
-[ext_resource type="PackedScene" uid="uid://b42tv1nbh4cv8" path="res://prefab/Weapon/WeaponEnergeBar.tscn" id="4_dtvgp"]
+[ext_resource type="PackedScene" uid="uid://b42tv1nbh4cv8" path="res://Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponEnergeBar.tscn" id="4_dtvgp"]
 [ext_resource type="PackedScene" uid="uid://bfmofvyqtmgc" path="res://prefab/Component/move_component.tscn" id="5_3dlrk"]
 [ext_resource type="PackedScene" uid="uid://dc6annyq1vx6k" path="res://prefab/Component/Weapon_Component.tscn" id="7_qi2av"]
 

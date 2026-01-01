@@ -1,4 +1,6 @@
+AttributeModify
 AttributeBuff
+JSON
 AttributeModifier
 AttributeSet
 BehaviorTree
@@ -11,4 +13,3 @@ SpriteFrames
 AtlasTexture
 TileSetAtlasSource
 MeshTexture
-AnimatedTexture

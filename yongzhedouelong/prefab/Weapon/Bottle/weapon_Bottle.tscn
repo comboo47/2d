@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://chgpllnygnq30"]
 
-[ext_resource type="Script" path="res://Scripts/WeaponScripts/bottle/Weapon_Bottle.gd" id="1_r6uvf"]
+[ext_resource type="Script" uid="uid://f4n2o2dh1rot" path="res://Scripts/GameBase/BattleSystemBase/WeaponScripts/bottle/Weapon_Bottle.gd" id="1_r6uvf"]
 [ext_resource type="PackedScene" uid="uid://emyqoa2k5c5v" path="res://prefab/Weapon/Bottle/bullet_bottle.tscn" id="2_732it"]
-[ext_resource type="Texture2D" uid="uid://daio65xu0bmcw" path="res://art/Weapon/Weapon61.tres" id="3_4n3mk"]
-[ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://art/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="4_ft53f"]
-[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/1bitpack_kenney/Tilesheet/colored_transparent.png" id="5_vbqe6"]
+[ext_resource type="Texture2D" uid="uid://daio65xu0bmcw" path="res://art/GameplayArtResource/Weapon/Weapon61.tres" id="3_4n3mk"]
+[ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="4_ft53f"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/colored_transparent.png" id="5_vbqe6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tqxu0"]
 atlas = ExtResource("4_ft53f")

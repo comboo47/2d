@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2grvpueyi5dg"]
+
+[ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="1_8ajyj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ajyj"]
+atlas = ExtResource("1_8ajyj")
+region = Rect2(408, 425, 16, 16)
+
+[sub_resource type="Curve" id="Curve_2tooo"]
+_data = [Vector2(0.004264392, 1), 0.0, 0.0, 0, 0, Vector2(0.98933893, 0.008828282), 0.16556135, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2tooo"]
+curve = SubResource("Curve_2tooo")
+
+[sub_resource type="Curve" id="Curve_e5lm7"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0.010660984, 0), 0.0, 230.271, 0, 0, Vector2(0.9936034, 97.39165), -4.5307813, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ju55n"]
+curve = SubResource("Curve_e5lm7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ajyj"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(9, 0.2, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 25.0
+initial_velocity_max = 45.0
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = -1.6093254e-05
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 95, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 0.99999774
+damping_max = 0.63000005
+damping_curve = SubResource("CurveTexture_ju55n")
+scale_min = 0.29999998
+scale_max = 0.29999998
+color = Color(0.84705883, 0.07058824, 0.84705883, 1)
+alpha_curve = SubResource("CurveTexture_2tooo")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 20
+texture = SubResource("AtlasTexture_8ajyj")
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_8ajyj")
