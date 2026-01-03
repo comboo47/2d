@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bt2jh8isph5xr"]
+[gd_scene format=3 uid="uid://bt2jh8isph5xr"]
 
 [ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_kdclt"]
 [ext_resource type="SpriteFrames" uid="uid://dr81vsrfvolcl" path="res://GameResource/FirestEnemy.tres" id="2_64lt1"]
@@ -20,27 +20,34 @@ attribute_name = 2
 base_value = 15.0
 metadata/_custom_type_script = "uid://bw4kf70rvxlww"
 
-[sub_resource type="Resource" id="Resource_auxgr"]
+[sub_resource type="Resource" id="Resource_psbiw"]
+script = ExtResource("2_nsq1p")
+attribute_name = 1
+base_value = 3.0
+metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+
+[sub_resource type="Resource" id="Resource_n1618"]
 resource_local_to_scene = true
 script = ExtResource("4_psbiw")
-attributes = Array[ExtResource("2_nsq1p")]([SubResource("Resource_2ic4w"), SubResource("Resource_nsq1p")])
+attributes = Array[ExtResource("2_nsq1p")]([SubResource("Resource_2ic4w"), SubResource("Resource_nsq1p"), SubResource("Resource_psbiw")])
 metadata/_custom_type_script = "uid://cdcushggciuu1"
 
-[node name="DamageTestEnemy" instance=ExtResource("1_kdclt")]
+[node name="DamageTestEnemy" unique_id=1871941004 node_paths=PackedStringArray("Eattribute") instance=ExtResource("1_kdclt")]
+Eattribute = NodePath("AttributeComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0" unique_id=388688919]
 shape = SubResource("RectangleShape2D_kdclt")
 
 [node name="HurtDisPlay" parent="." index="3" node_paths=PackedStringArray("animSprit2D")]
 animSprit2D = NodePath("../AnimatedSprite2D")
 
 [node name="AttributeComponent" parent="." index="4"]
-attribute_set = SubResource("Resource_auxgr")
+attribute_set = SubResource("Resource_n1618")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="5" unique_id=768538610]
 sprite_frames = ExtResource("2_64lt1")
 
-[node name="AttributeTest" parent="." index="6" node_paths=PackedStringArray("attributeConpunent") instance=ExtResource("4_8hkog")]
+[node name="AttributeTest" parent="." index="6" unique_id=2004232263 node_paths=PackedStringArray("attributeConpunent") instance=ExtResource("4_8hkog")]
 offset_left = 1.0
 offset_top = -40.0
 offset_right = 1.0

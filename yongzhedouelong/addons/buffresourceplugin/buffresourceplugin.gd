@@ -5,7 +5,7 @@ var btn:Button
 func _enter_tree():
 	# 使用正确的常量名
 	btn = _make_button()
-	add_control_to_container(EditorPlugin.CONTAINER_INSPECTOR_BOTTOM, btn)
+	add_control_to_container(EditorPlugin.CONTAINER_TOOLBAR, btn)
 
 func _make_button() -> Button:
 	var btn = Button.new()
@@ -24,4 +24,4 @@ func _on_button_pressed():
 
 func _exit_tree():
 	# 清理时也需要使用相同的常量
-	remove_control_from_container(EditorPlugin.CONTAINER_INSPECTOR_BOTTOM, btn)
+	remove_control_from_container(EditorPlugin.CONTAINER_TOOLBAR, btn)

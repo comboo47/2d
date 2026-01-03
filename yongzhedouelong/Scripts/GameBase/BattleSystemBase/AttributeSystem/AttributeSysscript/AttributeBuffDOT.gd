@@ -27,17 +27,18 @@ var charges: int = 0
 func _init(_source:BattleActor,_target:BattleActor, _period: float = 1.0, _max_charges: int = 0):
 	BuffSource = _source
 	BuffTarget = _target
-	policy = DurationPolicy.Period
+	#policy = DurationPolicy.Period
 	period = _period
 	max_charges = _max_charges
 
 
-func duplicate_buff() -> AttributeBuff:
-	var duplicated = super.duplicate_buff() as AttributeBuffDOT
-	duplicated.period = period
-	duplicated.cycle_time = cycle_time
-	duplicated.charges = charges
-	return duplicated
+#func duplicate_buff() -> AttributeBuff:
+	#var duplicated = super.duplicate_buff() as AttributeBuffDOT
+	#duplicated.period = period
+	#duplicated.cycle_time = cycle_time
+	#duplicated.charges = charges
+	#return duplicated
+	
 
 
 func run_process(delta: float):

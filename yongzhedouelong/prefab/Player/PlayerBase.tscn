@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8f778661m1vg"]
+[gd_scene format=3 uid="uid://b8f778661m1vg"]
 
 [ext_resource type="Script" uid="uid://dm2qp1uq5grj8" path="res://Scripts/Interface/BodyArea.gd" id="2_c6wge"]
 [ext_resource type="PackedScene" uid="uid://djvsbq5doquor" path="res://prefab/Item/interactionShow.tscn" id="3_1smxn"]
@@ -6,25 +6,25 @@
 [ext_resource type="PackedScene" uid="uid://bfmofvyqtmgc" path="res://prefab/Component/move_component.tscn" id="5_3dlrk"]
 [ext_resource type="PackedScene" uid="uid://dc6annyq1vx6k" path="res://prefab/Component/Weapon_Component.tscn" id="7_qi2av"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1867442644 groups=["Player"]]
 collision_mask = 16
 
-[node name="WeaponComponent" parent="." instance=ExtResource("7_qi2av")]
+[node name="WeaponComponent" parent="." unique_id=1764377170 instance=ExtResource("7_qi2av")]
 
-[node name="BodyArea" type="Area2D" parent="." node_paths=PackedStringArray("movementComponent")]
+[node name="BodyArea" type="Area2D" parent="." unique_id=55898599 node_paths=PackedStringArray("movementComponent")]
 collision_layer = 4096
 collision_mask = 4096
 script = ExtResource("2_c6wge")
 movementComponent = NodePath("../MoveComponent")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=37467983]
 
-[node name="InteractionInterface" parent="." instance=ExtResource("3_1smxn")]
+[node name="InteractionInterface" parent="." unique_id=2132800978 instance=ExtResource("3_1smxn")]
 
-[node name="EnergeBar" parent="." instance=ExtResource("4_dtvgp")]
+[node name="EnergeBar" parent="." unique_id=197434837 instance=ExtResource("4_dtvgp")]
 process_priority = 2
 
-[node name="MoveComponent" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("5_3dlrk")]
+[node name="MoveComponent" parent="." unique_id=1804699648 node_paths=PackedStringArray("actor") instance=ExtResource("5_3dlrk")]
 enableGravity = true
 actor = NodePath("..")
 speed = Vector2(100, -30)

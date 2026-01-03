@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1qb535sjpuas"]
+[gd_scene format=3 uid="uid://b1qb535sjpuas"]
 
 [ext_resource type="Script" uid="uid://bpy1ncrgbepc2" path="res://prefab/Component/move_component.gd" id="1_f7wk3"]
 [ext_resource type="Script" uid="uid://c0oyoy1j241q1" path="res://Scripts/GameBase/BattleSystemBase/BattleActor/base_enemy.gd" id="1_hovwj"]
@@ -9,25 +9,24 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eys0m"]
 size = Vector2(11, 12)
 
-[node name="BaseEnemy" type="CharacterBody2D" groups=["Mob"]]
+[node name="BaseEnemy" type="CharacterBody2D" unique_id=1130993191 groups=["Mob"]]
 collision_layer = 2
 collision_mask = 18
 script = ExtResource("1_hovwj")
 
-[node name="ControllerCollision" type="CollisionShape2D" parent="."]
+[node name="ControllerCollision" type="CollisionShape2D" parent="." unique_id=873139497]
 shape = SubResource("RectangleShape2D_eys0m")
 
-[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+[node name="MoveComponent" type="Node" parent="." unique_id=1935701040 node_paths=PackedStringArray("actor")]
 script = ExtResource("1_f7wk3")
 actor = NodePath("..")
 
-[node name="BodyArea" type="Area2D" parent="." node_paths=PackedStringArray("movementComponent")]
+[node name="BodyArea" type="Area2D" parent="." unique_id=2129987488 node_paths=PackedStringArray("movementComponent")]
 script = ExtResource("3_oxvlv")
 movementComponent = NodePath("../MoveComponent")
 
-[node name="HurtDisPlay" parent="." node_paths=PackedStringArray("animSprit2D") instance=ExtResource("4_eil4j")]
-animSprit2D = NodePath("")
+[node name="HurtDisPlay" parent="." unique_id=447110788 instance=ExtResource("4_eil4j")]
 
-[node name="AttributeComponent" type="Node" parent="."]
+[node name="AttributeComponent" type="Node" parent="." unique_id=522464049]
 script = ExtResource("5_eys0m")
 metadata/_custom_type_script = "uid://dabqovygaswi1"

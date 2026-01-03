@@ -1,9 +1,12 @@
 extends CharacterBody2D
 class_name BattleActor
 
+@export var Eattribute:AttributeComponent
 var attribute
 var buffManager:BuffManager = BuffManager.new()
 
+func _enter_tree() -> void:
+	self.add_child(buffManager)
 
 func SetAttributes(atc:AttributeComponent) -> void:
 	attribute = atc
@@ -12,7 +15,7 @@ func SetAttributes(atc:AttributeComponent) -> void:
 func GetAttributes() -> AttributeComponent:
 	if attribute != null:
 		return attribute
-	elif self.get_meta("Attribute")!=null:
-		return self.get_meta("Attribute")
+	
 	else:
-		return null
+		attribute = Eattribute
+		return attribute

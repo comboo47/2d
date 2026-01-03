@@ -1,16 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc6annyq1vx6k"]
+[gd_scene format=3 uid="uid://dc6annyq1vx6k"]
 
-[ext_resource type="Script" path="res://prefab/Component/WeaponRoot.gd" id="1_pt2fa"]
+[ext_resource type="Script" uid="uid://dauqju3naonm6" path="res://prefab/Component/WeaponRoot.gd" id="1_pt2fa"]
 [ext_resource type="PackedScene" uid="uid://chgpllnygnq30" path="res://prefab/Weapon/Bottle/weapon_Bottle.tscn" id="2_m0nm4"]
 [ext_resource type="PackedScene" uid="uid://bo160q62p0caw" path="res://prefab/Weapon/Bow/weapon_Bow.tscn" id="3_tmgs6"]
 [ext_resource type="PackedScene" uid="uid://dyty1o6rphkf1" path="res://prefab/Weapon/CrossBow/weapon_Crossbow.tscn" id="4_h4y25"]
 
-[node name="WeaponComponent" type="Node2D"]
+[node name="WeaponComponent" type="Node2D" unique_id=1969651257]
 script = ExtResource("1_pt2fa")
 
-[node name="Weapon_Bottle" parent="." instance=ExtResource("2_m0nm4")]
+[node name="Weapon_Bottle" parent="." unique_id=2141753281 instance=ExtResource("2_m0nm4")]
 position = Vector2(-1.52588e-05, 0)
 
-[node name="weapon_Bow" parent="." instance=ExtResource("3_tmgs6")]
+[node name="weapon_Bow" parent="." unique_id=1908540489 instance=ExtResource("3_tmgs6")]
 
-[node name="Weapon_Crossbow" parent="." instance=ExtResource("4_h4y25")]
+[node name="Weapon_Crossbow" parent="." unique_id=37957232 instance=ExtResource("4_h4y25")]

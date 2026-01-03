@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AttributeBuff" format=3 uid="uid://cj62mxf3h0wms"]
+
+[ext_resource type="Script" uid="uid://dn5ncc2v8hhef" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeBuffEffect.gd" id="1_4l23n"]
+[ext_resource type="Script" uid="uid://bheciu41d7sx8" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/BuffEffect/E_Damage.gd" id="2_grrtl"]
+[ext_resource type="Script" uid="uid://dkwrihpi0kobp" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeBuff.gd" id="2_wp2dm"]
+
+[sub_resource type="Resource" id="Resource_gf4lr"]
+script = ExtResource("2_grrtl")
+expression = "20"
+metadata/_custom_type_script = "uid://bheciu41d7sx8"
+
+[resource]
+script = ExtResource("2_wp2dm")
+name = "Damage"
+buff_id = "1001"
+BuffEffects = Array[ExtResource("1_4l23n")]([SubResource("Resource_gf4lr")])
+metadata/_custom_type_script = "uid://dkwrihpi0kobp"

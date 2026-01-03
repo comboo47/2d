@@ -73,10 +73,6 @@ func get_base_value() -> float:
 
 func get_value() -> float:
 	var attribute_value = computed_value
-	for _buff in buffs:
-		if _buff.policy != AttributeBuff.DurationPolicy.Period:
-			attribute_value = _buff.operate(attribute_value)
-			attribute_value = post_attribute_value_changed(attribute_value)
 	return attribute_value
 
 

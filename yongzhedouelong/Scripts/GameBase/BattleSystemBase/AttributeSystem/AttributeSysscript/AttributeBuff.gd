@@ -3,28 +3,19 @@ class_name AttributeBuff extends Resource
 @export var name:String
 @export var buff_id:String
 
-@export var buff_name: String
+@export var buff_Name: String
 @export var operation := AttributeModifier.OperationType.ADD
-@export var value := 0.0
-@export var policy := DurationPolicy.Infinite
+@export var buffDuration := 0.0
+@export var buffPeriod := 0
+@export var isLeaveReset := false
 
-var buffeffect = []
 
 @export var BuffEffects:Array[AttributeBuffEffect]
 		
 func write_all_children_data():
-	buffeffect = []
-	for item in BuffEffects:
-		buffeffect.append(item.duplicate(true))
-	for item in BuffEffects:
-		print(item.expression)
+	
+	pass
 
-func ensure_children_loaded() -> void:
-	if BuffEffects.is_empty():
-		print("检测到子资源数组为空，尝试强制重新加载属性...")
-		# 1. 通知引擎属性列表需要刷新（这是关键触发点）
-		notify_property_list_changed()
-		# 2. 强制让引擎重新获取此属性，通常会触发正确的反序列化
 
 func _init() -> void:
 	print("buff资源加载结束")
@@ -37,11 +28,6 @@ func _init() -> void:
 var BuffSource:BattleActor 
 var BuffTarget:BattleActor
 
-enum DurationPolicy {
-	Infinite,		## 持久地
-	HasDuration,	## 有时效性地
-	Period,			## 周期性地
-}
 
 enum DurationMerging {
 	Restart,	## 重新开始计算时长
@@ -64,18 +50,31 @@ var applied_attribute:
 func Create(_source:BattleActor,_target:BattleActor):
 	BuffSource = _source
 	BuffTarget = _target
+	for effect in BuffEffects:
+		effect.Create(_source,_target,self)
+	buff_excute()
+	ExcuteType()
+func ExcuteType():
+	match duration:
+		0:
+			is_pending_remove = true
+	pass
 
-func deep_duplicate() -> AttributeBuff:
+
+func deep_duplicate(_source:BattleActor,_target:BattleActor) -> AttributeBuff:
 	var duplicated_buff = self.duplicate(true)
-	for effect in buffeffect:
+	duplicated_buff.BuffSource = _source as BattleActor
+	duplicated_buff.BuffTarget = _target as BattleActor
+	for effect in BuffEffects:
 		if effect:
-			duplicated_buff.buffeffect.append(effect.duplicate(true))
+			duplicated_buff.BuffEffects.append(effect.duplicate(true))
+	duplicated_buff.Create(_source,_target)
 	return duplicated_buff
 
 
 ## 由应用目标属性驱动
 func run_process(delta: float):
-	if has_duration() and not is_pending_remove:
+	if not is_pending_remove:
 		remaining_time = max(remaining_time - delta, 0.0)
 		if is_zero_approx(remaining_time):
 			is_pending_remove = true
@@ -101,23 +100,16 @@ func operate(base_value: float) -> float:
 	return attribute_modifier.operate(base_value)
 
 
-func has_duration() -> bool:
-	return policy == DurationPolicy.HasDuration
-
 
 func set_merging(_mergin: DurationMerging):
 	merging = _mergin
 
 
 func set_duration(_time: float) -> AttributeBuff:
-	duration = _time
-	remaining_time = duration
-	if duration > 0.0:
-		policy = DurationPolicy.HasDuration
 	return self
 func buff_excute()->void:
-	print(buffeffect.size())
-	for effect in buffeffect:
+	print(BuffEffects.size())
+	for effect in BuffEffects:
 		effect.EffectGo()
 
 func restart_duration():

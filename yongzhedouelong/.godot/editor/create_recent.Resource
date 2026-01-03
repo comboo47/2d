@@ -1,4 +1,4 @@
-AttributeModify
+res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeBuff.gd
 AttributeBuff
 JSON
 AttributeModifier

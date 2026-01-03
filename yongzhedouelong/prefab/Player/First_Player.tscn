@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bsf4te0cyp1e2"]
+[gd_scene format=3 uid="uid://bsf4te0cyp1e2"]
 
 [ext_resource type="PackedScene" uid="uid://b8f778661m1vg" path="res://prefab/Player/PlayerBase.tscn" id="1_8qvpg"]
 [ext_resource type="Script" uid="uid://68mglym1swmy" path="res://Scripts/GameBase/BattleSystemBase/BattleActor/Player.gd" id="2_ett2r"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c2grvpueyi5dg" path="res://art/GameplayArtResource/Fx/fx_jump_particle.tscn" id="7_pobo7"]
 [ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscene/component/AttributeComponent.gd" id="9_drofh"]
 [ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/Attribute.gd" id="12_kydf8"]
+[ext_resource type="Script" uid="uid://cvro1y5xgfqo" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysresource/attribute/AttackAttribute.gd" id="13_sflj1"]
 [ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysresource/attribute/HealthAttribute.gd" id="13_tju1s"]
 [ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="14_sflj1"]
 
@@ -217,21 +218,21 @@ scale_max = 0.29999998
 color = Color(0.8474744, 0.84747446, 0.84747446, 1)
 alpha_curve = SubResource("CurveTexture_ju55n")
 
-[sub_resource type="Resource" id="Resource_qhj17"]
-script = ExtResource("13_tju1s")
-base_value = 12.0
-metadata/_custom_type_script = "uid://byfoak0mg8h02"
-
-[sub_resource type="Resource" id="Resource_kydf8"]
-script = ExtResource("12_kydf8")
+[sub_resource type="Resource" id="Resource_ohi7k"]
+script = ExtResource("13_sflj1")
 attribute_name = 2
-base_value = 15.0
-metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+base_value = 20.0
+metadata/_custom_type_script = "uid://cvro1y5xgfqo"
+
+[sub_resource type="Resource" id="Resource_w26n6"]
+script = ExtResource("13_tju1s")
+base_value = 123.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
 
 [sub_resource type="Resource" id="Resource_c307a"]
 resource_local_to_scene = true
 script = ExtResource("14_sflj1")
-attributes = Array[ExtResource("12_kydf8")]([SubResource("Resource_qhj17"), SubResource("Resource_kydf8")])
+attributes = Array[ExtResource("12_kydf8")]([SubResource("Resource_ohi7k"), SubResource("Resource_w26n6")])
 metadata/_custom_type_script = "uid://cdcushggciuu1"
 
 [sub_resource type="Animation" id="Animation_drofh"]
@@ -258,25 +259,26 @@ _data = {
 &"new_animation": SubResource("Animation_n8ehl")
 }
 
-[node name="CharacterBody2D" instance=ExtResource("1_8qvpg")]
+[node name="CharacterBody2D" unique_id=1725149442 node_paths=PackedStringArray("Eattribute") instance=ExtResource("1_8qvpg")]
 script = ExtResource("2_ett2r")
+Eattribute = NodePath("AttributeComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=1427771553]
 scale = Vector2(1.5, 1)
 shape = SubResource("CapsuleShape2D_nhojw")
 metadata/_edit_group_ = true
 
-[node name="WeaponComponent" parent="." index="1" node_paths=PackedStringArray("weaponOwner")]
+[node name="WeaponComponent" parent="." index="1" unique_id=1764377170 node_paths=PackedStringArray("weaponOwner")]
 weaponOwner = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" parent_id_path=PackedInt32Array(55898599) index="0" unique_id=1407165770]
 shape = SubResource("RectangleShape2D_4q6oy")
 
-[node name="AnimatedSprite2D" parent="." index="3"]
+[node name="AnimatedSprite2D" parent="." index="3" unique_id=37467983]
 sprite_frames = SubResource("SpriteFrames_1g2qo")
 animation = &"die"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" index="0"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" index="0" unique_id=1768014256]
 position = Vector2(0, 9)
 emitting = false
 amount = 3
@@ -284,55 +286,53 @@ texture = SubResource("AtlasTexture_pobo7")
 lifetime = 0.4
 process_material = SubResource("ParticleProcessMaterial_sflj1")
 
-[node name="EnergeBar" parent="." index="5"]
+[node name="EnergeBar" parent="." index="5" unique_id=197434837]
 z_index = 2
 offset_left = 0.0
 offset_top = 7.92
 offset_right = 0.0
 offset_bottom = 8.08
 
-[node name="MoveComponent" parent="." index="6"]
+[node name="MoveComponent" parent="." index="6" unique_id=1804699648]
 speed = Vector2(100, 30)
 
-[node name="LimboHSM" type="LimboHSM" parent="." index="7"]
+[node name="LimboHSM" type="LimboHSM" parent="." index="7" unique_id=104648857]
 
-[node name="IdleState" type="LimboState" parent="LimboHSM" index="0" node_paths=PackedStringArray("animator")]
+[node name="IdleState" type="LimboState" parent="LimboHSM" index="0" unique_id=1196520358 node_paths=PackedStringArray("animator")]
 script = ExtResource("4_na5rg")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"idle"
 
-[node name="MoveState" type="LimboState" parent="LimboHSM" index="1" node_paths=PackedStringArray("moveComponent", "animator", "fx_movedust")]
+[node name="MoveState" type="LimboState" parent="LimboHSM" index="1" unique_id=1102056814 node_paths=PackedStringArray("moveComponent", "animator", "fx_movedust")]
 script = ExtResource("5_tief1")
 moveComponent = NodePath("../../MoveComponent")
 animator = NodePath("../../AnimatedSprite2D")
 animation = &"walk"
 fx_movedust = NodePath("../../AnimatedSprite2D/GPUParticles2D")
 
-[node name="JumpState" type="LimboState" parent="LimboHSM" index="2" node_paths=PackedStringArray("animator", "moveComponent")]
+[node name="JumpState" type="LimboState" parent="LimboHSM" index="2" unique_id=1101918481 node_paths=PackedStringArray("animator", "moveComponent")]
 script = ExtResource("6_q6pqf")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"jump"
 moveComponent = NodePath("../../MoveComponent")
 fx_jump = ExtResource("7_pobo7")
 
-[node name="HurtState" type="LimboState" parent="LimboHSM" index="3" node_paths=PackedStringArray("anim")]
+[node name="HurtState" type="LimboState" parent="LimboHSM" index="3" unique_id=2056158080 node_paths=PackedStringArray("anim")]
 script = ExtResource("7_i15xt")
 anim = NodePath("../../AnimatedSprite2D")
 
-[node name="DieState" type="LimboState" parent="LimboHSM" index="4" node_paths=PackedStringArray("animator")]
+[node name="DieState" type="LimboState" parent="LimboHSM" index="4" unique_id=1234192315 node_paths=PackedStringArray("animator")]
 script = ExtResource("7_6mmwe")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"die"
 
-[node name="AttributeComponent" type="Node" parent="." index="8"]
+[node name="AttributeComponent" type="Node" parent="." index="8" unique_id=618778529]
 script = ExtResource("9_drofh")
 attribute_set = SubResource("Resource_c307a")
 metadata/_custom_type_script = "uid://dabqovygaswi1"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
-libraries = {
-&"": SubResource("AnimationLibrary_pobo7")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9" unique_id=598173668]
+libraries/ = SubResource("AnimationLibrary_pobo7")
 
 [connection signal="exited" from="LimboHSM/MoveState" to="LimboHSM/MoveState" method="_on_exited"]
 [connection signal="exited" from="LimboHSM/JumpState" to="LimboHSM/JumpState" method="_on_exited"]

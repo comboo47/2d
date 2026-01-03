@@ -1,12 +1,14 @@
 extends RigidBody2D
 
-@export var damage = float(1)
+@export var damagebuffid:String = "1001"
 @export var speed = 300
+var bulletOwner:BattleActor
 # Called when the node enters the scene tree for the first time.
+@onready var a = $"."
+
 func _ready():
 	$AnimatedSprite2D.play("default")
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -30,10 +32,11 @@ func _on_body_entered(body):
 	pass # Replace with function body.
 func hurSomeBody(body:Node):
 	if body.has_method("_beHurt"):
-		body._beHurt(damage)
+		BattleManager.ApplyBuff(bulletOwner,body,damagebuffid)
+	print(body,damagebuffid)
 func boomDisplay():
-	$".".freeze_mode = 1
-	$".".freeze = true
+	$".".set_deferred("freeze_mode",1)
+	$".".set_deferred("freeze",true)
 	$BoomAnimated.visible = true
 	$BoomAnimated.rotation = randf()
 	$BoomAnimated.play("default")

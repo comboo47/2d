@@ -1,7 +1,13 @@
 extends Node
 
 #region Buff相关方法
-static func ApplyBuff(buffSource:BattleActor,buffTarget:BattleActor,buffID:int)->void:
+static func ApplyBuff(buffSource:BattleActor,buffTarget:BattleActor,buffID:String)->void:
+	var buff_id = buffID
+	var buff_resource = DataRegistor.instance.get_buff(buff_id)
+	if buff_resource:
+		var buff_instance:AttributeBuff = buff_resource.deep_duplicate(buffSource,buffTarget)
+		#print(buff_instance.buff_name)
+		buffTarget.buffManager.buffList.append(buff_instance)
 	pass
 static func RemoveBuff(buffSource:BattleActor,buffTarget:BattleActor,buffID:int)->void:
 	#遍历buffList，找到buffID = buffid的buff
