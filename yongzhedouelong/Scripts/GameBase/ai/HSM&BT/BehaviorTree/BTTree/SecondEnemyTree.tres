@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://ciuea6cn0ucil"]
+[gd_resource type="BehaviorTree" format=3 uid="uid://ciuea6cn0ucil"]
 
 [ext_resource type="Script" uid="uid://d36e00xc5w8mr" path="res://Scripts/GameBase/ai/tasks/Get_First_In_Group.gd" id="1_s4yye"]
 [ext_resource type="Script" uid="uid://dn4htuas2txr7" path="res://Scripts/GameBase/ai/tasks/Pursure_Target.gd" id="2_yy3xg"]

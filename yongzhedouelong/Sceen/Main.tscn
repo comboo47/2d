@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://bruvv78x8gkah"]
+[gd_scene format=4 uid="uid://bruvv78x8gkah"]
 
 [ext_resource type="Script" uid="uid://mup74dsq8bb1" path="res://Scripts/GameModeScript/Main.gd" id="1_nacb5"]
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/colored.png" id="1_vo45i"]
@@ -109,31 +109,31 @@ physics_layer_0/collision_layer = 17
 physics_layer_0/collision_mask = 257
 sources/5 = SubResource("TileSetAtlasSource_wtu8f")
 
-[node name="MainSceen" type="Node2D"]
+[node name="MainSceen" type="Node2D" unique_id=982471342]
 script = ExtResource("1_nacb5")
 
-[node name="Floor" type="TileMapLayer" parent="."]
+[node name="Floor" type="TileMapLayer" parent="." unique_id=1403208022]
 use_parent_material = true
 position = Vector2(-2, 0)
 tile_map_data = PackedByteArray("AAASAA4ABQATAAEAAAAFAA4ABQATAAEAAAAGAA4ABQATAAEAAAAIAA4ABQATAAAAAAAJAA4ABQATAAAAAAAKAA4ABQATAAAAAAALAA4ABQATAAAAAAAMAA4ABQATAAAAAAANAA4ABQATAAAAAAAOAA4ABQATAAAAAAAPAA4ABQATAAAAAAAQAA4ABQATAAAAAAARAA4ABQATAAEAAAAHAA0ABQAUAAAAAAAQAA0ABQASAAAAAAARAA0ABQATAAAAAAASAA0ABQATAAAAAAAFAA0ABQATAAAAAAATAAsABQASAAEAAAATAAoABQASAAEAAAATAAkABQASAAEAAAATAAgABQASAAEAAAATAAcABQASAAEAAAATAAYABQASAAEAAAATAAUABQASAAEAAAATAAQABQASAAEAAAATAAMABQASAAEAAAATAAIABQASAAEAAAATAAEABQASAAEAAAATAAAABQASAAEAAAATAAwABQASAAEAAAATAA0ABQATAAAAAAATAA4ABQATAAEAAAAEAAwABQAUAAEAAAAEAA0ABQATAAAAAAAEAA4ABQATAAEAAAAEAAsABQAUAAEAAAAEAAoABQAUAAEAAAAEAAkABQAUAAEAAAAEAAgABQAUAAEAAAAEAAcABQAUAAEAAAAEAAYABQAUAAEAAAAEAAUABQAUAAEAAAAEAAQABQAUAAEAAAAEAAMABQAUAAEAAAAEAAIABQAUAAEAAAAEAAEABQAUAAEAAAAEAAAABQAUAAEAAAASAAgABQATAAAAAAARAAgABQATAAAAAAAGAA0ABQATAAAAAAAHAA4ABQATAAEAAAAGAAgABQATAAAAAAAFAAgABQATAAAAAAAHAAgABQAUAAAAAAAQAAgABQASAAAAAAA=")
 tile_set = SubResource("TileSet_e753a")
 
-[node name="superJump" parent="." instance=ExtResource("5_03ts5")]
+[node name="superJump" parent="." unique_id=1586643574 instance=ExtResource("5_03ts5")]
 position = Vector2(229, 217)
 disable_mode = 2
 collision_layer = 0
 input_pickable = false
 
-[node name="PlayerStart" type="Marker2D" parent="."]
+[node name="PlayerStart" type="Marker2D" parent="." unique_id=1882102741]
 position = Vector2(110, 200)
 rotation = -0.785398
 gizmo_extents = 35.8
 
-[node name="BaseEnemy" parent="." instance=ExtResource("5_61ete")]
+[node name="BaseEnemy" parent="." unique_id=450179832 instance=ExtResource("5_61ete")]
 position = Vector2(236, 89)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=108991952]
 position = Vector2(192, 120)
 
-[node name="BaseEnemy2" parent="." instance=ExtResource("5_xibgf")]
+[node name="BaseEnemy2" parent="." unique_id=1349911033 instance=ExtResource("5_xibgf")]
 position = Vector2(175, 101)

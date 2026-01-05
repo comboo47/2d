@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="AttributeSet" load_steps=5 format=3 uid="uid://3c38eutepyoi"]
+[gd_resource type="Resource" script_class="AttributeSet" format=3 uid="uid://3c38eutepyoi"]
 
 [ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/Attribute.gd" id="1_4bn6g"]
 [ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="2_qhj17"]
-[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysresource/attribute/HealthAttribute.gd" id="2_sm4if"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysResource/attribute/HealthAttribute.gd" id="2_sm4if"]
 
 [sub_resource type="Resource" id="Resource_qhj17"]
 script = ExtResource("2_sm4if")

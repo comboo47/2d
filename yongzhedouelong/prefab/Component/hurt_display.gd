@@ -12,7 +12,8 @@ var ori_scale
 	
 func _ready() -> void:
 	ori_modulate = $".".get_parent().modulate
-	ori_scale = animSprit2D.scale
+	#ori_scale = animSprit2D.scale
+	ori_scale = 1
 	hit_timer.timeout.connect(hitDisplayEnd)
 	hit_timer.wait_time = displayTime
 	pass # Replace with function body.
