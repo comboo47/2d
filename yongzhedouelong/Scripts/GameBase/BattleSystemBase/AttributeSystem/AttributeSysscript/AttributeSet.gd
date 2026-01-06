@@ -1,5 +1,6 @@
 class_name AttributeSet extends Resource
 
+@export var attributeID:int
 @export var attributes: Array[Attribute]: set = setter_attributes
 
 ## 运行时数据

@@ -10,5 +10,4 @@ static func loader(path:String):
     file.close()
     return data
 
-var demo = loader('res://Tables/Json/示例/demo.json')
-var demo2 = loader('res://Tables/Json/示例/demo2.json')
+var BattleActorAttribute = loader('res://Tables/Json/BattleAttribute/BattleActorAttribute.json')

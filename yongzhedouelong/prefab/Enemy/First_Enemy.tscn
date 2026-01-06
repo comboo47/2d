@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn5q4clyianrt"]
+[gd_scene format=3 uid="uid://bn5q4clyianrt"]
 
 [ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://prefab/Enemy/base_enemy.tscn" id="1_bw8m7"]
-[ext_resource type="Resource" uid="uid://3c38eutepyoi" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysresource/AttributeSet/BattleActorAttributeSet.tres" id="3_2nuqc"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/Attribute.gd" id="3_w1fpc"]
 [ext_resource type="BehaviorTree" uid="uid://74vcupsxdkg3" path="res://Scripts/GameBase/ai/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres" id="4_jh42y"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysResource/attribute/HealthAttribute.gd" id="4_lb1fl"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="5_86ktf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8julx"]
 size = Vector2(15.5, 16)
@@ -31,22 +33,32 @@ _data = {
 &"default": SubResource("Animation_ub0cx")
 }
 
-[node name="BaseEnemy" instance=ExtResource("1_bw8m7")]
+[sub_resource type="Resource" id="Resource_qhj17"]
+script = ExtResource("4_lb1fl")
+base_value = 12.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
 
-[node name="MoveComponent" parent="." index="1"]
+[sub_resource type="Resource" id="Resource_vaot3"]
+resource_local_to_scene = true
+script = ExtResource("5_86ktf")
+attributeID = 10001
+attributes = Array[ExtResource("3_w1fpc")]([SubResource("Resource_qhj17")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"
+
+[node name="BaseEnemy" unique_id=672657346 instance=ExtResource("1_bw8m7")]
+
+[node name="MoveComponent" parent="." index="1" unique_id=1935701040]
 speed = Vector2(50, 30)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" parent_id_path=PackedInt32Array(2129987488) index="0" unique_id=474122384]
 shape = SubResource("RectangleShape2D_8julx")
 
-[node name="BTPlayer" type="BTPlayer" parent="." index="4"]
+[node name="BTPlayer" type="BTPlayer" parent="." index="4" unique_id=66412667]
 behavior_tree = ExtResource("4_jh42y")
 blackboard_plan = SubResource("BlackboardPlan_cj1l2")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
-libraries = {
-&"": SubResource("AnimationLibrary_6bunl")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5" unique_id=1799787550]
+libraries/ = SubResource("AnimationLibrary_6bunl")
 
-[node name="AttributeComponent" parent="." index="6"]
-attribute_set = ExtResource("3_2nuqc")
+[node name="AttributeComponent" parent="." index="6" unique_id=522464049]
+attribute_set = SubResource("Resource_vaot3")

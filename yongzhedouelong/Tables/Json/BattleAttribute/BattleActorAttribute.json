@@ -1,0 +1,82 @@
+{
+  "10001": {
+    "AttributeID": 10001,
+    "MaxHP": 10,
+    "Attack": 2,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10002": {
+    "AttributeID": 10002,
+    "MaxHP": 13,
+    "Attack": 3,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10003": {
+    "AttributeID": 10003,
+    "MaxHP": 16,
+    "Attack": 4,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10004": {
+    "AttributeID": 10004,
+    "MaxHP": 19,
+    "Attack": 5,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10005": {
+    "AttributeID": 10005,
+    "MaxHP": 22,
+    "Attack": 6,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10006": {
+    "AttributeID": 10006,
+    "MaxHP": 25,
+    "Attack": 7,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10007": {
+    "AttributeID": 10007,
+    "MaxHP": 28,
+    "Attack": 8,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10008": {
+    "AttributeID": 10008,
+    "MaxHP": 31,
+    "Attack": 9,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10009": {
+    "AttributeID": 10009,
+    "MaxHP": 34,
+    "Attack": 10,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  },
+  "10010": {
+    "AttributeID": 10010,
+    "MaxHP": 37,
+    "Attack": 11,
+    "Armor": 3,
+    "Strength": 0,
+    "Crit": 0
+  }
+}

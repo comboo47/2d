@@ -28,6 +28,7 @@ Player="*res://prefab/Player/First_Player.tscn"
 BattleManager="*res://Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd"
 DataRegistor="*res://Scripts/GameBase/GameDataBase/DataManager.gd"
 DataAutoScanner="*res://Scripts/GameBase/GameDataBase/DataAutoScanner.gd"
+JsonLoader="*uid://bj77cnixq0p7e"
 
 [display]
 
@@ -40,7 +41,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/buffresourceplugin/plugin.cfg", "res://addons/config_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/buffresourceplugin/plugin.cfg")
 
 [file_customization]
 

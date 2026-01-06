@@ -1,3 +1,2 @@
-gd_excelexporter.core.engine-INFO:导出：E:\工程\DragonKiller\2d\yongzhedouelong\Tables\Excel\示例.xlsx:示例-demo => E:\工程\DragonKiller\2d\yongzhedouelong\Tables\Json\示例\demo.json
-gd_excelexporter.core.engine-INFO:导出：E:\工程\DragonKiller\2d\yongzhedouelong\Tables\Excel\示例.xlsx:示例-demo2 => E:\工程\DragonKiller\2d\yongzhedouelong\Tables\Json\示例\demo2.json
+gd_excelexporter.core.engine-INFO:导出：E:\工程\DragonKiller\2d\yongzhedouelong\Tables\Excel\BattleAttribute.xlsx:BattleActorAttribute => E:\工程\DragonKiller\2d\yongzhedouelong\Tables\Json\BattleAttribute\BattleActorAttribute.json
 gd_excelexporter.generators.json2-INFO:创建：Json\settings.gd
