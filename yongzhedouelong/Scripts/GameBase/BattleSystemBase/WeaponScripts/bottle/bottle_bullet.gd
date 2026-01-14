@@ -18,7 +18,7 @@ func _releaseSelf():
 	$".".queue_free()
 	
 func _on_bullet_hit(body:Node):
-	hurSomeBody(body)
+	#hurSomeBody(body)
 	var boomBody = $BoomArea.get_overlapping_bodies()
 	for i in boomBody:
 		hurSomeBody(i)

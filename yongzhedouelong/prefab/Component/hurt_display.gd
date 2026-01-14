@@ -2,18 +2,18 @@ class_name HurtDisplayComponent
 extends Node
 
 var ori_modulate
-var ori_scale
+var ori_scale:Vector2
 @export var animSprit2D:AnimatedSprite2D
 @export var displayTime:float = 0.1
-@export var displayColor:Color = Color.SLATE_GRAY
+@export var displayColor:Color = Color.PALE_VIOLET_RED
 
 @onready var hit_timer:Timer = $HitTimer as Timer
 # Called when the node enters the scene tree for the first time.
 	
 func _ready() -> void:
 	ori_modulate = $".".get_parent().modulate
-	#ori_scale = animSprit2D.scale
-	ori_scale = 1
+	ori_scale = animSprit2D.scale
+	ori_scale = Vector2(1.0,1.0)
 	hit_timer.timeout.connect(hitDisplayEnd)
 	hit_timer.wait_time = displayTime
 	pass # Replace with function body.

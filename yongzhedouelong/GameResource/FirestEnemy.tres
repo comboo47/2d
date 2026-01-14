@@ -1,16 +1,12 @@
-[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dr81vsrfvolcl"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://dr81vsrfvolcl"]
 
-[ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://art/GameplayArtResource/SpriteFrams/Enemy/Skull00.png" id="1_3p0g2"]
-[ext_resource type="Texture2D" uid="uid://02ndbd32mgs8" path="res://art/GameplayArtResource/SpriteFrams/Enemy/Skull01.png" id="2_nseq1"]
+[ext_resource type="Texture2D" uid="uid://culb6x8tnn6kq" path="res://art/GameplayArtResource/SpriteFrams/Enemy/DingDing.png" id="1_udb0u"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_3p0g2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_nseq1")
+"texture": ExtResource("1_udb0u")
 }],
 "loop": true,
 "name": &"default",

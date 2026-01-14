@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="3_smorx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hai6f"]
-radius = 6.0
-height = 12.0
+radius = 8.0
+height = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sxl8u"]
 atlas = ExtResource("2_bg64r")
@@ -60,7 +60,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pkhck"]
-radius = 16.0
+radius = 42.713516
 
 [node name="RigidBody2D" type="RigidBody2D" unique_id=731377563]
 collision_layer = 256
@@ -95,14 +95,5 @@ collision_mask = 2
 scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_pkhck")
 
-[node name="bulletArea" type="Area2D" parent="." unique_id=1328244649]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bulletArea" unique_id=1879563861]
-scale = Vector2(0.5, 0.5)
-shape = SubResource("CapsuleShape2D_hai6f")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_bullet_hit"]
 [connection signal="timeout" from="Timer" to="." method="_releaseSelf"]
-[connection signal="body_entered" from="bulletArea" to="." method="_on_bullet_hit"]

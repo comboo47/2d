@@ -57,7 +57,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_test_input()
 func _process_jump_input() -> void:
 	if hsm.get_active_state() == jump_state:
-		return
+		if jump_state.fallingtime >= 0.1:
+			return
+		elif jump_state.isfalling:
+			jump_state.moveComponent.tryJump(true)
 	hsm.dispatch("jump")
 
 func _process_die_input() -> void:

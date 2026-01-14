@@ -1,7 +1,7 @@
 
 class_name Attribute extends Resource
 
-signal attribute_changed(attribute: Attribute)
+signal attribute_changed(attribute: Attribute,_old_value:float,_new_value:float)
 signal buff_added(attribute: Attribute, buff: AttributeBuff)
 signal buff_removed(attribute: Attribute, buff: AttributeBuff)
 
@@ -22,6 +22,8 @@ var is_initialized_base_value = false
 ## 储存对属性值产生影响Buff的缓存
 var buffs: Array[AttributeBuff] = []
 
+var old_value:float
+
 ## 该属性位于的属性集
 var attribute_set:
 	get():
@@ -38,18 +40,23 @@ func setter_base_value(v):
 
 
 func setter_computed_value(v):
+	old_value = get_value()
 	computed_value = v
-	attribute_changed.emit(self)
+
+	emit_signal("attribute_changed",self,old_value,computed_value)
 #endregion
 
 
 #region 外部函数
 func notify_attribute_changed():
-	attribute_changed.emit(self)
+	#attribute_changed.emit(self)
+	pass
 
 
 func update_computed_value():
-	computed_value = _compute_value(computed_value)
+	if computed_value != _compute_value(computed_value):
+		old_value = computed_value
+		computed_value = _compute_value(computed_value)
 
 
 ## 由外部驱动（AttributeSet）
@@ -135,7 +142,7 @@ func add_buff(_buff: AttributeBuff) -> AttributeBuff:
 		pending_add_buff = duplicated_buff
 
 	buff_added.emit(self, pending_add_buff)
-	attribute_changed.emit(self)
+	#attribute_changed.emit(self)
 	return pending_add_buff
 
 
@@ -145,7 +152,7 @@ func remove_buff(_buff: AttributeBuff):
 
 	buffs.erase(_buff)
 	buff_removed.emit(self, _buff)
-	attribute_changed.emit(self)
+	#attribute_changed.emit(self)
 
 
 func find_buff(buff_name: String) -> AttributeBuff:

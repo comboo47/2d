@@ -12,6 +12,7 @@ var attributes_runtime_dict: Dictionary[AttributeConfig.AttributeName, Attribute
 ## Value: Array[Attribute] 关联属性
 var derived_attributes_dict = {}
 
+
 #region setter
 func setter_attributes(v):
 	attributes = v
@@ -79,7 +80,7 @@ func _init_runtime_attributes():
 		runtime_attribute.set_value(base_value)
 
 
-func _on_attribute_changed(attribute: Attribute):
+func _on_attribute_changed(attribute: Attribute,_oldvalue:float,_newvalue:float):
 	_update_derived_attributes(attribute)
 
 

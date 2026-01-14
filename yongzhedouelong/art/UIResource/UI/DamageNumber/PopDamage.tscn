@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://5ol5fo47durt"]
+
+[ext_resource type="Texture2D" uid="uid://csg022il85y8h" path="res://art/GameplayArtResource/SpriteFrams/UI/Heart.tres" id="1_3cs7g"]
+[ext_resource type="Script" uid="uid://bw3gcudhea5n7" path="res://Scripts/GameBase/UIBase/Widget/PopDamage.gd" id="1_by7uy"]
+[ext_resource type="Texture2D" uid="uid://bfvta31qxaluc" path="res://art/UIResource/UI/DamageNumber/DamageNumber1.tres" id="2_by7uy"]
+[ext_resource type="Texture2D" uid="uid://q2bthkh2l1cd" path="res://art/UIResource/UI/DamageNumber/DamageNumber0.tres" id="2_vardt"]
+[ext_resource type="Texture2D" uid="uid://bepdgyts8rioo" path="res://art/UIResource/UI/DamageNumber/DamageNumber2.tres" id="3_0shwg"]
+[ext_resource type="Texture2D" uid="uid://c1amurybvsjj8" path="res://art/UIResource/UI/DamageNumber/DamageNumber3.tres" id="4_xykd3"]
+[ext_resource type="Texture2D" uid="uid://d1nlxms4jjb36" path="res://art/UIResource/UI/DamageNumber/DamageNumber4.tres" id="5_ouf34"]
+[ext_resource type="Texture2D" uid="uid://bjkwm8nbu3fmf" path="res://art/UIResource/UI/DamageNumber/DamageNumber5.tres" id="6_h0mcf"]
+[ext_resource type="Texture2D" uid="uid://biy3fva8u46m0" path="res://art/UIResource/UI/DamageNumber/DamageNumber6.tres" id="8_3dukb"]
+[ext_resource type="Texture2D" uid="uid://cfa1tp57sim0f" path="res://art/UIResource/UI/DamageNumber/DamageNumber7.tres" id="9_odcjt"]
+[ext_resource type="Texture2D" uid="uid://d4jh2d0wyfd5w" path="res://art/UIResource/UI/DamageNumber/DamageNumber8.tres" id="10_2557i"]
+[ext_resource type="Texture2D" uid="uid://dgq4ijjxun37h" path="res://art/UIResource/UI/DamageNumber/DamageNumber9.tres" id="11_xis3k"]
+
+[sub_resource type="Curve2D" id="Curve2D_vardt"]
+bake_interval = 32.34
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, -1, -11, 0, 0, 0, 0, -3, -17)
+}
+point_count = 4
+
+[node name="PopDamage" type="Control" unique_id=961989300]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_by7uy")
+numberList = Array[Resource]([ExtResource("2_vardt"), ExtResource("2_by7uy"), ExtResource("3_0shwg"), ExtResource("4_xykd3"), ExtResource("5_ouf34"), ExtResource("6_h0mcf"), ExtResource("8_3dukb"), ExtResource("9_odcjt"), ExtResource("10_2557i"), ExtResource("11_xis3k")])
+
+[node name="Timer" type="Timer" parent="." unique_id=1232260379]
+wait_time = 0.6
+one_shot = true
+autostart = true
+
+[node name="Path2D" type="Path2D" parent="." unique_id=262521742]
+scale = Vector2(-1, 1)
+curve = SubResource("Curve2D_vardt")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=110903291]
+position = Vector2(0, 1)
+rotation = -0.59864795
+rotates = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Path2D/PathFollow2D" unique_id=2006165745]
+offset_right = 300.0
+offset_bottom = 17.0
+rotation = 0.57072264
+scale = Vector2(-0.3, 0.3)
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Path2D/PathFollow2D/HBoxContainer" unique_id=1836088202]
+layout_mode = 2
+texture = ExtResource("1_3cs7g")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Path2D/PathFollow2D/HBoxContainer" unique_id=1215128051]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_by7uy")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Path2D/PathFollow2D/HBoxContainer" unique_id=344156596]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_0shwg")
+expand_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Path2D/PathFollow2D/HBoxContainer" unique_id=26573360]
+visible = false
+layout_mode = 2
+texture = ExtResource("4_xykd3")
+expand_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="Path2D/PathFollow2D/HBoxContainer" unique_id=467512418]
+visible = false
+layout_mode = 2
+texture = ExtResource("5_ouf34")
+expand_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="Path2D/PathFollow2D/HBoxContainer" unique_id=1062321958]
+visible = false
+layout_mode = 2
+texture = ExtResource("6_h0mcf")
+expand_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="Path2D/PathFollow2D/HBoxContainer" unique_id=792252920]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_3cs7g")
+expand_mode = 2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

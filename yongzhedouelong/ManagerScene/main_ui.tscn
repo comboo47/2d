@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwmlssqrwdwj4"]
+[gd_scene format=3 uid="uid://bwmlssqrwdwj4"]
 
 [ext_resource type="Script" uid="uid://djkusefaq016r" path="res://Scripts/GameBase/UIBase/main_ui_Mgr.gd" id="1_o0m1u"]
 [ext_resource type="Texture2D" uid="uid://csg022il85y8h" path="res://art/GameplayArtResource/SpriteFrams/UI/Heart.tres" id="1_xi14b"]
@@ -7,7 +7,7 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_086bg"]
 load_path = "res://.godot/imported/card_10_0.png-7c0edaa8033d8ee6209a4fd147ec566b.ctex"
 
-[node name="MainUI" type="Control"]
+[node name="MainUI" type="Control" unique_id=550540751]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,10 +16,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o0m1u")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1645670868]
 visible = false
 
-[node name="HPBar" type="Control" parent="CanvasLayer"]
+[node name="HPBar" type="Control" parent="CanvasLayer" unique_id=1014024680]
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -29,26 +29,26 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/HPBar"]
+[node name="Panel" type="Panel" parent="CanvasLayer/HPBar" unique_id=1800600383]
 layout_mode = 0
 offset_top = 2.0
 offset_right = 38.0
 offset_bottom = 18.0
 metadata/_edit_group_ = true
 
-[node name="HpPointShow" type="HBoxContainer" parent="CanvasLayer/HPBar"]
+[node name="HpPointShow" type="HBoxContainer" parent="CanvasLayer/HPBar" unique_id=1948438871]
 layout_mode = 0
 offset_top = 2.0
 offset_right = 39.0
 offset_bottom = 18.0
 metadata/_edit_group_ = true
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HPBar/HpPointShow"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HPBar/HpPointShow" unique_id=690458828]
 layout_mode = 2
 texture = ExtResource("1_xi14b")
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="CanvasLayer/HPBar/HpPointShow"]
+[node name="Label" type="Label" parent="CanvasLayer/HPBar/HpPointShow" unique_id=964729312]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "100"
@@ -56,14 +56,14 @@ horizontal_alignment = 3
 vertical_alignment = 3
 metadata/_edit_group_ = true
 
-[node name="PokerBar" type="Control" parent="CanvasLayer"]
+[node name="PokerBar" type="Control" parent="CanvasLayer" unique_id=1283962689]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 384.0
 offset_bottom = 240.0
 script = ExtResource("2_tva1y")
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PokerBar"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PokerBar" unique_id=1897332867]
 layout_mode = 0
 offset_top = 16.0
 offset_right = 64.0
@@ -73,274 +73,274 @@ theme_override_constants/v_separation = 0
 columns = 4
 metadata/_edit_group_ = true
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1813031743]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 expand_mode = 2
 metadata/_edit_group_ = true
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1089817240]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=843963518]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=669054064]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=2019434747]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=264204311]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=541995314]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect8" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect8" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=40773761]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect9" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect9" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=708485684]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect10" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect10" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=675372541]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect11" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect11" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1828976465]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect12" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect12" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=310212284]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect13" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect13" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=573299194]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect14" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect14" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=474208150]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect15" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect15" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=440713042]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect16" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect16" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=14667608]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect17" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect17" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=2026092080]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect18" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect18" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=2034073915]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect19" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect19" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1029752864]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect20" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect20" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1743986300]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect21" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect21" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=56805300]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect22" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect22" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1826087959]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect23" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect23" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=199967176]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect24" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect24" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=133949301]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect25" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect25" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=137753153]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect26" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect26" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=2042914120]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect27" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect27" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=565110470]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect28" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect28" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1538162570]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect29" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect29" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=611669667]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect30" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect30" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1101796992]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect31" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect31" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1256806443]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect32" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect32" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=372356005]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect33" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect33" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=963934794]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect34" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect34" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=254235651]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect35" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect35" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1154432772]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect36" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect36" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=751283217]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect37" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect37" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1346206319]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect38" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect38" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1627077975]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect39" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect39" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1833184668]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect40" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect40" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=366093946]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect41" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect41" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1553848558]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect42" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect42" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1999400516]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect43" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect43" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1835699664]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect44" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect44" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1681886360]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect45" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect45" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=2124434996]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect46" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect46" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=910700215]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect47" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect47" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=258546879]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect48" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect48" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1191859755]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect49" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect49" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1824152927]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect50" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect50" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1782815866]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect51" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect51" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1861102438]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect52" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer"]
+[node name="TextureRect52" type="TextureRect" parent="CanvasLayer/PokerBar/GridContainer" unique_id=1940417347]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=1769672099]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="GridContainer2" type="GridContainer" parent="Control"]
+[node name="GridContainer2" type="GridContainer" parent="Control" unique_id=1462125939]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -355,263 +355,263 @@ theme_override_constants/v_separation = 0
 columns = 4
 metadata/_edit_group_ = true
 
-[node name="TextureRect" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect" type="TextureRect" parent="Control/GridContainer2" unique_id=1864333915]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 expand_mode = 2
 metadata/_edit_group_ = true
 
-[node name="TextureRect2" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect2" type="TextureRect" parent="Control/GridContainer2" unique_id=758809335]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect3" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect3" type="TextureRect" parent="Control/GridContainer2" unique_id=397459790]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect4" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect4" type="TextureRect" parent="Control/GridContainer2" unique_id=1323497484]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect5" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect5" type="TextureRect" parent="Control/GridContainer2" unique_id=1379858621]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect6" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect6" type="TextureRect" parent="Control/GridContainer2" unique_id=1439818396]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect7" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect7" type="TextureRect" parent="Control/GridContainer2" unique_id=327973687]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect8" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect8" type="TextureRect" parent="Control/GridContainer2" unique_id=1603851160]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect9" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect9" type="TextureRect" parent="Control/GridContainer2" unique_id=1613514204]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect10" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect10" type="TextureRect" parent="Control/GridContainer2" unique_id=392639468]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect11" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect11" type="TextureRect" parent="Control/GridContainer2" unique_id=1880752180]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect12" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect12" type="TextureRect" parent="Control/GridContainer2" unique_id=186499784]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect13" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect13" type="TextureRect" parent="Control/GridContainer2" unique_id=754098911]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect14" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect14" type="TextureRect" parent="Control/GridContainer2" unique_id=1339734980]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect15" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect15" type="TextureRect" parent="Control/GridContainer2" unique_id=1777013703]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect16" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect16" type="TextureRect" parent="Control/GridContainer2" unique_id=1124837486]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect17" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect17" type="TextureRect" parent="Control/GridContainer2" unique_id=316625344]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect18" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect18" type="TextureRect" parent="Control/GridContainer2" unique_id=1885336542]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect19" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect19" type="TextureRect" parent="Control/GridContainer2" unique_id=1056079503]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect20" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect20" type="TextureRect" parent="Control/GridContainer2" unique_id=162650986]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect21" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect21" type="TextureRect" parent="Control/GridContainer2" unique_id=861969982]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect22" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect22" type="TextureRect" parent="Control/GridContainer2" unique_id=575075329]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect23" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect23" type="TextureRect" parent="Control/GridContainer2" unique_id=1498060035]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect24" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect24" type="TextureRect" parent="Control/GridContainer2" unique_id=340007748]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect25" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect25" type="TextureRect" parent="Control/GridContainer2" unique_id=159924830]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect26" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect26" type="TextureRect" parent="Control/GridContainer2" unique_id=413470917]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect27" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect27" type="TextureRect" parent="Control/GridContainer2" unique_id=618815455]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect28" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect28" type="TextureRect" parent="Control/GridContainer2" unique_id=565667228]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect29" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect29" type="TextureRect" parent="Control/GridContainer2" unique_id=697384674]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect30" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect30" type="TextureRect" parent="Control/GridContainer2" unique_id=1844683000]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect31" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect31" type="TextureRect" parent="Control/GridContainer2" unique_id=1619812871]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect32" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect32" type="TextureRect" parent="Control/GridContainer2" unique_id=110879165]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect33" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect33" type="TextureRect" parent="Control/GridContainer2" unique_id=574140914]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect34" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect34" type="TextureRect" parent="Control/GridContainer2" unique_id=1089011710]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect35" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect35" type="TextureRect" parent="Control/GridContainer2" unique_id=1322080827]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect36" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect36" type="TextureRect" parent="Control/GridContainer2" unique_id=4001326]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect37" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect37" type="TextureRect" parent="Control/GridContainer2" unique_id=2111816096]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect38" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect38" type="TextureRect" parent="Control/GridContainer2" unique_id=1574869844]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect39" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect39" type="TextureRect" parent="Control/GridContainer2" unique_id=1597035683]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect40" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect40" type="TextureRect" parent="Control/GridContainer2" unique_id=866070264]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect41" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect41" type="TextureRect" parent="Control/GridContainer2" unique_id=777080967]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect42" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect42" type="TextureRect" parent="Control/GridContainer2" unique_id=726488760]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect43" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect43" type="TextureRect" parent="Control/GridContainer2" unique_id=788832470]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect44" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect44" type="TextureRect" parent="Control/GridContainer2" unique_id=1159441150]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect45" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect45" type="TextureRect" parent="Control/GridContainer2" unique_id=1465650593]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect46" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect46" type="TextureRect" parent="Control/GridContainer2" unique_id=201173183]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect47" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect47" type="TextureRect" parent="Control/GridContainer2" unique_id=541857079]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect48" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect48" type="TextureRect" parent="Control/GridContainer2" unique_id=239625030]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect49" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect49" type="TextureRect" parent="Control/GridContainer2" unique_id=29906993]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect50" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect50" type="TextureRect" parent="Control/GridContainer2" unique_id=744717939]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect51" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect51" type="TextureRect" parent="Control/GridContainer2" unique_id=902921325]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true
 
-[node name="TextureRect52" type="TextureRect" parent="Control/GridContainer2"]
+[node name="TextureRect52" type="TextureRect" parent="Control/GridContainer2" unique_id=193895094]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_086bg")
 metadata/_edit_group_ = true

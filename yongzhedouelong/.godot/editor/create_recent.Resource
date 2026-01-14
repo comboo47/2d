@@ -1,4 +1,4 @@
-res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeBuff.gd
+AtlasTexture
 AttributeBuff
 JSON
 AttributeModifier
@@ -10,6 +10,5 @@ Talent_OnCast
 Equip_Item
 CompressedTexture2D
 SpriteFrames
-AtlasTexture
 TileSetAtlasSource
 MeshTexture

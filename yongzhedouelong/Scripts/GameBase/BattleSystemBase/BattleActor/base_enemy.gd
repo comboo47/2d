@@ -11,6 +11,9 @@ var isDead:bool = false
 @export var bt:BehaviorTree
 
 func _ready():
+	if atc.find_attribute(AttributeConfig.AttributeName.Hp):
+		atc.find_attribute(AttributeConfig.AttributeName.Hp).attribute_changed.connect(_beHurt)
+	
 	if bt:
 		bt.set_active(true)
 	pass
@@ -23,12 +26,16 @@ func hitDisplay():
 	
 	hurt_display_component.hitDisplay()
 
-func _beHurt(dmg):
-	#var hp = stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]]
-	#stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]] -= 1
-	#if(stats.DynamicAttrDic[BattleGlobal.DyAttr.keys()[BattleGlobal.DyAttr.curHp]] <= 0): 
-		#if !isDead:
-			#setDead()
+func _beHurt(_attribute:Attribute,_oldvalue:float,_newvalue:float):
+	var dmg = _newvalue-_oldvalue
+	if dmg<0:
+		var player = get_node("/root/Player")
+		var menu_popup_scene = preload("res://art/UIResource/UI/DamageNumber/PopDamage.tscn")
+		var menu_popup_instance: Node
+		menu_popup_instance = menu_popup_scene.instantiate()
+		menu_popup_instance.name = "MenuPopup"
+		menu_popup_instance.init(self,dmg)
+		add_child(menu_popup_instance)
 	hitDisplay()
 func setDead():
 	isDead = true

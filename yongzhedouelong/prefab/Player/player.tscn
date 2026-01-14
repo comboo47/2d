@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dkfjjgl6natjs"]
+[gd_scene format=3 uid="uid://dkfjjgl6natjs"]
 
 [ext_resource type="Script" uid="uid://68mglym1swmy" path="res://Scripts/GameBase/BattleSystemBase/BattleActor/Player.gd" id="1_jy17n"]
 [ext_resource type="PackedScene" uid="uid://dyty1o6rphkf1" path="res://prefab/Weapon/CrossBow/weapon_Crossbow.tscn" id="2_0316s"]
@@ -174,27 +174,27 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isxyg"]
 size = Vector2(13, 13)
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1552758562 groups=["Player"]]
 collision_mask = 16
 script = ExtResource("1_jy17n")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1752979205]
 scale = Vector2(1.5, 1)
 shape = SubResource("CapsuleShape2D_asorp")
 metadata/_edit_group_ = true
 
-[node name="Weapon_Crossbow" parent="." instance=ExtResource("2_0316s")]
+[node name="Weapon_Crossbow" parent="." unique_id=1188265981 instance=ExtResource("2_0316s")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=467077518]
 scale = Vector2(1.036, 1)
 sprite_frames = SubResource("SpriteFrames_1g2qo")
 animation = &"jump"
 metadata/_edit_group_ = true
 
-[node name="InteractionInterface" parent="." instance=ExtResource("4_d2m3x")]
+[node name="InteractionInterface" parent="." unique_id=1817200922 instance=ExtResource("4_d2m3x")]
 
-[node name="EnergeBar" parent="." instance=ExtResource("5_5ewlt")]
+[node name="EnergeBar" parent="." unique_id=865681003 instance=ExtResource("5_5ewlt")]
 z_index = 2
 custom_minimum_size = Vector2(16, 16)
 offset_left = -8.00001
@@ -202,43 +202,43 @@ offset_top = -8.0
 offset_right = 7.99999
 offset_bottom = 8.0
 
-[node name="BodyArea" type="Area2D" parent="." node_paths=PackedStringArray("movementComponent")]
+[node name="BodyArea" type="Area2D" parent="." unique_id=696852890 node_paths=PackedStringArray("movementComponent")]
 collision_layer = 4096
 collision_mask = 4096
 script = ExtResource("6_8pu54")
 movementComponent = NodePath("../MoveComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" unique_id=1995373255]
 shape = SubResource("RectangleShape2D_isxyg")
 
-[node name="MoveComponent" parent="." node_paths=PackedStringArray("actor") instance=ExtResource("7_c3gvp")]
+[node name="MoveComponent" parent="." unique_id=2060019757 node_paths=PackedStringArray("actor") instance=ExtResource("7_c3gvp")]
 enableGravity = true
 actor = NodePath("..")
 speed = Vector2(100, -30)
 jumpSpeed = -310.0
 
-[node name="LimboHSM" type="LimboHSM" parent="."]
+[node name="LimboHSM" type="LimboHSM" parent="." unique_id=933240814]
 
-[node name="IdleState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("animator")]
+[node name="IdleState" type="LimboState" parent="LimboHSM" unique_id=1388312194 node_paths=PackedStringArray("animator")]
 script = ExtResource("8_vy18d")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"idle"
 
-[node name="MoveState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("moveComponent", "animator")]
+[node name="MoveState" type="LimboState" parent="LimboHSM" unique_id=615746649 node_paths=PackedStringArray("moveComponent", "animator")]
 script = ExtResource("9_hy4dd")
 moveComponent = NodePath("../../MoveComponent")
 animator = NodePath("../../AnimatedSprite2D")
 animation = &"walk"
 
-[node name="JumpState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("animator", "moveComponent")]
+[node name="JumpState" type="LimboState" parent="LimboHSM" unique_id=1734363221 node_paths=PackedStringArray("animator", "moveComponent")]
 script = ExtResource("10_r12xo")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"jump"
 moveComponent = NodePath("../../MoveComponent")
 
-[node name="HurtState" type="LimboState" parent="LimboHSM"]
+[node name="HurtState" type="LimboState" parent="LimboHSM" unique_id=326654046]
 
-[node name="DieState" type="LimboState" parent="LimboHSM" node_paths=PackedStringArray("animator")]
+[node name="DieState" type="LimboState" parent="LimboHSM" unique_id=801063320 node_paths=PackedStringArray("animator")]
 script = ExtResource("11_13ih8")
 animator = NodePath("../../AnimatedSprite2D")
 animationName = &"die"

@@ -7,14 +7,14 @@
 [ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscene/component/AttributeComponent.gd" id="5_eys0m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eys0m"]
-size = Vector2(11, 12)
+size = Vector2(20, 26)
 
 [node name="BaseEnemy" type="CharacterBody2D" unique_id=1130993191 groups=["Mob"]]
 collision_layer = 2
 collision_mask = 18
 script = ExtResource("1_hovwj")
 
-[node name="ControllerCollision" type="CollisionShape2D" parent="." unique_id=873139497]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=154341415]
 shape = SubResource("RectangleShape2D_eys0m")
 
 [node name="MoveComponent" type="Node" parent="." unique_id=1935701040 node_paths=PackedStringArray("actor")]

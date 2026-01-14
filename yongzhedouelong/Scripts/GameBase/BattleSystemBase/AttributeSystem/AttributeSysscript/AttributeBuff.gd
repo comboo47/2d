@@ -65,9 +65,9 @@ func deep_duplicate(_source:BattleActor,_target:BattleActor) -> AttributeBuff:
 	var duplicated_buff = self.duplicate(true)
 	duplicated_buff.BuffSource = _source as BattleActor
 	duplicated_buff.BuffTarget = _target as BattleActor
-	for effect in BuffEffects:
-		if effect:
-			duplicated_buff.BuffEffects.append(effect.duplicate(true))
+	#for effect in BuffEffects:
+		#if effect:
+			#duplicated_buff.BuffEffects.append(effect.duplicate(true))
 	duplicated_buff.Create(_source,_target)
 	return duplicated_buff
 

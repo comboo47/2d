@@ -33,8 +33,8 @@ func _physics_process(delta):
 	actor.move_and_slide()
 	pass
 
-func tryJump():
-	if actor.is_on_floor():
+func tryJump(canjump = false):
+	if actor.is_on_floor() or canjump:
 		actor.velocity.y = jumpSpeed
 
 func hitBackSmall(direction:Vector2,backSpeed:Vector2,backTime:float):
