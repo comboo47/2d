@@ -46,7 +46,7 @@ func boomDisplay():
 	tween.set_ease(Tween.EASE_OUT)
 	var colorValue = $BoomAnimated.modulate
 	colorValue.a = 0.2
-	tween.tween_property($BoomAnimated,"scale",Vector2(2,2),0.3)
+	tween.tween_property($BoomAnimated,"scale",Vector2(2,2),0.35)
 	tween.tween_property($BoomAnimated,"modulate",colorValue,0.25)
 	await tween.finished
 	_releaseSelf()

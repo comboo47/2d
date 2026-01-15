@@ -60,7 +60,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pkhck"]
-radius = 42.713516
+radius = 16.0
 
 [node name="RigidBody2D" type="RigidBody2D" unique_id=731377563]
 collision_layer = 256
@@ -84,7 +84,7 @@ wait_time = 10.0
 
 [node name="BoomAnimated" type="AnimatedSprite2D" parent="." unique_id=824765485]
 visible = false
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_6npvr")
 
 [node name="BoomArea" type="Area2D" parent="." unique_id=714159062]
