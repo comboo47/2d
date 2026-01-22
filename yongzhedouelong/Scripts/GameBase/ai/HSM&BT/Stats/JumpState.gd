@@ -19,9 +19,16 @@ func _enter()->void:
 		#fx.global_position = animator.get_parent().global_position
 		animator.get_parent().add_child(fx)
 		fx.position = Vector2(0,12)
-		animator.get_parent().get_node("Node2D/GPUParticles2D").restart()
+		#animator.get_parent().get_node("Node2D/GPUParticles2D").restart()
+		#for jumpfx in fx.get_children(false):
+ 			#if jumpfx is GPUParticles2D:
+				#jumpfx.restart()
+				
 	else:
 		animator.get_parent().get_node("Node2D/GPUParticles2D").restart()
+		for jumpfx in fx.get_children(false):
+			if jumpfx is GPUParticles2D:
+				jumpfx.restart()
 	
 	
 

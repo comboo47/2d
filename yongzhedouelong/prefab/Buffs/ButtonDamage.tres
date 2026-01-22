@@ -6,12 +6,13 @@
 
 [sub_resource type="Resource" id="Resource_gf4lr"]
 script = ExtResource("2_grrtl")
-expression = "20"
+expression = "round(buff.buffDuration) * 20"
 metadata/_custom_type_script = "uid://bheciu41d7sx8"
 
 [resource]
 script = ExtResource("2_wp2dm")
-name = "Damage"
 buff_id = "1001"
+buff_Name = "Damage"
+buffDuration = 0.6
 BuffEffects = Array[ExtResource("1_4l23n")]([SubResource("Resource_gf4lr")])
 metadata/_custom_type_script = "uid://dkwrihpi0kobp"

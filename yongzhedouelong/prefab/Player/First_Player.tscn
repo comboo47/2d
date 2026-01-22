@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://b8f778661m1vg" path="res://prefab/Player/PlayerBase.tscn" id="1_8qvpg"]
 [ext_resource type="Script" uid="uid://68mglym1swmy" path="res://Scripts/GameBase/BattleSystemBase/BattleActor/Player.gd" id="2_ett2r"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_w6crh"]
-[ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="4_drofh"]
 [ext_resource type="Script" uid="uid://dwfeni3ypyhp8" path="res://Scripts/GameBase/ai/HSM&BT/Stats/IdleState.gd" id="4_na5rg"]
+[ext_resource type="Texture2D" uid="uid://bnakio8ehjvhb" path="res://art/GameplayArtResource/Fx/FxResource/Dust.png" id="4_tju1s"]
 [ext_resource type="Script" uid="uid://bky115gysd03k" path="res://Scripts/GameBase/ai/HSM&BT/Stats/MoveState.gd" id="5_tief1"]
 [ext_resource type="Script" uid="uid://dfrmsgblcs3ec" path="res://Scripts/GameBase/ai/HSM&BT/Stats/JumpState.gd" id="6_q6pqf"]
 [ext_resource type="Script" uid="uid://b0qoa2eih2v3t" path="res://Scripts/GameBase/ai/HSM&BT/Stats/DieState.gd" id="7_6mmwe"]
@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://c2grvpueyi5dg" path="res://art/GameplayArtResource/Fx/fx_jump_particle.tscn" id="7_pobo7"]
 [ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscene/component/AttributeComponent.gd" id="9_drofh"]
 [ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/Attribute.gd" id="12_kydf8"]
-[ext_resource type="Script" uid="uid://cvro1y5xgfqo" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysresource/attribute/AttackAttribute.gd" id="13_sflj1"]
-[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysresource/attribute/HealthAttribute.gd" id="13_tju1s"]
+[ext_resource type="Script" uid="uid://cvro1y5xgfqo" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysResource/attribute/AttackAttribute.gd" id="13_sflj1"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysResource/attribute/HealthAttribute.gd" id="13_tju1s"]
 [ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeSet.gd" id="14_sflj1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nhojw"]
@@ -178,10 +178,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pobo7"]
-atlas = ExtResource("4_drofh")
-region = Rect2(408, 425, 16, 16)
-
 [sub_resource type="Curve" id="Curve_kydf8"]
 _data = [Vector2(0.004264392, 1), 0.0, 0.0, 0, 0, Vector2(0.98933893, 0.008828282), 0.16556135, 0.0, 0, 0]
 point_count = 2
@@ -201,20 +197,26 @@ curve = SubResource("Curve_tju1s")
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(2, 0.3, 1)
+angle_min = -179.99998
+angle_max = 180.00002
 direction = Vector3(0, -1, 0)
 spread = 0.0
-initial_velocity_min = 25.0
-initial_velocity_max = 30.0
-angular_velocity_min = -1.6093254e-05
-angular_velocity_max = 359.99997
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+angular_velocity_min = -40.410015
+angular_velocity_max = 319.58997
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
 radial_velocity_min = -2.2351742e-05
 radial_velocity_max = -2.2351742e-05
-gravity = Vector3(0, 125, 0)
-linear_accel_min = -2.2351742e-06
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 0.99999774
 linear_accel_max = 0.99999774
+damping_min = 5.0
+damping_max = 25.000002
 damping_curve = SubResource("CurveTexture_qsmwy")
-scale_min = 0.29999998
-scale_max = 0.29999998
+scale_min = 0.35
+scale_max = 0.59999996
 color = Color(0.8474744, 0.84747446, 0.84747446, 1)
 alpha_curve = SubResource("CurveTexture_ju55n")
 
@@ -279,10 +281,10 @@ sprite_frames = SubResource("SpriteFrames_1g2qo")
 animation = &"die"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" index="0" unique_id=1768014256]
-position = Vector2(0, 9)
-emitting = false
-amount = 3
-texture = SubResource("AtlasTexture_pobo7")
+z_index = -1
+position = Vector2(-2, 9)
+amount = 4
+texture = ExtResource("4_tju1s")
 lifetime = 0.4
 process_material = SubResource("ParticleProcessMaterial_sflj1")
 

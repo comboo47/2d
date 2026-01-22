@@ -1,10 +1,8 @@
 @tool
 class_name AttributeBuff extends Resource
-@export var name:String
 @export var buff_id:String
 
 @export var buff_Name: String
-@export var operation := AttributeModifier.OperationType.ADD
 @export var buffDuration := 0.0
 @export var buffPeriod := 0
 @export var isLeaveReset := false
