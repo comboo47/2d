@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://mup74dsq8bb1" path="res://Scripts/GameModeScript/Main.gd" id="1_nacb5"]
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/colored.png" id="1_vo45i"]
-[ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Sceen/superJump.tscn" id="5_03ts5"]
+[ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Scene/superJump.tscn" id="5_03ts5"]
 [ext_resource type="PackedScene" uid="uid://bn5q4clyianrt" path="res://prefab/Enemy/First_Enemy.tscn" id="5_61ete"]
 [ext_resource type="PackedScene" uid="uid://cxrwvj5jceqj3" path="res://prefab/Enemy/Second_Enemy.tscn" id="5_xibgf"]
 
