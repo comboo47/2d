@@ -4,8 +4,8 @@ signal player_fired_bullet(bullet,_position,_rotation,direction,type)
 
 @export var subSpeed = float(0)
 @export var refreshSpeed = float(3)
-@export var MaxEnerge = float(100)
-var currentEnerge = float(0)
+@export var MaxEnergy = float(100)
+var currentEnergy = float(0)
 
 var holdTime = 0
 var needHoldTime = 0.7
@@ -23,7 +23,7 @@ var hold = false
 func _ready():
 	var b = bullet.instantiate()
 	defaultSpeed = b.speed
-	currentEnerge = MaxEnerge
+	currentEnergy = MaxEnergy
 	pass # Replace with function body.
 
 
@@ -43,7 +43,7 @@ func _process(delta):
 				$SubTimer.start()
 			deltaIndex += delta
 			if deltaIndex >= 0.1:
-				if currentEnerge>0:
+				if currentEnergy>0:
 					realfire()
 		else:
 			$Sprite2D2.rotation += 0.25
@@ -77,15 +77,15 @@ func realfire():
 	if get_parent():
 		var _bullet = bullet.instantiate()
 		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,$Marker2D.global_rotation,direction,1)
-func refreshEnerge():
-	currentEnerge += refreshSpeed
-	currentEnerge = clamp(currentEnerge,0,MaxEnerge)
-func subEnerge():
-	var subedvalue = currentEnerge - subSpeed
-	subedvalue = clamp(subedvalue,0,MaxEnerge)
-	currentEnerge = subedvalue
-	#currentEnerge = clamp(currentEnerge,0,MaxEnerge)
-	if currentEnerge <= 0:
+func refreshEnergy():
+	currentEnergy += refreshSpeed
+	currentEnergy = clamp(currentEnergy,0,MaxEnergy)
+func subEnergy():
+	var subedvalue = currentEnergy - subSpeed
+	subedvalue = clamp(subedvalue,0,MaxEnergy)
+	currentEnergy = subedvalue
+	#currentEnergy = clamp(currentEnergy,0,MaxEnergy)
+	if currentEnergy <= 0:
 		var tween = create_tween()
 		tween.set_trans(Tween.TRANS_SINE)
 		tween.set_ease(Tween.EASE_IN)
@@ -93,5 +93,5 @@ func subEnerge():
 		tween.tween_property($Sprite2D2,"modulate",Color.FIREBRICK,0.05)
 		tween.tween_property($Sprite2D2,"modulate",oriColor,0.05)
 	
-func getWeaponEnerge() ->float:
-	return currentEnerge
+func getWeaponEnergy() ->float:
+	return currentEnergy

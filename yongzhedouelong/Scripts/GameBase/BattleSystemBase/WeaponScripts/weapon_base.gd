@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name weapon_base
+class_name WeaponBase
 
 @export var bullet: PackedScene
 #@export var state:BattleStats

@@ -13,7 +13,7 @@ func _ready():
 
 func getDropItem(droperID)->Vector2:
 	if dropDic.has(droperID):
-		return dropDic[1001]
+		return dropDic[droperID]
 	else:
 		return Vector2(0,0)
 	pass

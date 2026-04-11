@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="Talent_OnCast" load_steps=2 format=3 uid="uid://b1nhwuivowm5o"]
-
-[ext_resource type="Script" path="res://prefab/BattleBase/Talent/Talent_OnCast.gd" id="1_53a0n"]
-
-[resource]
-script = ExtResource("1_53a0n")
-inspector = 0

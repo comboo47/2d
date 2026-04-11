@@ -1,9 +1,9 @@
 extends BattleActor
 
-class_name mainPlayer
+class_name MainPlayer
 
 var holdFireTime = float(0)
-var underControle = true
+var under_control = true
 signal pickUpPoker(number,flower)
 
 var mousePosition:Vector2
@@ -65,8 +65,6 @@ func _process_jump_input() -> void:
 
 func _process_die_input() -> void:
 	if hsm.get_active_state() == die_state:
-		return
-	#if stats.curHp >0:
 		return
 	hsm.dispatch("die")
 func _test_input()-> void:

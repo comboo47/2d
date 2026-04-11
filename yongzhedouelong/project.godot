@@ -26,7 +26,7 @@ BulletManager="*res://ManagerScene/bullet_manager.tscn"
 MainUI="*res://ManagerScene/main_ui.tscn"
 Player="*res://prefab/Player/First_Player.tscn"
 BattleManager="*res://Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd"
-DataRegistor="*res://Scripts/GameBase/GameDataBase/DataManager.gd"
+DataRegistry="*res://Scripts/GameBase/GameDataBase/DataManager.gd"
 DataAutoScanner="*res://Scripts/GameBase/GameDataBase/DataAutoScanner.gd"
 JsonLoader="*uid://bj77cnixq0p7e"
 

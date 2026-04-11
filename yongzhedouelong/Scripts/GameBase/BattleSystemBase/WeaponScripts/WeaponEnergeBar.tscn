@@ -71,4 +71,4 @@ show_percentage = false
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 
-[connection signal="timeout" from="Timer" to="." method="updateEnergeBarvisible"]
+[connection signal="timeout" from="Timer" to="." method="update_energy_bar_visible"]

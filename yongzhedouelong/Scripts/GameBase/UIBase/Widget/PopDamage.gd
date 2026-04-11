@@ -1,4 +1,4 @@
-class_name popDamageWidget extends Control
+class_name PopDamageWidget extends Control
 
 @export var numberList:Array[Resource]
 @onready var h_box_container: HBoxContainer = $Path2D/PathFollow2D/HBoxContainer

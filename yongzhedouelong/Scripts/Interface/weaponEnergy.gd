@@ -7,7 +7,7 @@ var energyShow = false
 func _ready():
 	player = $".".get_parent()
 	#$Timer.start()
-	updateEnergeBarvisible()
+	updateEnergyBarvisible()
 	pass # Replace with function body.
 
 
@@ -15,15 +15,15 @@ func _ready():
 func _process(delta):
 	if energyShow:
 		if $ProgressBar.max_value != 0:
-			energy = player.get_meta("CurrentWeapon").getWeaponEnerge()
+			energy = player.get_meta("CurrentWeapon").getWeaponEnergy()
 			energy = clamp(energy,0,$ProgressBar.max_value)
 			$ProgressBar.value = energy
 	pass
-func updateEnergeBarvisible():
+func updateEnergyBarvisible():
 	
 	if player.has_meta("CurrentWeapon"):
-		if player.get_meta("CurrentWeapon").has_method("getWeaponEnerge"):
-			energy = player.get_meta("CurrentWeapon").getWeaponEnerge()
+		if player.get_meta("CurrentWeapon").has_method("getWeaponEnergy"):
+			energy = player.get_meta("CurrentWeapon").getWeaponEnergy()
 			player.set_meta("weaponEnergyBar",self)
 			$ProgressBar.max_value = energy
 			energyShow = true

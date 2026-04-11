@@ -15,12 +15,12 @@ func _releaseSelf():
 	$".".queue_free()
 	
 func _on_bullet_hit(body:Node):
-	hurSomeBody(body)
+	hurt_somebody(body)
 	_releaseSelf()
 func _on_body_entered(body):
 	_releaseSelf()
 	
 	pass # Replace with function body.
-func hurSomeBody(body:Node):
+func hurt_somebody(body:Node):
 	if body.has_method("_beHurt"):
 		body._beHurt(damage)

@@ -13,7 +13,6 @@ var ori_scale:Vector2
 func _ready() -> void:
 	ori_modulate = $".".get_parent().modulate
 	ori_scale = animSprit2D.scale
-	ori_scale = Vector2(1.0,1.0)
 	hit_timer.timeout.connect(hitDisplayEnd)
 	hit_timer.wait_time = displayTime
 	pass # Replace with function body.

@@ -41,7 +41,7 @@ func _update(_delta: float) -> void:
 		get_root().dispatch(EVENT_FINISHED)
 
 
-func _on_exited() -> void:
+func _exit() -> void:
 	isfalling = false
 	fallingtime = 0
 	if fx2 == null:

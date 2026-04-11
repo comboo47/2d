@@ -9,7 +9,7 @@ func _ready():
 	player.connect("pickUpPoker",Callable(mainUI,"pickUpPoker"))
 	player.position = $PlayerStart.position
 
-func _process(_delta: float = 100) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("testButton"):
 		var num = randf()*100
 		var player = get_node("/root/Player")
