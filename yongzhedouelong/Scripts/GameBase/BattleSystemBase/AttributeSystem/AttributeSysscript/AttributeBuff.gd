@@ -16,7 +16,6 @@ func write_all_children_data():
 
 
 func _init() -> void:
-	print("buff资源加载结束")
 	pass
 ## duration_policy == HasDuration生效
 ## 单位：秒
@@ -106,7 +105,6 @@ func set_merging(_mergin: DurationMerging):
 func set_duration(_time: float) -> AttributeBuff:
 	return self
 func buff_execute()->void:
-	print(BuffEffects.size())
 	for effect in BuffEffects:
 		effect.EffectGo()
 

@@ -30,7 +30,7 @@ The `Tables/` directory contains an Excel-to-JSON pipeline (`gen_all.bat`) that 
 | Singleton | Script/Scene | Purpose |
 |-----------|-------------|---------|
 | `BattleManager` | `Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd` | Static utility methods for applying/removing buffs, combat operations |
-| `DataRegistor` | `Scripts/GameBase/GameDataBase/DataManager.gd` | Registry for `AttributeBuff` resources, keyed by `buff_id` |
+| `DataRegistry` | `Scripts/GameBase/GameDataBase/DataManager.gd` | Registry for `AttributeBuff` resources, keyed by `buff_id` |
 | `DataAutoScanner` | `Scripts/GameBase/GameDataBase/DataAutoScanner.gd` | On startup, scans `res://prefab/Buffs/` and registers all `.tres` buff resources |
 | `DropManager` | `ManagerScene/drop_manager.tscn` | Handles item/poker drops from enemies |
 | `BulletManager` | `ManagerScene/bullet_manager.tscn` | Manages bullet instantiation and lifecycle |
@@ -60,7 +60,7 @@ AttributeComponent (Node) — attaches to actors, drives AttributeSet._process e
 ### Buff System
 
 ```
-AttributeBuff (Resource, @tool) — buff_id, duration, DurationMerging policy, BuffEffects[]
+AttributeBuff (Resource) — buff_id, duration, DurationMerging policy, BuffEffects[]
     ↓
 AttributeBuffEffect (base) — subclassed per effect type
     ├── E_AttributeModify — adds/subtracts from an Attribute
@@ -68,47 +68,96 @@ AttributeBuffEffect (base) — subclassed per effect type
 ```
 
 - Buffs are defined as `.tres` resources under `prefab/Buffs/` and auto-registered at startup by `DataAutoScanner`.
-- Apply a buff: `BattleManager.ApplyBuff(source, target, buff_id)` — this calls `DataRegistor.get_buff(id)`, deep-duplicates it, and appends it to the target's `BuffManager`.
+- Apply a buff: `BattleManager.ApplyBuff(source, target, buff_id)` — this calls `DataRegistry.get_buff(id)`, deep-duplicates it, and appends it to the target's `BuffManager`.
 - **`BuffManager`** (`AttributeSysscene/component/buff_manager.gd`): Node child of every `BattleActor`; ticks all active buffs and removes expired ones each physics frame.
 - Duration merging: `Restart` resets timer, `Addtion` stacks time, `NoEffect` ignores new applications.
+- Key fields use snake_case: `buff_name`, `buff_execute()`, `execute_type()`.
 
 ### Actor Hierarchy
 
 ```
 CharacterBody2D
     └── BattleActor (class_name) — base for all combatants; holds AttributeComponent ref + BuffManager
-        ├── mainPlayer (Player.gd) — HSM-driven states (Idle/Move/Jump/Hurt/Die)
+        ├── MainPlayer (Player.gd) — HSM-driven states (Idle/Move/Jump/Hurt/Die)
         └── base_enemy (base_enemy.gd) — BehaviorTree (LimboAI BT) driven, EnemyID links to data table
 ```
 
 - Player state machine uses **LimboHSM** (hierarchical FSM from LimboAI addon).
 - Enemies use **LimboAI BehaviorTree** (`bt` export field on `base_enemy`).
 - All actors access their `AttributeComponent` via `BattleActor.GetAttributes()`.
+- LimboHSM state methods: `_enter()`, `_exit()`, `_update()` (not `_on_exited`).
 
 ### Weapon System
 
 ```
-weapon_base (Node2D) — fires via signal "fired_bullet" → BulletManager
-    ├── bow/
-    ├── CrossBow (Weapon_Crossbow.gd)
-    └── bottle/
+WeaponBase (Node2D, class_name) — unified weapon base class
+    signal: weapon_fired(bullet, spawn_position, direction, speed, bullet_type)
+    ├── Bow/ (Weapon_Bow.gd) — hold for spread shot
+    ├── Crossbow/ (Weapon_Crossbow.gd) — energy-based auto-fire
+    └── Bottle/ (Weapon_Bottle.gd) — throwable bottle
+    └── EnemyWeapon/ — enemy weapons extend WeaponBase
 ```
 
-- Weapons emit `fired_bullet(bullet, position, rotation, velocity, type)` signal.
-- `bullet_base.gd` is the base class for all projectiles.
+- Weapons emit `weapon_fired(bullet, spawn_position, direction, speed, bullet_type)` signal.
+- `BulletManager.handle_bullet_spawn()` handles both new and legacy signal formats.
 - The player's current weapon is stored as meta: `actor.get_meta("CurrentWeapon")`.
+- WeaponRoot connects weapon signals to BulletManager and sets `owner_actor`.
 
 ### Data Tables
 
 - Source: `Tables/Excel/BattleAttribute.xlsx`
 - Output: `Tables/Json/BattleAttribute/BattleActorAttribute.json`
 - Format: keyed by `AttributeID` (e.g. `10001`), fields: `MaxHP`, `Attack`, `Armor`, `Strength`, `Crit`
-- `JsonLoader` autoload reads these JSON files; `DataRegistor` and `DataAutoScanner` handle buff resource registration separately.
+- `JsonLoader` autoload reads these JSON files; `DataRegistry` and `DataAutoScanner` handle buff resource registration separately.
+
+### Directory Structure
+
+```
+Scripts/
+  GameBase/
+    BattleSystemBase/
+      AttributeSystem/
+        AttributeConst/       -- AttributeConfig.gd (enum only)
+        AttributeSysscript/   -- Core logic: Attribute, AttributeBuff, AttributeSet, AttributeModifier
+        AttributeSysscript/BuffEffect/ -- E_AttributeModify, E_Damage
+        AttributeSysresource/ -- Attribute presets: AttackAttribute, HealthAttribute
+        AttributeSysscene/component/ -- AttributeComponent, BuffManager
+      BattleActor/            -- BattleActor, Player.gd (MainPlayer), base_enemy.gd
+      BattleSystem/           -- BattleManager, BulletManager
+      WeaponScripts/          -- WeaponBase, Weapon_Bow, Weapon_Crossbow, Weapon_Bottle
+    GameDataBase/             -- DataManager (DataRegistry), DataAutoScanner
+    LevelSystemBase/          -- DropManager
+    UIBase/                   -- MainUI, PopDamageWidget
+  Actor/                      -- InteractionShow, PokerBar, SuperJump
+  Interface/                  -- BodyArea, CanPickUp, DropDisplay, WeaponEnergy
+  GameModeScript/             -- Main.gd
+  ai/
+    HSM&BT/Stats/             -- LimboHSM states: Idle, Move, Jump, Hurt, Die
+    tasks/                    -- BT tasks: GetFirstInGroup, InRangeOf, PursureTarget
+
+Scene/                        -- (was Sceen/, typo fixed)
+  TestScene.tscn              -- Current main scene
+  Main.tscn                   -- Alternative test scene
+  SuperJump.tscn              -- Jump pad
+
+prefab/
+  Buffs/                      -- AttributeBuff .tres resources
+  Component/                  -- WeaponRoot, MoveComponent, HurtDisplayComponent
+  Enemy/                      -- base_enemy, First_Enemy, Second_Enemy, DamageTestEnemy
+  Item/                       -- Poker, CanPickUp, Card, DropDisplay
+  Player/                     -- First_Player (autoload), PlayerBase
+  Weapon/                     -- Bow/, Bottle/, Crossbow/, EnemyWeapon/
+
+ManagerScene/                 -- DropManager, BulletManager, MainUI
+Tables/                       -- Excel/, Json/
+art/                          -- GameplayArtResource, UIResource
+addons/                       -- limboai, buffresourceplugin, battleresourceeditor
+```
 
 ### Addons
 
 - **`limboai`** — Provides `LimboHSM` (player FSM) and `BehaviorTree` (enemy AI).
-- **`buffresourceplugin`** — Editor plugin for authoring `AttributeBuff` resources (`@tool`).
+- **`buffresourceplugin`** — Editor plugin for authoring `AttributeBuff` resources.
 - **`battleresourceeditor`** — Editor tooling for battle resources.
 
 ### Physics Layers
@@ -122,3 +171,17 @@ weapon_base (Node2D) — fires via signal "fired_bullet" → BulletManager
 ### Input Actions
 
 `left`/`right` → A/D, `jump` → Space, `fire` → Mouse LMB, `interaction` → F, `test` → Q
+
+## MCP Servers
+
+The project has MCP servers configured in `.mcp.json`:
+
+- **filesystem MCP** — Read project files, JSON data tables, .godot metadata
+- **Excel MCP** — Read Tables/Excel/ .xlsx files directly
+
+## Naming Conventions
+
+- **class_name**: PascalCase (e.g., `WeaponBase`, `MainPlayer`, `PopDamageWidget`)
+- **Methods**: snake_case (e.g., `buff_execute()`, `hurt_somebody()`)
+- **Variables**: snake_case (e.g., `under_control`, `current_energy`)
+- **Signals**: snake_case (e.g., `weapon_fired`, `attribute_changed`)

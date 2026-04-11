@@ -1,2 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
+
+# Claude Code MCP config (contains local paths)
+.mcp.json
+.claude/settings.local.json

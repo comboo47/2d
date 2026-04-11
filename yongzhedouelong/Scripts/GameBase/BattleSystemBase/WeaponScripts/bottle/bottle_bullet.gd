@@ -33,7 +33,6 @@ func _on_body_entered(body):
 func hurt_somebody(body:Node):
 	if body.has_method("_beHurt"):
 		BattleManager.ApplyBuff(bulletOwner,body,damagebuffid)
-	print(body,damagebuffid)
 func boomDisplay():
 	$".".set_deferred("freeze_mode",1)
 	$".".set_deferred("freeze",true)

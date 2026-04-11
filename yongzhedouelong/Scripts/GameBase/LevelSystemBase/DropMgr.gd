@@ -31,7 +31,6 @@ func dropPoker(droper:Node):
 		dropItem = getDropItem(droperID)
 	if dropItem != Vector2(0,0):
 		for i in pokerWaitDropDic:
-			print(i)
 			if i == dropItem:
 				number = i.x
 				flower = i.y
@@ -41,7 +40,6 @@ func dropPoker(droper:Node):
 	poker.flower = flower
 	poker.position = droper.global_position
 	add_child(poker)
-	print("poker:",poker.global_position,"droper:",droper.global_position)
 		
 func dropDicOperate(dropItem:Vector2):
 	pokerDropedDic.append(dropItem)

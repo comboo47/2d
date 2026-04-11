@@ -28,7 +28,6 @@ func _process(delta):
 			if a.has_method("getActorAreaType"):
 				var areaType = a.getActorAreaType()
 				if actorAreaType == 0:
-					print(actorAreaType,",",areaType)
 					match areaType:
 						0:
 							pass
@@ -38,7 +37,6 @@ func _process(delta):
 							direction = ($".".global_position - a.global_position).normalized() * dis
 							movementComponent.hitBackSmall(direction,Vector2(40,120),slideTime)
 				if actorAreaType == 1:
-					print(actorAreaType,",",areaType)
 					match areaType:
 						0:
 							pass#slide = true
@@ -57,7 +55,6 @@ func _on_area_entered(area):
 		enteredArea = area
 		var areaType = area.getActorAreaType()
 		if actorAreaType == 0:
-			print(actorAreaType,",",areaType)
 			match areaType:
 				0:
 					pass
@@ -70,7 +67,6 @@ func _on_area_entered(area):
 
 					slide = true
 		if actorAreaType == 1:
-			print(actorAreaType,",",areaType)
 			match areaType:
 				0:
 					
