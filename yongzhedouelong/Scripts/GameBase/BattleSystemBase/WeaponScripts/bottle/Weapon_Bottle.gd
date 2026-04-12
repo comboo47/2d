@@ -1,6 +1,6 @@
 extends Node2D
 @export var bullet: PackedScene
-signal player_fired_bullet(bullet,_position,_rotation,direction,speed)
+signal player_fired_bullet(bullet,_position,_rotation,direction,type,owner)
 
 var weaponOwner:BattleActor
 var mousePos = Vector2()
@@ -20,8 +20,8 @@ var holdNeedTime = float(0.7)
 func _ready():
 	$AnimatedSprite2D.play("default")
 	var b = bullet.instantiate()
-	b.bulletOwner = weaponOwner as BattleActor
 	defaultSpeed = b.speed
+	# 临时实例会在函数结束后自动释放
 	pass # Replace with function body.
 
 
