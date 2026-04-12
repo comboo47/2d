@@ -8,6 +8,7 @@ class_name PopDamageWidget extends Control
 var damageValue = []
 var popPosition: Vector2 = Vector2.ZERO
 var _is_active: bool = false
+# 注意：timer.timeout 信号已在 PopDamage.tscn 中连接到 _on_timer_timeout
 
 ## 初始化伤害显示
 func init(_actor: BattleActor, _damageNumber: float = 15) -> void:
@@ -27,9 +28,6 @@ func _setup_digits() -> void:
 		textureRect.texture = numResource
 		textureRect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		h_box_container.add_child(textureRect)
-
-func _ready() -> void:
-	timer.timeout.connect(_on_timer_timeout)
 
 ## 是否正在使用
 func is_active() -> bool:
