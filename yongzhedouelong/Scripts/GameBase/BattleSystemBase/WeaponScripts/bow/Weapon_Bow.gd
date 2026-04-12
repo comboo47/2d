@@ -1,6 +1,7 @@
 extends Node2D
 @export var bullet: PackedScene
-signal player_fired_bullet(bullet,position,direction,speed)
+@export var weaponOwner: BattleActor
+signal player_fired_bullet(bullet,position,rotation,direction,type,owner)
 
 var mousePos = Vector2()
 var defaultSpeed
@@ -53,5 +54,5 @@ func fire():
 		var _bullet = bullet.instantiate()
 		#_bullet.rotation = $".".rotation
 		#_bullet.linear_velocity = direction.normalized()  * 250
-		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,$Marker2D.global_rotation,fireVector,0)
+		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,$Marker2D.global_rotation,fireVector,0,weaponOwner)
 	

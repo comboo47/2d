@@ -1,6 +1,7 @@
 extends Node2D
 @export var bullet: PackedScene
-signal player_fired_bullet(bullet,_position,_rotation,direction,type)
+@export var weaponOwner: BattleActor
+signal player_fired_bullet(bullet,_position,_rotation,direction,type,owner)
 
 @export var subSpeed = float(0)
 @export var refreshSpeed = float(3)
@@ -76,7 +77,7 @@ func realfire():
 	deltaIndex = 0
 	if get_parent():
 		var _bullet = bullet.instantiate()
-		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,$Marker2D.global_rotation,direction,1)
+		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,$Marker2D.global_rotation,direction,1,weaponOwner)
 func refreshEnergy():
 	currentEnergy += refreshSpeed
 	currentEnergy = clamp(currentEnergy,0,MaxEnergy)
