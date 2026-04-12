@@ -21,10 +21,15 @@ signal panel_action(action_name: String)
 var _is_open: bool = false
 
 func _ready() -> void:
-	hide()
 	# 菜单类型面板在暂停时也能处理输入
 	if pause_game:
 		process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+
+	# 初始隐藏（除非是作为主场景运行）
+	# 检查是否是场景树的根节点（表示场景独立运行）
+	var tree = get_tree()
+	if tree and tree.current_scene != self:
+		hide()
 
 func _input(event: InputEvent) -> void:
 	if close_on_escape and event.is_action_pressed("ui_cancel"):

@@ -174,6 +174,10 @@ func open_menu(menu_name: String) -> void:
 	_active_panels[menu_name] = panel
 	_current_menu = menu_name
 
+	# 调用面板的 open 方法
+	if panel.has_method("open"):
+		panel.open()
+
 	menu_opened.emit(menu_name)
 	get_tree().paused = true
 	pause_state_changed.emit(true)
@@ -183,6 +187,11 @@ func close_menu(menu_name: String) -> void:
 		return
 
 	var panel = _active_panels[menu_name]
+
+	# 调用面板的 close 方法
+	if panel.has_method("close"):
+		panel.close()
+
 	panel.queue_free()
 	_active_panels.erase(menu_name)
 

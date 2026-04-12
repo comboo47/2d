@@ -8,8 +8,12 @@ var quit_button: Button
 func _ready() -> void:
 	super._ready()
 	panel_type = PanelType.MENU
-	pause_game = false  # 主菜单不需要暂停游戏
+	# 主菜单需要暂停游戏，防止 Player autoload 的输入处理
+	pause_game = true
 	close_on_escape = false  # 主菜单不能通过 ESC 关闭
+
+	# 立即暂停游戏
+	get_tree().paused = true
 
 	# 获取按钮引用
 	start_button = get_node_or_null("VBoxContainer/StartButton")
@@ -25,6 +29,8 @@ func _ready() -> void:
 		quit_button.pressed.connect(_on_quit_pressed)
 
 func _on_start_pressed() -> void:
+	# 恢复游戏暂停状态
+	get_tree().paused = false
 	# 加载游戏场景
 	get_tree().change_scene_to_file("res://Scene/TestScene.tscn")
 
