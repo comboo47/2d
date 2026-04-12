@@ -31,7 +31,7 @@ const DEFAULT_GAME_SCENE := "res://Scene/TestScene.tscn"
 var _current_game_scene: String = DEFAULT_GAME_SCENE
 
 func _ready() -> void:
-	# 设置为在暂停时也能处理
+	# 设置为在暂停时也能处理（用于状态查询等方法）
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 #region 公共 API - 状态管理
@@ -51,13 +51,17 @@ func _apply_state(state: GameState) -> void:
 	match state:
 		GameState.MAIN_MENU:
 			get_tree().paused = true
-			UIManager.instance.show_main_menu()
+			# 等待 UIManager 初始化
+			if UIManager.instance:
+				UIManager.instance.show_main_menu()
 		GameState.PLAYING:
 			get_tree().paused = false
-			UIManager.instance.hide_all_menus()
+			if UIManager.instance:
+				UIManager.instance.hide_all_menus()
 		GameState.PAUSED:
 			get_tree().paused = true
-			UIManager.instance.show_pause_menu()
+			if UIManager.instance:
+				UIManager.instance.show_pause_menu()
 		GameState.LOADING:
 			# 加载状态可以显示加载界面
 			pass
@@ -67,9 +71,11 @@ func _apply_state(state: GameState) -> void:
 ## 启动游戏（从主菜单进入）
 func start_game(scene_path: String = DEFAULT_GAME_SCENE) -> void:
 	_current_game_scene = scene_path
+	# 先恢复暂停状态，否则场景切换不会执行
+	get_tree().paused = false
 	change_state(GameState.LOADING)
 	get_tree().change_scene_to_file(scene_path)
-	# 状态会在新场景的 _ready 中切换为 PLAYING
+	# 状态会在新场景的 enter_game() 中切换为 PLAYING
 
 ## 进入游戏场景后调用（由场景初始化）
 func enter_game() -> void:

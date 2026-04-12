@@ -27,6 +27,10 @@ func _ready():
 	pass # Replace with function body.
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# 检查游戏是否暂停
+	if get_tree().paused:
+		return
+
 	var _velocity = Vector2.ZERO
 	if Input.is_action_just_pressed("interaction"):
 		#addPoker(randi()%12+1,randi()%3)
@@ -49,6 +53,10 @@ func _process(delta):
 		hsm.dispatch("falling")
 	pass
 func _unhandled_input(event: InputEvent) -> void:
+	# 检查游戏是否暂停
+	if get_tree().paused:
+		return
+
 	if event.is_echo():
 		return
 	if event.is_action_pressed("jump"):

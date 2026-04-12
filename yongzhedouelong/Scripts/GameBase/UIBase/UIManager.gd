@@ -45,7 +45,16 @@ func _init():
 func _ready():
 	_setup_layers()
 	_setup_widget_pool()
+	# 设置为在暂停时也能处理输入
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	ui_initialized.emit()
+
+func _input(event: InputEvent) -> void:
+	# ESC 键暂停/恢复 - 调用 GameManager
+	if event.is_action_pressed("ui_cancel"):
+		# 只在游戏中处理 ESC
+		if GameManager.is_in_game():
+			GameManager.toggle_pause()
 
 signal ui_initialized
 
