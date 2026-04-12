@@ -185,3 +185,54 @@ The project has MCP servers configured in `.mcp.json`:
 - **Methods**: snake_case (e.g., `buff_execute()`, `hurt_somebody()`)
 - **Variables**: snake_case (e.g., `under_control`, `current_energy`)
 - **Signals**: snake_case (e.g., `weapon_fired`, `attribute_changed`)
+
+## Godot Best Practices
+
+### Autoload Singletons
+
+**重要规则：Autoload 脚本不应使用 `class_name`**
+
+- Autoload 名称（在 `project.godot` 中定义）本身就是全局访问名称
+- 使用 `class_name` 与 autoload 同名会导致解析错误："Class X hides an autoload singleton"
+- 正确做法：autoload 脚本只使用 `extends`，不加 `class_name`
+
+```gdscript
+# 错误 ✗
+class_name DataRegistry extends Node  # 与 autoload DataRegistry 冲突
+
+# 正确 ✓
+extends Node
+## Autoload: DataRegistry
+## 用法: DataRegistry.method() 或 DataRegistry.instance.method()
+```
+
+### 检查属性是否存在
+
+- 使用 `object.get("property") != null` 检查属性存在
+- 不要使用 `object.has("property")`（`has` 检查的是方法/字典键，不是属性）
+
+```gdscript
+# 错误 ✗
+if weapon.has("owner_actor"):
+    weapon.owner_actor = owner
+
+# 正确 ✓
+if weapon.get("owner_actor") != null:
+    weapon.owner_actor = owner
+```
+
+### 信号连接
+
+- 连接信号前检查是否已连接，避免重复连接错误
+- 使用 `is_connected(signal_name, callable)` 检查
+
+```gdscript
+# 正确 ✓
+if not weapon.is_connected("weapon_fired", Callable(target, "method")):
+    weapon.connect("weapon_fired", Callable(target, "method"))
+```
+
+### LimboHSM 状态方法
+
+- LimboHSM 状态使用 `_enter()`, `_exit()`, `_update()` 方法
+- 不要使用 `_on_entered()`, `_on_exited()`（这些不会被 LimboHSM 调用）

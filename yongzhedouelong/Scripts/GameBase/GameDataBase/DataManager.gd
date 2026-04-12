@@ -1,4 +1,6 @@
-class_name DataRegistry extends Node
+extends Node
+## Autoload: DataRegistry
+## 用法: DataRegistry.get_buff(buff_id) 或 DataRegistry.instance.get_buff(buff_id)
 
 # 单例实例
 static var instance: DataRegistry
