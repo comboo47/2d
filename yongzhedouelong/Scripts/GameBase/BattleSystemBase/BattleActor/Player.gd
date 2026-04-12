@@ -27,8 +27,9 @@ func _ready():
 	pass # Replace with function body.
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# 检查游戏是否暂停
-	if get_tree().paused:
+	# 通过 GameManager 检查是否可以接收游戏输入
+	# 这样将输入控制与游戏状态管理统一
+	if not GameManager.can_receive_game_input():
 		return
 
 	var _velocity = Vector2.ZERO
@@ -53,8 +54,9 @@ func _process(delta):
 		hsm.dispatch("falling")
 	pass
 func _unhandled_input(event: InputEvent) -> void:
-	# 检查游戏是否暂停
-	if get_tree().paused:
+	# 通过 GameManager 检查是否可以接收游戏输入
+	# 这样将输入控制与游戏状态管理统一
+	if not GameManager.can_receive_game_input():
 		return
 
 	if event.is_echo():

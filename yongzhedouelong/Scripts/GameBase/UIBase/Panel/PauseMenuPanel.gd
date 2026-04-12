@@ -12,6 +12,9 @@ func _ready() -> void:
 	pause_game = true
 	close_on_escape = true
 
+	# 暂停菜单需要始终处理输入
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	# 获取按钮引用
 	resume_button = get_node_or_null("VBoxContainer/ResumeButton")
 	settings_button = get_node_or_null("VBoxContainer/SettingsButton")

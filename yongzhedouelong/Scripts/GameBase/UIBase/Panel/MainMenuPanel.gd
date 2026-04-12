@@ -14,6 +14,9 @@ func _ready() -> void:
 	# 立即暂停游戏
 	get_tree().paused = true
 
+	# 主菜单需要始终处理输入（即使恢复暂停后）
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	# 获取按钮引用
 	start_button = get_node_or_null("VBoxContainer/StartButton")
 	settings_button = get_node_or_null("VBoxContainer/SettingsButton")
@@ -28,8 +31,7 @@ func _ready() -> void:
 		quit_button.pressed.connect(_on_quit_pressed)
 
 func _on_start_pressed() -> void:
-	# 恢复游戏暂停状态，然后加载游戏场景
-	get_tree().paused = false
+	# GameManager.start_game() 会处理暂停恢复和场景切换
 	GameManager.start_game()
 
 func _on_settings_pressed() -> void:
