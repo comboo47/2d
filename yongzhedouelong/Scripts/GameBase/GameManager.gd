@@ -70,6 +70,8 @@ func _apply_state(state: GameState) -> void:
 #region 公共 API - 游戏流程
 ## 启动游戏（从主菜单进入）
 func start_game(scene_path: String = DEFAULT_GAME_SCENE) -> void:
+	# 清除点击按钮可能遗留的输入状态
+	_clear_pending_inputs()
 	_current_game_scene = scene_path
 	# 先恢复暂停状态，否则场景切换不会执行
 	get_tree().paused = false
@@ -79,6 +81,8 @@ func start_game(scene_path: String = DEFAULT_GAME_SCENE) -> void:
 
 ## 进入游戏场景后调用（由场景初始化）
 func enter_game() -> void:
+	# 确保输入状态干净
+	_clear_pending_inputs()
 	change_state(GameState.PLAYING)
 	game_started.emit()
 
@@ -88,8 +92,19 @@ func toggle_pause() -> void:
 		change_state(GameState.PAUSED)
 		game_paused.emit()
 	elif current_state == GameState.PAUSED:
+		# 恢复游戏前，清除可能悬空的输入状态
+		# 防止点击菜单按钮后意外触发游戏输入（如 fire）
+		_clear_pending_inputs()
 		change_state(GameState.PLAYING)
 		game_resumed.emit()
+
+## 清除悬空的输入状态
+## 当菜单按钮点击后恢复游戏，鼠标点击的 fire action 可能仍处于 pressed 状态
+## 需要强制释放，防止意外触发游戏输入
+func _clear_pending_inputs() -> void:
+	Input.action_release("fire")
+	Input.action_release("jump")
+	Input.action_release("interaction")
 
 ## 返回主菜单
 func return_to_main_menu() -> void:
