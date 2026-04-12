@@ -27,15 +27,9 @@ func hitDisplay():
 	hurt_display_component.hitDisplay()
 
 func _beHurt(_attribute:Attribute,_oldvalue:float,_newvalue:float):
-	var dmg = _newvalue-_oldvalue
-	if dmg<0:
-		var player = get_node("/root/Player")
-		var menu_popup_scene = preload("res://art/UIResource/UI/DamageNumber/PopDamage.tscn")
-		var menu_popup_instance: Node
-		menu_popup_instance = menu_popup_scene.instantiate()
-		menu_popup_instance.name = "MenuPopup"
-		menu_popup_instance.init(self,dmg)
-		add_child(menu_popup_instance)
+	var dmg = _oldvalue - _newvalue  # 伤害为正数
+	if dmg > 0:
+		UIManager.instance.show_damage(self, dmg)
 	hitDisplay()
 func setDead():
 	isDead = true

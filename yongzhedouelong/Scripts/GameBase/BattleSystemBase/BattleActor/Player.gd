@@ -4,7 +4,6 @@ class_name MainPlayer
 
 var holdFireTime = float(0)
 var under_control = true
-signal pickUpPoker(number,flower)
 
 var mousePosition:Vector2
 
@@ -24,6 +23,8 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	#初始化状态机
 	_init_state_machine()
+	#绑定到 UIManager
+	UIManager.instance.bind_actor(self)
 	pass # Replace with function body.
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -89,10 +90,6 @@ func _init_state_machine():
 	hsm.add_transition(hsm.ANYSTATE, jump_state, "falling")
 	hsm.initialize(self)
 	hsm.set_active(true)
-
-func addPoker(_number,_flower):
-	emit_signal("pickUpPoker",_number,_flower)
-	pass
 
 func AnimControle():
 	if velocity.x:
