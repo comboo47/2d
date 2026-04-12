@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bcquam4xsckbb" path="res://art/GameplayArtResource/1bitpack_kenney/Tilesheet/colored.png" id="2_8pwmi"]
 [ext_resource type="PackedScene" uid="uid://bt2jh8isph5xr" path="res://prefab/Enemy/DamageTestEnemey.tscn" id="3_kbtsn"]
 [ext_resource type="Shader" uid="uid://k7cva55fyfsi" path="res://Scene/TestScene.gdshader" id="4_wq34x"]
-[ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Scene/superJump.tscn" id="5_syxvn"]
+[ext_resource type="PackedScene" uid="uid://bsf4te0cyp1e2" path="res://prefab/Player/First_Player.tscn" id="5_player"]
+[ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://Scene/superJump.tscn" id="6_syxvn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtu8f"]
 texture = ExtResource("2_8pwmi")
@@ -136,6 +137,9 @@ shader_parameter/vignette_opacity = 0.4050000192375
 [node name="MainSceen" type="Node2D" unique_id=1345709267]
 script = ExtResource("1_syxvn")
 
+[node name="Player" parent="." unique_id=9990001 instance=ExtResource("5_player")]
+position = Vector2(110, 200)
+
 [node name="Floor" type="TileMapLayer" parent="." unique_id=1109127034]
 use_parent_material = true
 position = Vector2(-2, 0)
@@ -160,5 +164,5 @@ offset_right = 384.0
 offset_bottom = 240.0
 metadata/_edit_lock_ = true
 
-[node name="superJump" parent="." unique_id=1371462346 instance=ExtResource("5_syxvn")]
+[node name="superJump" parent="." unique_id=1371462346 instance=ExtResource("6_syxvn")]
 position = Vector2(198, 145)

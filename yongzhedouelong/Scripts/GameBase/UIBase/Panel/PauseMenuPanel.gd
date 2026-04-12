@@ -29,18 +29,13 @@ func _ready() -> void:
 		quit_button.pressed.connect(_on_quit_pressed)
 
 func _on_resume_pressed() -> void:
-	UIManager.instance.close_menu(UIConfig.MENU_PAUSE)
+	GameManager.toggle_pause()
 
 func _on_settings_pressed() -> void:
 	UIManager.instance.open_menu(UIConfig.MENU_SETTINGS)
 
 func _on_main_menu_pressed() -> void:
-	UIManager.instance.load_main_menu()
+	GameManager.return_to_main_menu()
 
 func _on_quit_pressed() -> void:
-	get_tree().quit()
-
-func open() -> void:
-	super.open()
-	# 确保游戏暂停
-	get_tree().paused = true
+	GameManager.quit_game()

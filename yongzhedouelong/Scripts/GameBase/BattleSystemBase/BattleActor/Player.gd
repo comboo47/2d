@@ -23,8 +23,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	#初始化状态机
 	_init_state_machine()
-	#绑定到 UIManager
-	UIManager.instance.bind_actor(self)
+	# 注意：UIManager 绑定由场景脚本（如 Main.gd）调用
 	pass # Replace with function body.
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

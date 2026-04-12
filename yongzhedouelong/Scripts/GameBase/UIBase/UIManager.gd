@@ -1,6 +1,7 @@
 extends CanvasLayer
 ## Autoload: UIManager
 ## 用法: UIManager.instance.method() 或 UIManager.method()
+## 与 GameManager 协作管理 UI 状态
 
 # 单例实例
 static var instance: UIManager
@@ -15,7 +16,6 @@ signal hp_changed(actor: BattleActor, old_value: float, new_value: float, max_va
 signal energy_changed(actor: BattleActor, current: float, max: float)
 signal menu_opened(menu_name: String)
 signal menu_closed(menu_name: String)
-signal pause_state_changed(is_paused: bool)
 
 # UI 层引用
 var _layers: Array[CanvasLayer] = []
@@ -45,7 +45,6 @@ func _init():
 func _ready():
 	_setup_layers()
 	_setup_widget_pool()
-	_setup_input()
 	ui_initialized.emit()
 
 signal ui_initialized
@@ -72,15 +71,6 @@ func _setup_widget_pool():
 			widget.set_process(false)
 			overlay_layer.add_child(widget)
 			_damage_widget_pool.append(widget)
-
-func _setup_input():
-	# ESC 键暂停菜单
-	# 在 _input 中处理，需要设置 process_mode
-	process_mode = Node.PROCESS_MODE_ALWAYS
-
-func _input(event: InputEvent):
-	if event.is_action_pressed("ui_cancel"):
-		toggle_pause_menu()
 #endregion
 
 #region 公共 API - 伤害反馈
@@ -152,68 +142,92 @@ func _bind_weapon_energy(weapon: Node) -> void:
 			weapon.energy_changed.connect(_on_weapon_energy_changed)
 #endregion
 
-#region 公共 API - 菜单系统
-func open_menu(menu_name: String) -> void:
-	if _current_menu != "":
-		close_menu(_current_menu)
+#region 公共 API - 菜单系统（与 GameManager 协作）
+## 显示主菜单（由 GameManager 调用）
+func show_main_menu() -> void:
+	_hide_all_panels()
+	# 主菜单场景由 GameManager.change_scene 处理，这里只是清理状态
 
-	var scene_path = UIConfig.get_menu_scene_path(menu_name)
-	if scene_path == "":
-		push_error("未找到菜单场景: %s" % menu_name)
+## 显示暂停菜单（由 GameManager 调用）
+func show_pause_menu() -> void:
+	open_menu(UIConfig.MENU_PAUSE)
+
+## 隐藏所有菜单（由 GameManager 调用）
+func hide_all_menus() -> void:
+	_hide_all_panels()
+	# 恢复 HUD 显示
+	if battle_layer:
+		for child in battle_layer.get_children():
+			child.show()
+
+## 打开指定菜单
+func open_menu(menu_name: String) -> void:
+	if _current_menu == menu_name:
 		return
 
-	var menu_scene = load(scene_path)
-	if not menu_scene:
+	# 先关闭当前菜单
+	if _current_menu != "":
+		_close_panel(_current_menu)
+
+	_open_panel(menu_name)
+	menu_opened.emit(menu_name)
+
+## 关闭指定菜单
+func close_menu(menu_name: String) -> void:
+	if not _active_panels.has(menu_name):
+		return
+
+	_close_panel(menu_name)
+	menu_closed.emit(menu_name)
+
+## 内部：打开面板
+func _open_panel(panel_name: String) -> void:
+	if _active_panels.has(panel_name):
+		return
+
+	var scene_path = UIConfig.get_menu_scene_path(panel_name)
+	if scene_path == "":
+		push_error("未找到菜单场景: %s" % panel_name)
+		return
+
+	var panel_scene = load(scene_path)
+	if not panel_scene:
 		push_error("无法加载菜单场景: %s" % scene_path)
 		return
 
-	var panel = menu_scene.instantiate()
-	panel.name = menu_name
+	var panel = panel_scene.instantiate()
+	panel.name = panel_name
 
 	menu_layer.add_child(panel)
-	_active_panels[menu_name] = panel
-	_current_menu = menu_name
+	_active_panels[panel_name] = panel
+	_current_menu = panel_name
 
 	# 调用面板的 open 方法
 	if panel.has_method("open"):
 		panel.open()
 
-	menu_opened.emit(menu_name)
-	get_tree().paused = true
-	pause_state_changed.emit(true)
-
-func close_menu(menu_name: String) -> void:
-	if not _active_panels.has(menu_name):
+## 内部：关闭面板
+func _close_panel(panel_name: String) -> void:
+	if not _active_panels.has(panel_name):
 		return
 
-	var panel = _active_panels[menu_name]
+	var panel = _active_panels[panel_name]
 
 	# 调用面板的 close 方法
 	if panel.has_method("close"):
 		panel.close()
 
 	panel.queue_free()
-	_active_panels.erase(menu_name)
+	_active_panels.erase(panel_name)
 
-	if _current_menu == menu_name:
+	if _current_menu == panel_name:
 		_current_menu = ""
 
-	menu_closed.emit(menu_name)
-
-	if _active_panels.is_empty():
-		get_tree().paused = false
-		pause_state_changed.emit(false)
-
-func toggle_pause_menu() -> void:
-	if _current_menu == "PauseMenu":
-		close_menu("PauseMenu")
-	else:
-		open_menu("PauseMenu")
-
-func load_main_menu() -> void:
-	# 切换到主菜单场景
-	close_menu("PauseMenu")
-	get_tree().change_scene_to_file("res://art/UIResource/UI/Menu/MainMenu.tscn")
+## 内部：隐藏所有面板
+func _hide_all_panels() -> void:
+	for panel_name in _active_panels.keys():
+		_close_panel(panel_name)
+	_current_menu = ""
 #endregion
 
 #region 内部事件处理
