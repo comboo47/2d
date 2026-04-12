@@ -1,5 +1,4 @@
 extends Node2D
-@onready var pin_joint_2d: PinJoint2D = $PinJoint2D
 
 var menu_popup_scene = preload("res://art/UIResource/UI/DamageNumber/PopDamage.tscn")
 var menu_popup_instance: Node

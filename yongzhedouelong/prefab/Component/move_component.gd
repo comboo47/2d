@@ -6,13 +6,15 @@ extends Node
 @export var jumpSpeed:float
 @export var moveDirection:Vector2
 
-@onready var timer = $Timer
+var timer: Timer = null
 
 var under_control = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
+	# 安全获取 Timer 节点（如果存在）
+	if has_node("Timer"):
+		timer = $Timer
 
 func moveToDirection(vector:Vector2):
 	moveDirection = vector
