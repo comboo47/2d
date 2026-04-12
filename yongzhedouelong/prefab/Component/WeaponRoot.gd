@@ -4,13 +4,21 @@ extends Node
 @export_range(0, 2) var currentWeapon:int
 
 func _enter_tree():
+	if weaponOwner == null:
+		push_error("WeaponRoot: weaponOwner 为 null!")
+		return
+
 	weaponOwner.set_meta("CurrentWeapon",get_child(currentWeapon))
 	# 设置第一个武器的 owner
 	var first_weapon = get_child(currentWeapon)
-	if first_weapon.get("owner_actor") != null:
+
+	# 使用 "property" in object 检查属性是否存在（而非 get() 检查值是否为 null）
+	if "owner_actor" in first_weapon:
 		first_weapon.owner_actor = weaponOwner
-	elif first_weapon.get("weaponOwner") != null:
+	elif "weaponOwner" in first_weapon:
 		first_weapon.weaponOwner = weaponOwner
+	else:
+		push_warning("WeaponRoot: 武器没有 owner_actor 或 weaponOwner 属性")
 
 func _ready():
 	updateWeapon()
@@ -29,9 +37,9 @@ func updateWeapon():
 			weapon.connect("player_fired_bullet",Callable(bullet_manager,"handle_bullet_spawn"))
 
 	# 设置武器的 owner
-	if weapon.get("owner_actor") != null:
+	if "owner_actor" in weapon:
 		weapon.owner_actor = weaponOwner
-	elif weapon.get("weaponOwner") != null:
+	elif "weaponOwner" in weapon:
 		weapon.weaponOwner = weaponOwner
 
 	var weapons = get_children()
