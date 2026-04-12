@@ -34,7 +34,7 @@ func is_active() -> bool:
 	return _is_active
 
 ## 显示伤害动画
-func popDamage() -> void:
+func pop_damage() -> void:
 	_is_active = true
 	set_process(true)
 	self.global_position = popPosition
