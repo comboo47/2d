@@ -1,12 +1,10 @@
+res://Scripts/GameBase/BattleSystemBase/SkillSystem/SkillBase.gd
 AtlasTexture
 AttributeBuff
 JSON
 AttributeModifier
 AttributeSet
 BehaviorTree
-DynEffect
-BattleEffect
-Talent_OnCast
 Equip_Item
 CompressedTexture2D
 SpriteFrames

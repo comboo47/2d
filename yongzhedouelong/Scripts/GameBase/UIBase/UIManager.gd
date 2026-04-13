@@ -4,7 +4,8 @@ extends CanvasLayer
 ## 与 GameManager 协作管理 UI 状态
 
 # 单例实例
-static var instance: UIManager
+## 单例实例（不使用类型声明，因为是 autoload）
+static var instance
 
 # 三层 CanvasLayer 索引
 const LAYER_BATTLE := 0      # 战斗 HUD 层
@@ -52,8 +53,15 @@ func _ready():
 func _input(event: InputEvent) -> void:
 	# ESC 键暂停/恢复 - 调用 GameManager
 	if event.is_action_pressed("ui_cancel"):
-		# 只在游戏中处理 ESC
+		# 输入锁定期间不处理 ESC
+		if InputManager._is_locked:
+			return
+		# 如果暂停菜单已打开，让 UIPanel 处理 ESC（不消费）
+		if _current_menu == UIConfig.MENU_PAUSE:
+			return
+		# 只在游戏中处理 ESC（进入暂停）
 		if GameManager.is_in_game():
+			get_viewport().set_input_as_handled()
 			GameManager.toggle_pause()
 
 signal ui_initialized

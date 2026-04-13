@@ -29,11 +29,15 @@ The `Tables/` directory contains an Excel-to-JSON pipeline (`gen_all.bat`) that 
 
 | Singleton | Script/Scene | Purpose |
 |-----------|-------------|---------|
-| `BattleManager` | `Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd` | Static utility methods for applying/removing buffs, combat operations |
+| `BattleManager` | `Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd` | Static utility methods for applying/removing buffs, combat operations, Skill/Vfx/Flow API |
 | `DataRegistry` | `Scripts/GameBase/GameDataBase/DataManager.gd` | Registry for `AttributeBuff` resources, keyed by `buff_id` |
 | `DataAutoScanner` | `Scripts/GameBase/GameDataBase/DataAutoScanner.gd` | On startup, scans `res://prefab/Buffs/` and registers all `.tres` buff resources |
-| `DropManager` | `ManagerScene/drop_manager.tscn` | Handles item/poker drops from enemies |
+| `DropManager` | `Scripts/GameBase/BattleSystemBase/DropSystem/DropManager.gd` | Handles item/poker drops from enemies, data-driven with DropConfig.json |
 | `BulletManager` | `ManagerScene/bullet_manager.tscn` | Manages bullet instantiation and lifecycle |
+| `VfxManager` | `Scripts/GameBase/BattleSystemBase/VfxSystem/VfxManager.gd` | Unified visual effects management with pooling system |
+| `EnemyFactory` | `Scripts/GameBase/BattleSystemBase/EnemySystem/EnemyFactory.gd` | Dynamic enemy creation from EnemyConfig.json |
+| `SkillRegistry` | `Scripts/GameBase/BattleSystemBase/SkillSystem/SkillRegistry.gd` | Registry for Skill resources, scans `res://prefab/Skills/` |
+| `FlowRegistry` | `Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd` | Registry for GameplayFlow resources, scans `res://prefab/Flows/` |
 | `MainUI` | `ManagerScene/main_ui.tscn` | Global HUD |
 | `Player` | `prefab/Player/First_Player.tscn` | The player character (accessible globally via `/root/Player`) |
 | `JsonLoader` | UID reference | Loads JSON data tables |
@@ -72,6 +76,90 @@ AttributeBuffEffect (base) — subclassed per effect type
 - **`BuffManager`** (`AttributeSysscene/component/buff_manager.gd`): Node child of every `BattleActor`; ticks all active buffs and removes expired ones each physics frame.
 - Duration merging: `Restart` resets timer, `Addtion` stacks time, `NoEffect` ignores new applications.
 - Key fields use snake_case: `buff_name`, `buff_execute()`, `execute_type()`.
+
+### GameplayFlow System
+
+Lifecycle script system for reusable event-driven behaviors (monster spawn/death, buff effects, skill effects):
+
+```
+GameplayFlowBase (Resource) — flow_id, trigger_event, effects[], condition_expression
+    ↓ trigger events: ON_SPAWN, ON_DEATH, ON_HIT, ON_KILL, ON_SKILL_USE, ON_TIMER
+    ↓
+FlowEffect (composition pattern) — each effect is a separate Resource
+    ├── FE_Damage          — deals damage to target
+    ├── FE_SpawnVfx        — spawns visual effect at position
+    ├── FE_ApplyBuff       — applies buff to target
+    ├── FE_ModifyAttribute — modifies attribute value
+    └── FE_SpawnEntity     — spawns entity (bullet, item, etc.)
+```
+
+- Flows are defined as `.tres` resources under `prefab/Flows/` and auto-registered by `FlowRegistry`.
+- Execute a flow: `FlowRegistry.get_flow(flow_id).execute(context)` or via `BattleManager.trigger_flow_event()`.
+- `GameplayFlowContext` holds execution context: `source`, `target`, `event_data`.
+
+### Skill System
+
+Skill management for active/passive/triggered abilities:
+
+```
+SkillBase (Resource) — skill_id, skill_type (ACTIVE/PASSIVE/TRIGGERED/TOGGLE), cooldown, effects[]
+    ↓ managed by SkillManager (Node component on BattleActor)
+    ↓
+SkillEffect (composition pattern) — each effect is a separate Resource
+    ├── SE_Projectile   — fires projectile
+    ├── SE_AreaEffect   — applies effects in area
+    ├── SE_BuffApply    — applies buff to target
+    ├── SE_Damage       — deals direct damage
+    └── SE_Heal         — heals target
+```
+
+- Skills are defined as `.tres` resources under `prefab/Skills/` and auto-registered by `SkillRegistry`.
+- `SkillManager` handles skill slots, cooldowns, and execution.
+- Weapons can link skills via `linked_skills` array; triggered on `weapon_fired`.
+- Skill types: `ACTIVE` (player-triggered), `PASSIVE` (auto-effect), `TRIGGERED` (condition-based), `TOGGLE` (on/off state).
+
+### Vfx System
+
+Unified visual effects management with pooling:
+
+```
+VfxManager (Autoload) — play_vfx(), play_vfx_follow(), stop_vfx()
+    ↓ pooling system: _vfx_pools[VfxType] = Array[Node]
+    ↓
+VfxConfig — enum VfxType (JUMP_PARTICLE, HIT_IMPACT, DEATH_EFFECT, BULLET_HIT, SKILL_EFFECT)
+```
+
+- Play effect: `VfxManager.play_vfx(VfxConfig.VfxType.HIT_IMPACT, position)`
+- Effects auto-return to pool after duration defined in `VfxConfig.get_duration()`.
+- Pool sizes configurable per VfxType.
+
+### Enemy System (Data-Driven)
+
+Enemy creation from JSON configuration:
+
+```
+EnemyConfig.json — keyed by enemy_id, defines: attributes, prefab_path, drop_table_id, spawn_flow_id, death_flow_id
+    ↓ loaded by EnemyConfigLoader
+    ↓
+EnemyFactory.create_enemy(enemy_id, position) — instantiates enemy with configured attributes and flows
+```
+
+- Enemy attributes are loaded from JSON and applied via `AttributeComponent`.
+- Enemies can have `spawn_flow_id` and `death_flow_id` for lifecycle behaviors.
+
+### Drop System (Data-Driven)
+
+Weight-based random drops from JSON configuration:
+
+```
+DropConfig.json — keyed by drop_table_id, defines: drops[] (weight, item_type), guaranteed_drop
+    ↓ loaded by EnemyConfigLoader
+    ↓
+DropCalculator — weight-based random selection, poker pool management
+```
+
+- Drops calculated on enemy death: `DropManager.handle_enemy_death(enemy)`
+- Supports weighted random drops and guaranteed drops.
 
 ### Actor Hierarchy
 
@@ -124,10 +212,17 @@ Scripts/
         AttributeSysscene/component/ -- AttributeComponent, BuffManager
       BattleActor/            -- BattleActor, Player.gd (MainPlayer), base_enemy.gd
       BattleSystem/           -- BattleManager, BulletManager
-      WeaponScripts/          -- WeaponBase, Weapon_Bow, Weapon_Crossbow, Weapon_Bottle
+      GameplayFlow/           -- GameplayFlowBase, FlowRegistry, FlowEffect (lifecycle scripts)
+        FlowEffect/           -- FE_Damage, FE_SpawnVfx, FE_ApplyBuff, FE_ModifyAttribute, FE_SpawnEntity
+      SkillSystem/            -- SkillBase, SkillManager, SkillRegistry, SkillEffect
+        SkillEffect/          -- SE_Projectile, SE_AreaEffect, SE_BuffApply, SE_Damage, SE_Heal
+      VfxSystem/              -- VfxManager, VfxConfig (visual effects pooling)
+      EnemySystem/            -- EnemyFactory, EnemyConfigLoader, EnemySpawnData (data-driven enemies)
+      DropSystem/             -- DropManager, DropCalculator (data-driven drops)
+      WeaponScripts/          -- WeaponBase, Weapon_Bow, Weapon_Crossbow, Weapon_Bottle, WeaponConfig
     GameDataBase/             -- DataManager (DataRegistry), DataAutoScanner
-    LevelSystemBase/          -- DropManager
-    UIBase/                   -- MainUI, PopDamageWidget
+    LevelSystemBase/          -- Legacy DropManager location
+    UIBase/                   -- UIManager, MainUI, PopDamageWidget
   Actor/                      -- InteractionShow, PokerBar, SuperJump
   Interface/                  -- BodyArea, CanPickUp, DropDisplay, WeaponEnergy
   GameModeScript/             -- Main.gd
@@ -142,6 +237,9 @@ Scene/                        -- (was Sceen/, typo fixed)
 
 prefab/
   Buffs/                      -- AttributeBuff .tres resources
+  Skills/                     -- SkillBase .tres resources (new)
+  Flows/                      -- GameplayFlowBase .tres resources (new)
+  Vfx/                        -- Visual effect scenes (new)
   Component/                  -- WeaponRoot, MoveComponent, HurtDisplayComponent
   Enemy/                      -- base_enemy, First_Enemy, Second_Enemy, DamageTestEnemy
   Item/                       -- Poker, CanPickUp, Card, DropDisplay
@@ -204,7 +302,18 @@ class_name DataRegistry extends Node  # 与 autoload DataRegistry 冲突
 extends Node
 ## Autoload: DataRegistry
 ## 用法: DataRegistry.method() 或 DataRegistry.instance.method()
+
+# 单例实例（不使用类型声明，因为是 autoload）
+static var instance
+
+func _init():
+    instance = self
 ```
+
+**注意：`static var instance` 不应使用类型声明**
+
+- 使用 `static var instance: TypeName` 会在某些情况下导致解析问题
+- 正确做法：`static var instance` 不加类型注解，在 `_init()` 中赋值为 `self`
 
 ### 检查属性是否存在
 

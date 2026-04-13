@@ -22,7 +22,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://Scripts/GameBase/GameManager.gd"
-DropManager="*res://ManagerScene/drop_manager.tscn"
+InputManager="*res://Scripts/GameBase/InputManager.gd"
+DropManager="*res://Scripts/GameBase/BattleSystemBase/DropSystem/DropManager.gd"
+EnemyFactory="*res://Scripts/GameBase/BattleSystemBase/EnemySystem/EnemyFactory.gd"
 BulletManager="*res://ManagerScene/bullet_manager.tscn"
 MainUI="*res://ManagerScene/main_ui.tscn"
 UIManager="*res://ManagerScene/ui_manager.tscn"
@@ -30,6 +32,9 @@ BattleManager="*res://Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManag
 DataRegistry="*res://Scripts/GameBase/GameDataBase/DataManager.gd"
 DataAutoScanner="*res://Scripts/GameBase/GameDataBase/DataAutoScanner.gd"
 JsonLoader="*uid://bj77cnixq0p7e"
+VfxManager="*res://Scripts/GameBase/BattleSystemBase/VfxSystem/VfxManager.gd"
+FlowRegistry="*res://Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd"
+SkillRegistry="*res://Scripts/GameBase/BattleSystemBase/SkillSystem/SkillRegistry.gd"
 
 [display]
 

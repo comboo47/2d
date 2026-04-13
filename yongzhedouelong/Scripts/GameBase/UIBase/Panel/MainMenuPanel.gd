@@ -31,11 +31,15 @@ func _ready() -> void:
 		quit_button.pressed.connect(_on_quit_pressed)
 
 func _on_start_pressed() -> void:
-	# GameManager.start_game() 会处理暂停恢复和场景切换
+	# 消费按钮点击事件，防止穿透
+	get_viewport().set_input_as_handled()
+	# GameManager.start_game() 会处理输入锁定、暂停恢复和场景切换
 	GameManager.start_game()
 
 func _on_settings_pressed() -> void:
+	get_viewport().set_input_as_handled()
 	UIManager.instance.open_menu(UIConfig.MENU_SETTINGS)
 
 func _on_quit_pressed() -> void:
+	get_viewport().set_input_as_handled()
 	GameManager.quit_game()

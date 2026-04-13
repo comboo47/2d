@@ -35,10 +35,18 @@ func _ready() -> void:
 		hide()
 
 func _input(event: InputEvent) -> void:
+	# 当面板打开时，只消费面板外部的输入事件防止穿透到游戏逻辑
+	if _is_open and event is InputEventMouseButton:
+		# 检查点击是否在面板矩形内
+		var local_pos = get_global_rect()
+		if not local_pos.has_point(event.global_position):
+			# 点击在面板外部，消费它防止穿透
+			get_viewport().set_input_as_handled()
+
 	# ESC 处理
-	if close_on_escape and event.is_action_pressed("ui_cancel"):
-		if _is_open:
-			close()
+	if _is_open and close_on_escape and event.is_action_pressed("ui_cancel"):
+		close()
+		get_viewport().set_input_as_handled()
 
 func open() -> void:
 	_is_open = true
