@@ -6,13 +6,15 @@ extends Node
 @export var jumpSpeed:float
 @export var moveDirection:Vector2
 
-@onready var timer = $Timer
+var timer: Timer = null
 
-var underControle = true
+var under_control = true
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
+	# 安全获取 Timer 节点（如果存在）
+	if has_node("Timer"):
+		timer = $Timer
 
 func moveToDirection(vector:Vector2):
 	moveDirection = vector
@@ -20,7 +22,7 @@ func moveToDirection(vector:Vector2):
 func _physics_process(delta):
 	if enableGravity and not actor.is_on_floor():
 		actor.velocity.y += gravity * delta	
-	if underControle:
+	if under_control:
 		if moveDirection.y:
 			actor.velocity.y = moveDirection.y * abs(speed.y)
 			pass
@@ -40,11 +42,11 @@ func tryJump(canjump = false):
 func hitBackSmall(direction:Vector2,backSpeed:Vector2,backTime:float):
 	if timer != null:
 		if timer.is_stopped():
-			underControle = false
+			under_control = false
 			actor.velocity.x = direction.x * backSpeed.x
 			actor.velocity.y = direction.y * backSpeed.y
 			timer.wait_time = backTime
 			timer.start()
 			await timer.timeout
-			underControle = true
+			under_control = true
 	pass

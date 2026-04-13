@@ -1,22 +1,32 @@
 extends Node2D
-@onready var pin_joint_2d: PinJoint2D = $PinJoint2D
 
-var menu_popup_scene = preload("res://art/UIResource/UI/DamageNumber/PopDamage.tscn")
-var menu_popup_instance: Node
+## Player 实例引用（从场景内获取）
+var player: BattleActor
+
 func _ready():
-	var player = get_node("/root/Player")
-	var mainUI = get_node("/root/MainUI")
-	player.connect("pickUpPoker",Callable(mainUI,"pickUpPoker"))
-	player.position = $PlayerStart.position
+	# 查找场景内的 Player（不再依赖 autoload）
+	player = _find_player()
+	if player:
+		player.position = $PlayerStart.position
+		# 绑定到 UIManager
+		UIManager.instance.bind_actor(player)
 
-func _process(_delta: float = 100) -> void:
+	# 进入游戏状态
+	GameManager.enter_game()
+
+func _find_player() -> BattleActor:
+	# 查找场景内带有 MainPlayer class_name 的节点
+	for child in get_children():
+		if child is BattleActor and child.has_method("GetAttributes"):
+			return child
+	# 尝试按名称查找
+	var found = get_node_or_null("Player")
+	if found and found is BattleActor:
+		return found
+	return null
+
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("testButton"):
-		var num = randf()*100
-		var player = get_node("/root/Player")
-		menu_popup_instance = menu_popup_scene.instantiate()
-		# 3. 设置实例属性（可选，如位置、名称）
-		menu_popup_instance.name = "MenuPopup"
-		# 4. 添加到当前场景树（必须！否则实例不会显示）
-		
-		menu_popup_instance.init(player,num)
-		add_child(menu_popup_instance)
+		var num = randf() * 100
+		if player:
+			UIManager.instance.show_damage(player, num)

@@ -1,0 +1,56 @@
+{
+  "1001": {
+    "enemy_id": 1001,
+    "enemy_name": "FirstEnemy",
+    "display_name": "初级敌人",
+    "prefab_path": "res://prefab/Enemy/First_Enemy.tscn",
+    "attributes": {
+      "max_hp": 12,
+      "attack": 2,
+      "armor": 0,
+      "speed": 50,
+      "jump_power": 30
+    },
+    "behavior_tree": "res://Scripts/GameBase/ai/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres",
+    "drop_table_id": "drop_001",
+    "spawn_flow_id": "",
+    "death_flow_id": "",
+    "description": "基础敌人，无护甲，移动速度较快"
+  },
+  "1002": {
+    "enemy_id": 1002,
+    "enemy_name": "SecondEnemy",
+    "display_name": "中级敌人",
+    "prefab_path": "res://prefab/Enemy/Second_Enemy.tscn",
+    "attributes": {
+      "max_hp": 15,
+      "attack": 3,
+      "armor": 1,
+      "speed": 40,
+      "jump_power": 25
+    },
+    "behavior_tree": "res://Scripts/GameBase/ai/HSM&BT/BehaviorTree/BTTree/SecondEnemyTree.tres",
+    "drop_table_id": "drop_002",
+    "spawn_flow_id": "",
+    "death_flow_id": "",
+    "description": "中级敌人，有护甲，移动速度较慢"
+  },
+  "1003": {
+    "enemy_id": 1003,
+    "enemy_name": "DamageTestEnemy",
+    "display_name": "伤害测试敌人",
+    "prefab_path": "res://prefab/Enemy/DamageTestEnemy.tscn",
+    "attributes": {
+      "max_hp": 100,
+      "attack": 0,
+      "armor": 0,
+      "speed": 0,
+      "jump_power": 0
+    },
+    "behavior_tree": "",
+    "drop_table_id": "",
+    "spawn_flow_id": "",
+    "death_flow_id": "",
+    "description": "测试用敌人，高血量，无攻击能力"
+  }
+}

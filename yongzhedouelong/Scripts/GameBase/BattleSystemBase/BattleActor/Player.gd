@@ -1,10 +1,9 @@
 extends BattleActor
 
-class_name mainPlayer
+class_name MainPlayer
 
 var holdFireTime = float(0)
-var underControle = true
-signal pickUpPoker(number,flower)
+var under_control = true
 
 var mousePosition:Vector2
 
@@ -24,9 +23,22 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	#初始化状态机
 	_init_state_machine()
+
+	# 添加技能管理器
+	add_skill_manager()
+
+	# 触发生成 Flow
+	trigger_spawn_flow()
+
+	# 注意：UIManager 绑定由场景脚本（如 Main.gd）调用
 	pass # Replace with function body.
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Called every frame. 'delta' is the elapsed time from the previous frame.
 func _process(delta):
+	# 通过 InputManager 检查是否可以接收游戏输入
+	# InputManager 会同时检查锁定状态和游戏状态
+	if not InputManager.can_receive_game_input():
+		return
+
 	var _velocity = Vector2.ZERO
 	if Input.is_action_just_pressed("interaction"):
 		#addPoker(randi()%12+1,randi()%3)
@@ -34,21 +46,32 @@ func _process(delta):
 			var i = $InteractionInterface.interactionItem
 			if i.get_node("canPickUp"):
 				i.get_node("canPickUp").pickUp(self)
-			#print(i)
+				#print(i)
 	if $".".get_meta("CurrentWeapon") != null:
+		var weapon = $".".get_meta("CurrentWeapon")
+		# 按下 fire 立即开始蓄力
+		if Input.is_action_just_pressed("fire"):
+			if weapon.has_method("hold_fire"):
+				weapon.hold_fire()
+		# 按住 fire 期间（可选：持续调用 hold_fire 或只调用一次）
 		if Input.is_action_pressed("fire"):
 			holdFireTime += delta
-			if holdFireTime >= 0.1:
-				$".".get_meta("CurrentWeapon").holdFire()
+		# 释放 fire 发射
 		if Input.is_action_just_released("fire"):
 			holdFireTime = 0
-			$".".get_meta("CurrentWeapon").fire()		
+			if weapon.has_method("fire"):
+				weapon.fire()
 	AnimControle()
 	position = position.clamp(Vector2.ZERO, screen_size)
 	if hsm.get_active_state() != jump_state && self.velocity.y >0:
 		hsm.dispatch("falling")
 	pass
 func _unhandled_input(event: InputEvent) -> void:
+	# 通过 InputManager 检查是否可以接收游戏输入
+	# InputManager 会同时检查锁定状态和游戏状态
+	if not InputManager.can_receive_game_input():
+		return
+
 	if event.is_echo():
 		return
 	if event.is_action_pressed("jump"):
@@ -65,8 +88,6 @@ func _process_jump_input() -> void:
 
 func _process_die_input() -> void:
 	if hsm.get_active_state() == die_state:
-		return
-	#if stats.curHp >0:
 		return
 	hsm.dispatch("die")
 func _test_input()-> void:
@@ -91,10 +112,6 @@ func _init_state_machine():
 	hsm.add_transition(hsm.ANYSTATE, jump_state, "falling")
 	hsm.initialize(self)
 	hsm.set_active(true)
-
-func addPoker(_number,_flower):
-	emit_signal("pickUpPoker",_number,_flower)
-	pass
 
 func AnimControle():
 	if velocity.x:

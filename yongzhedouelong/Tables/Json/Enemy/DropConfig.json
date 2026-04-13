@@ -1,0 +1,48 @@
+{
+  "drop_001": {
+    "drop_table_id": "drop_001",
+    "display_name": "初级敌人掉落",
+    "drops": [
+      {
+        "item_type": "random_poker",
+        "weight": 100,
+        "description": "随机扑克牌"
+      }
+    ],
+    "guaranteed_drop": {
+      "item_type": "specific_poker",
+      "number": 5,
+      "flower": 1,
+      "description": "固定掉落 5号牌 黑桃"
+    },
+    "max_drops": 2
+  },
+  "drop_002": {
+    "drop_table_id": "drop_002",
+    "display_name": "中级敌人掉落",
+    "drops": [
+      {
+        "item_type": "random_poker",
+        "weight": 80,
+        "description": "随机扑克牌"
+      },
+      {
+        "item_type": "specific_poker",
+        "weight": 30,
+        "number": 10,
+        "flower": 0,
+        "description": "可能掉落 10号牌 红桃"
+      }
+    ],
+    "guaranteed_drop": null,
+    "max_drops": 2
+  },
+  "global_config": {
+    "poker_pool_reset_when_empty": true,
+    "default_max_drops": 3,
+    "drop_spawn_offset": {
+      "x": 0,
+      "y": -5
+    }
+  }
+}

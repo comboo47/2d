@@ -1,57 +1,45 @@
-extends Node2D
-@export var bullet: PackedScene
-signal player_fired_bullet(bullet,position,direction,speed)
+class_name WeaponBow extends WeaponBase
+## 弓箭武器
+## 蓄力增加发射速度
 
-var mousePos = Vector2()
-var defaultSpeed
-var addSpeed = float(0)
-var direction = Vector2.ZERO
-var hold = false
-var fireVector
-var stepX
-var stepY
-var positionList:Array
-# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	super._ready()
+	weapon_type = WeaponConfig.WeaponType.BOW
+	bullet_type = WeaponConfig.BulletType.NORMAL
 
-func _ready():
-	var b = bullet.instantiate()
-	defaultSpeed = b.speed
-	pass # Replace with function body.
+	# 弓箭专用参数
+	max_charge_speed = 650.0  # base 250 + max 400
+	charge_rate = 5.0
 
+## 发射弓箭
+func fire() -> void:
+	# 计算最终速度
+	var final_speed = base_speed + charge_speed
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	$".".look_at(mousePos)
-	$Line2D.position = $Marker2D.position
-	$Line2D.rotation = -$".".rotation
-	mousePos = get_viewport().get_mouse_position()
-	direction = mousePos - get_parent().global_position
-	fireVector = direction.normalized() * defaultSpeed
-	if hold:
-		addSpeed += 5
-		addSpeed = clamp(addSpeed,0,400)
-		fireVector = direction.normalized() * (defaultSpeed + addSpeed)
-		stepX = fireVector.x
-		stepY = fireVector.y
-		#print("fireVector:",fireVector,"direction:",direction.normalized())
-		#print("X:",stepX,"y:",stepY)
-		$Line2D.clear_points()
-		for i in range(30):
-			$Line2D.add_point(Vector2(stepX*i*delta,(stepY+490*i*delta)*i*delta))
-			pass
-	else:
-		$Line2D.clear_points()
-	#get_parent().position
-	pass
-func holdFire():
-	hold = true
+	# 发射子弹
+	emit_bullet(_aim_direction, final_speed)
 
-func fire():
-	addSpeed = 0
-	hold = false
-	if get_parent():
-		var _bullet = bullet.instantiate()
-		#_bullet.rotation = $".".rotation
-		#_bullet.linear_velocity = direction.normalized()  * 250
-		emit_signal("player_fired_bullet",_bullet,$Marker2D.global_position,$Marker2D.global_rotation,fireVector,0)
-	
+	# 重置蓄力
+	hold_time = 0.0
+	charge_speed = 0.0
+	_is_holding = false
+	_set_state(WeaponConfig.WeaponState.IDLE)
+
+## 绘制单条弹道轨迹
+func _draw_trajectory(delta: float) -> void:
+	if trajectory_line == null:
+		return
+
+	trajectory_line.clear_points()
+
+	var speed = get_current_speed()
+	var dir = _aim_direction
+
+	# 计算轨迹点（考虑重力）
+	var gravity = 490.0
+	var step_x = dir.x * speed
+	var step_y = dir.y * speed
+
+	for i in range(30):
+		var point = Vector2(step_x * i * delta, (step_y + gravity * i * delta) * i * delta)
+		trajectory_line.add_point(point)

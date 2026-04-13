@@ -18,22 +18,21 @@ func _releaseSelf():
 	$".".queue_free()
 	
 func _on_bullet_hit(body:Node):
-	#hurSomeBody(body)
+	#hurt_somebody(body)
 	var boomBody = $BoomArea.get_overlapping_bodies()
 	for i in boomBody:
-		hurSomeBody(i)
+		hurt_somebody(i)
 	boomDisplay()
 func _on_body_entered(body):
 	var boomBody = $BoomArea.get_overlapping_bodies()
 	for i in boomBody:
-		hurSomeBody(i)
+		hurt_somebody(i)
 	boomDisplay()
 	
 	pass # Replace with function body.
-func hurSomeBody(body:Node):
+func hurt_somebody(body:Node):
 	if body.has_method("_beHurt"):
 		BattleManager.ApplyBuff(bulletOwner,body,damagebuffid)
-	print(body,damagebuffid)
 func boomDisplay():
 	$".".set_deferred("freeze_mode",1)
 	$".".set_deferred("freeze",true)

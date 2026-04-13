@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="DynEffect" load_steps=2 format=3 uid="uid://c7bbe0ubg8rf8"]
-
-[ext_resource type="Script" uid="uid://cxi1tcm8jb78l" path="res://prefab/BattleBase/DynEffect.gd" id="1_au7ak"]
-
-[resource]
-script = ExtResource("1_au7ak")
-EffectNum = 1
-Effect_0 = 0
-Value_0 = 0

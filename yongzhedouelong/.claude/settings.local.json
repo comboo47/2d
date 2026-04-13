@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "Bash(sed -n '66,72p' d:/Work/ForkProject/2d/yongzhedouelong/Scripts/GameBase/BattleSystemBase/BattleActor/Player.gd)",
+      "Bash(sed -n '14,17p' d:/Work/ForkProject/2d/yongzhedouelong/prefab/Component/hurt_display.gd)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["filesystem", "excel"]
+}

@@ -1,1 +1,1 @@
-extends weapon_base
+extends WeaponBase

@@ -2,7 +2,7 @@
 class_name AttributeBuff extends Resource
 @export var buff_id:String
 
-@export var buff_Name: String
+@export var buff_name: String
 @export var buffDuration := 0.0
 @export var buffPeriod := 0
 @export var isLeaveReset := false
@@ -16,7 +16,6 @@ func write_all_children_data():
 
 
 func _init() -> void:
-	print("buff资源加载结束")
 	pass
 ## duration_policy == HasDuration生效
 ## 单位：秒
@@ -50,9 +49,9 @@ func Create(_source:BattleActor,_target:BattleActor):
 	BuffTarget = _target
 	for effect in BuffEffects:
 		effect.Create(_source,_target,self)
-	buff_excute()
-	ExcuteType()
-func ExcuteType():
+	buff_execute()
+	execute_type()
+func execute_type():
 	match duration:
 		0:
 			is_pending_remove = true
@@ -105,8 +104,7 @@ func set_merging(_mergin: DurationMerging):
 
 func set_duration(_time: float) -> AttributeBuff:
 	return self
-func buff_excute()->void:
-	print(BuffEffects.size())
+func buff_execute()->void:
 	for effect in BuffEffects:
 		effect.EffectGo()
 

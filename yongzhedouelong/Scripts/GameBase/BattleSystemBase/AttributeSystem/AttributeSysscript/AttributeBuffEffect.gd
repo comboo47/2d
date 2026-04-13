@@ -19,7 +19,6 @@ var _cached_expression: Expression = null
 var _cached_expression_string: String = ""
 
 func EffectGo():
-	print("effectGo")	
 	pass
 	
 func EffectRemove():

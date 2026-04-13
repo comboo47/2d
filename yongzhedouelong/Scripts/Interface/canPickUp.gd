@@ -12,7 +12,6 @@ func _ready():
 
 func pickUp(node:Node):
 	if canPickUp:
-		print("pick up start:::",$".".name)
 		canPickUp = false
 		#$TotalTimer.start()
 		picker = node
@@ -20,7 +19,6 @@ func pickUp(node:Node):
 		$".".get_parent().pickEffect(picker)
 	pass
 func pickUpDisplay():
-	print("pick up display:::",$".".name)
 	var tween = $".".create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)

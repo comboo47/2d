@@ -136,7 +136,7 @@ func add_buff(_buff: AttributeBuff) -> AttributeBuff:
 			should_append_buff = false
 
 	if should_append_buff:
-		var duplicated_buff = _buff.duplicate_buff()
+		var duplicated_buff = _buff.duplicate(true)
 		duplicated_buff.applied_attribute = weakref(self)
 		buffs.append(duplicated_buff)
 		pending_add_buff = duplicated_buff

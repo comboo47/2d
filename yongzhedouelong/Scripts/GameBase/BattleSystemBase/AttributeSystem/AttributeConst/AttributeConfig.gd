@@ -7,4 +7,4 @@ enum AttributeName{
 	Mana,
 	Crit
 }
-"indices/1"
+# removed stray string
