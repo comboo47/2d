@@ -1,0 +1,16 @@
+{
+	"2011001": {
+		"duration": 5.0,
+		"tick_interval": 1.0,
+		"damage_per_tick": 2.0,
+		"stack_limit": 3,
+		"description": "持续伤害 Buff"
+	},
+	"2021001": {
+		"duration": 10.0,
+		"tick_interval": 0.5,
+		"heal_per_tick": 5.0,
+		"stack_limit": 1,
+		"description": "持续治疗 Buff"
+	}
+}

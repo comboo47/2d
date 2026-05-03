@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://c4n5kaec5py45"]
+
+[ext_resource type="Script" uid="uid://csqnno3sbqbqu" path="res://addons/battleeditor/UI/BattleEditorPanel.gd" id="1_panel"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y0ton"]
+blend_mode = 1
+
+[node name="BattleEditorPanel" type="Control" unique_id=1422439601]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=992198218]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer" unique_id=1051014324]
+layout_mode = 2
+size_flags_vertical = 3
+split_offsets = PackedInt32Array(250)
+split_offset = 250
+
+[node name="TreePanel" type="PanelContainer" parent="VBoxContainer/HSplitContainer" unique_id=869089222]
+material = SubResource("CanvasItemMaterial_y0ton")
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/TreePanel" unique_id=547047243]
+layout_mode = 2
+
+[node name="ButtonBox" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/TreePanel/VBoxContainer" unique_id=1750837210]
+layout_mode = 2
+
+[node name="NewBtn" type="Button" parent="VBoxContainer/HSplitContainer/TreePanel/VBoxContainer/ButtonBox" unique_id=1940559243]
+layout_mode = 2
+text = "新建"
+
+[node name="EditBtn" type="Button" parent="VBoxContainer/HSplitContainer/TreePanel/VBoxContainer/ButtonBox" unique_id=427299879]
+layout_mode = 2
+text = "编辑"
+
+[node name="DeleteBtn" type="Button" parent="VBoxContainer/HSplitContainer/TreePanel/VBoxContainer/ButtonBox" unique_id=43018021]
+layout_mode = 2
+text = "删除"
+
+[node name="RefreshBtn" type="Button" parent="VBoxContainer/HSplitContainer/TreePanel/VBoxContainer/ButtonBox" unique_id=561098190]
+layout_mode = 2
+text = "刷新"
+
+[node name="Tree" type="Tree" parent="VBoxContainer/HSplitContainer/TreePanel/VBoxContainer" unique_id=139777399]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+column_titles_visible = true
+hide_root = true
+
+[node name="EditSplitContainer" type="HSplitContainer" parent="VBoxContainer/HSplitContainer" unique_id=534459278]
+layout_mode = 2
+size_flags_horizontal = 3
+split_offsets = PackedInt32Array(300)
+split_offset = 300
+
+[node name="JsonEditPanel" type="PanelContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer" unique_id=869089223]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer/JsonEditPanel" unique_id=547047244]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/HSplitContainer/EditSplitContainer/JsonEditPanel/VBoxContainer" unique_id=1750837211]
+layout_mode = 2
+text = "JSON 数值配置"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer/JsonEditPanel/VBoxContainer" unique_id=294476626]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="JsonEditContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer/JsonEditPanel/VBoxContainer/ScrollContainer" unique_id=1705682576]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InspectorPanel" type="PanelContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer" unique_id=534459279]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer/InspectorPanel" unique_id=547047245]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/HSplitContainer/EditSplitContainer/InspectorPanel/VBoxContainer" unique_id=1750837212]
+layout_mode = 2
+text = "Resource 属性 (Inspector)"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer/InspectorPanel/VBoxContainer" unique_id=294476627]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InspectorContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer/InspectorPanel/VBoxContainer/ScrollContainer" unique_id=1705682577]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonBox" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/EditSplitContainer/InspectorPanel/VBoxContainer" unique_id=1750837213]
+layout_mode = 2
+
+[node name="SaveBtn" type="Button" parent="VBoxContainer/HSplitContainer/EditSplitContainer/InspectorPanel/VBoxContainer/ButtonBox" unique_id=1940559244]
+layout_mode = 2
+text = "保存"
+
+[node name="LocateBtn" type="Button" parent="VBoxContainer/HSplitContainer/EditSplitContainer/InspectorPanel/VBoxContainer/ButtonBox" unique_id=427299880]
+layout_mode = 2
+tooltip_text = "在文件系统中显示"
+text = "定位"
