@@ -34,6 +34,7 @@ There is no general command-line build step for normal development. Most verific
 - Avoid editing generated `.uid` files directly unless the Godot editor or import process intentionally updates them.
 - Avoid broad formatting churn in `.tscn`, `.tres`, `.godot`, or generated JSON files.
 - Preserve user changes in the working tree. Never revert unrelated files while doing a task.
+- For the human/AI collaboration workflow, read `Docs/AI_COLLABORATION.md`.
 
 ## Project Layout
 
