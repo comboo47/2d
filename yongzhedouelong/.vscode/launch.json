@@ -2,19 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Godot: Launch Project", // 调试配置名称（自定义）
-      "type": "godot",               // 调试类型（固定为godot）
-      "request": "launch",           // 启动方式（固定为launch）
-      // 关键：替换成你的Godot可执行文件路径
-      "program": "E:\\GODOT4.6\\Godot_v4.6-beta2_win64.exe" ,
-      
-      // 调试参数（最小必要，--debug是调试核心）
+      "name": "Godot: Launch Project",
+      "type": "godot",
+      "request": "launch",
+      "project": "${workspaceFolder}",
       "args": [
-        "--path", "$E:\\工程\\DragonKiller\\2d\\yongzhedouelong", // 指定项目根目录
-        "--debug"                       // 启用调试模式（必加）
+        "--path",
+        "${workspaceFolder}",
+        "--debug"
       ],
-      "stopOnEntry": false, // 启动后不自动暂停（新手建议设false）
-      "console": "integratedTerminal"  // 调试日志输出到VS Code终端
+      "stopOnEntry": false,
+      "console": "integratedTerminal"
     }
   ]
 }

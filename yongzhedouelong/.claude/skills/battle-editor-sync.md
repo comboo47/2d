@@ -1,89 +1,32 @@
 # Battle Editor Sync Skill
 
-同步游戏资产数据结构到 Battle Editor 编辑器代码。
+Use this Claude-specific skill when game asset data structures change and the custom Battle Editor must stay in sync.
 
-## 触发条件
+## Trigger Conditions
 
-当以下情况发生时，运行此 Skill：
-1. Skill/Buff/Enemy JSON 配置新增字段
-2. SkillBase/AttributeBuff 脚本新增 @export 属性
-3. 数据结构发生重大变更
+- A Skill, Buff, or Enemy JSON config gains, removes, or renames a field.
+- `SkillBase`, `AttributeBuff`, or related Resource scripts add exported fields that should be visible in editor workflows.
+- Data structures used by `addons/battleeditor/` change in a way that affects generated defaults.
 
-## 执行步骤
+## Workflow
 
-### Step 1: 分析变更内容
+1. Inspect the requested data change and identify the affected runtime consumer.
+2. Check `addons/battleeditor/UI/BattleEditorPanel.gd` for JSON default templates and creation paths.
+3. Update Skill, Buff, or Enemy templates only where the editor owns generated JSON defaults.
+4. Update `Docs/ASSETS_DATA.md` with field definitions and examples when public data shape changes.
+5. Report which runtime files, editor templates, and docs changed.
 
-请用户提供变更描述，例如：
-- "Skill JSON 新增了 `critical_rate` 字段"
-- "Buff 新增了 `icon_path` @export 属性"
+## Current Sync Targets
 
-### Step 2: 检查需要更新的文件
+| Change type | Primary target |
+| --- | --- |
+| Skill JSON fields | `addons/battleeditor/UI/BattleEditorPanel.gd` |
+| Buff JSON fields | `addons/battleeditor/UI/BattleEditorPanel.gd` |
+| Enemy config fields | `addons/battleeditor/UI/BattleEditorPanel.gd` |
+| Resource `@export` fields | Usually discovered by the Godot Inspector; verify before adding manual sync code |
 
-| 变更类型 | 目标文件 |
-|----------|----------|
-| Skill JSON 字段 | `addons/battleeditor/UI/BattleEditorPanel.gd` |
-| Buff JSON 字段 | `addons/battleeditor/UI/BattleEditorPanel.gd` |
-| Enemy 配置字段 | `addons/battleeditor/UI/BattleEditorPanel.gd` |
-| Resource @export | **自动同步**（Inspector 自动扫描） |
+## Notes
 
-### Step 3: 更新编辑器代码
-
-**JSON 配置默认模板更新位置**:
-
-```gdscript
-# Skill JSON 默认模板（约第 565 行）
-func _on_create_skill_json_config() -> void:
-    _skill_json_config[_selected_skill_id] = {
-        "damage": 10.0,      # ← 更新此处
-        "level": 1,
-        "cooldown": 3.0,
-        # 新增字段在这里添加
-    }
-
-# Buff JSON 默认模板（约第 576 行）
-func _on_create_buff_json_config() -> void:
-    _buff_json_config[_selected_buff_id] = {
-        "duration": 5.0,     # ← 更新此处
-        "tick_interval": 1.0,
-        # 新增字段在这里添加
-    }
-
-# Skill 创建时的 JSON 配置（约第 776 行）
-_skill_json_config[skill_id] = {
-    "damage": 10.0,
-    "level": 1,
-    "cooldown": 3.0,
-    # 新增字段在这里添加
-}
-
-# Buff 创建时的 JSON 配置（约第 808 行）
-_buff_json_config[buff_id] = {
-    "duration": 5.0,
-    "tick_interval": 1.0,
-    # 新增字段在这里添加
-}
-```
-
-### Step 4: 更新文档
-
-同步更新 `docs/ASSETS_DATA.md`：
-- 更新字段定义表格
-- 更新 JSON 示例
-- 记录变更日志
-
-## 示例执行
-
-**用户输入**: "Skill JSON 新增了 `critical_rate` 字段，类型为 float，默认值 0.1"
-
-**Skill 执行**:
-1. 读取 `BattleEditorPanel.gd`
-2. 找到 4 处 Skill JSON 模板位置
-3. 在每处添加 `"critical_rate": 0.1`
-4. 更新 `ASSETS_DATA.md` 文档
-5. 报告完成
-
-## 注意事项
-
-- Resource @export 属性无需手动同步（Inspector 自动扫描所有 @export）
-- JSON 字段变更需要同步 4 处：新建对话框模板、创建时模板（Skill/Buff 各 2 处）
-- Enemy 配置变更只需更新 `_create_new_enemy()` 函数
+- Avoid hard-coded line-number assumptions; search for the relevant template or creation method.
+- Keep reusable, tool-neutral rules in `AGENTS.md`.
+- Do not commit `.claude/settings.local.json`; it is a local permissions and MCP configuration file.
