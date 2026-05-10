@@ -6,6 +6,7 @@ func _ready():
 	pass # Replace with function body.
 
 func pickUpPoker(number,flower):
-	$CanvasLayer/PokerBar.pickUpCard(number,flower)
+	pass
+
 func dropUpPoker(number,flower):
-	$CanvasLayer/PokerBar.dropUpCard(number,flower)
+	pass
