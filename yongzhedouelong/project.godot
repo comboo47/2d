@@ -47,7 +47,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/battleeditor/plugin.cfg", "res://addons/buffresourceplugin/plugin.cfg")
+enabled=PackedStringArray("res://addons/battleeditor/plugin.cfg", "res://addons/buffresourceplugin/plugin.cfg", "res://addons/auto_reload/plugin.cfg", "res://addons/godot_mcp_editor/plugin.cfg", "res://addons/godot_mcp_runtime/plugin.cfg")
 
 [file_customization]
 
