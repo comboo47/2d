@@ -12,6 +12,8 @@ enum VfxType {
 	BUFF_APPLY,         # Buff 应用特效
 	BUFF_REMOVE,        # Buff 移除特效
 	SPAWN_EFFECT,       # 生成特效
+	MISS_EFFECT,
+	AURA_EFFECT
 }
 
 ## 特效场景路径映射
