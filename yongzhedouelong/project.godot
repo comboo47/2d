@@ -15,27 +15,27 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Yongzhedouelong"
-run/main_scene="res://art/UIResource/UI/Menu/MainMenu.tscn"
+run/main_scene="res://scenes/ui/menu/MainMenu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://Scripts/GameBase/GameManager.gd"
-InputManager="*res://Scripts/GameBase/InputManager.gd"
-DropManager="*res://Scripts/GameBase/BattleSystemBase/DropSystem/DropManager.gd"
-EnemyFactory="*res://Scripts/GameBase/BattleSystemBase/EnemySystem/EnemyFactory.gd"
-BulletManager="*res://ManagerScene/bullet_manager.tscn"
-MainUI="*res://ManagerScene/main_ui.tscn"
-UIManager="*res://ManagerScene/ui_manager.tscn"
-BattleManager="*res://Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd"
-DataRegistry="*res://Scripts/GameBase/GameDataBase/DataManager.gd"
-DataAutoScanner="*res://Scripts/GameBase/GameDataBase/DataAutoScanner.gd"
-JsonLoader="*uid://bj77cnixq0p7e"
-VfxManager="*res://Scripts/GameBase/BattleSystemBase/VfxSystem/VfxManager.gd"
-FlowRegistry="*res://Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd"
-SkillRegistry="*res://Scripts/GameBase/BattleSystemBase/SkillSystem/SkillRegistry.gd"
-MCPRuntime="*uid://c2dataui15dpl"
+GameManager="*res://src/app/GameManager.gd"
+InputManager="*res://src/app/InputManager.gd"
+DropManager="*res://src/gameplay/drops/DropManager.gd"
+EnemyFactory="*res://src/gameplay/enemies/EnemyFactory.gd"
+BulletManager="*res://scenes/autoload/bullet_manager.tscn"
+MainUI="*res://scenes/autoload/main_ui.tscn"
+UIManager="*res://scenes/autoload/ui_manager.tscn"
+BattleManager="*res://src/gameplay/battle/BattleManager.gd"
+DataRegistry="*res://src/gameplay/data/DataManager.gd"
+DataAutoScanner="*res://src/gameplay/data/DataAutoScanner.gd"
+JsonLoader="*res://data/tables/Json/settings.gd"
+VfxManager="*res://src/gameplay/vfx/VfxManager.gd"
+FlowRegistry="*res://src/gameplay/flows/GameplayFlowRegistry.gd"
+SkillRegistry="*res://src/gameplay/skills/SkillRegistry.gd"
+MCPRuntime="*res://addons/godot_mcp_runtime/mcp_runtime_autoload.gd"
 
 [display]
 
@@ -53,9 +53,9 @@ enabled=PackedStringArray("res://addons/battleeditor/plugin.cfg", "res://addons/
 [file_customization]
 
 folder_colors={
-"res://GameResource/": "orange",
-"res://Scripts/GameBase/BattleSystemBase/AttributeSystem/": "yellow",
-"res://prefab/": "green"
+"res://resources/gameplay/enemies/": "orange",
+"res://src/gameplay/attributes/": "yellow",
+"res://scenes/": "green"
 }
 
 [input]

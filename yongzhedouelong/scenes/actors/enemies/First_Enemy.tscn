@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://bn5q4clyianrt"]
+
+[ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://scenes/actors/enemies/base_enemy.tscn" id="1_bw8m7"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://src/gameplay/attributes/AttributeSysscript/Attribute.gd" id="3_w1fpc"]
+[ext_resource type="BehaviorTree" uid="uid://74vcupsxdkg3" path="res://src/gameplay/ai/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres" id="4_jh42y"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://src/gameplay/attributes/AttributeSysResource/attribute/HealthAttribute.gd" id="4_lb1fl"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://src/gameplay/attributes/AttributeSysscript/AttributeSet.gd" id="5_86ktf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8julx"]
+size = Vector2(15.5, 16)
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_cj1l2"]
+
+[sub_resource type="Animation" id="Animation_ub0cx"]
+resource_name = "default"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6bunl"]
+_data = {
+&"default": SubResource("Animation_ub0cx")
+}
+
+[sub_resource type="Resource" id="Resource_qhj17"]
+script = ExtResource("4_lb1fl")
+base_value = 12.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
+
+[sub_resource type="Resource" id="Resource_vaot3"]
+resource_local_to_scene = true
+script = ExtResource("5_86ktf")
+attributeID = 10001
+attributes = Array[ExtResource("3_w1fpc")]([SubResource("Resource_qhj17")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"
+
+[node name="BaseEnemy" unique_id=672657346 instance=ExtResource("1_bw8m7")]
+
+[node name="MoveComponent" parent="." index="1" unique_id=1935701040]
+speed = Vector2(50, 30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" parent_id_path=PackedInt32Array(2129987488) index="0" unique_id=474122384]
+shape = SubResource("RectangleShape2D_8julx")
+
+[node name="BTPlayer" type="BTPlayer" parent="." index="4" unique_id=66412667]
+behavior_tree = ExtResource("4_jh42y")
+blackboard_plan = SubResource("BlackboardPlan_cj1l2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5" unique_id=1799787550]
+libraries/ = SubResource("AnimationLibrary_6bunl")
+
+[node name="AttributeComponent" parent="." index="6" unique_id=522464049]
+attribute_set = SubResource("Resource_vaot3")

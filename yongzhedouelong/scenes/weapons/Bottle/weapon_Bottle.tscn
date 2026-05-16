@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://chgpllnygnq30"]
+
+[ext_resource type="Script" uid="uid://f4n2o2dh1rot" path="res://src/gameplay/weapons/bottle/Weapon_Bottle.gd" id="1_r6uvf"]
+[ext_resource type="PackedScene" uid="uid://emyqoa2k5c5v" path="res://scenes/weapons/Bottle/bullet_bottle.tscn" id="2_732it"]
+[ext_resource type="Texture2D" uid="uid://daio65xu0bmcw" path="res://assets/gameplay/Weapon/Weapon61.tres" id="3_4n3mk"]
+[ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://assets/gameplay/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="4_ft53f"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://assets/gameplay/1bitpack_kenney/Tilesheet/colored_transparent.png" id="5_vbqe6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqxu0"]
+atlas = ExtResource("4_ft53f")
+region = Rect2(306, 444, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvlge"]
+atlas = ExtResource("4_ft53f")
+region = Rect2(306, 442, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewvl5"]
+atlas = ExtResource("4_ft53f")
+region = Rect2(510, 204, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1t82"]
+atlas = ExtResource("5_vbqe6")
+region = Rect2(306, 425, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1hexj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4n3mk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_tqxu0")
+}, {
+"duration": 0.25,
+"texture": SubResource("AtlasTexture_hvlge")
+}],
+"loop": true,
+"name": &"shake",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_ewvl5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1t82")
+}],
+"loop": false,
+"name": &"shakeOver",
+"speed": 5.0
+}]
+
+[node name="Weapon_Bottle" type="Node2D" unique_id=1094276276]
+position = Vector2(-7.62939e-06, 0)
+script = ExtResource("1_r6uvf")
+bullet = ExtResource("2_732it")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=335213956]
+z_index = 50
+position = Vector2(8.00001, 3)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_1hexj")
+animation = &"shakeOver"
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=188537413]
+position = Vector2(8.00001, 5)
+metadata/_edit_group_ = true
+
+[node name="Line2D" type="Line2D" parent="." unique_id=810804037]
+width = 1.0
+default_color = Color(1.63645e-06, 0.708093, 0.769262, 0.490196)
+metadata/_edit_group_ = true
+
+[node name="Line2D2" type="Line2D" parent="." unique_id=1666805536]
+width = 1.0
+default_color = Color(1.63645e-06, 0.708093, 0.769262, 0.490196)
+metadata/_edit_group_ = true
+
+[node name="Line2D3" type="Line2D" parent="." unique_id=1416913815]
+width = 1.0
+default_color = Color(1.63645e-06, 0.708093, 0.769262, 0.490196)
+metadata/_edit_group_ = true

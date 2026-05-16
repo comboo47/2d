@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cm44t110g6gfc"]
-
-[ext_resource type="Script" path="res://prefab/Weapon/EnemyWeapon/EnemyWeapon_First.gd" id="1_5h2oi"]
-
-[node name="EnemyWeapon" type="Node2D"]
-script = ExtResource("1_5h2oi")

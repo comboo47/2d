@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b5qv8440wifwy"]
+
+[ext_resource type="Script" uid="uid://c8oj4olvqvjdy" path="res://src/gameplay/battle/BulletManager.gd" id="1_alkmx"]
+
+[node name="BulletManager" type="Node2D" unique_id=1026414428]
+script = ExtResource("1_alkmx")

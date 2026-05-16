@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bo160q62p0caw"]
+
+[ext_resource type="Script" uid="uid://3t5l4rg525al" path="res://src/gameplay/weapons/bow/Weapon_Bow.gd" id="1_b0cch"]
+[ext_resource type="PackedScene" uid="uid://bccgwgg6qrf05" path="res://scenes/weapons/Bow/bullet_bow.tscn" id="2_jiylq"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://assets/gameplay/1bitpack_kenney/Tilesheet/colored_transparent.png" id="3_elrbb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1vkn"]
+atlas = ExtResource("3_elrbb")
+region = Rect2(85, 476, 17, 16)
+
+[node name="weapon_Bow" type="Node2D"]
+position = Vector2(-7.62939e-06, 0)
+script = ExtResource("1_b0cch")
+bullet = ExtResource("2_jiylq")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(4, 0)
+rotation = -0.785398
+scale = Vector2(0.75, 0.75)
+texture = SubResource("AtlasTexture_t1vkn")
+metadata/_edit_group_ = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(8, 0)
+metadata/_edit_group_ = true
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 1.0
+default_color = Color(1, 0.363602, 0.580028, 1)

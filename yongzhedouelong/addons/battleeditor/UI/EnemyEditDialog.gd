@@ -23,7 +23,7 @@ var _attributes_container: VBoxContainer = null
 var _enemy_config_data: Dictionary = {}
 
 ## 配置文件路径
-const CONFIG_PATH = "res://Tables/Json/Enemy/EnemyConfig.json"
+const CONFIG_PATH = "res://data/tables/Json/Enemy/EnemyConfig.json"
 
 func _ready() -> void:
 	title = "编辑怪物配置"

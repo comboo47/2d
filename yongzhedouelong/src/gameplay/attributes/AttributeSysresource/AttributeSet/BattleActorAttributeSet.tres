@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AttributeSet" format=3 uid="uid://3c38eutepyoi"]
+
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://src/gameplay/attributes/AttributeSysscript/Attribute.gd" id="1_4bn6g"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://src/gameplay/attributes/AttributeSysscript/AttributeSet.gd" id="2_qhj17"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://src/gameplay/attributes/AttributeSysResource/attribute/HealthAttribute.gd" id="2_sm4if"]
+
+[sub_resource type="Resource" id="Resource_qhj17"]
+script = ExtResource("2_sm4if")
+base_value = 12.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_qhj17")
+attributes = Array[ExtResource("1_4bn6g")]([SubResource("Resource_qhj17")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfmofvyqtmgc"]
+
+[ext_resource type="Script" uid="uid://bpy1ncrgbepc2" path="res://scenes/components/move_component.gd" id="1_rytvh"]
+
+[node name="MoveComponent" type="Node"]
+script = ExtResource("1_rytvh")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true

@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dr81vsrfvolcl"]
+
+[ext_resource type="Texture2D" uid="uid://culb6x8tnn6kq" path="res://assets/gameplay/SpriteFrams/Enemy/DingDing.png" id="1_udb0u"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_udb0u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -1,0 +1,40 @@
+{
+	"1001": {
+		"attributes": {
+			"armor": 0.0,
+			"attack": 2.0,
+			"jump_power": 30.0,
+			"max_hp": 12.0,
+			"new_attr": 0.0,
+			"speed": 50.0
+		},
+		"behavior_tree": "res://src/gameplay/ai/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres",
+		"death_flow_id": "",
+		"description": "基础敌人，无护甲，移动速度较快",
+		"display_name": "初级敌人",
+		"drop_table_id": "drop_001",
+		"enemy_id": 1001.0,
+		"enemy_name": "FirstEnemy",
+		"prefab_path": "res://scenes/actors/enemies/First_Enemy.tscn",
+		"skills": [],
+		"spawn_flow_id": ""
+	},
+	"1003": {
+		"attributes": {
+			"armor": 0.0,
+			"attack": 0.0,
+			"jump_power": 0.0,
+			"max_hp": 100.0,
+			"speed": 0.0
+		},
+		"behavior_tree": "",
+		"death_flow_id": "",
+		"description": "测试用敌人，高血量，无攻击能力",
+		"display_name": "伤害测试敌人",
+		"drop_table_id": "",
+		"enemy_id": 1003.0,
+		"enemy_name": "DamageTestEnemy",
+		"prefab_path": "res://scenes/actors/enemies/DamageTestEnemy.tscn",
+		"spawn_flow_id": ""
+	}
+}

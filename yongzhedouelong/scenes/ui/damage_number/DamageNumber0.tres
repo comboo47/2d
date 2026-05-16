@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://q2bthkh2l1cd"]
+
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://assets/gameplay/1bitpack_kenney/Tilesheet/colored_transparent.png" id="1_wccfi"]
+
+[resource]
+atlas = ExtResource("1_wccfi")
+region = Rect2(326, 496, 10, 10)

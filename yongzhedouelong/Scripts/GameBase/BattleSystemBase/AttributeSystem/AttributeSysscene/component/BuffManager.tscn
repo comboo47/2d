@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://de8nnsx2isi0o"]
-
-[ext_resource type="Script" uid="uid://bqhrd0alabmf0" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscene/component/buff_manager.gd" id="1_7bp67"]
-
-[node name="Node" type="Node"]
-script = ExtResource("1_7bp67")

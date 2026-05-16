@@ -101,7 +101,7 @@ func _refresh_skills() -> void:
 	_skill_json_config.clear()
 
 	# 加载 Skill 资源文件
-	var skills_dir = "res://prefab/Skills/"
+	var skills_dir = "res://resources/gameplay/skills/"
 	var dir = DirAccess.open(skills_dir)
 	if dir:
 		dir.list_dir_begin()
@@ -119,7 +119,7 @@ func _refresh_skills() -> void:
 		dir.list_dir_end()
 
 	# 加载 Skill JSON 配置
-	var json_path = "res://Tables/Json/Skill/SkillConfig.json"
+	var json_path = "res://data/tables/Json/Skill/SkillConfig.json"
 	if FileAccess.file_exists(json_path):
 		var file = FileAccess.open(json_path, FileAccess.READ)
 		if file:
@@ -135,7 +135,7 @@ func _refresh_buffs() -> void:
 	_buff_json_config.clear()
 
 	# 加载 Buff 资源文件
-	var buffs_dir = "res://prefab/Buffs/"
+	var buffs_dir = "res://resources/gameplay/buffs/"
 	var dir = DirAccess.open(buffs_dir)
 	if dir:
 		dir.list_dir_begin()
@@ -153,7 +153,7 @@ func _refresh_buffs() -> void:
 		dir.list_dir_end()
 
 	# 加载 Buff JSON 配置
-	var json_path = "res://Tables/Json/Buff/BuffConfig.json"
+	var json_path = "res://data/tables/Json/Buff/BuffConfig.json"
 	if FileAccess.file_exists(json_path):
 		var file = FileAccess.open(json_path, FileAccess.READ)
 		if file:
@@ -167,7 +167,7 @@ func _refresh_buffs() -> void:
 func _refresh_enemies() -> void:
 	_enemy_config_data.clear()
 
-	var config_path = "res://Tables/Json/Enemy/EnemyConfig.json"
+	var config_path = "res://data/tables/Json/Enemy/EnemyConfig.json"
 	if not FileAccess.file_exists(config_path):
 		return
 
@@ -606,7 +606,7 @@ func _on_save_pressed() -> void:
 
 ## 保存 Enemy 配置
 func _save_enemy_config() -> void:
-	var path = "res://Tables/Json/Enemy/EnemyConfig.json"
+	var path = "res://data/tables/Json/Enemy/EnemyConfig.json"
 	var json_text = JSON.stringify(_enemy_config_data, "\t")
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:
@@ -623,7 +623,7 @@ func _save_skill_resource() -> void:
 
 ## 保存 Skill JSON
 func _save_skill_json() -> void:
-	var path = "res://Tables/Json/Skill/SkillConfig.json"
+	var path = "res://data/tables/Json/Skill/SkillConfig.json"
 	var json_text = JSON.stringify(_skill_json_config, "\t")
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:
@@ -640,7 +640,7 @@ func _save_buff_resource() -> void:
 
 ## 保存 Buff JSON
 func _save_buff_json() -> void:
-	var path = "res://Tables/Json/Buff/BuffConfig.json"
+	var path = "res://data/tables/Json/Buff/BuffConfig.json"
 	var json_text = JSON.stringify(_buff_json_config, "\t")
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:
@@ -652,7 +652,7 @@ func _save_buff_json() -> void:
 func _on_locate_pressed() -> void:
 	match _current_type:
 		"enemy":
-			_locate_file("res://Tables/Json/Enemy/EnemyConfig.json")
+			_locate_file("res://data/tables/Json/Enemy/EnemyConfig.json")
 		"skill":
 			if _skill_resource_cache.has(_selected_skill_id):
 				_locate_file(_skill_resource_cache[_selected_skill_id]["path"])
@@ -790,7 +790,7 @@ func _create_new_skill_for_enemy() -> void:
 	skill.skill_id = skill_id
 	skill.skill_name = "Skill_" + skill_id
 
-	var path = "res://prefab/Skills/%s_Skill.tres" % skill_id
+	var path = "res://resources/gameplay/skills/%s_Skill.tres" % skill_id
 	ResourceSaver.save(skill, path)
 
 	# 创建 JSON 配置
@@ -822,7 +822,7 @@ func _create_new_buff_for_enemy() -> void:
 	buff.buff_id = buff_id
 	buff.buff_name = "Buff_" + buff_id
 
-	var path = "res://prefab/Buffs/%s.tres" % buff_id
+	var path = "res://resources/gameplay/buffs/%s.tres" % buff_id
 	ResourceSaver.save(buff, path)
 
 	# 创建 JSON 配置

@@ -1,0 +1,46 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://ciuea6cn0ucil"]
+
+[ext_resource type="Script" uid="uid://d36e00xc5w8mr" path="res://src/gameplay/ai/tasks/Get_First_In_Group.gd" id="1_s4yye"]
+[ext_resource type="Script" uid="uid://dn4htuas2txr7" path="res://src/gameplay/ai/tasks/Pursure_Target.gd" id="2_yy3xg"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_0qkte"]
+
+[sub_resource type="BBNode" id="BBNode_bmf17"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ts7on"]
+animation_player = SubResource("BBNode_bmf17")
+animation_name = &"default"
+
+[sub_resource type="BTAction" id="BTAction_a3r8s"]
+script = ExtResource("1_s4yye")
+group = &"Player"
+
+[sub_resource type="BBNode" id="BBNode_aw6hy"]
+saved_value = NodePath("MoveComponent")
+resource_name = "MoveComponent"
+
+[sub_resource type="BTAction" id="BTAction_p6m5d"]
+script = ExtResource("2_yy3xg")
+approach_distance = 32.0
+moveComponent = SubResource("BBNode_aw6hy")
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_dyglj"]
+time_limit = 1.5
+children = [SubResource("BTAction_p6m5d")]
+
+[sub_resource type="BTSequence" id="BTSequence_5pkq7"]
+custom_name = "MoveToTarget"
+children = [SubResource("BTAction_a3r8s"), SubResource("BTTimeLimit_dyglj")]
+
+[sub_resource type="BTSelector" id="BTSelector_t70iq"]
+children = [SubResource("BTSequence_5pkq7")]
+
+[sub_resource type="BTSequence" id="BTSequence_uapf8"]
+custom_name = "Init"
+children = [SubResource("BTPlayAnimation_ts7on"), SubResource("BTSelector_t70iq")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_0qkte")
+root_task = SubResource("BTSequence_uapf8")

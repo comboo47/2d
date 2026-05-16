@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="AttributeBuff" format=3 uid="uid://dibg1x62i88en"]
-
-[ext_resource type="Script" uid="uid://dn5ncc2v8hhef" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeBuffEffect.gd" id="1_rlnep"]
-[ext_resource type="Script" uid="uid://dkwrihpi0kobp" path="res://Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeBuff.gd" id="2_6un7b"]
-
-[resource]
-script = ExtResource("2_6un7b")
-buff_id = "1221"
-buff_name = "121"

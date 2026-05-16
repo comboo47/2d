@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bt2jh8isph5xr"]
+
+[ext_resource type="PackedScene" uid="uid://b1qb535sjpuas" path="res://scenes/actors/enemies/base_enemy.tscn" id="1_kdclt"]
+[ext_resource type="SpriteFrames" uid="uid://dr81vsrfvolcl" path="res://resources/gameplay/enemies/FirestEnemy.tres" id="2_64lt1"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://src/gameplay/attributes/AttributeSysscript/Attribute.gd" id="2_nsq1p"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://src/gameplay/attributes/AttributeSysResource/attribute/HealthAttribute.gd" id="3_n1618"]
+[ext_resource type="PackedScene" uid="uid://b0d25lwjqxghp" path="res://scenes/ui/test/AttributeTest.tscn" id="4_8hkog"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://src/gameplay/attributes/AttributeSysscript/AttributeSet.gd" id="4_psbiw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdclt"]
+size = Vector2(15.5, 26)
+
+[sub_resource type="Resource" id="Resource_2ic4w"]
+script = ExtResource("3_n1618")
+base_value = 200.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
+
+[sub_resource type="Resource" id="Resource_nsq1p"]
+script = ExtResource("2_nsq1p")
+attribute_name = 2
+base_value = 15.0
+metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+
+[sub_resource type="Resource" id="Resource_psbiw"]
+script = ExtResource("2_nsq1p")
+attribute_name = 1
+base_value = 3.0
+metadata/_custom_type_script = "uid://bw4kf70rvxlww"
+
+[sub_resource type="Resource" id="Resource_n1618"]
+resource_local_to_scene = true
+script = ExtResource("4_psbiw")
+attributes = Array[ExtResource("2_nsq1p")]([SubResource("Resource_2ic4w"), SubResource("Resource_nsq1p"), SubResource("Resource_psbiw")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"
+
+[node name="DamageTestEnemy" unique_id=1871941004 node_paths=PackedStringArray("Eattribute") instance=ExtResource("1_kdclt")]
+Eattribute = NodePath("AttributeComponent")
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=154341415]
+position = Vector2(0, -13)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2" unique_id=768538610]
+position = Vector2(0, -15)
+sprite_frames = ExtResource("2_64lt1")
+metadata/_edit_group_ = true
+
+[node name="AttributeTest" parent="." index="3" unique_id=2004232263 node_paths=PackedStringArray("attributeConpunent") instance=ExtResource("4_8hkog")]
+offset_left = 25.0
+offset_top = -86.0
+offset_right = 25.0
+offset_bottom = -86.0
+attributeConpunent = NodePath("../AttributeComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" parent_id_path=PackedInt32Array(2129987488) index="0" unique_id=388688919]
+position = Vector2(0.25, -13)
+shape = SubResource("RectangleShape2D_kdclt")
+
+[node name="HurtDisPlay" parent="." index="5" unique_id=447110788 node_paths=PackedStringArray("animSprit2D")]
+animSprit2D = NodePath("../AnimatedSprite2D")
+
+[node name="AttributeComponent" parent="." index="6" unique_id=522464049]
+attribute_set = SubResource("Resource_n1618")

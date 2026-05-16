@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Equip_Item" load_steps=3 format=3 uid="uid://bd45hyfw30pbj"]
+
+[ext_resource type="Script" uid="uid://bvtpgpc8og8x8" path="res://scenes/items/EquipItem/EquipBase.gd" id="1_5sihk"]
+[ext_resource type="Texture2D" uid="uid://cwoqleu411dvi" path="res://assets/gameplay/SpriteFrams/Enemy/Skull00.png" id="1_jcgtn"]
+
+[resource]
+script = ExtResource("1_5sihk")
+name = "2312312"
+icon = ExtResource("1_jcgtn")
+description = "qeqweqweqwe"
+"可否叠加" = false
+"可否出售" = false
+spell_elements = 1
+health = null
+armor = null
+attack = null
+AttackSpeed = null
+MoveSpeed = null

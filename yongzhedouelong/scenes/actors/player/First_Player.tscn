@@ -1,0 +1,340 @@
+[gd_scene format=3 uid="uid://bsf4te0cyp1e2"]
+
+[ext_resource type="PackedScene" uid="uid://b8f778661m1vg" path="res://scenes/actors/player/PlayerBase.tscn" id="1_8qvpg"]
+[ext_resource type="Script" uid="uid://68mglym1swmy" path="res://src/gameplay/actors/Player.gd" id="2_ett2r"]
+[ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://assets/gameplay/1bitpack_kenney/Tilesheet/colored_transparent.png" id="2_w6crh"]
+[ext_resource type="Script" uid="uid://dwfeni3ypyhp8" path="res://src/gameplay/ai/HSM&BT/Stats/IdleState.gd" id="4_na5rg"]
+[ext_resource type="Texture2D" uid="uid://bnakio8ehjvhb" path="res://assets/gameplay/Fx/FxResource/Dust.png" id="4_tju1s"]
+[ext_resource type="Script" uid="uid://bky115gysd03k" path="res://src/gameplay/ai/HSM&BT/Stats/MoveState.gd" id="5_tief1"]
+[ext_resource type="Script" uid="uid://dfrmsgblcs3ec" path="res://src/gameplay/ai/HSM&BT/Stats/JumpState.gd" id="6_q6pqf"]
+[ext_resource type="Script" uid="uid://b0qoa2eih2v3t" path="res://src/gameplay/ai/HSM&BT/Stats/DieState.gd" id="7_6mmwe"]
+[ext_resource type="Script" uid="uid://djdll7mujlagb" path="res://src/gameplay/ai/HSM&BT/Stats/HurtState.gd" id="7_i15xt"]
+[ext_resource type="PackedScene" uid="uid://c2grvpueyi5dg" path="res://assets/gameplay/Fx/fx_jump_particle.tscn" id="7_pobo7"]
+[ext_resource type="Script" uid="uid://dabqovygaswi1" path="res://src/gameplay/attributes/AttributeSysscene/component/AttributeComponent.gd" id="9_drofh"]
+[ext_resource type="Script" uid="uid://bw4kf70rvxlww" path="res://src/gameplay/attributes/AttributeSysscript/Attribute.gd" id="12_kydf8"]
+[ext_resource type="Script" uid="uid://cvro1y5xgfqo" path="res://src/gameplay/attributes/AttributeSysResource/attribute/AttackAttribute.gd" id="13_sflj1"]
+[ext_resource type="Script" uid="uid://byfoak0mg8h02" path="res://src/gameplay/attributes/AttributeSysResource/attribute/HealthAttribute.gd" id="13_tju1s"]
+[ext_resource type="Script" uid="uid://cdcushggciuu1" path="res://src/gameplay/attributes/AttributeSysscript/AttributeSet.gd" id="14_sflj1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nhojw"]
+radius = 3.33333
+height = 18.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4q6oy"]
+size = Vector2(13, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prol3"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(306, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykpde"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(391, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbhi6"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(374, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3krx"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(306, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgtba"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(323, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir77y"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(340, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3anov"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(357, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6q1yp"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(374, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efhy2"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(306, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfry2"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(357, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wam3f"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(374, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhklp"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(323, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5h1n"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(306, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xjd6"]
+atlas = ExtResource("2_w6crh")
+region = Rect2(340, 136, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1g2qo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prol3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_prol3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykpde")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykpde")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykpde")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbhi6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbhi6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbhi6")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3krx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_mgtba")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_ir77y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3anov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6q1yp")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efhy2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfry2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wam3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfry2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wam3f")
+}],
+"loop": true,
+"name": &"powerup",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhklp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5h1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xjd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5h1n")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve" id="Curve_kydf8"]
+_data = [Vector2(0.004264392, 1), 0.0, 0.0, 0, 0, Vector2(0.98933893, 0.008828282), 0.16556135, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ju55n"]
+curve = SubResource("Curve_kydf8")
+
+[sub_resource type="Curve" id="Curve_tju1s"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0.017057568, 90.08828), 0.0, 230.271, 0, 0, Vector2(0.58635396, 85.914925), 0.0, 0.0, 0, 0, Vector2(0.9957357, 4.5345078), 45.615112, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qsmwy"]
+curve = SubResource("Curve_tju1s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sflj1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 0.3, 1)
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+angular_velocity_min = -40.410015
+angular_velocity_max = 319.58997
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 0.99999774
+linear_accel_max = 0.99999774
+damping_min = 5.0
+damping_max = 25.000002
+damping_curve = SubResource("CurveTexture_qsmwy")
+scale_min = 0.35
+scale_max = 0.59999996
+color = Color(0.8474744, 0.84747446, 0.84747446, 1)
+alpha_curve = SubResource("CurveTexture_ju55n")
+
+[sub_resource type="Resource" id="Resource_ohi7k"]
+script = ExtResource("13_sflj1")
+attribute_name = 2
+base_value = 20.0
+metadata/_custom_type_script = "uid://cvro1y5xgfqo"
+
+[sub_resource type="Resource" id="Resource_w26n6"]
+script = ExtResource("13_tju1s")
+base_value = 123.0
+metadata/_custom_type_script = "uid://byfoak0mg8h02"
+
+[sub_resource type="Resource" id="Resource_c307a"]
+resource_local_to_scene = true
+script = ExtResource("14_sflj1")
+attributes = Array[ExtResource("12_kydf8")]([SubResource("Resource_ohi7k"), SubResource("Resource_w26n6")])
+metadata/_custom_type_script = "uid://cdcushggciuu1"
+
+[sub_resource type="Animation" id="Animation_drofh"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_n8ehl"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"walk"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pobo7"]
+_data = {
+&"RESET": SubResource("Animation_drofh"),
+&"new_animation": SubResource("Animation_n8ehl")
+}
+
+[node name="CharacterBody2D" unique_id=1725149442 node_paths=PackedStringArray("Eattribute") instance=ExtResource("1_8qvpg")]
+script = ExtResource("2_ett2r")
+Eattribute = NodePath("AttributeComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=1427771553]
+scale = Vector2(1.5, 1)
+shape = SubResource("CapsuleShape2D_nhojw")
+metadata/_edit_group_ = true
+
+[node name="WeaponComponent" parent="." index="1" unique_id=1764377170 node_paths=PackedStringArray("weaponOwner")]
+weaponOwner = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea" parent_id_path=PackedInt32Array(55898599) index="0" unique_id=1407165770]
+shape = SubResource("RectangleShape2D_4q6oy")
+
+[node name="AnimatedSprite2D" parent="." index="3" unique_id=37467983]
+sprite_frames = SubResource("SpriteFrames_1g2qo")
+animation = &"die"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="AnimatedSprite2D" index="0" unique_id=1768014256]
+z_index = -1
+position = Vector2(-2, 9)
+amount = 4
+texture = ExtResource("4_tju1s")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_sflj1")
+
+[node name="EnergeBar" parent="." index="5" unique_id=197434837]
+z_index = 2
+offset_left = 0.0
+offset_top = 7.92
+offset_right = 0.0
+offset_bottom = 8.08
+
+[node name="MoveComponent" parent="." index="6" unique_id=1804699648]
+speed = Vector2(100, 30)
+
+[node name="LimboHSM" type="LimboHSM" parent="." index="7" unique_id=104648857]
+
+[node name="IdleState" type="LimboState" parent="LimboHSM" index="0" unique_id=1196520358 node_paths=PackedStringArray("animator")]
+script = ExtResource("4_na5rg")
+animator = NodePath("../../AnimatedSprite2D")
+animationName = &"idle"
+
+[node name="MoveState" type="LimboState" parent="LimboHSM" index="1" unique_id=1102056814 node_paths=PackedStringArray("moveComponent", "animator", "fx_movedust")]
+script = ExtResource("5_tief1")
+moveComponent = NodePath("../../MoveComponent")
+animator = NodePath("../../AnimatedSprite2D")
+animation = &"walk"
+fx_movedust = NodePath("../../AnimatedSprite2D/GPUParticles2D")
+
+[node name="JumpState" type="LimboState" parent="LimboHSM" index="2" unique_id=1101918481 node_paths=PackedStringArray("animator", "moveComponent")]
+script = ExtResource("6_q6pqf")
+animator = NodePath("../../AnimatedSprite2D")
+animationName = &"jump"
+moveComponent = NodePath("../../MoveComponent")
+fx_jump = ExtResource("7_pobo7")
+
+[node name="HurtState" type="LimboState" parent="LimboHSM" index="3" unique_id=2056158080 node_paths=PackedStringArray("anim")]
+script = ExtResource("7_i15xt")
+anim = NodePath("../../AnimatedSprite2D")
+
+[node name="DieState" type="LimboState" parent="LimboHSM" index="4" unique_id=1234192315 node_paths=PackedStringArray("animator")]
+script = ExtResource("7_6mmwe")
+animator = NodePath("../../AnimatedSprite2D")
+animationName = &"die"
+
+[node name="AttributeComponent" type="Node" parent="." index="8" unique_id=618778529]
+script = ExtResource("9_drofh")
+attribute_set = SubResource("Resource_c307a")
+metadata/_custom_type_script = "uid://dabqovygaswi1"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9" unique_id=598173668]
+libraries/ = SubResource("AnimationLibrary_pobo7")
+
+[connection signal="exited" from="LimboHSM/MoveState" to="LimboHSM/MoveState" method="_on_exited"]
+[connection signal="exited" from="LimboHSM/JumpState" to="LimboHSM/JumpState" method="_on_exited"]
