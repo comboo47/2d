@@ -35,6 +35,7 @@ There is no general command-line build step for normal development. Most verific
 - Avoid broad formatting churn in `.tscn`, `.tres`, `.godot`, or generated JSON files.
 - Preserve user changes in the working tree. Never revert unrelated files while doing a task.
 - For the human/AI collaboration workflow, read `Docs/AI_COLLABORATION.md`.
+- For Godot UI scene handoff between the human editor and AI logic work, read `Docs/UI_COLLABORATION.md`.
 
 ## Project Layout
 

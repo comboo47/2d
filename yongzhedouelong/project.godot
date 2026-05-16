@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Yongzhedouelong"
-run/main_scene="uid://benkwbw5puyu5"
+run/main_scene="res://art/UIResource/UI/Menu/MainMenu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -35,6 +35,7 @@ JsonLoader="*uid://bj77cnixq0p7e"
 VfxManager="*res://Scripts/GameBase/BattleSystemBase/VfxSystem/VfxManager.gd"
 FlowRegistry="*res://Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd"
 SkillRegistry="*res://Scripts/GameBase/BattleSystemBase/SkillSystem/SkillRegistry.gd"
+MCPRuntime="*uid://c2dataui15dpl"
 
 [display]
 

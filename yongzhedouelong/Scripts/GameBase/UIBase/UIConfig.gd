@@ -1,6 +1,13 @@
 class_name UIConfig
 
-## UI 场景类型枚举
+enum UILayerType {
+	SCREEN,
+	POPUP,
+	OVERLAY,
+	HUD,
+	WIDGET,
+}
+
 enum SceneType {
 	POP_DAMAGE,
 	BATTLE_HUD,
@@ -8,16 +15,81 @@ enum SceneType {
 	ENERGY_BAR,
 	MAIN_MENU,
 	PAUSE_MENU,
-	SETTINGS
+	SETTINGS,
+	LEVEL_SELECT,
+	LOADING,
 }
 
-## 菜单名称常量
 const MENU_MAIN := "MainMenu"
 const MENU_PAUSE := "PauseMenu"
 const MENU_SETTINGS := "Settings"
+const MENU_LEVEL_SELECT := "LevelSelect"
+const MENU_LOADING := "Loading"
 
-## 场景路径配置
-## 注意：优先使用 UID，若没有则使用相对路径
+const HUD_BATTLE := "BattleHUD"
+const OVERLAY_LOADING := MENU_LOADING
+const WIDGET_POP_DAMAGE := "PopDamage"
+
+const KEY_PATH := "path"
+const KEY_LAYER := "layer"
+const KEY_CACHE := "cache"
+const KEY_EXCLUSIVE := "exclusive"
+
+const WINDOWS := {
+	WIDGET_POP_DAMAGE: {
+		KEY_PATH: "res://art/UIResource/UI/DamageNumber/PopDamage.tscn",
+		KEY_LAYER: UILayerType.WIDGET,
+		KEY_CACHE: true,
+		KEY_EXCLUSIVE: false,
+	},
+	HUD_BATTLE: {
+		KEY_PATH: "res://art/UIResource/UI/HUD/BattleHUD.tscn",
+		KEY_LAYER: UILayerType.HUD,
+		KEY_CACHE: true,
+		KEY_EXCLUSIVE: true,
+	},
+	MENU_MAIN: {
+		KEY_PATH: "res://art/UIResource/UI/Menu/MainMenu.tscn",
+		KEY_LAYER: UILayerType.SCREEN,
+		KEY_CACHE: true,
+		KEY_EXCLUSIVE: true,
+	},
+	MENU_PAUSE: {
+		KEY_PATH: "res://art/UIResource/UI/Menu/PauseMenu.tscn",
+		KEY_LAYER: UILayerType.SCREEN,
+		KEY_CACHE: true,
+		KEY_EXCLUSIVE: true,
+	},
+	MENU_SETTINGS: {
+		KEY_PATH: "res://art/UIResource/UI/Menu/Settings.tscn",
+		KEY_LAYER: UILayerType.SCREEN,
+		KEY_CACHE: true,
+		KEY_EXCLUSIVE: true,
+	},
+	MENU_LEVEL_SELECT: {
+		KEY_PATH: "res://art/UIResource/UI/Menu/LevelSelect.tscn",
+		KEY_LAYER: UILayerType.SCREEN,
+		KEY_CACHE: true,
+		KEY_EXCLUSIVE: true,
+	},
+	OVERLAY_LOADING: {
+		KEY_PATH: "res://art/UIResource/UI/Menu/Loading.tscn",
+		KEY_LAYER: UILayerType.OVERLAY,
+		KEY_CACHE: true,
+		KEY_EXCLUSIVE: false,
+	},
+}
+
+const SCENE_TYPE_TO_ID := {
+	SceneType.POP_DAMAGE: WIDGET_POP_DAMAGE,
+	SceneType.BATTLE_HUD: HUD_BATTLE,
+	SceneType.MAIN_MENU: MENU_MAIN,
+	SceneType.PAUSE_MENU: MENU_PAUSE,
+	SceneType.SETTINGS: MENU_SETTINGS,
+	SceneType.LEVEL_SELECT: MENU_LEVEL_SELECT,
+	SceneType.LOADING: OVERLAY_LOADING,
+}
+
 const SCENE_PATHS := {
 	SceneType.POP_DAMAGE: "res://art/UIResource/UI/DamageNumber/PopDamage.tscn",
 	SceneType.BATTLE_HUD: "res://art/UIResource/UI/HUD/BattleHUD.tscn",
@@ -25,41 +97,80 @@ const SCENE_PATHS := {
 	SceneType.ENERGY_BAR: "res://art/UIResource/UI/HUD/EnergyBar.tscn",
 	SceneType.MAIN_MENU: "res://art/UIResource/UI/Menu/MainMenu.tscn",
 	SceneType.PAUSE_MENU: "res://art/UIResource/UI/Menu/PauseMenu.tscn",
-	SceneType.SETTINGS: "res://art/UIResource/UI/Menu/Settings.tscn"
+	SceneType.SETTINGS: "res://art/UIResource/UI/Menu/Settings.tscn",
+	SceneType.LEVEL_SELECT: "res://art/UIResource/UI/Menu/LevelSelect.tscn",
+	SceneType.LOADING: "res://art/UIResource/UI/Menu/Loading.tscn",
 }
 
-## 场景缓存（避免重复加载）
 static var _scene_cache: Dictionary = {}
 
-## 获取场景
+static func has_window(id: String) -> bool:
+	return WINDOWS.has(id)
+
+static func get_window_config(id: String) -> Dictionary:
+	return WINDOWS.get(id, {})
+
+static func get_window_path(id: String) -> String:
+	var config: Dictionary = get_window_config(id)
+	return str(config.get(KEY_PATH, ""))
+
+static func get_window_layer(id: String):
+	var config: Dictionary = get_window_config(id)
+	return int(config.get(KEY_LAYER, UILayerType.SCREEN))
+
+static func should_cache(id: String) -> bool:
+	var config: Dictionary = get_window_config(id)
+	return bool(config.get(KEY_CACHE, false))
+
+static func is_exclusive(id: String) -> bool:
+	var config: Dictionary = get_window_config(id)
+	return bool(config.get(KEY_EXCLUSIVE, true))
+
+static func get_scene_by_id(id: String) -> PackedScene:
+	if not has_window(id):
+		push_error("UIConfig: window is not registered: %s" % id)
+		return null
+
+	if should_cache(id) and _scene_cache.has(id):
+		return _scene_cache[id] as PackedScene
+
+	var path: String = get_window_path(id)
+	if path == "":
+		push_error("UIConfig: scene path is empty: %s" % id)
+		return null
+
+	var scene := load(path) as PackedScene
+	if scene == null:
+		push_error("UIConfig: failed to load scene: %s" % path)
+		return null
+
+	if should_cache(id):
+		_scene_cache[id] = scene
+	return scene
+
 static func get_scene(type: SceneType) -> PackedScene:
-	if not _scene_cache.has(type):
-		var path = SCENE_PATHS.get(type, "")
-		if path == "":
-			push_error("UIConfig: 未配置场景路径 type=%d" % type)
-			return null
-		var scene = load(path)
-		if scene == null:
-			push_error("UIConfig: 无法加载场景 %s" % path)
-			return null
-		_scene_cache[type] = scene
-	return _scene_cache[type]
+	var id: String = str(SCENE_TYPE_TO_ID.get(type, ""))
+	if id != "":
+		return get_scene_by_id(id)
 
-## 获取菜单场景路径
+	var path: String = SCENE_PATHS.get(type, "")
+	if path == "":
+		push_error("UIConfig: scene path is not configured. type=%d" % type)
+		return null
+
+	var scene := load(path) as PackedScene
+	if scene == null:
+		push_error("UIConfig: failed to load scene: %s" % path)
+	return scene
+
 static func get_menu_scene_path(menu_name: String) -> String:
-	match menu_name:
-		MENU_MAIN: return SCENE_PATHS[SceneType.MAIN_MENU]
-		MENU_PAUSE: return SCENE_PATHS[SceneType.PAUSE_MENU]
-		MENU_SETTINGS: return SCENE_PATHS[SceneType.SETTINGS]
-		_: return ""
+	return get_window_path(menu_name)
 
-## 预加载所有 UI 场景（可选，用于减少运行时加载延迟）
 static func preload_all() -> void:
-	for type in SceneType.values():
-		var path = SCENE_PATHS.get(type, "")
+	for id in WINDOWS.keys():
+		var path: String = get_window_path(str(id))
 		if path != "" and ResourceLoader.exists(path):
-			get_scene(type)
+			get_scene_by_id(str(id))
 
-## 清空缓存（用于热重载）
 static func clear_cache() -> void:
 	_scene_cache.clear()
