@@ -32,7 +32,7 @@ func scan_and_register() -> void:
 				var resource:AttributeBuff = load(full_path)
 				if resource and resource is AttributeBuff:
 					# 确保资源已经加载了其属性（应该已经加载，因为使用了load函数）
-					if resource.buff_id.is_empty():
+					if resource.get_runtime_id().is_empty():
 						push_warning("Buff资源缺少ID，跳过: %s" % full_path)
 					else:
 						DataRegistry.instance.register_buff(resource)

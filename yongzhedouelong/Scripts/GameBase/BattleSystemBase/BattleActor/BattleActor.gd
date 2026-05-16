@@ -39,10 +39,11 @@ func GetAttributes() -> AttributeComponent:
 #region Flow 系统接口
 ## 触发生成 Flow
 func trigger_spawn_flow() -> void:
-	if spawn_flow_id.is_empty() or FlowRegistry.instance == null:
+	var registry = _get_flow_registry()
+	if spawn_flow_id.is_empty() or registry == null:
 		return
 
-	var flow = FlowRegistry.instance.get_flow(spawn_flow_id)
+	var flow = registry.get_flow(spawn_flow_id)
 	if flow:
 		var context = GameplayFlowContext.create_simple(self)
 		flow.execute(context)
@@ -51,10 +52,11 @@ func trigger_spawn_flow() -> void:
 
 ## 触发死亡 Flow
 func trigger_death_flow() -> void:
-	if death_flow_id.is_empty() or FlowRegistry.instance == null:
+	var registry = _get_flow_registry()
+	if death_flow_id.is_empty() or registry == null:
 		return
 
-	var flow = FlowRegistry.instance.get_flow(death_flow_id)
+	var flow = registry.get_flow(death_flow_id)
 	if flow:
 		var context = GameplayFlowContext.new()
 		context.source = self
@@ -66,10 +68,11 @@ func trigger_death_flow() -> void:
 
 ## 触发受伤 Flow
 func trigger_hit_flow(damage: float, source: BattleActor = null) -> void:
-	if hit_flow_id.is_empty() or FlowRegistry.instance == null:
+	var registry = _get_flow_registry()
+	if hit_flow_id.is_empty() or registry == null:
 		return
 
-	var flow = FlowRegistry.instance.get_flow(hit_flow_id)
+	var flow = registry.get_flow(hit_flow_id)
 	if flow:
 		var context = GameplayFlowContext.new()
 		context.source = source
@@ -82,10 +85,11 @@ func trigger_hit_flow(damage: float, source: BattleActor = null) -> void:
 
 ## 触发击杀 Flow
 func trigger_kill_flow(target: BattleActor) -> void:
-	if kill_flow_id.is_empty() or FlowRegistry.instance == null:
+	var registry = _get_flow_registry()
+	if kill_flow_id.is_empty() or registry == null:
 		return
 
-	var flow = FlowRegistry.instance.get_flow(kill_flow_id)
+	var flow = registry.get_flow(kill_flow_id)
 	if flow:
 		var context = GameplayFlowContext.new()
 		context.source = self
@@ -130,6 +134,12 @@ func use_skill(skill_id: String, context: GameplayFlowContext = null) -> bool:
 #region Vfx 系统接口
 ## 播放特效（便捷方法）
 func play_vfx(vfx_type: VfxConfig.VfxType, offset: Vector2 = Vector2.ZERO) -> void:
-	if VfxManager.instance:
-		VfxManager.instance.play_vfx(vfx_type, global_position + offset)
+	var vfx_manager = get_tree().root.get_node_or_null("VfxManager") if is_inside_tree() else null
+	if vfx_manager and vfx_manager.has_method("play_vfx"):
+		vfx_manager.play_vfx(vfx_type, global_position + offset)
 #endregion
+
+func _get_flow_registry() -> Node:
+	if not is_inside_tree():
+		return null
+	return get_tree().root.get_node_or_null("FlowRegistry")

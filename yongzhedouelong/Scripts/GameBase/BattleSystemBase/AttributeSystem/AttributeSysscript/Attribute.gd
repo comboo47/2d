@@ -126,12 +126,12 @@ func add_buff(_buff: AttributeBuff) -> AttributeBuff:
 	var pending_add_buff = _buff
 
 	## 有命名的Buff时，处理重复Buff的duration逻辑
-	if not _buff.buff_name.is_empty():
-		var existing_buff = find_buff(_buff.buff_name)
+	if not _buff.get_runtime_name().is_empty():
+		var existing_buff = find_buff(_buff.get_runtime_name())
 		if is_instance_valid(existing_buff):
 			match existing_buff.merging:
 				AttributeBuff.DurationMerging.Restart: existing_buff.restart_duration()
-				AttributeBuff.DurationMerging.Addtion: existing_buff.extend_duration(existing_buff.duration)
+				AttributeBuff.DurationMerging.Addtion: existing_buff.extend_duration(_buff.get_runtime_duration())
 			pending_add_buff = existing_buff
 			should_append_buff = false
 
@@ -157,7 +157,7 @@ func remove_buff(_buff: AttributeBuff):
 
 func find_buff(buff_name: String) -> AttributeBuff:
 	for _buff in buffs:
-		if _buff.buff_name == buff_name:
+		if _buff.get_runtime_name() == buff_name:
 			return _buff
 	return null
 #endregion

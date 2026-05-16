@@ -10,9 +10,8 @@ const SkillConfigClass = preload("res://Scripts/GameBase/BattleSystemBase/SkillS
 static func ApplyBuff(buffSource:BattleActor,buffTarget:BattleActor,buffID:String)->void:
 	var buff_id = buffID
 	var buff_resource = DataRegistry.instance.get_buff(buff_id)
-	if buff_resource:
-		var buff_instance:AttributeBuff = buff_resource.deep_duplicate(buffSource,buffTarget)
-		buffTarget.buffManager.buffList.append(buff_instance)
+	if buff_resource and buffTarget and buffTarget.buffManager:
+		buffTarget.buffManager.apply_buff(buff_resource, buffSource, buffTarget)
 
 static func RemoveBuff(buffSource:BattleActor,buffTarget:BattleActor,buffID:int)->void:
 	#遍历buffList，找到buffID = buffid的buff

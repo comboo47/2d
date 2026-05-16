@@ -13,14 +13,15 @@ func _init():
 
 # 注册单个Buff资源
 func register_buff(buff: AttributeBuff) -> void:
-	if buff.buff_id.is_empty():
+	var runtime_id := buff.get_runtime_id()
+	if runtime_id.is_empty():
 		push_error("Buff资源缺少ID: %s" % buff.resource_path)
 		return
 	
-	if _buff_resources.has(buff.buff_id):
+	if _buff_resources.has(runtime_id):
 		push_warning("BuffID重复: %s" % buff.buff_id)
 	
-	_buff_resources[buff.buff_id] = buff
+	_buff_resources[runtime_id] = buff
 
 
 # 获取Buff资源
