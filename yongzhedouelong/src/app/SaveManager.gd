@@ -47,6 +47,11 @@ func save_progress(progress: Dictionary) -> bool:
 		return false
 
 	file.store_string(JSON.stringify(normalized, "\t"))
+	var write_error := file.get_error()
+	if write_error != OK:
+		push_error("SaveManager: failed to write save file: %s (error %d)" % [save_path, write_error])
+		return false
+
 	_progress = normalized
 	return true
 
@@ -98,7 +103,11 @@ func _default_progress() -> Dictionary:
 	}
 
 func _normalize_progress(raw_progress: Dictionary) -> Dictionary:
-	if int(raw_progress.get("schema_version", 0)) != SCHEMA_VERSION:
+	var raw_schema_version = raw_progress.get("schema_version", 0)
+	if not (raw_schema_version is int or raw_schema_version is float):
+		return _default_progress()
+
+	if raw_schema_version != SCHEMA_VERSION:
 		return _default_progress()
 
 	var normalized := _default_progress()
