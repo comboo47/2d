@@ -254,7 +254,7 @@ func _cleanup_test_nodes() -> void:
 func _test_save_manager_missing_file_returns_default_progress() -> Variant:
 	_remove_test_save_file()
 	var manager := _make_save_manager()
-	var progress := manager.load_progress()
+	var progress = manager.load_progress()
 
 	if progress.get("schema_version") != 1:
 		return "expected schema_version 1"
@@ -286,7 +286,7 @@ func _test_save_manager_save_and_load_round_trip() -> Variant:
 		return "save file should exist"
 
 	var reloaded := _make_save_manager()
-	var loaded := reloaded.load_progress()
+	var loaded = reloaded.load_progress()
 	if loaded.get("current_level_id") != "level_01":
 		return "expected current_level_id level_01"
 	if loaded.get("completed_levels", []) != ["level_01"]:
