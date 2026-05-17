@@ -42,6 +42,10 @@ func _initialize() -> void:
 	_run("four_act_campaign_outline_matches_secret_realm_revenge_plan", _test_four_act_campaign_outline_matches_secret_realm_revenge_plan)
 	_run("save_manager_missing_file_returns_default_progress", _test_save_manager_missing_file_returns_default_progress)
 	_run("save_manager_save_and_load_round_trip", _test_save_manager_save_and_load_round_trip)
+	_run("save_manager_mark_level_completed_deduplicates_levels_and_merges_rewards", _test_save_manager_mark_level_completed_deduplicates_levels_and_merges_rewards)
+	_run("save_manager_unlock_level_deduplicates_levels", _test_save_manager_unlock_level_deduplicates_levels)
+	_run("save_manager_reset_progress_restores_default_shape", _test_save_manager_reset_progress_restores_default_shape)
+	_run("save_manager_malformed_json_falls_back_to_default_progress", _test_save_manager_malformed_json_falls_back_to_default_progress)
 	quit(_failures)
 
 func _run(test_name: String, test_callable: Callable) -> void:
@@ -295,6 +299,75 @@ func _test_save_manager_save_and_load_round_trip() -> Variant:
 		return "expected unlocked levels round trip"
 	if loaded.get("rewards", {}).get("coin") != 3:
 		return "expected coin reward round trip"
+	return true
+
+func _test_save_manager_mark_level_completed_deduplicates_levels_and_merges_rewards() -> Variant:
+	_remove_test_save_file()
+	var manager := _make_save_manager()
+
+	if not manager.mark_level_completed("level_01", {"coin": 1}):
+		return "first mark_level_completed should save"
+	if not manager.mark_level_completed("level_01", {"gem": 2}):
+		return "second mark_level_completed should save"
+
+	var progress = manager.get_progress()
+	if progress.get("current_level_id") != "level_01":
+		return "expected current level to be level_01"
+	if progress.get("completed_levels", []) != ["level_01"]:
+		return "expected completed level to be deduplicated"
+	if progress.get("rewards", {}).get("coin") != 1:
+		return "expected existing reward to remain"
+	if progress.get("rewards", {}).get("gem") != 2:
+		return "expected new reward to merge"
+	return true
+
+func _test_save_manager_unlock_level_deduplicates_levels() -> Variant:
+	_remove_test_save_file()
+	var manager := _make_save_manager()
+
+	if not manager.unlock_level("level_02"):
+		return "first unlock_level should save"
+	if not manager.unlock_level("level_02"):
+		return "second unlock_level should save"
+
+	var progress = manager.get_progress()
+	if progress.get("unlocked_levels", []) != ["level_02"]:
+		return "expected unlocked level to be deduplicated"
+	return true
+
+func _test_save_manager_reset_progress_restores_default_shape() -> Variant:
+	_remove_test_save_file()
+	var manager := _make_save_manager()
+	manager.mark_level_completed("level_01", {"coin": 1})
+
+	if not manager.reset_progress():
+		return "reset_progress should save"
+
+	var progress = manager.get_progress()
+	if progress.get("schema_version") != 1:
+		return "expected schema_version 1 after reset"
+	if progress.get("current_level_id") != "":
+		return "expected empty current_level_id after reset"
+	if progress.get("completed_levels", []).size() != 0:
+		return "expected no completed levels after reset"
+	if progress.get("unlocked_levels", []).size() != 0:
+		return "expected no unlocked levels after reset"
+	if progress.get("rewards", {}).size() != 0:
+		return "expected no rewards after reset"
+	return true
+
+func _test_save_manager_malformed_json_falls_back_to_default_progress() -> Variant:
+	_remove_test_save_file()
+	_write_test_save_text("{ this is not valid json")
+
+	var manager := _make_save_manager()
+	var progress = manager.load_progress()
+	if progress.get("schema_version") != 1:
+		return "expected schema_version 1 for malformed file fallback"
+	if progress.get("completed_levels", []).size() != 0:
+		return "expected default completed levels for malformed file fallback"
+	if not FileAccess.file_exists(TEST_SAVE_PATH):
+		return "malformed file should remain on disk"
 	return true
 
 func _make_save_manager() -> Node:
