@@ -1,34 +1,34 @@
-# Save System Design
+# 存档系统设计
 
-## Purpose
+## 目标
 
-Build the first version of the player progress save system for `Yongzhedouelong`. This version saves long-term progression, not an in-battle resume state.
+为 `Yongzhedouelong` 构建第一版玩家进度存档系统。本版本保存长期进度，不保存战斗中的续玩状态。
 
-The system should let the game remember campaign and level progress across launches, unlock new levels after completion, record earned rewards, and reset progress for testing or future menu support.
+系统需要让游戏在重新启动后记住战役和关卡进度，在完成关卡后解锁新关卡，记录已获得奖励，并提供重置进度能力，方便测试和后续菜单接入。
 
-## Scope
+## 范围
 
-This design covers a single automatic progress save. It does not include multiple save slots, manual save/load UI, battle-state persistence, enemy persistence, player position persistence, or mid-level resume.
+本设计只覆盖单个自动进度存档。不包含多个存档槽、手动保存/读取 UI、战斗现场持久化、敌人持久化、玩家坐标持久化，或中途续关。
 
-The first implementation should be small enough to validate the storage format, public API, and integration points before the game has a complete progression economy.
+第一版实现应保持足够小，优先验证存储格式、公开 API 和集成位置。完整成长经济系统稳定后，再扩展更复杂的数据结构。
 
-## Architecture
+## 架构
 
-Add a `SaveManager` autoload that owns all save-file access. Other systems call `SaveManager` methods and never read or write the save file directly.
+新增 `SaveManager` autoload，由它统一负责所有存档文件访问。其他系统只能调用 `SaveManager` 方法，不直接读取或写入存档文件。
 
-`SaveManager` stores one JSON file at:
+`SaveManager` 保存一个 JSON 文件：
 
 ```text
 user://save/progress.json
 ```
 
-On startup, `SaveManager` loads the file if it exists. If the file is missing, unreadable, malformed, or on an unsupported schema version, it falls back to a default progress dictionary. The fallback should not crash the game.
+启动时，`SaveManager` 如果发现文件存在，就尝试加载它。如果文件不存在、不可读、格式损坏，或 schema 版本不支持，就回退到默认进度字典。回退不应导致游戏崩溃。
 
-The first integration point is progression completion, not scene loading. `GameManager`, level flow code, or a future level-complete reward flow can call `mark_level_completed()` or `unlock_level()` after a level is completed or a reward is accepted.
+第一版的接入点是“进度完成”，不是“场景加载”。`GameManager`、关卡流程代码，或未来的关卡完成奖励流程，可以在关卡完成或奖励领取后调用 `mark_level_completed()` 或 `unlock_level()`。
 
-## Save Data
+## 存档数据
 
-Use a dictionary-based JSON schema for version 1:
+版本 1 使用基于 Dictionary 的 JSON schema：
 
 ```json
 {
@@ -41,20 +41,20 @@ Use a dictionary-based JSON schema for version 1:
 }
 ```
 
-Field meanings:
+字段含义：
 
-- `schema_version`: integer schema version for future migrations.
-- `current_level_id`: the latest selected or completed level id.
-- `completed_levels`: unique list of completed level ids.
-- `unlocked_levels`: unique list of playable level ids.
-- `rewards`: dictionary keyed by reward id or resource id. Values remain flexible for now because the long-term economy is not final.
-- `updated_at`: timestamp string used for debugging and future save-slot displays.
+- `schema_version`：整数版本号，用于未来迁移。
+- `current_level_id`：最近选择或完成的关卡 id。
+- `completed_levels`：已完成关卡 id 的去重列表。
+- `unlocked_levels`：已解锁可游玩关卡 id 的去重列表。
+- `rewards`：奖励字典，以奖励 id 或资源 id 作为 key。因为长期经济系统尚未定型，value 暂时保持灵活。
+- `updated_at`：时间戳字符串，用于调试和未来存档槽展示。
 
-The default progress should include `schema_version = 1`, empty progress arrays, an empty rewards dictionary, and an empty `current_level_id`.
+默认进度应包含 `schema_version = 1`、空进度数组、空奖励字典，以及空的 `current_level_id`。
 
-## Public API
+## 公开 API
 
-`SaveManager` should expose these methods:
+`SaveManager` 暴露以下方法：
 
 ```gdscript
 func load_progress() -> Dictionary
@@ -66,58 +66,58 @@ func reset_progress() -> bool
 func has_save() -> bool
 ```
 
-Expected behavior:
+预期行为：
 
-- `load_progress()` loads from disk and updates the in-memory progress.
-- `save_progress(progress)` validates and writes progress to disk, returning whether the write succeeded.
-- `get_progress()` returns a duplicate of the in-memory progress so callers cannot mutate internal state accidentally.
-- `mark_level_completed()` adds the level id to `completed_levels`, updates `current_level_id`, merges reward data, and writes the file.
-- `unlock_level()` adds the level id to `unlocked_levels` and writes the file.
-- `reset_progress()` removes or overwrites the existing save with default progress and writes the file.
-- `has_save()` reports whether the save file exists.
+- `load_progress()` 从磁盘加载，并更新内存中的进度。
+- `save_progress(progress)` 校验并写入进度，返回写入是否成功。
+- `get_progress()` 返回内存进度的副本，避免调用方意外修改内部状态。
+- `mark_level_completed()` 将关卡 id 加入 `completed_levels`，更新 `current_level_id`，合并奖励数据，并写入文件。
+- `unlock_level()` 将关卡 id 加入 `unlocked_levels`，并写入文件。
+- `reset_progress()` 删除或覆盖现有存档，恢复默认进度，并写入文件。
+- `has_save()` 返回存档文件是否存在。
 
-Duplicate level ids should not be added twice.
+重复的关卡 id 不应被加入两次。
 
-## Error Handling
+## 错误处理
 
-Recoverable read errors should use `push_warning()`. Write failures should use `push_error()`. Neither case should block the game from reaching the main menu.
+可恢复的读取错误使用 `push_warning()`。写入失败使用 `push_error()`。两种情况都不应阻止游戏进入主菜单。
 
-If a save file cannot be parsed, `SaveManager` should keep the malformed file untouched for this first version and continue with default in-memory progress. This version does not create repair files or backups.
+如果存档文件无法解析，`SaveManager` 在第一版中保留损坏文件不动，并继续使用默认内存进度。本版本不创建修复文件或备份文件。
 
-If writing fails, the mutating API should return `false`. First-version UI does not display write failures.
+如果写入失败，修改型 API 返回 `false`。第一版 UI 不展示写入失败提示。
 
-## Integration
+## 集成方式
 
-Register `SaveManager` in `project.godot` under `[autoload]`.
+在 `project.godot` 的 `[autoload]` 中注册 `SaveManager`。
 
-Keep the first code integration narrow:
+第一版代码集成保持收窄：
 
-- Load progress automatically when `SaveManager` enters the tree.
-- Keep `GameManager` focused on scene and state transitions.
-- Add explicit calls from level-complete or reward-acceptance logic once that flow exists.
-- Do not add save-slot UI in this version.
+- `SaveManager` 进入场景树时自动加载进度。
+- `GameManager` 继续专注于场景切换和游戏状态切换。
+- 等关卡完成或奖励领取流程存在后，再从那里显式调用保存接口。
+- 本版本不新增存档槽 UI。
 
-The reset API exists for tests and menu wiring. Any menu reset button should call `SaveManager.reset_progress()` rather than deleting files itself.
+重置接口用于测试和菜单接入。任何菜单中的重置按钮都应调用 `SaveManager.reset_progress()`，不应自己删除文件。
 
-## Testing
+## 测试
 
-Add focused headless tests for the save system:
+为存档系统新增聚焦的 headless 测试：
 
-- Missing save file returns default progress.
-- Saving progress writes JSON to disk.
-- Loading after saving restores the same progress.
-- Completing the same level twice keeps one entry.
-- Unlocking the same level twice keeps one entry.
-- Resetting progress returns to default data.
-- Malformed JSON falls back to default progress without crashing.
+- 没有存档文件时返回默认进度。
+- 保存进度会把 JSON 写入磁盘。
+- 保存后重新加载能恢复相同进度。
+- 同一个关卡完成两次，只保留一条记录。
+- 同一个关卡解锁两次，只保留一条记录。
+- 重置进度后回到默认数据。
+- 损坏 JSON 会回退到默认进度且不会崩溃。
 
-Use an isolated test path or injectable save path so tests do not overwrite a developer's real `user://save/progress.json`.
+测试应使用隔离测试路径，或让保存路径可注入，避免覆盖开发者真实的 `user://save/progress.json`。
 
-## Open Decisions Resolved
+## 已确认决策
 
-- Save scope: progress save only.
-- Slot strategy: single automatic save.
-- Data priority: campaign, level, unlock, and reward progress.
-- Timing: load on startup; save on completion or reward acceptance.
-- Architecture: dedicated `SaveManager` autoload.
-- Reset behavior: include `reset_progress()` in version 1.
+- 存档范围：只做进度存档。
+- 槽位策略：单个自动存档。
+- 数据重点：战役、关卡、解锁和奖励进度。
+- 读写时机：启动时读取；关卡完成或奖励领取后保存。
+- 架构方案：独立 `SaveManager` autoload。
+- 重置行为：第一版包含 `reset_progress()`。
