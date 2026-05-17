@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="GameplayFlowBase" format=3 uid="uid://cu2n3o21hl25d"]
+
+[ext_resource type="Script" uid="uid://lsnherm2b74m" path="res://src/gameplay/flows/FlowEffect/FlowEffectBase.gd" id="1_effect_base"]
+[ext_resource type="Script" uid="uid://cmtc2bl6sicdp" path="res://src/gameplay/flows/FlowEffect/FE_Damage.gd" id="2_damage"]
+[ext_resource type="Script" uid="uid://0yyfj4dkqb8s" path="res://src/gameplay/flows/FlowEffect/FE_ApplyBuffResource.gd" id="3_apply_buff"]
+[ext_resource type="Resource" path="res://resources/gameplay/buffs/example_burn_buff.tres" id="4_burn_buff"]
+[ext_resource type="Script" uid="uid://bi7m46qb0kiq7" path="res://src/gameplay/flows/GameplayFlowBase.gd" id="5_flow"]
+
+[sub_resource type="Resource" id="Resource_hit_damage"]
+script = ExtResource("2_damage")
+base_damage = 6.0
+damage_expression = "damage.amount + level"
+damage_tags = Array[String](["skill", "fire"])
+
+[sub_resource type="Resource" id="Resource_apply_burn"]
+script = ExtResource("3_apply_buff")
+buff = ExtResource("4_burn_buff")
+priority = 10
+
+[resource]
+script = ExtResource("5_flow")
+flow_id = "example_skill_damage"
+flow_name = "Example Skill Damage And Burn"
+effects = Array[ExtResource("1_effect_base")]([SubResource("Resource_hit_damage"), SubResource("Resource_apply_burn")])

@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/actors/BattleActor.gd" id="1_8v3fe"]
+[ext_resource type="Script" path="res://src/gameplay/attributes/AttributeSysscene/component/AttributeComponent.gd" id="2_axpf8"]
+[ext_resource type="Script" path="res://src/gameplay/attributes/AttributeSysscript/Attribute.gd" id="3_g7lns"]
+[ext_resource type="Script" path="res://src/gameplay/attributes/AttributeSysscript/AttributeSet.gd" id="4_p4dhe"]
+
+[sub_resource type="Resource" id="Resource_6g2u2"]
+script = ExtResource("3_g7lns")
+base_value = 120.0
+
+[sub_resource type="Resource" id="Resource_3aqvi"]
+script = ExtResource("3_g7lns")
+attribute_name = 2
+base_value = 8.0
+
+[sub_resource type="Resource" id="Resource_xv2x3"]
+script = ExtResource("3_g7lns")
+attribute_name = 1
+base_value = 1.0
+
+[sub_resource type="Resource" id="Resource_l6o68"]
+script = ExtResource("3_g7lns")
+attribute_name = 3
+
+[sub_resource type="Resource" id="Resource_2kx7f"]
+script = ExtResource("3_g7lns")
+attribute_name = 4
+
+[sub_resource type="Resource" id="Resource_xc8sx"]
+script = ExtResource("4_p4dhe")
+attributes = Array[ExtResource("3_g7lns")]([SubResource("Resource_6g2u2"), SubResource("Resource_3aqvi"), SubResource("Resource_xv2x3"), SubResource("Resource_l6o68"), SubResource("Resource_2kx7f")])
+
+[node name="ExamplePlayer" type="CharacterBody2D" unique_id=2073272513 node_paths=PackedStringArray("Eattribute")]
+script = ExtResource("1_8v3fe")
+Eattribute = NodePath("AttributeComponent")
+metadata/Attribute = null
+
+[node name="AttributeComponent" type="Node" parent="." unique_id=1852964760]
+script = ExtResource("2_axpf8")
+attribute_set = SubResource("Resource_xc8sx")
+
+[node name="Marker" type="Polygon2D" parent="." unique_id=1843708948]
+color = Color(0.25, 0.72, 1, 1)
+polygon = PackedVector2Array(0, -18, 16, 12, -16, 12)
+
+[node name="NameLabel" type="Label" parent="." unique_id=1286083250]
+offset_left = -42.0
+offset_top = 18.0
+offset_right = -42.0
+offset_bottom = 18.0
+text = "ExamplePlayer"

@@ -36,6 +36,7 @@ func _initialize() -> void:
 	_run("buff_tick_event_triggers_flow", _test_buff_tick_event_triggers_flow)
 	_run("skill_triggers_configured_flow", _test_skill_triggers_configured_flow)
 	_run("level_runner_initializes_actors_buffs_and_start_flow", _test_level_runner_initializes_actors_buffs_and_start_flow)
+	_run("four_act_campaign_outline_matches_secret_realm_revenge_plan", _test_four_act_campaign_outline_matches_secret_realm_revenge_plan)
 	quit(_failures)
 
 func _run(test_name: String, test_callable: Callable) -> void:
@@ -164,6 +165,36 @@ func _test_level_runner_initializes_actors_buffs_and_start_flow() -> Variant:
 		return "actor position was not initialized"
 	if runner.runtime_context.event_data.get("order", []) != ["level_start"]:
 		return "level start flow did not run"
+	return true
+
+func _test_four_act_campaign_outline_matches_secret_realm_revenge_plan() -> Variant:
+	var campaign := load("res://resources/gameplay/campaign/secret_realm_revenge_campaign.tres")
+	if campaign == null:
+		return "campaign outline should load"
+	if campaign.acts.size() != 4:
+		return "expected four acts, got %d" % campaign.acts.size()
+
+	var act_one = campaign.get_act_by_id("act_01_sect_escape")
+	var act_two = campaign.get_act_by_id("act_02_secret_realm")
+	var act_three = campaign.get_act_by_id("act_03_outer_counterattack")
+	var act_four = campaign.get_act_by_id("act_04_sect_revenge")
+
+	if act_one == null or act_one.primary_gameplay != "escape_tutorial":
+		return "act one should be the sect escape tutorial"
+	if act_one.reward_tier != "starter_kit":
+		return "act one should provide starter kit rewards"
+	if act_two == null or not act_two.uses_room_clear_routes:
+		return "act two should use dungeon room-clear routing"
+	if act_two.reward_tier != "cultivation_resources":
+		return "act two should reward cultivation resources"
+	if act_three == null or not act_three.uses_room_clear_routes:
+		return "act three should preserve room-clear routing"
+	if act_three.reward_tier != "artifact_build":
+		return "act three should reward artifacts"
+	if act_four == null or act_four.reward_tier != "endgame_tuning":
+		return "act four should focus on endgame tuning rewards"
+	if act_four.act_id != "act_04_sect_revenge":
+		return "act four final boss should be the betrayer senior brother"
 	return true
 
 func _make_actor(hp: float, atk: float, armor: float, add_to_root := true) -> BattleActor:

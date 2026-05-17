@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://dys6kwfxj74iu"]
 
-[ext_resource type="Script" path="res://src/ui/Panel/LevelSelectPanel.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dnwky4cxarfjr" path="res://src/ui/Panel/LevelSelectPanel.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://ckdsb5xcegjnv" path="res://src/gameplay/levels/LevelRunner.gd" id="2_djjb4"]
 
-[node name="LevelSelect" type="Control"]
+[node name="LevelSelect" type="Control" unique_id=1431258109]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=415478299]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.08, 0.09, 0.12, 1)
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=609609650]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -34,21 +35,25 @@ offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1644795436]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Title" type="Label" parent="Panel/VBoxContainer"]
+[node name="Title" type="Label" parent="Panel/VBoxContainer" unique_id=40718588]
 layout_mode = 2
 text = "Select Level"
 horizontal_alignment = 1
 
-[node name="LevelList" type="VBoxContainer" parent="Panel/VBoxContainer"]
+[node name="LevelList" type="VBoxContainer" parent="Panel/VBoxContainer" unique_id=1457226351]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="BackButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="BackButton" type="Button" parent="Panel/VBoxContainer" unique_id=92232345]
 custom_minimum_size = Vector2(180, 28)
 layout_mode = 2
 text = "Back"
+
+[node name="LevelRunner" type="Node" parent="." unique_id=619164215]
+script = ExtResource("2_djjb4")
+metadata/_custom_type_script = "uid://ckdsb5xcegjnv"

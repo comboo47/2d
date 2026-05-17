@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GameplayFlowBase" format=3 uid="uid://b88x4rji53uuc"]
+
+[ext_resource type="Script" uid="uid://lsnherm2b74m" path="res://src/gameplay/flows/FlowEffect/FlowEffectBase.gd" id="1_f7duc"]
+[ext_resource type="Script" uid="uid://cmtc2bl6sicdp" path="res://src/gameplay/flows/FlowEffect/FE_Damage.gd" id="2_ammqp"]
+[ext_resource type="Script" uid="uid://bi7m46qb0kiq7" path="res://src/gameplay/flows/GameplayFlowBase.gd" id="3_pr341"]
+
+[sub_resource type="Resource" id="Resource_82bho"]
+script = ExtResource("2_ammqp")
+base_damage = 1.0
+use_attack_bonus = false
+use_armor_reduction = false
+damage_expression = "source_attr(\"Atk\") + stack"
+damage_tags = Array[String](["fire", "dot", "burn"])
+
+[resource]
+script = ExtResource("3_pr341")
+flow_id = "example_burn_tick"
+flow_name = "Example Burn Tick"
+effects = Array[ExtResource("1_f7duc")]([SubResource("Resource_82bho")])

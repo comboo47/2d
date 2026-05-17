@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/actors/BattleActor.gd" id="1_mbfmp"]
+[ext_resource type="Script" path="res://src/gameplay/attributes/AttributeSysscene/component/AttributeComponent.gd" id="2_kvc0m"]
+[ext_resource type="Script" path="res://src/gameplay/attributes/AttributeSysscript/Attribute.gd" id="3_i4sxd"]
+[ext_resource type="Script" path="res://src/gameplay/attributes/AttributeSysscript/AttributeSet.gd" id="4_xpxtm"]
+
+[sub_resource type="Resource" id="Resource_52w31"]
+script = ExtResource("3_i4sxd")
+base_value = 45.0
+
+[sub_resource type="Resource" id="Resource_o6ks1"]
+script = ExtResource("3_i4sxd")
+attribute_name = 2
+base_value = 4.0
+
+[sub_resource type="Resource" id="Resource_e3r35"]
+script = ExtResource("3_i4sxd")
+attribute_name = 1
+
+[sub_resource type="Resource" id="Resource_eh2lo"]
+script = ExtResource("3_i4sxd")
+attribute_name = 3
+
+[sub_resource type="Resource" id="Resource_eg3o7"]
+script = ExtResource("3_i4sxd")
+attribute_name = 4
+
+[sub_resource type="Resource" id="Resource_5xlyr"]
+script = ExtResource("4_xpxtm")
+attributes = Array[ExtResource("3_i4sxd")]([SubResource("Resource_52w31"), SubResource("Resource_o6ks1"), SubResource("Resource_e3r35"), SubResource("Resource_eh2lo"), SubResource("Resource_eg3o7")])
+
+[node name="ExampleEnemy" type="CharacterBody2D" unique_id=684459324 node_paths=PackedStringArray("Eattribute")]
+script = ExtResource("1_mbfmp")
+Eattribute = NodePath("AttributeComponent")
+metadata/Attribute = null
+
+[node name="AttributeComponent" type="Node" parent="." unique_id=698331897]
+script = ExtResource("2_kvc0m")
+attribute_set = SubResource("Resource_5xlyr")
+
+[node name="Marker" type="Polygon2D" parent="." unique_id=457326648]
+color = Color(1, 0.35, 0.25, 1)
+polygon = PackedVector2Array(0, -18, 16, 12, -16, 12)
+
+[node name="NameLabel" type="Label" parent="." unique_id=317096137]
+offset_left = -42.0
+offset_top = 18.0
+offset_right = -42.0
+offset_bottom = 18.0
+text = "ExampleEnemy"

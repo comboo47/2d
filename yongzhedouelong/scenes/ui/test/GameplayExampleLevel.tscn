@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://lc3qrwauwgwu"]
+
+[ext_resource type="Script" uid="uid://djlw56i0an434" path="res://scenes/ui/test/gameplay_example_level.gd" id="1_scene_script"]
+[ext_resource type="Script" uid="uid://ckdsb5xcegjnv" path="res://src/gameplay/levels/LevelRunner.gd" id="2_level_runner"]
+[ext_resource type="Resource" uid="uid://cxfaddkl72ijm" path="res://resources/gameplay/levels/example_test_level.tres" id="3_level"]
+
+[node name="GameplayExampleLevel" type="Node2D" unique_id=254341095]
+script = ExtResource("1_scene_script")
+
+[node name="Actors" type="Node2D" parent="." unique_id=1621051345]
+
+[node name="LevelRunner" type="Node" parent="." unique_id=46473251]
+script = ExtResource("2_level_runner")
+level_definition = ExtResource("3_level")
+actor_parent = NodePath("../Actors")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=181789226]
+
+[node name="StatusPanel" type="PanelContainer" parent="CanvasLayer" unique_id=1795917820]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 390.0
+offset_bottom = 160.0
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/StatusPanel" unique_id=295393714]
+layout_mode = 2
+text = "Gameplay Example Level"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AttributeBuff" format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/attributes/AttributeSysscript/AttributeBuff.gd" id="1_buff"]
+[ext_resource type="Resource" path="res://resources/gameplay/flows/example_burn_tick_flow.tres" id="2_tick_flow"]
+
+[resource]
+script = ExtResource("1_buff")
+id = "example_burn"
+name = "Example Burn"
+buff_id = "example_burn"
+buff_Name = "Example Burn"
+buff_name = "Example Burn"
+buffDuration = 5.0
+buffPeriod = 1
+duration = 5.0
+max_stack = 3
+event_flows = {
+9: [ExtResource("2_tick_flow")]
+}

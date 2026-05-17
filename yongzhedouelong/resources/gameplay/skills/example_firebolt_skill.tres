@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillBase" format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/skills/SkillBase.gd" id="1_skill"]
+[ext_resource type="Script" path="res://src/gameplay/flows/GameplayFlowBase.gd" id="2_flow_script"]
+[ext_resource type="Resource" path="res://resources/gameplay/flows/example_skill_damage_flow.tres" id="3_skill_flow"]
+
+[resource]
+script = ExtResource("1_skill")
+skill_id = "example_firebolt"
+skill_name = "Example Firebolt"
+skill_description = "Deals fire damage and applies Example Burn."
+cost_type = 4
+cooldown_time = 0.0
+flow_refs = Array[ExtResource("2_flow_script")]([ExtResource("3_skill_flow")])

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://02oi4bi7au4m"]
+
+[ext_resource type="Texture2D" uid="uid://dpayr2efeupkx" path="res://assets/gameplay/level/StartBG.png" id="1_jtsh8"]
+
+[node name="Level01" type="Node2D" unique_id=1476406474]
+
+[node name="StartBg" type="Sprite2D" parent="." unique_id=1366292574]
+position = Vector2(411, 43)
+texture = ExtResource("1_jtsh8")

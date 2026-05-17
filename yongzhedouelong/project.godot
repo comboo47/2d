@@ -35,12 +35,12 @@ JsonLoader="*res://data/tables/Json/settings.gd"
 VfxManager="*res://src/gameplay/vfx/VfxManager.gd"
 FlowRegistry="*res://src/gameplay/flows/GameplayFlowRegistry.gd"
 SkillRegistry="*res://src/gameplay/skills/SkillRegistry.gd"
-MCPRuntime="*res://addons/godot_mcp_runtime/mcp_runtime_autoload.gd"
+MCPRuntime="*uid://c2dataui15dpl"
 
 [display]
 
-window/size/viewport_width=384
-window/size/viewport_height=240
+window/size/viewport_width=768
+window/size/viewport_height=480
 window/size/initial_position_type=0
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
@@ -54,8 +54,8 @@ enabled=PackedStringArray("res://addons/battleeditor/plugin.cfg", "res://addons/
 
 folder_colors={
 "res://resources/gameplay/enemies/": "orange",
-"res://src/gameplay/attributes/": "yellow",
-"res://scenes/": "green"
+"res://scenes/": "green",
+"res://src/gameplay/attributes/": "yellow"
 }
 
 [input]
