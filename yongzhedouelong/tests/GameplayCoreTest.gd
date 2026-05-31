@@ -1,5 +1,8 @@
 extends SceneTree
 
+const SaveManagerScript = preload("res://src/app/SaveManager.gd")
+const TEST_SAVE_PATH := "user://save_manager_test/progress.json"
+
 class RecordingEffect extends FlowEffectBase:
 	var label := ""
 
@@ -37,6 +40,12 @@ func _initialize() -> void:
 	_run("skill_triggers_configured_flow", _test_skill_triggers_configured_flow)
 	_run("level_runner_initializes_actors_buffs_and_start_flow", _test_level_runner_initializes_actors_buffs_and_start_flow)
 	_run("four_act_campaign_outline_matches_secret_realm_revenge_plan", _test_four_act_campaign_outline_matches_secret_realm_revenge_plan)
+	_run("save_manager_missing_file_returns_default_progress", _test_save_manager_missing_file_returns_default_progress)
+	_run("save_manager_save_and_load_round_trip", _test_save_manager_save_and_load_round_trip)
+	_run("save_manager_mark_level_completed_deduplicates_levels_and_merges_rewards", _test_save_manager_mark_level_completed_deduplicates_levels_and_merges_rewards)
+	_run("save_manager_unlock_level_deduplicates_levels", _test_save_manager_unlock_level_deduplicates_levels)
+	_run("save_manager_reset_progress_restores_default_shape", _test_save_manager_reset_progress_restores_default_shape)
+	_run("save_manager_malformed_json_falls_back_to_default_progress", _test_save_manager_malformed_json_falls_back_to_default_progress)
 	quit(_failures)
 
 func _run(test_name: String, test_callable: Callable) -> void:
@@ -245,3 +254,136 @@ func _cleanup_test_nodes() -> void:
 		if is_instance_valid(node):
 			node.free()
 	_test_nodes.clear()
+
+func _test_save_manager_missing_file_returns_default_progress() -> Variant:
+	_remove_test_save_file()
+	var manager := _make_save_manager()
+	var progress = manager.load_progress()
+
+	if progress.get("schema_version") != 1:
+		return "expected schema_version 1"
+	if progress.get("current_level_id") != "":
+		return "expected empty current_level_id"
+	if progress.get("completed_levels", []).size() != 0:
+		return "expected no completed levels"
+	if progress.get("unlocked_levels", []).size() != 0:
+		return "expected no unlocked levels"
+	if not progress.get("rewards", {}) is Dictionary:
+		return "expected rewards dictionary"
+	return true
+
+func _test_save_manager_save_and_load_round_trip() -> Variant:
+	_remove_test_save_file()
+	var manager := _make_save_manager()
+	var progress := {
+		"schema_version": 1,
+		"current_level_id": "level_01",
+		"completed_levels": ["level_01"],
+		"unlocked_levels": ["level_01", "level_02"],
+		"rewards": {"coin": 3},
+		"updated_at": ""
+	}
+
+	if not manager.save_progress(progress):
+		return "save_progress should return true"
+	if not FileAccess.file_exists(TEST_SAVE_PATH):
+		return "save file should exist"
+
+	var reloaded := _make_save_manager()
+	var loaded = reloaded.load_progress()
+	if loaded.get("current_level_id") != "level_01":
+		return "expected current_level_id level_01"
+	if loaded.get("completed_levels", []) != ["level_01"]:
+		return "expected completed level round trip"
+	if loaded.get("unlocked_levels", []) != ["level_01", "level_02"]:
+		return "expected unlocked levels round trip"
+	if loaded.get("rewards", {}).get("coin") != 3:
+		return "expected coin reward round trip"
+	return true
+
+func _test_save_manager_mark_level_completed_deduplicates_levels_and_merges_rewards() -> Variant:
+	_remove_test_save_file()
+	var manager := _make_save_manager()
+
+	if not manager.mark_level_completed("level_01", {"coin": 1}):
+		return "first mark_level_completed should save"
+	if not manager.mark_level_completed("level_01", {"gem": 2}):
+		return "second mark_level_completed should save"
+
+	var progress = manager.get_progress()
+	if progress.get("current_level_id") != "level_01":
+		return "expected current level to be level_01"
+	if progress.get("completed_levels", []) != ["level_01"]:
+		return "expected completed level to be deduplicated"
+	if progress.get("rewards", {}).get("coin") != 1:
+		return "expected existing reward to remain"
+	if progress.get("rewards", {}).get("gem") != 2:
+		return "expected new reward to merge"
+	return true
+
+func _test_save_manager_unlock_level_deduplicates_levels() -> Variant:
+	_remove_test_save_file()
+	var manager := _make_save_manager()
+
+	if not manager.unlock_level("level_02"):
+		return "first unlock_level should save"
+	if not manager.unlock_level("level_02"):
+		return "second unlock_level should save"
+
+	var progress = manager.get_progress()
+	if progress.get("unlocked_levels", []) != ["level_02"]:
+		return "expected unlocked level to be deduplicated"
+	return true
+
+func _test_save_manager_reset_progress_restores_default_shape() -> Variant:
+	_remove_test_save_file()
+	var manager := _make_save_manager()
+	manager.mark_level_completed("level_01", {"coin": 1})
+
+	if not manager.reset_progress():
+		return "reset_progress should save"
+
+	var progress = manager.get_progress()
+	if progress.get("schema_version") != 1:
+		return "expected schema_version 1 after reset"
+	if progress.get("current_level_id") != "":
+		return "expected empty current_level_id after reset"
+	if progress.get("completed_levels", []).size() != 0:
+		return "expected no completed levels after reset"
+	if progress.get("unlocked_levels", []).size() != 0:
+		return "expected no unlocked levels after reset"
+	if progress.get("rewards", {}).size() != 0:
+		return "expected no rewards after reset"
+	return true
+
+func _test_save_manager_malformed_json_falls_back_to_default_progress() -> Variant:
+	_remove_test_save_file()
+	_write_test_save_text("{ this is not valid json")
+
+	var manager := _make_save_manager()
+	var progress = manager.load_progress()
+	if progress.get("schema_version") != 1:
+		return "expected schema_version 1 for malformed file fallback"
+	if progress.get("completed_levels", []).size() != 0:
+		return "expected default completed levels for malformed file fallback"
+	if not FileAccess.file_exists(TEST_SAVE_PATH):
+		return "malformed file should remain on disk"
+	return true
+
+func _make_save_manager() -> Node:
+	var manager = SaveManagerScript.new()
+	manager.set_save_path_for_tests(TEST_SAVE_PATH)
+	return manager
+
+func _remove_test_save_file() -> void:
+	if not FileAccess.file_exists(TEST_SAVE_PATH):
+		return
+	var dir := DirAccess.open(TEST_SAVE_PATH.get_base_dir())
+	if dir:
+		dir.remove(TEST_SAVE_PATH.get_file())
+
+func _write_test_save_text(text: String) -> void:
+	DirAccess.make_dir_recursive_absolute(TEST_SAVE_PATH.get_base_dir())
+	var file := FileAccess.open(TEST_SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(text)
