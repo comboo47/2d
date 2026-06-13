@@ -15,7 +15,7 @@ Node2D
 
 ## WeaponBase 基类
 
-**文件路径**: [weapon_base.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/weapon_base.gd)
+**文件路径**: [weapon_base.gd](../../src/gameplay/weapons/weapon_base.gd)
 
 ### 信号定义
 
@@ -136,7 +136,7 @@ func emit_bullets(directions: Array[Vector2], speed: float = -1.0) -> void
 
 ## WeaponConfig 配置类
 
-**文件路径**: [WeaponConfig.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponConfig.gd)
+**文件路径**: [WeaponConfig.gd](../../src/gameplay/weapons/WeaponConfig.gd)
 
 ### 枚举定义
 
@@ -208,8 +208,8 @@ const DEFAULT_PARAMS := {
 
 ### WeaponBow（弓箭）
 
-**文件路径**: [Weapon_Bow.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/bow/Weapon_Bow.gd)
-**场景路径**: [weapon_Bow.tscn](../prefab/Weapon/Bow/weapon_Bow.tscn)
+**文件路径**: [Weapon_Bow.gd](../../src/gameplay/weapons/bow/Weapon_Bow.gd)
+**场景路径**: [weapon_Bow.tscn](../../scenes/weapons/Bow/weapon_Bow.tscn)
 
 **特性**: 蓄力增加发射速度
 
@@ -246,8 +246,8 @@ weapon_Bow (Node2D)
 
 ### WeaponBottle（瓶子）
 
-**文件路径**: [Weapon_Bottle.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/bottle/Weapon_Bottle.gd)
-**场景路径**: [weapon_Bottle.tscn](../prefab/Weapon/Bottle/weapon_Bottle.tscn)
+**文件路径**: [Weapon_Bottle.gd](../../src/gameplay/weapons/bottle/Weapon_Bottle.gd)
+**场景路径**: [weapon_Bottle.tscn](../../scenes/weapons/Bottle/weapon_Bottle.tscn)
 
 **特性**: 蓄力触发散射（三颗子弹）
 
@@ -286,8 +286,8 @@ weapon_Bottle (Node2D)
 
 ### WeaponCrossbow（弩枪）
 
-**文件路径**: [Weapon_Crossbow.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/crossbow/Weapon_Crossbow.gd)
-**场景路径**: [weapon_Crossbow.tscn](../prefab/Weapon/CrossBow/weapon_Crossbow.tscn)
+**文件路径**: [Weapon_Crossbow.gd](../../src/gameplay/weapons/crossbow/Weapon_Crossbow.gd)
+**场景路径**: [weapon_Crossbow.tscn](../../scenes/weapons/CrossBow/weapon_Crossbow.tscn)
 
 **特性**: 能量系统 + 蓄力连射
 
@@ -344,8 +344,8 @@ weapon_Crossbow (Node2D)
 
 ### EnemyWeapon_First（敌人武器）
 
-**文件路径**: [EnemyWeapon_First.gd](../prefab/Weapon/EnemyWeapon/EnemyWeapon_First.gd)
-**场景路径**: [Weapon_Base.tscn](../prefab/Weapon/EnemyWeapon/Weapon_Base.tscn)
+**文件路径**: [EnemyWeapon_First.gd](../../scenes/weapons/EnemyWeapon/EnemyWeapon_First.gd)
+**场景路径**: [Weapon_Base.tscn](../../scenes/weapons/EnemyWeapon/Weapon_Base.tscn)
 
 **实现**: 仅继承 WeaponBase，无额外逻辑
 
@@ -357,7 +357,7 @@ extends WeaponBase
 
 ## WeaponRoot 组件
 
-**文件路径**: [WeaponRoot.gd](../prefab/Component/WeaponRoot.gd)
+**文件路径**: [WeaponRoot.gd](../../scenes/components/WeaponRoot.gd)
 
 ### 武器切换流程
 
@@ -554,19 +554,19 @@ func _draw_trajectory(delta: float) -> void:
 
 | 类/文件 | 路径 |
 |--------|------|
-| WeaponBase | [Scripts/GameBase/BattleSystemBase/WeaponScripts/weapon_base.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/weapon_base.gd) |
-| WeaponConfig | [Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponConfig.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponConfig.gd) |
-| WeaponBow | [Scripts/GameBase/BattleSystemBase/WeaponScripts/bow/Weapon_Bow.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/bow/Weapon_Bow.gd) |
-| WeaponBottle | [Scripts/GameBase/BattleSystemBase/WeaponScripts/bottle/Weapon_Bottle.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/bottle/Weapon_Bottle.gd) |
-| WeaponCrossbow | [Scripts/GameBase/BattleSystemBase/WeaponScripts/crossbow/Weapon_Crossbow.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/crossbow/Weapon_Crossbow.gd) |
-| EnemyWeapon_First | [prefab/Weapon/EnemyWeapon/EnemyWeapon_First.gd](../prefab/Weapon/EnemyWeapon/EnemyWeapon_First.gd) |
-| WeaponRoot | [prefab/Component/WeaponRoot.gd](../prefab/Component/WeaponRoot.gd) |
-| BulletManager | [Scripts/GameBase/BattleSystemBase/BattleSystem/BulletManager.gd](../Scripts/GameBase/BattleSystemBase/BattleSystem/BulletManager.gd) |
-| Player.gd | [Scripts/GameBase/BattleSystemBase/BattleActor/Player.gd](../Scripts/GameBase/BattleSystemBase/BattleActor/Player.gd) |
-| weaponEnergy UI | [Scripts/Interface/weaponEnergy.gd](../Scripts/Interface/weaponEnergy.gd) |
-| weapon_Bow.tscn | [prefab/Weapon/Bow/weapon_Bow.tscn](../prefab/Weapon/Bow/weapon_Bow.tscn) |
-| weapon_Bottle.tscn | [prefab/Weapon/Bottle/weapon_Bottle.tscn](../prefab/Weapon/Bottle/weapon_Bottle.tscn) |
-| weapon_Crossbow.tscn | [prefab/Weapon/CrossBow/weapon_Crossbow.tscn](../prefab/Weapon/CrossBow/weapon_Crossbow.tscn) |
+| WeaponBase | [src/gameplay/weapons/weapon_base.gd](../../src/gameplay/weapons/weapon_base.gd) |
+| WeaponConfig | [src/gameplay/weapons/WeaponConfig.gd](../../src/gameplay/weapons/WeaponConfig.gd) |
+| WeaponBow | [src/gameplay/weapons/bow/Weapon_Bow.gd](../../src/gameplay/weapons/bow/Weapon_Bow.gd) |
+| WeaponBottle | [src/gameplay/weapons/bottle/Weapon_Bottle.gd](../../src/gameplay/weapons/bottle/Weapon_Bottle.gd) |
+| WeaponCrossbow | [src/gameplay/weapons/crossbow/Weapon_Crossbow.gd](../../src/gameplay/weapons/crossbow/Weapon_Crossbow.gd) |
+| EnemyWeapon_First | [scenes/weapons/EnemyWeapon/EnemyWeapon_First.gd](../../scenes/weapons/EnemyWeapon/EnemyWeapon_First.gd) |
+| WeaponRoot | [scenes/components/WeaponRoot.gd](../../scenes/components/WeaponRoot.gd) |
+| BulletManager | [src/gameplay/battle/BulletManager.gd](../../src/gameplay/battle/BulletManager.gd) |
+| Player.gd | [src/gameplay/actors/Player.gd](../../src/gameplay/actors/Player.gd) |
+| weaponEnergy UI | [src/interaction/weaponEnergy.gd](../../src/interaction/weaponEnergy.gd) |
+| weapon_Bow.tscn | [scenes/weapons/Bow/weapon_Bow.tscn](../../scenes/weapons/Bow/weapon_Bow.tscn) |
+| weapon_Bottle.tscn | [scenes/weapons/Bottle/weapon_Bottle.tscn](../../scenes/weapons/Bottle/weapon_Bottle.tscn) |
+| weapon_Crossbow.tscn | [scenes/weapons/CrossBow/weapon_Crossbow.tscn](../../scenes/weapons/CrossBow/weapon_Crossbow.tscn) |
 
 ---
 

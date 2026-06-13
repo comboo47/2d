@@ -98,17 +98,17 @@
 
 | 单例名称 | 脚本路径 | 功能说明 |
 |---------|---------|---------|
-| GameManager | [GameManager.gd](../Scripts/GameBase/GameManager.gd) | 游戏状态管理、场景切换 |
-| InputManager | [InputManager.gd](../Scripts/GameBase/InputManager.gd) | 输入锁定管理 |
-| BattleManager | [BattleManager.gd](../Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd) | Buff 应用、战斗静态方法 |
-| BulletManager | [BulletManager.gd](../Scripts/GameBase/BattleSystemBase/BattleSystem/BulletManager.gd) | 子弹生成和生命周期 |
-| VfxManager | [VfxManager.gd](../Scripts/GameBase/BattleSystemBase/VfxSystem/VfxManager.gd) | 特效播放和池化管理 |
-| UIManager | [UIManager.gd](../Scripts/GameBase/UIBase/UIManager.gd) | UI 层管理、伤害数字显示 |
-| DataRegistry | [DataManager.gd](../Scripts/GameBase/GameDataBase/DataManager.gd) | Buff 资源注册表 |
-| SkillRegistry | [SkillRegistry.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillRegistry.gd) | 技能资源注册表 |
-| FlowRegistry | [GameplayFlowRegistry.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd) | Flow 资源注册表 |
-| DropManager | [DropManager.gd](../Scripts/GameBase/BattleSystemBase/DropSystem/DropManager.gd) | 掉落物品管理 |
-| EnemyFactory | [EnemyFactory.gd](../Scripts/GameBase/BattleSystemBase/EnemySystem/EnemyFactory.gd) | 敌人动态创建 |
+| GameManager | [GameManager.gd](../../src/app/GameManager.gd) | 游戏状态管理、场景切换 |
+| InputManager | [InputManager.gd](../../src/app/InputManager.gd) | 输入锁定管理 |
+| BattleManager | [BattleManager.gd](../../src/gameplay/battle/BattleManager.gd) | Buff 应用、战斗静态方法 |
+| BulletManager | [BulletManager.gd](../../src/gameplay/battle/BulletManager.gd) | 子弹生成和生命周期 |
+| VfxManager | [VfxManager.gd](../../src/gameplay/vfx/VfxManager.gd) | 特效播放和池化管理 |
+| UIManager | [UIManager.gd](../../src/ui/UIManager.gd) | UI 层管理、伤害数字显示 |
+| DataRegistry | [DataManager.gd](../../src/gameplay/data/DataManager.gd) | Buff 资源注册表 |
+| SkillRegistry | [SkillRegistry.gd](../../src/gameplay/skills/SkillRegistry.gd) | 技能资源注册表 |
+| FlowRegistry | [GameplayFlowRegistry.gd](../../src/gameplay/flows/GameplayFlowRegistry.gd) | Flow 资源注册表 |
+| DropManager | [DropManager.gd](../../src/gameplay/drops/DropManager.gd) | 掉落物品管理 |
+| EnemyFactory | [EnemyFactory.gd](../../src/gameplay/enemies/EnemyFactory.gd) | 敌人动态创建 |
 
 ## 模块依赖关系
 
@@ -162,7 +162,7 @@ SkillBase.on_use_flow_id
 - **组合模式**：技能效果通过 `SkillEffect` 数组组合，按优先级执行
 - **槽位管理**：SkillManager 管理 PRIMARY/SECONDARY/ULTIMATE/PASSIVE 槽位
 - **触发技能**：支持 ON_HIT/ON_KILL/ON_ATTACK 等事件触发
-- **资源注册**：SkillRegistry 自动扫描 `prefab/Skills/` 目录
+- **资源注册**：SkillRegistry 自动扫描 `resources/gameplay/skills/` 目录
 
 ### 3. 子弹系统架构
 

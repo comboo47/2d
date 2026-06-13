@@ -18,7 +18,7 @@ GameplayFlow 是**可配置的行为脚本**，用于事件驱动的可复用行
 ## 目录结构
 
 ```
-Scripts/GameBase/BattleSystemBase/GameplayFlow/
+src/gameplay/flows/
 ├── GameplayFlowBase.gd        # Flow 基类
 ├── GameplayFlowContext.gd     # 执行上下文
 ├── GameplayFlowRegistry.gd    # 注册表（Autoload）
@@ -40,7 +40,7 @@ Scripts/GameBase/BattleSystemBase/GameplayFlow/
 
 ## GameplayFlowBase 基类
 
-**文件路径**: [GameplayFlowBase.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowBase.gd)
+**文件路径**: [GameplayFlowBase.gd](../../src/gameplay/flows/GameplayFlowBase.gd)
 
 ### FlowEvent 枚举
 
@@ -119,7 +119,7 @@ func execute(context: GameplayFlowContext) -> bool:
 
 ## GameplayFlowContext 执行上下文
 
-**文件路径**: [GameplayFlowContext.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowContext.gd)
+**文件路径**: [GameplayFlowContext.gd](../../src/gameplay/flows/GameplayFlowContext.gd)
 
 ### 属性结构
 
@@ -174,7 +174,7 @@ func get_buff_id() -> String:
 
 ## FlowRegistry 注册表
 
-**文件路径**: [GameplayFlowRegistry.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd)
+**文件路径**: [GameplayFlowRegistry.gd](../../src/gameplay/flows/GameplayFlowRegistry.gd)
 
 作为 Autoload 单例，管理 Flow 资源的加载、缓存和获取。
 
@@ -246,7 +246,7 @@ func register_flow(flow: GameplayFlowBase) -> void:
 
 ### FlowEffectBase 基类
 
-**文件路径**: [FlowEffectBase.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FlowEffectBase.gd)
+**文件路径**: [FlowEffectBase.gd](../../src/gameplay/flows/FlowEffect/FlowEffectBase.gd)
 
 ```gdscript
 class_name FlowEffectBase extends Resource
@@ -262,7 +262,7 @@ func get_description() -> String     # 效果描述
 
 ### FE_Damage 伤害效果
 
-**文件路径**: [FE_Damage.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_Damage.gd)
+**文件路径**: [FE_Damage.gd](../../src/gameplay/flows/FlowEffect/FE_Damage.gd)
 
 ```gdscript
 class_name FE_Damage extends FlowEffectBase
@@ -298,7 +298,7 @@ func apply(context: GameplayFlowContext) -> void:
 
 ### FE_SpawnVfx 生成特效效果
 
-**文件路径**: [FE_SpawnVfx.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_SpawnVfx.gd)
+**文件路径**: [FE_SpawnVfx.gd](../../src/gameplay/flows/FlowEffect/FE_SpawnVfx.gd)
 
 ```gdscript
 class_name FE_SpawnVfx extends FlowEffectBase
@@ -322,7 +322,7 @@ func apply(context: GameplayFlowContext) -> void:
 
 ### FE_ApplyBuff 应用 Buff 效果
 
-**文件路径**: [FE_ApplyBuff.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_ApplyBuff.gd)
+**文件路径**: [FE_ApplyBuff.gd](../../src/gameplay/flows/FlowEffect/FE_ApplyBuff.gd)
 
 ```gdscript
 class_name FE_ApplyBuff extends FlowEffectBase
@@ -342,7 +342,7 @@ func apply(context: GameplayFlowContext) -> void:
 
 ### FE_ModifyAttribute 修改属性效果
 
-**文件路径**: [FE_ModifyAttribute.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_ModifyAttribute.gd)
+**文件路径**: [FE_ModifyAttribute.gd](../../src/gameplay/flows/FlowEffect/FE_ModifyAttribute.gd)
 
 ```gdscript
 class_name FE_ModifyAttribute extends FlowEffectBase
@@ -379,7 +379,7 @@ func apply(context: GameplayFlowContext) -> void:
 
 ### FE_SpawnEntity 生成实体效果
 
-**文件路径**: [FE_SpawnEntity.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_SpawnEntity.gd)
+**文件路径**: [FE_SpawnEntity.gd](../../src/gameplay/flows/FlowEffect/FE_SpawnEntity.gd)
 
 ```gdscript
 class_name FE_SpawnEntity extends FlowEffectBase
@@ -516,7 +516,7 @@ func use(context: GameplayFlowContext) -> bool:
 
 ## BattleManager Flow API
 
-**文件路径**: [BattleManager.gd](../Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd)
+**文件路径**: [BattleManager.gd](../../src/gameplay/battle/BattleManager.gd)
 
 ```gdscript
 # 执行指定 Flow（直接触发模式）
@@ -609,19 +609,19 @@ enum LevelEvent {
 
 | 类/文件 | 路径 |
 |--------|------|
-| GameplayFlowBase | [Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowBase.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowBase.gd) |
-| GameplayFlowContext | [Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowContext.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowContext.gd) |
-| FlowRegistry | [Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd) |
-| FlowEffectBase | [Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FlowEffectBase.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FlowEffectBase.gd) |
-| FE_Damage | [Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_Damage.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_Damage.gd) |
-| FE_SpawnVfx | [Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_SpawnVfx.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_SpawnVfx.gd) |
-| FE_ApplyBuff | [Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_ApplyBuff.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_ApplyBuff.gd) |
-| FE_ModifyAttribute | [Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_ModifyAttribute.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_ModifyAttribute.gd) |
-| FE_SpawnEntity | [Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_SpawnEntity.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/FlowEffect/FE_SpawnEntity.gd) |
-| BattleManager | [Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd](../Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd) |
-| base_enemy | [Scripts/GameBase/BattleSystemBase/BattleActor/base_enemy.gd](../Scripts/GameBase/BattleSystemBase/BattleActor/base_enemy.gd) |
-| VfxManager | [Scripts/GameBase/BattleSystemBase/VfxSystem/VfxManager.gd](../Scripts/GameBase/BattleSystemBase/VfxSystem/VfxManager.gd) |
-| VfxConfig | [Scripts/GameBase/BattleSystemBase/VfxSystem/VfxConfig.gd](../Scripts/GameBase/BattleSystemBase/VfxSystem/VfxConfig.gd) |
+| GameplayFlowBase | [src/gameplay/flows/GameplayFlowBase.gd](../../src/gameplay/flows/GameplayFlowBase.gd) |
+| GameplayFlowContext | [src/gameplay/flows/GameplayFlowContext.gd](../../src/gameplay/flows/GameplayFlowContext.gd) |
+| FlowRegistry | [src/gameplay/flows/GameplayFlowRegistry.gd](../../src/gameplay/flows/GameplayFlowRegistry.gd) |
+| FlowEffectBase | [src/gameplay/flows/FlowEffect/FlowEffectBase.gd](../../src/gameplay/flows/FlowEffect/FlowEffectBase.gd) |
+| FE_Damage | [src/gameplay/flows/FlowEffect/FE_Damage.gd](../../src/gameplay/flows/FlowEffect/FE_Damage.gd) |
+| FE_SpawnVfx | [src/gameplay/flows/FlowEffect/FE_SpawnVfx.gd](../../src/gameplay/flows/FlowEffect/FE_SpawnVfx.gd) |
+| FE_ApplyBuff | [src/gameplay/flows/FlowEffect/FE_ApplyBuff.gd](../../src/gameplay/flows/FlowEffect/FE_ApplyBuff.gd) |
+| FE_ModifyAttribute | [src/gameplay/flows/FlowEffect/FE_ModifyAttribute.gd](../../src/gameplay/flows/FlowEffect/FE_ModifyAttribute.gd) |
+| FE_SpawnEntity | [src/gameplay/flows/FlowEffect/FE_SpawnEntity.gd](../../src/gameplay/flows/FlowEffect/FE_SpawnEntity.gd) |
+| BattleManager | [src/gameplay/battle/BattleManager.gd](../../src/gameplay/battle/BattleManager.gd) |
+| base_enemy | [src/gameplay/actors/base_enemy.gd](../../src/gameplay/actors/base_enemy.gd) |
+| VfxManager | [src/gameplay/vfx/VfxManager.gd](../../src/gameplay/vfx/VfxManager.gd) |
+| VfxConfig | [src/gameplay/vfx/VfxConfig.gd](../../src/gameplay/vfx/VfxConfig.gd) |
 
 ---
 

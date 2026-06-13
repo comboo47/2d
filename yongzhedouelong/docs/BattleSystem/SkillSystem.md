@@ -3,7 +3,7 @@
 ## 目录结构
 
 ```
-Scripts/GameBase/BattleSystemBase/SkillSystem/
+src/gameplay/skills/
 ├── SkillConfig.gd          # 配置枚举定义
 ├── SkillBase.gd            # 技能基类
 ├── SkillCooldown.gd        # 冷却管理
@@ -23,7 +23,7 @@ Scripts/GameBase/BattleSystemBase/SkillSystem/
 
 ## SkillConfig 配置类
 
-**文件路径**: [SkillConfig.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillConfig.gd)
+**文件路径**: [SkillConfig.gd](../../src/gameplay/skills/SkillConfig.gd)
 
 ### 枚举定义
 
@@ -104,7 +104,7 @@ enum SkillSlot {
 
 ## SkillBase 基类
 
-**文件路径**: [SkillBase.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillBase.gd)
+**文件路径**: [SkillBase.gd](../../src/gameplay/skills/SkillBase.gd)
 
 ### 属性说明
 
@@ -228,7 +228,7 @@ func check_trigger(trigger_moment: SkillConfig.TriggerMoment, context: GameplayF
 
 ## SkillCooldown 冷却管理
 
-**文件路径**: [SkillCooldown.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillCooldown.gd)
+**文件路径**: [SkillCooldown.gd](../../src/gameplay/skills/SkillCooldown.gd)
 
 ### 属性和方法
 
@@ -268,7 +268,7 @@ func update(delta: float) -> void:
 
 ## SkillManager 技能管理器
 
-**文件路径**: [SkillManager.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillManager.gd)
+**文件路径**: [SkillManager.gd](../../src/gameplay/skills/SkillManager.gd)
 
 ### 属性结构
 
@@ -370,7 +370,7 @@ func _physics_process(delta: float) -> void:
 
 ## SkillRegistry 技能注册表
 
-**文件路径**: [SkillRegistry.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillRegistry.gd)
+**文件路径**: [SkillRegistry.gd](../../src/gameplay/skills/SkillRegistry.gd)
 
 作为 Autoload 单例，管理技能资源的加载、缓存和获取。
 
@@ -447,7 +447,7 @@ func _load_and_register_skill(path: String) -> void:
 
 ## SkillTrigger 触发条件系统
 
-**文件路径**: [SkillTrigger.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillTrigger.gd)
+**文件路径**: [SkillTrigger.gd](../../src/gameplay/skills/SkillTrigger.gd)
 
 ### 属性定义
 
@@ -489,7 +489,7 @@ func check_trigger(context: GameplayFlowContext, current_time: float) -> bool:
 
 ### SkillEffectBase 基类
 
-**文件路径**: [SkillEffectBase.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SkillEffectBase.gd)
+**文件路径**: [SkillEffectBase.gd](../../src/gameplay/skills/SkillEffect/SkillEffectBase.gd)
 
 ```gdscript
 class_name SkillEffectBase extends Resource
@@ -506,7 +506,7 @@ func get_description() -> String                                     # 效果描
 
 ### SE_Projectile 投射物效果
 
-**文件路径**: [SE_Projectile.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Projectile.gd)
+**文件路径**: [SE_Projectile.gd](../../src/gameplay/skills/SkillEffect/SE_Projectile.gd)
 
 ```gdscript
 class_name SE_Projectile extends SkillEffectBase
@@ -532,7 +532,7 @@ enum DirectionType {
 
 ### SE_AreaEffect 区域效果
 
-**文件路径**: [SE_AreaEffect.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_AreaEffect.gd)
+**文件路径**: [SE_AreaEffect.gd](../../src/gameplay/skills/SkillEffect/SE_AreaEffect.gd)
 
 ```gdscript
 class_name SE_AreaEffect extends SkillEffectBase
@@ -554,7 +554,7 @@ enum CenterType { TARGET_POSITION, SOURCE_POSITION, MANUAL_OFFSET }
 
 ### SE_BuffApply Buff 应用效果
 
-**文件路径**: [SE_BuffApply.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_BuffApply.gd)
+**文件路径**: [SE_BuffApply.gd](../../src/gameplay/skills/SkillEffect/SE_BuffApply.gd)
 
 ```gdscript
 class_name SE_BuffApply extends SkillEffectBase
@@ -580,7 +580,7 @@ enum TargetSelection {
 
 ### SE_Damage 直接伤害效果
 
-**文件路径**: [SE_Damage.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Damage.gd)
+**文件路径**: [SE_Damage.gd](../../src/gameplay/skills/SkillEffect/SE_Damage.gd)
 
 ```gdscript
 class_name SE_Damage extends SkillEffectBase
@@ -595,7 +595,7 @@ class_name SE_Damage extends SkillEffectBase
 
 ### SE_Heal 治疗效果
 
-**文件路径**: [SE_Heal.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Heal.gd)
+**文件路径**: [SE_Heal.gd](../../src/gameplay/skills/SkillEffect/SE_Heal.gd)
 
 ```gdscript
 class_name SE_Heal extends SkillEffectBase
@@ -652,7 +652,7 @@ func _execute_effects(context: GameplayFlowContext) -> void:
 
 ### GameplayFlowContext
 
-**文件路径**: [GameplayFlowContext.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowContext.gd)
+**文件路径**: [GameplayFlowContext.gd](../../src/gameplay/flows/GameplayFlowContext.gd)
 
 ```gdscript
 class_name GameplayFlowContext extends RefCounted
@@ -678,21 +678,21 @@ func get_skill_id() -> String
 
 | 类/文件 | 路径 |
 |--------|------|
-| SkillConfig | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillConfig.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillConfig.gd) |
-| SkillBase | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillBase.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillBase.gd) |
-| SkillCooldown | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillCooldown.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillCooldown.gd) |
-| SkillManager | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillManager.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillManager.gd) |
-| SkillRegistry | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillRegistry.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillRegistry.gd) |
-| SkillTrigger | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillTrigger.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillTrigger.gd) |
-| SkillEffectBase | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SkillEffectBase.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SkillEffectBase.gd) |
-| SE_Projectile | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Projectile.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Projectile.gd) |
-| SE_AreaEffect | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_AreaEffect.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_AreaEffect.gd) |
-| SE_BuffApply | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_BuffApply.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_BuffApply.gd) |
-| SE_Damage | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Damage.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Damage.gd) |
-| SE_Heal | [Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Heal.gd](../Scripts/GameBase/BattleSystemBase/SkillSystem/SkillEffect/SE_Heal.gd) |
-| GameplayFlowContext | [Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowContext.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowContext.gd) |
-| FlowRegistry | [Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd](../Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd) |
-| BattleActor | [Scripts/GameBase/BattleSystemBase/BattleActor/BattleActor.gd](../Scripts/GameBase/BattleSystemBase/BattleActor/BattleActor.gd) |
+| SkillConfig | [src/gameplay/skills/SkillConfig.gd](../../src/gameplay/skills/SkillConfig.gd) |
+| SkillBase | [src/gameplay/skills/SkillBase.gd](../../src/gameplay/skills/SkillBase.gd) |
+| SkillCooldown | [src/gameplay/skills/SkillCooldown.gd](../../src/gameplay/skills/SkillCooldown.gd) |
+| SkillManager | [src/gameplay/skills/SkillManager.gd](../../src/gameplay/skills/SkillManager.gd) |
+| SkillRegistry | [src/gameplay/skills/SkillRegistry.gd](../../src/gameplay/skills/SkillRegistry.gd) |
+| SkillTrigger | [src/gameplay/skills/SkillTrigger.gd](../../src/gameplay/skills/SkillTrigger.gd) |
+| SkillEffectBase | [src/gameplay/skills/SkillEffect/SkillEffectBase.gd](../../src/gameplay/skills/SkillEffect/SkillEffectBase.gd) |
+| SE_Projectile | [src/gameplay/skills/SkillEffect/SE_Projectile.gd](../../src/gameplay/skills/SkillEffect/SE_Projectile.gd) |
+| SE_AreaEffect | [src/gameplay/skills/SkillEffect/SE_AreaEffect.gd](../../src/gameplay/skills/SkillEffect/SE_AreaEffect.gd) |
+| SE_BuffApply | [src/gameplay/skills/SkillEffect/SE_BuffApply.gd](../../src/gameplay/skills/SkillEffect/SE_BuffApply.gd) |
+| SE_Damage | [src/gameplay/skills/SkillEffect/SE_Damage.gd](../../src/gameplay/skills/SkillEffect/SE_Damage.gd) |
+| SE_Heal | [src/gameplay/skills/SkillEffect/SE_Heal.gd](../../src/gameplay/skills/SkillEffect/SE_Heal.gd) |
+| GameplayFlowContext | [src/gameplay/flows/GameplayFlowContext.gd](../../src/gameplay/flows/GameplayFlowContext.gd) |
+| FlowRegistry | [src/gameplay/flows/GameplayFlowRegistry.gd](../../src/gameplay/flows/GameplayFlowRegistry.gd) |
+| BattleActor | [src/gameplay/actors/BattleActor.gd](../../src/gameplay/actors/BattleActor.gd) |
 
 ---
 

@@ -95,15 +95,15 @@ $LevelRunner.start_level()
 
 本轮 Gameplay 核心验收范围包括：
 
-- `Scripts/GameBase/BattleSystemBase/GameplayFlow/`
-- `Scripts/GameBase/BattleSystemBase/GameplayCore/`
-- `Scripts/GameBase/BattleSystemBase/DamageSystem/`
-- `Scripts/GameBase/BattleSystemBase/LevelSystem/`
-- `Scripts/GameBase/BattleSystemBase/AttributeSystem/`
-- `Scripts/GameBase/BattleSystemBase/SkillSystem/SkillBase.gd`
-- `Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd`
-- `Scripts/GameBase/GameDataBase/DataManager.gd`
-- `Scripts/GameBase/GameDataBase/DataAutoScanner.gd`
+- `src/gameplay/flows/`
+- `src/gameplay/core/`
+- `src/gameplay/damage/`
+- `src/gameplay/levels/`
+- `src/gameplay/attributes/`
+- `src/gameplay/skills/SkillBase.gd`
+- `src/gameplay/battle/BattleManager.gd`
+- `src/gameplay/data/DataManager.gd`
+- `src/gameplay/data/DataAutoScanner.gd`
 - `Tests/GameplayCoreTest.gd`
 - 新脚本对应的 `.uid` 文件
 

@@ -2,8 +2,8 @@
 
 ## BulletManager 单例架构
 
-**核心文件**: [BulletManager.gd](../Scripts/GameBase/BattleSystemBase/BattleSystem/BulletManager.gd)
-**场景文件**: [bullet_manager.tscn](../ManagerScene/bullet_manager.tscn)
+**核心文件**: [BulletManager.gd](../../src/gameplay/battle/BulletManager.gd)
+**场景文件**: [bullet_manager.tscn](../../scenes/autoload/bullet_manager.tscn)
 
 BulletManager 是一个简单的 Node2D 单例，负责处理子弹生成。它通过信号连接机制接收武器发射事件。
 
@@ -115,8 +115,8 @@ Bullet (RigidBody2D):
 
 ### bow_bullet（弓箭子弹）
 
-**脚本路径**: [bow_bullet.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/bow/bow_bullet.gd)
-**场景路径**: [bullet_bow.tscn](../prefab/Weapon/Bow/bullet_bow.tscn)
+**脚本路径**: [bow_bullet.gd](../../src/gameplay/weapons/bow/bow_bullet.gd)
+**场景路径**: [bullet_bow.tscn](../../scenes/weapons/Bow/bullet_bow.tscn)
 
 ```gdscript
 extends RigidBody2D
@@ -148,8 +148,8 @@ RigidBody2D (bow_bullet)
 
 ### bottle_bullet（瓶子子弹 - 爆炸型）
 
-**脚本路径**: [bottle_bullet.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/bottle/bottle_bullet.gd)
-**场景路径**: [bullet_bottle.tscn](../prefab/Weapon/Bottle/bullet_bottle.tscn)
+**脚本路径**: [bottle_bullet.gd](../../src/gameplay/weapons/bottle/bottle_bullet.gd)
+**场景路径**: [bullet_bottle.tscn](../../scenes/weapons/Bottle/bullet_bottle.tscn)
 
 ```gdscript
 extends RigidBody2D
@@ -203,7 +203,7 @@ RigidBody2D (bottle_bullet)
 
 ### crossbow_bullet（弩枪子弹）
 
-**场景路径**: [bullet_crossbow.tscn](../prefab/Weapon/CrossBow/bullet_crossbow.tscn)
+**场景路径**: [bullet_crossbow.tscn](../../scenes/weapons/CrossBow/bullet_crossbow.tscn)
 
 使用 `bow_bullet.gd` 脚本，但配置为无重力直射（STRAIGHT 类型）。
 
@@ -215,7 +215,7 @@ RigidBody2D (bottle_bullet)
 
 ### Bullet_Base（敌人子弹）
 
-**场景路径**: [Bullet_Base.tscn](../prefab/Weapon/EnemyWeapon/Bullet_Base.tscn)
+**场景路径**: [Bullet_Base.tscn](../../scenes/weapons/EnemyWeapon/Bullet_Base.tscn)
 
 敌人武器发射的基础子弹，使用 `EnemyWeapon_First.gd` 继承 WeaponBase。
 
@@ -225,7 +225,7 @@ RigidBody2D (bottle_bullet)
 
 ### WeaponConfig.BulletType
 
-**文件路径**: [WeaponConfig.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponConfig.gd)
+**文件路径**: [WeaponConfig.gd](../../src/gameplay/weapons/WeaponConfig.gd)
 
 ```gdscript
 enum BulletType {
@@ -294,7 +294,7 @@ E_Damage.EffectGo()
 
 ### base_enemy 受伤处理
 
-**文件路径**: [base_enemy.gd](../Scripts/GameBase/BattleSystemBase/BattleActor/base_enemy.gd)
+**文件路径**: [base_enemy.gd](../../src/gameplay/actors/base_enemy.gd)
 
 ```gdscript
 func _beHurt(_attribute: Attribute, _oldvalue: float, _newvalue: float):
@@ -353,7 +353,7 @@ _releaseSelf() → queue_free()
 
 ### WeaponBase.emit_bullet()
 
-**文件路径**: [weapon_base.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/weapon_base.gd)
+**文件路径**: [weapon_base.gd](../../src/gameplay/weapons/weapon_base.gd)
 
 ```gdscript
 func emit_bullet(direction: Vector2, speed: float = -1.0) -> void:
@@ -385,19 +385,19 @@ func emit_bullets(directions: Array[Vector2], speed: float = -1.0) -> void:
 
 | 类/文件 | 路径 |
 |--------|------|
-| BulletManager | [Scripts/GameBase/BattleSystemBase/BattleSystem/BulletManager.gd](../Scripts/GameBase/BattleSystemBase/BattleSystem/BulletManager.gd) |
-| WeaponBase | [Scripts/GameBase/BattleSystemBase/WeaponScripts/weapon_base.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/weapon_base.gd) |
-| WeaponConfig | [Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponConfig.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponConfig.gd) |
-| bow_bullet | [Scripts/GameBase/BattleSystemBase/WeaponScripts/bow/bow_bullet.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/bow/bow_bullet.gd) |
-| bottle_bullet | [Scripts/GameBase/BattleSystemBase/WeaponScripts/bottle/bottle_bullet.gd](../Scripts/GameBase/BattleSystemBase/WeaponScripts/bottle/bottle_bullet.gd) |
-| bullet_bow.tscn | [prefab/Weapon/Bow/bullet_bow.tscn](../prefab/Weapon/Bow/bullet_bow.tscn) |
-| bullet_bottle.tscn | [prefab/Weapon/Bottle/bullet_bottle.tscn](../prefab/Weapon/Bottle/bullet_bottle.tscn) |
-| bullet_crossbow.tscn | [prefab/Weapon/CrossBow/bullet_crossbow.tscn](../prefab/Weapon/CrossBow/bullet_crossbow.tscn) |
-| Bullet_Base.tscn | [prefab/Weapon/EnemyWeapon/Bullet_Base.tscn](../prefab/Weapon/EnemyWeapon/Bullet_Base.tscn) |
-| WeaponRoot | [prefab/Component/WeaponRoot.gd](../prefab/Component/WeaponRoot.gd) |
-| BattleManager | [Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd](../Scripts/GameBase/BattleSystemBase/BattleSystem/BattleManager.gd) |
-| base_enemy | [Scripts/GameBase/BattleSystemBase/BattleActor/base_enemy.gd](../Scripts/GameBase/BattleSystemBase/BattleActor/base_enemy.gd) |
-| UIManager | [Scripts/GameBase/UIBase/UIManager.gd](../Scripts/GameBase/UIBase/UIManager.gd) |
+| BulletManager | [src/gameplay/battle/BulletManager.gd](../../src/gameplay/battle/BulletManager.gd) |
+| WeaponBase | [src/gameplay/weapons/weapon_base.gd](../../src/gameplay/weapons/weapon_base.gd) |
+| WeaponConfig | [src/gameplay/weapons/WeaponConfig.gd](../../src/gameplay/weapons/WeaponConfig.gd) |
+| bow_bullet | [src/gameplay/weapons/bow/bow_bullet.gd](../../src/gameplay/weapons/bow/bow_bullet.gd) |
+| bottle_bullet | [src/gameplay/weapons/bottle/bottle_bullet.gd](../../src/gameplay/weapons/bottle/bottle_bullet.gd) |
+| bullet_bow.tscn | [scenes/weapons/Bow/bullet_bow.tscn](../../scenes/weapons/Bow/bullet_bow.tscn) |
+| bullet_bottle.tscn | [scenes/weapons/Bottle/bullet_bottle.tscn](../../scenes/weapons/Bottle/bullet_bottle.tscn) |
+| bullet_crossbow.tscn | [scenes/weapons/CrossBow/bullet_crossbow.tscn](../../scenes/weapons/CrossBow/bullet_crossbow.tscn) |
+| Bullet_Base.tscn | [scenes/weapons/EnemyWeapon/Bullet_Base.tscn](../../scenes/weapons/EnemyWeapon/Bullet_Base.tscn) |
+| WeaponRoot | [scenes/components/WeaponRoot.gd](../../scenes/components/WeaponRoot.gd) |
+| BattleManager | [src/gameplay/battle/BattleManager.gd](../../src/gameplay/battle/BattleManager.gd) |
+| base_enemy | [src/gameplay/actors/base_enemy.gd](../../src/gameplay/actors/base_enemy.gd) |
+| UIManager | [src/ui/UIManager.gd](../../src/ui/UIManager.gd) |
 
 ---
 

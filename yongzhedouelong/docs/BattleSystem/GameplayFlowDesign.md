@@ -338,7 +338,7 @@ Player.gd
 
 #### BattleActor（战斗实体基类）
 
-**文件路径**: [BattleActor.gd](Scripts/GameBase/BattleSystemBase/BattleActor/BattleActor.gd)
+**文件路径**: [BattleActor.gd](../../src/gameplay/actors/BattleActor.gd)
 
 生命周期事件：
 - `spawn` - `_ready()` 中调用 `trigger_spawn_flow()`
@@ -356,7 +356,7 @@ signal actor_kill(actor: BattleActor, target: BattleActor)
 
 #### Weapon（武器）
 
-**文件路径**: [weapon_base.gd](Scripts/GameBase/BattleSystemBase/WeaponScripts/weapon_base.gd)
+**文件路径**: [weapon_base.gd](../../src/gameplay/weapons/weapon_base.gd)
 
 生命周期事件：
 - `fire` - `fire()` 方法中触发 Skill
@@ -378,7 +378,7 @@ signal energy_changed(current: float, max_energy: float)
 
 #### Skill（技能）
 
-**文件路径**: [SkillBase.gd](Scripts/GameBase/BattleSystemBase/SkillSystem/SkillBase.gd)
+**文件路径**: [SkillBase.gd](../../src/gameplay/skills/SkillBase.gd)
 
 生命周期事件：
 - `use` - `use()` 方法中执行效果并触发 Flow
@@ -397,7 +397,7 @@ signal skill_triggered(skill: SkillBase, trigger_moment)
 
 #### Buff（增益效果）
 
-**文件路径**: [Attribute.gd](Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/Attribute.gd)
+**文件路径**: [Attribute.gd](../../src/gameplay/attributes/AttributeSysscript/Attribute.gd)
 
 Buff 的生命周期事件通过 Attribute 信号传递：
 ```gdscript
@@ -411,7 +411,7 @@ Flow 监听这些信号执行关联逻辑。
 
 ## WeaponSkillSlot 资源类
 
-**文件路径**: [WeaponSkillSlot.gd](Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponSkillSlot.gd)
+**文件路径**: [WeaponSkillSlot.gd](../../src/gameplay/weapons/WeaponSkillSlot.gd)
 
 ### TriggerType 枚举
 
@@ -469,7 +469,7 @@ for slot in linked_skill_slots:
 
 ### FlowRegistry 信号订阅接口
 
-**文件路径**: [FlowRegistry.gd](Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd)
+**文件路径**: [FlowRegistry.gd](../../src/gameplay/flows/GameplayFlowRegistry.gd)
 
 FlowRegistry 提供信号订阅接口，让 Flow 可以监听模块信号：
 
@@ -616,9 +616,9 @@ func consume_energy(amount: float) -> bool:
 
 | 文件 | 修改内容 |
 |------|----------|
-| [weapon_base.gd](Scripts/GameBase/BattleSystemBase/WeaponScripts/weapon_base.gd) | 改用 `linked_skill_slots[]`，添加 `trigger_skill_by_type()`，添加 `charge_complete/energy_empty` 信号 |
-| [WeaponSkillSlot.gd](Scripts/GameBase/BattleSystemBase/WeaponScripts/WeaponSkillSlot.gd) | 已有完整实现，无需修改 |
-| [FlowRegistry.gd](Scripts/GameBase/BattleSystemBase/GameplayFlow/GameplayFlowRegistry.gd) | 添加 `subscribe_to_signal()` 信号订阅接口 |
+| [weapon_base.gd](../../src/gameplay/weapons/weapon_base.gd) | 改用 `linked_skill_slots[]`，添加 `trigger_skill_by_type()`，添加 `charge_complete/energy_empty` 信号 |
+| [WeaponSkillSlot.gd](../../src/gameplay/weapons/WeaponSkillSlot.gd) | 已有完整实现，无需修改 |
+| [FlowRegistry.gd](../../src/gameplay/flows/GameplayFlowRegistry.gd) | 添加 `subscribe_to_signal()` 信号订阅接口 |
 
 ---
 
@@ -626,10 +626,10 @@ func consume_energy(amount: float) -> bool:
 
 ### 资源文件配置 (.tres)
 
-Flow 定义为 `.tres` 资源文件，存放在 `prefab/Flows/` 目录：
+Flow 定义为 `.tres` 资源文件，存放在 `resources/gameplay/flows/` 目录：
 
 ```
-prefab/Flows/
+resources/gameplay/flows/
 ├── flow_enemy_spawn_001.tres    # 怪物生成时播放特效
 ├── flow_enemy_death_001.tres    # 怪物死亡时播放特效
 ├── flow_charge_feedback.tres    # 蓄力完成时播放特效（新增）

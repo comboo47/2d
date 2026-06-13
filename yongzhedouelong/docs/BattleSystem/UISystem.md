@@ -2,8 +2,8 @@
 
 ## UIManager 单例架构
 
-**核心文件**: [UIManager.gd](../Scripts/GameBase/UIBase/UIManager.gd)
-**场景文件**: [ui_manager.tscn](../ManagerScene/ui_manager.tscn)
+**核心文件**: [UIManager.gd](../../src/ui/UIManager.gd)
+**场景文件**: [ui_manager.tscn](../../scenes/autoload/ui_manager.tscn)
 
 UIManager 是 CanvasLayer 单例，管理三层 UI 结构。
 
@@ -40,7 +40,7 @@ signal ui_initialized
 
 ## UIConfig 场景路径配置
 
-**文件路径**: [UIConfig.gd](../Scripts/GameBase/UIBase/UIConfig.gd)
+**文件路径**: [UIConfig.gd](../../src/ui/UIConfig.gd)
 
 ### SceneType 枚举
 
@@ -100,7 +100,7 @@ static func get_menu_scene_path(menu_name: String) -> String:
 
 ### PopDamageWidget 实现
 
-**核心文件**: [PopDamage.gd](../Scripts/GameBase/UIBase/Widget/PopDamage.gd)
+**核心文件**: [PopDamage.gd](../../src/ui/Widget/PopDamage.gd)
 **场景文件**: [PopDamage.tscn](../art/UIResource/UI/DamageNumber/PopDamage.tscn)
 
 ```gdscript
@@ -171,7 +171,7 @@ func _get_damage_widget() -> Control:
 
 ### weaponEnergy 脚本
 
-**文件路径**: [weaponEnergy.gd](../Scripts/Interface/weaponEnergy.gd)
+**文件路径**: [weaponEnergy.gd](../../src/interaction/weaponEnergy.gd)
 
 ```gdscript
 extends Node
@@ -229,7 +229,7 @@ func setCurrentWeapon(i: int):
 
 ### HPBarWidget
 
-**文件路径**: [HPBarWidget.gd](../Scripts/GameBase/UIBase/Widget/HPBarWidget.gd)
+**文件路径**: [HPBarWidget.gd](../../src/ui/Widget/HPBarWidget.gd)
 
 ```gdscript
 class_name HPBarWidget extends Control
@@ -348,7 +348,7 @@ UIManager._on_actor_hp_changed()
 
 ### UIPanel 基类
 
-**文件路径**: [UIPanel.gd](../Scripts/GameBase/UIBase/Panel/UIPanel.gd)
+**文件路径**: [UIPanel.gd](../../src/ui/Panel/UIPanel.gd)
 
 ```gdscript
 class_name UIPanel extends Control
@@ -385,7 +385,7 @@ func close():
 
 ### PauseMenuPanel
 
-**文件路径**: [PauseMenuPanel.gd](../Scripts/GameBase/UIBase/Panel/PauseMenuPanel.gd)
+**文件路径**: [PauseMenuPanel.gd](../../src/ui/Panel/PauseMenuPanel.gd)
 **场景文件**: [PauseMenu.tscn](../art/UIResource/UI/Menu/PauseMenu.tscn)
 
 ```gdscript
@@ -413,7 +413,7 @@ func _on_main_menu_pressed():
 
 ### MainMenuPanel
 
-**文件路径**: [MainMenuPanel.gd](../Scripts/GameBase/UIBase/Panel/MainMenuPanel.gd)
+**文件路径**: [MainMenuPanel.gd](../../src/ui/Panel/MainMenuPanel.gd)
 **场景文件**: [MainMenu.tscn](../art/UIResource/UI/Menu/MainMenu.tscn)
 
 ```gdscript
@@ -450,20 +450,20 @@ func _on_start_pressed():
 
 | 类/文件 | 路径 |
 |--------|------|
-| UIManager | [Scripts/GameBase/UIBase/UIManager.gd](../Scripts/GameBase/UIBase/UIManager.gd) |
-| UIConfig | [Scripts/GameBase/UIBase/UIConfig.gd](../Scripts/GameBase/UIBase/UIConfig.gd) |
-| PopDamageWidget | [Scripts/GameBase/UIBase/Widget/PopDamage.gd](../Scripts/GameBase/UIBase/Widget/PopDamage.gd) |
-| HPBarWidget | [Scripts/GameBase/UIBase/Widget/HPBarWidget.gd](../Scripts/GameBase/UIBase/Widget/HPBarWidget.gd) |
-| UIPanel | [Scripts/GameBase/UIBase/Panel/UIPanel.gd](../Scripts/GameBase/UIBase/Panel/UIPanel.gd) |
-| PauseMenuPanel | [Scripts/GameBase/UIBase/Panel/PauseMenuPanel.gd](../Scripts/GameBase/UIBase/Panel/PauseMenuPanel.gd) |
-| MainMenuPanel | [Scripts/GameBase/UIBase/Panel/MainMenuPanel.gd](../Scripts/GameBase/UIBase/Panel/MainMenuPanel.gd) |
-| weaponEnergy | [Scripts/Interface/weaponEnergy.gd](../Scripts/Interface/weaponEnergy.gd) |
-| WeaponRoot | [prefab/Component/WeaponRoot.gd](../prefab/Component/WeaponRoot.gd) |
-| Main.gd | [Scripts/GameModeScript/Main.gd](../Scripts/GameModeScript/Main.gd) |
-| GameManager | [Scripts/GameBase/GameManager.gd](../Scripts/GameBase/GameManager.gd) |
-| InputManager | [Scripts/GameBase/InputManager.gd](../Scripts/GameBase/InputManager.gd) |
-| BattleActor | [Scripts/GameBase/BattleSystemBase/BattleActor/BattleActor.gd](../Scripts/GameBase/BattleSystemBase/BattleActor/BattleActor.gd) |
-| Attribute | [Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/Attribute.gd](../Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/Attribute.gd) |
+| UIManager | [src/ui/UIManager.gd](../../src/ui/UIManager.gd) |
+| UIConfig | [src/ui/UIConfig.gd](../../src/ui/UIConfig.gd) |
+| PopDamageWidget | [src/ui/Widget/PopDamage.gd](../../src/ui/Widget/PopDamage.gd) |
+| HPBarWidget | [src/ui/Widget/HPBarWidget.gd](../../src/ui/Widget/HPBarWidget.gd) |
+| UIPanel | [src/ui/Panel/UIPanel.gd](../../src/ui/Panel/UIPanel.gd) |
+| PauseMenuPanel | [src/ui/Panel/PauseMenuPanel.gd](../../src/ui/Panel/PauseMenuPanel.gd) |
+| MainMenuPanel | [src/ui/Panel/MainMenuPanel.gd](../../src/ui/Panel/MainMenuPanel.gd) |
+| weaponEnergy | [src/interaction/weaponEnergy.gd](../../src/interaction/weaponEnergy.gd) |
+| WeaponRoot | [scenes/components/WeaponRoot.gd](../../scenes/components/WeaponRoot.gd) |
+| Main.gd | [src/app/Main.gd](../../src/app/Main.gd) |
+| GameManager | [src/app/GameManager.gd](../../src/app/GameManager.gd) |
+| InputManager | [src/app/InputManager.gd](../../src/app/InputManager.gd) |
+| BattleActor | [src/gameplay/actors/BattleActor.gd](../../src/gameplay/actors/BattleActor.gd) |
+| Attribute | [src/gameplay/attributes/AttributeSysscript/Attribute.gd](../../src/gameplay/attributes/AttributeSysscript/Attribute.gd) |
 
 ---
 

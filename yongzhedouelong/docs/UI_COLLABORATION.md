@@ -80,9 +80,9 @@ Before editing UI logic, AI should read:
 
 - The changed `.tscn` scene.
 - The attached panel script, if any.
-- `Scripts/GameBase/UIBase/UIManager.gd`.
-- `Scripts/GameBase/UIBase/UIConfig.gd`.
-- `Scripts/GameBase/GameManager.gd` when scene flow, pause, loading, or gameplay state is involved.
+- `src/ui/UIManager.gd`.
+- `src/ui/UIConfig.gd`.
+- `src/app/GameManager.gd` when scene flow, pause, loading, or gameplay state is involved.
 
 AI should avoid broad `.tscn` rewrites. It should prefer script-only changes unless scene registration, script attachment, or missing nodes require scene edits.
 

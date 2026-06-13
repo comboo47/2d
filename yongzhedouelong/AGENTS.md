@@ -19,8 +19,8 @@ Run these from the project root, `yongzhedouelong/`.
 # Run the project if Godot is on PATH
 godot --path . project.godot
 
-# Generate data tables after editing Tables/Excel/*.xlsx
-cd Tables
+# Generate data tables after editing data/tables/Excel/*.xlsx
+cd data/tables
 .\gen_all.bat
 ```
 
@@ -39,11 +39,13 @@ There is no general command-line build step for normal development. Most verific
 
 ## Project Layout
 
-- `Scripts/GameBase/BattleSystemBase/`: combat, actors, attributes, buffs, skills, weapons, vfx, flows, enemy and drop systems.
-- `prefab/`: reusable scenes and resources for players, enemies, weapons, buffs, skills, and components.
-- `ManagerScene/`: autoload scene managers such as bullet, UI, and drop managers.
-- `Tables/Excel/`: source spreadsheets for data.
-- `Tables/Json/`: generated data consumed by runtime loaders.
+- `src/app/`: autoload-level managers (`GameManager`, `InputManager`, `SaveManager`, `Main`).
+- `src/gameplay/`: combat, actors, attributes, buffs, skills, weapons, vfx, flows, damage, core event bus, levels, campaign, enemy and drop systems.
+- `src/ui/`: UI managers, panels, and widgets.
+- `scenes/`: `.tscn` scenes (`autoload/` for manager singletons, `ui/`, `actors/`, `weapons/`, `items/`, `components/`).
+- `resources/gameplay/`: data-driven `.tres` resources (`buffs/`, `skills/`, `flows/`, `levels/`, `enemies/`, `campaign/`).
+- `data/tables/Excel/`: source spreadsheets for data.
+- `data/tables/Json/`: generated data consumed by runtime loaders.
 - `Docs/BattleSystem/`: design notes for major battle systems.
 - `addons/battleeditor/`: custom battle data editor.
 - `addons/limboai/`: LimboAI addon used for behavior trees and HSM.
@@ -52,8 +54,8 @@ There is no general command-line build step for normal development. Most verific
 
 - Autoloads are declared in `project.godot` under `[autoload]`; check that section before adding new global dependencies.
 - Attributes and buffs are data-driven resources under the AttributeSystem. Runtime actor instances must use duplicated resources, not shared mutable resource state.
-- Buff resources live under `prefab/Buffs/` and are registered by `DataAutoScanner` / `DataRegistry`.
-- Skill resources live under `prefab/Skills/` and are registered by `SkillRegistry`.
+- Buff resources live under `resources/gameplay/buffs/` and are registered by `DataAutoScanner` / `DataRegistry`.
+- Skill resources live under `resources/gameplay/skills/` and are registered by `SkillRegistry`.
 - Gameplay flows are reusable resources executed through `FlowRegistry` and `BattleManager` flow APIs.
 - Weapons emit `weapon_fired`; `WeaponRoot` connects weapons to `BulletManager`.
 - Enemies use LimboAI behavior trees; player state uses LimboHSM.
@@ -65,7 +67,7 @@ When changing Skill, Buff, or Enemy JSON structures:
 - Update the runtime loader/consumer code.
 - Update the custom battle editor templates in `addons/battleeditor/UI/BattleEditorPanel.gd` if new fields should appear in generated JSON.
 - Update `Docs/ASSETS_DATA.md` when field definitions or examples change.
-- Run `Tables/gen_all.bat` after changing source Excel files.
+- Run `data/tables/gen_all.bat` after changing source Excel files.
 
 When adding `@export` fields to Godot Resources, first check whether the editor UI already discovers them through the Inspector before adding manual sync code.
 
@@ -76,7 +78,7 @@ Use the smallest useful verification for the task:
 - `git status --short`
 - `git diff --check`
 - Godot CLI run when available: `godot --path . project.godot`
-- Data generation after table edits: `Tables/gen_all.bat`
+- Data generation after table edits: `data/tables/gen_all.bat`
 - Manual Godot Editor check for scene, resource, or plugin UI changes.
 
 ## Claude Compatibility

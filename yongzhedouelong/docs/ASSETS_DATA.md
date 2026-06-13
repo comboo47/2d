@@ -16,7 +16,7 @@
 
 ### 1.1 JSON 数值配置
 
-**文件路径**: `Tables/Json/Skill/SkillConfig.json`
+**文件路径**: `data/tables/Json/Skill/SkillConfig.json`
 
 **ID 格式**: `10{index}{enemy_id}` 例如 `1011001`
 
@@ -44,9 +44,9 @@
 
 ### 1.2 Resource 属性
 
-**文件路径**: `prefab/Skills/{skill_id}_Skill.tres`
+**文件路径**: `resources/gameplay/skills/{skill_id}_Skill.tres`
 
-**脚本**: `Scripts/GameBase/BattleSystemBase/SkillSystem/SkillBase.gd`
+**脚本**: `src/gameplay/skills/SkillBase.gd`
 
 **@export 属性** (Inspector 自动编辑):
 
@@ -72,7 +72,7 @@
 
 ### 2.1 JSON 数值配置
 
-**文件路径**: `Tables/Json/Buff/BuffConfig.json`
+**文件路径**: `data/tables/Json/Buff/BuffConfig.json`
 
 **ID 格式**: `20{index}{enemy_id}` 例如 `2011001`
 
@@ -101,9 +101,9 @@
 
 ### 2.2 Resource 属性
 
-**文件路径**: `prefab/Buffs/{buff_id}.tres`
+**文件路径**: `resources/gameplay/buffs/{buff_id}.tres`
 
-**脚本**: `Scripts/GameBase/BattleSystemBase/AttributeSystem/AttributeSysscript/AttributeBuff.gd`
+**脚本**: `src/gameplay/attributes/AttributeSysscript/AttributeBuff.gd`
 
 **@export 属性** (Inspector 自动编辑):
 
@@ -124,7 +124,7 @@
 
 ### 3.1 JSON 配置
 
-**文件路径**: `Tables/Json/Enemy/EnemyConfig.json`
+**文件路径**: `data/tables/Json/Enemy/EnemyConfig.json`
 
 **ID 格式**: 数字 ID 如 `1001`, `1002`
 
@@ -183,7 +183,7 @@
 ## 4. 文件结构
 
 ```
-Tables/
+data/tables/
 ├── Excel/
 │   ├── SkillConfig.xlsx      # Excel 源文件（导出 Skill JSON）
 │   ├── BuffConfig.xlsx       # Excel 源文件（导出 Buff JSON）
@@ -198,22 +198,20 @@ Tables/
         ├── EnemyConfig.json  # Enemy 配置
         └── DropConfig.json   # 掉落配置
 
-prefab/
-├── Skills/
+resources/gameplay/
+├── skills/
 │   └── {skill_id}_Skill.tres # Skill Resource 文件
-├── Buffs/
+├── buffs/
 │   └── {buff_id}.tres        # Buff Resource 文件
-└── Enemy/
-    └── {enemy_name}.tscn     # Enemy 预制体场景
+└── enemies/
+    └── {enemy_name}.tres     # Enemy 配置 Resource（预制体场景在 scenes/actors/enemies/）
 
-Scripts/
-└── GameBase/
-    └── BattleSystemBase/
-        ├── SkillSystem/
-        │   └── SkillBase.gd  # Skill Resource 脚本
-        └── AttributeSystem/
-            └── AttributeSysscript/
-                └── AttributeBuff.gd  # Buff Resource 脚本
+src/gameplay/
+├── skills/
+│   └── SkillBase.gd  # Skill Resource 脚本
+└── attributes/
+    └── AttributeSysscript/
+        └── AttributeBuff.gd  # Buff Resource 脚本
 ```
 
 ---

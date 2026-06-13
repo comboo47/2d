@@ -43,7 +43,7 @@ AI 实施时应该：
 
 - 先跑 `git status --short`。
 - 只改和任务相关的文件。
-- 改表格时以 `Tables/Excel` 为源头。
+- 改表格时以 `data/tables/Excel` 为源头。
 - 改 Godot 场景/资源时避免无关重保存。
 - 完成后跑最小必要验证。
 
@@ -94,7 +94,7 @@ PLEASE IMPLEMENT THIS PLAN:
 ### 修改数据表
 
 ```text
-修改 XXX 配置。优先修改 Tables/Excel 源表，然后运行 Tables/gen_all.bat 生成 JSON。不要直接手改生成 JSON，除非说明理由。
+修改 XXX 配置。优先修改 data/tables/Excel 源表，然后运行 data/tables/gen_all.bat 生成 JSON。不要直接手改生成 JSON，除非说明理由。
 ```
 
 ### 修改场景或资源
@@ -112,12 +112,12 @@ PLEASE IMPLEMENT THIS PLAN:
 
 ## 表格协作规则
 
-- `Tables/Excel` 是数据源。
-- `Tables/Json` 是生成物，默认不要手改。
+- `data/tables/Excel` 是数据源。
+- `data/tables/Json` 是生成物，默认不要手改。
 - 改 Excel 后运行：
 
 ```powershell
-cd Tables
+cd data/tables
 .\gen_all.bat
 ```
 
@@ -150,7 +150,7 @@ cd Tables
 & "E:\GODOT4.6\Godot_v4.6-beta2_win64.exe" --headless --path . --quit
 ```
 
-- 如果改了表格，运行 `Tables/gen_all.bat`。
+- 如果改了表格，运行 `data/tables/gen_all.bat`。
 - 如果改了 UI/场景/资源，最好在 Godot 编辑器里人工看一眼。
 
 ## 给 AI 的协作要求
