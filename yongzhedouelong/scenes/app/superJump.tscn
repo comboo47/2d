@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://bd1xbvg3u736y"]
 
-[ext_resource type="Script" uid="uid://dotqfh7f0nna1" path="res://src/gameplay/actors/legacy/superJump.gd" id="1_dlxrm"]
+[ext_resource type="Script" uid="uid://dotqfh7f0nna1" path="res://src/interaction/superJump.gd" id="1_dlxrm"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://assets/gameplay/1bitpack_kenney/Tilesheet/colored_transparent.png" id="1_g3wbs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v5371"]

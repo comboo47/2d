@@ -34,5 +34,10 @@ func _check_hit_result(context: GameplayFlowContext) -> void:
 			VfxManager.instance.play_vfx(VfxConfig.VfxType.MISS_EFFECT, context.get_position())
 		return
 
-	# 命中：应用伤害 Buff
-	BattleManager.ApplyBuff(context.source, target, "buff_damage_001")
+	# 命中：通过 DamageResolver 统一结算伤害（替代旧的 ApplyBuff）
+	var amount := 10.0
+	if context.source and context.source.has_meta("CurrentWeapon"):
+		var weapon = context.source.get_meta("CurrentWeapon")
+		if weapon and "base_damage" in weapon:
+			amount = weapon.base_damage
+	BattleManager.resolve_bullet_hit(context.source, target, amount, "", "", null)

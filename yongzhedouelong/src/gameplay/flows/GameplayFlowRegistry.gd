@@ -2,7 +2,7 @@ extends Node
 ## Autoload: FlowRegistry
 ## GameplayFlow 资源注册表
 ## 管理 Flow 资源的加载、缓存和获取
-## 支持脚本类型的 Flow（Scripts/Gameplay/Flows/ 目录）
+## 支持脚本类型的 Flow（src/gameplay/flows/scripts/ 目录）
 
 ## 单例实例（不使用类型声明，因为是 autoload）
 static var instance
@@ -69,7 +69,7 @@ func _get_flow_script_by_class_name(class_name_str: String) -> GDScript:
 ## 获取所有 Flow 脚本路径
 func _get_all_flow_scripts() -> Array[String]:
 	var scripts: Array[String] = []
-	var flow_dir = "res://src/gameplay/flows/legacy/"
+	var flow_dir = "res://src/gameplay/flows/scripts/"
 
 	var dir = DirAccess.open(flow_dir)
 	if dir == null:
