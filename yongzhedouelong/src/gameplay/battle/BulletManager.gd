@@ -25,6 +25,13 @@ func handle_bullet_spawn(bullet_packed, spawn_position, arg2, arg3, arg4, arg5=n
 		# 设置 owner（检查属性是否存在）
 		if "bulletOwner" in bullet:
 			bullet.bulletOwner = owner
+		# 注入发射武器引用与基础伤害（供命中走 DamageResolver + 触发 ON_HIT/ON_KILL）
+		if owner and owner.has_meta("CurrentWeapon"):
+			var src_weapon = owner.get_meta("CurrentWeapon")
+			if "source_weapon" in bullet:
+				bullet.source_weapon = src_weapon
+			if "base_damage" in bullet and src_weapon and "base_damage" in src_weapon:
+				bullet.base_damage = src_weapon.base_damage
 		if owner == null:
 			push_warning("BulletManager: 武器 owner_actor 为 null，子弹无法正确应用 Buff")
 

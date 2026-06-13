@@ -1,8 +1,10 @@
 extends RigidBody2D
 
-@export var damagebuffid:String = "1001"
+@export var damagebuffid:String = ""
+@export var base_damage: float = 10.0
 @export var speed = 300
 var bulletOwner:BattleActor
+var source_weapon = null
 # Called when the node enters the scene tree for the first time.
 @onready var a = $"."
 
@@ -32,7 +34,7 @@ func _on_body_entered(body):
 	pass # Replace with function body.
 func hurt_somebody(body:Node):
 	if body.has_method("_beHurt"):
-		BattleManager.ApplyBuff(bulletOwner,body,damagebuffid)
+		BattleManager.resolve_bullet_hit(bulletOwner, body, base_damage, "", damagebuffid, source_weapon)
 func boomDisplay():
 	$".".set_deferred("freeze_mode",1)
 	$".".set_deferred("freeze",true)

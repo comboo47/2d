@@ -38,6 +38,9 @@ signal weapon_exit(weapon: WeaponBase, owner: BattleActor)
 ## 伤害 Buff ID
 @export var damage_buff_id: String = "1001"
 
+## 基础伤害（命中时构建 DamageRequest 的数值来源，会注入到生成的子弹）
+@export var base_damage: float = 10.0
+
 ## 能量系统（可选）
 @export var max_energy: float = 100.0
 @export var energy_cost: float = 10.0

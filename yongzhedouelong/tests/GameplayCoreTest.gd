@@ -20,6 +20,17 @@ class DamageBonusEffect extends FlowEffectBase:
 		if context.damage_request:
 			context.damage_request.amount += 5.0
 
+class StubWeapon extends Node:
+	## 模拟武器：记录 trigger_skill_by_type 被以哪种触发类型调用
+	var hit_triggered := false
+	var kill_triggered := false
+
+	func trigger_skill_by_type(trigger_type, _context = null) -> void:
+		if trigger_type == WeaponSkillSlot.TriggerType.ON_HIT:
+			hit_triggered = true
+		elif trigger_type == WeaponSkillSlot.TriggerType.ON_KILL:
+			kill_triggered = true
+
 class EventCountingFlow extends GameplayFlowBase:
 	var count := 0
 
@@ -36,6 +47,8 @@ var _test_nodes: Array[Node] = []
 func _initialize() -> void:
 	_run("flow_executes_effects_by_priority", _test_flow_executes_effects_by_priority)
 	_run("damage_resolver_applies_request_and_emits_events", _test_damage_resolver_applies_request_and_emits_events)
+	_run("bullet_hit_resolves_damage_and_triggers_on_hit", _test_bullet_hit_resolves_damage_and_triggers_on_hit)
+	_run("bullet_hit_lethal_triggers_on_kill", _test_bullet_hit_lethal_triggers_on_kill)
 	_run("buff_tick_event_triggers_flow", _test_buff_tick_event_triggers_flow)
 	_run("skill_triggers_configured_flow", _test_skill_triggers_configured_flow)
 	_run("level_runner_initializes_actors_buffs_and_start_flow", _test_level_runner_initializes_actors_buffs_and_start_flow)
@@ -387,3 +400,43 @@ func _write_test_save_text(text: String) -> void:
 	var file := FileAccess.open(TEST_SAVE_PATH, FileAccess.WRITE)
 	if file:
 		file.store_string(text)
+
+func _test_bullet_hit_resolves_damage_and_triggers_on_hit() -> Variant:
+	GameplayEventBus.clear_history()
+	var source := _make_actor(0.0, 0.0, 0.0)
+	var target := _make_actor(50.0, 0.0, 0.0)
+	var weapon := StubWeapon.new()
+	get_root().add_child(weapon)
+	_track_node(weapon)
+
+	# 运行时 load（此时 autoload 已注册，BattleManager.gd 可编译）
+	var battle_manager = load("res://src/gameplay/battle/BattleManager.gd")
+	var result = battle_manager.resolve_bullet_hit(source, target, 12.0, "", "", weapon)
+	if result == null:
+		return "resolve_bullet_hit should return a DamageResult"
+
+	var hp := target.GetAttributes().find_attribute(AttributeConfig.AttributeName.Hp)
+	if not is_equal_approx(hp.get_value(), 38.0):
+		return "expected target hp 38 after 12 damage, got %s" % hp.get_value()
+	if not _has_event(GameplayEvent.EventType.DAMAGE_APPLIED):
+		return "expected DAMAGE_APPLIED event"
+	if not weapon.hit_triggered:
+		return "expected weapon ON_HIT to be triggered on hit"
+	if weapon.kill_triggered:
+		return "ON_KILL should not trigger while target survives"
+	return true
+
+func _test_bullet_hit_lethal_triggers_on_kill() -> Variant:
+	var source := _make_actor(0.0, 0.0, 0.0)
+	var target := _make_actor(10.0, 0.0, 0.0)
+	var weapon := StubWeapon.new()
+	get_root().add_child(weapon)
+	_track_node(weapon)
+
+	var battle_manager = load("res://src/gameplay/battle/BattleManager.gd")
+	battle_manager.resolve_bullet_hit(source, target, 15.0, "", "", weapon)
+	if not weapon.hit_triggered:
+		return "expected ON_HIT to trigger on lethal hit"
+	if not weapon.kill_triggered:
+		return "expected ON_KILL to trigger when target hp drops to 0"
+	return true

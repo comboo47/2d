@@ -48,6 +48,37 @@ static func ActiveBuffImm(buffOwner:BattleActor,buffID:int)->void:
 	pass
 #endregion
 
+#region 命中结算（统一走 DamageResolver）
+## 子弹/武器命中的统一结算入口
+## - 构建 DamageRequest 并交给 DamageResolver（自动广播 DAMAGE_REQUESTED / DAMAGE_APPLIED）
+## - status_buff_id 非空时附加状态 Buff（如燃烧），纯数值伤害由 DamageResolver 处理，避免双重伤害
+## - weapon 非空时按命中/击杀触发武器技能槽（ON_HIT / ON_KILL）
+static func resolve_bullet_hit(source: BattleActor, target: BattleActor, amount: float, formula: String = "", status_buff_id: String = "", weapon = null) -> DamageResult:
+	if target == null or target.GetAttributes() == null:
+		return null
+
+	var request := DamageRequest.new()
+	request.source = source
+	request.target = target
+	request.amount = amount
+	request.formula = formula
+	request.tags = ["weapon", "bullet"]
+	var result := DamageResolver.resolve(request)
+
+	# 附加状态 Buff（燃烧/减速等）；纯伤害值已由 DamageResolver 处理
+	if not status_buff_id.is_empty():
+		ApplyBuff(source, target, status_buff_id)
+
+	# 触发武器技能槽：命中 → ON_HIT；若目标血量归零 → ON_KILL
+	if weapon and is_instance_valid(weapon) and weapon.has_method("trigger_skill_by_type"):
+		var ctx := GameplayFlowContext.create_attack(source, target, result.final_amount)
+		weapon.trigger_skill_by_type(WeaponSkillSlot.TriggerType.ON_HIT, ctx)
+		if result.target_hp_after <= 0.0:
+			weapon.trigger_skill_by_type(WeaponSkillSlot.TriggerType.ON_KILL, ctx)
+
+	return result
+#endregion
+
 #region Skill 相关方法
 ## 应用技能效果到目标
 static func ApplySkill(source: BattleActor, target: BattleActor, skill_id: String) -> bool:
