@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AttributeBuff" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/attributes/AttributeSysscript/AttributeBuff.gd" id="1_buff"]
+[ext_resource type="Resource" path="res://resources/gameplay/flows/WeaponTemplate_TickFlow.tres" id="2_tick_flow"]
+
+[resource]
+script = ExtResource("1_buff")
+id = "WeaponTemplate_Buff"
+name = "模板手枪·命中标记"
+buff_id = "WeaponTemplate_Buff"
+buff_name = "模板手枪·命中标记"
+buffDuration = 4.0
+buffPeriod = 1
+duration = 4.0
+max_stack = 5
+buff_flow = ExtResource("2_tick_flow")

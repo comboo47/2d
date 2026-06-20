@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="TraitDefinition" format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/traits/TraitDefinition.gd" id="1_tdef"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowGraph.gd" id="2_graph"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowDuration.gd" id="3_dur"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowTrigger.gd" id="4_trig"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowAction.gd" id="5_act"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/leaves/FlowLeaf_Bounce.gd" id="6_leaf"]
+
+[sub_resource type="Resource" id="Resource_leaf"]
+script = ExtResource("6_leaf")
+
+[sub_resource type="Resource" id="Resource_bounce_act"]
+script = ExtResource("5_act")
+leaf = SubResource("Resource_leaf")
+
+[sub_resource type="Resource" id="Resource_trig"]
+script = ExtResource("4_trig")
+event_type = 18
+end_mode = 2
+actions = Array[Resource]([SubResource("Resource_bounce_act")])
+
+[sub_resource type="Resource" id="Resource_dur"]
+script = ExtResource("3_dur")
+lifetime_mode = 3
+children = Array[Resource]([SubResource("Resource_trig")])
+
+[sub_resource type="Resource" id="Resource_graph"]
+script = ExtResource("2_graph")
+flow_id = "trait_bounce_flow"
+flow_name = "弹射特质Flow"
+durations = Array[Resource]([SubResource("Resource_dur")])
+
+[resource]
+script = ExtResource("1_tdef")
+trait_id = "trait_bounce"
+display_name = "弹射"
+declared_properties = {
+"bounce_count": 3.0
+}
+trait_flow = SubResource("Resource_graph")
+listen_events = Array[int]([18])

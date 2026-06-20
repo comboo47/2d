@@ -82,13 +82,13 @@ func create_enemy_from_spawn_data(spawn_data: EnemySpawnData) -> BattleActor:
 	if enemy.get("drop_table_id") != null:
 		enemy.set("drop_table_id", drop_table_id)
 
-	# 触发生成 Flow
+	# 触发生成 Flow（第十三期：FlowRegistry 返回 FlowGraph，经解释器一次性跑完）
 	var spawn_flow_id = config.get("spawn_flow_id", "")
 	if not spawn_flow_id.is_empty() and FlowRegistry.instance:
 		var flow = FlowRegistry.instance.get_flow(spawn_flow_id)
 		if flow:
 			var context = GameplayFlowContext.create_simple(enemy)
-			flow.execute(context)
+			FlowInterpreter.run_oneshot(flow, context, enemy)
 
 	return enemy
 

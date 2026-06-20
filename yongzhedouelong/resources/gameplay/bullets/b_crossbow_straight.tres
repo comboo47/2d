@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BulletDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/bullets/BulletDefinition.gd" id="1_bdef"]
+[ext_resource type="PackedScene" uid="uid://55v5vcl1nnyx" path="res://scenes/weapons/CrossBow/bullet_crossbow.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_bdef")
+bullet_id = "b_crossbow_straight"
+display_name = "弩箭"
+bullet_scene = ExtResource("2_scene")
+base_damage = 10.0
+speed = 250.0
+lifetime = 10.0
+motion_key = &"straight"
+bullet_type = 1
+gravity_scale_override = 0.0

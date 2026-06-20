@@ -10,10 +10,10 @@ class_name SkillBase extends Resource
 @export var cost_value: float = 20.0
 @export var cooldown_time: float = 5.0
 @export var skill_level: int = 1
-@export var effects: Array[SkillEffectBase] = []
 @export var triggers: Array[SkillTrigger] = []
 @export var on_use_flow_id: String = ""
-@export var flow_refs: Array[GameplayFlowBase] = []
+## 第十三期：技能 flow 改为 FlowGraph 节点树（一次性施放，解释器跑到 finished）。
+@export var graph_refs: Array[FlowGraph] = []
 @export var icon_path: String = ""
 
 var cooldown: SkillCooldown = null
@@ -49,16 +49,12 @@ func use(context: GameplayFlowContext = null) -> bool:
 	if skill_type == SkillConfig.SkillType.TOGGLE:
 		is_active = not is_active
 		if is_active:
-			_execute_legacy_effects(context)
 			_execute_flows(context)
-		else:
-			_cleanup_effects(context)
 		return true
 
 	if cooldown:
 		cooldown.start()
 
-	_execute_legacy_effects(context)
 	_execute_flows(context)
 
 	var event := GameplayEvent.create(GameplayEvent.EventType.SKILL_USED, context.source, context.target)
@@ -68,40 +64,33 @@ func use(context: GameplayFlowContext = null) -> bool:
 	return true
 
 func _execute_flows(context: GameplayFlowContext) -> void:
-	for flow in flow_refs:
-		if flow:
-			flow.execute(context)
+	for graph in graph_refs:
+		if graph:
+			_run_graph(graph, context)
 
 	var registry := _get_flow_registry()
 	if not on_use_flow_id.is_empty() and registry:
-		var registry_flow: GameplayFlowBase = registry.get_flow(on_use_flow_id)
-		if registry_flow:
-			registry_flow.execute(context)
+		var registry_graph = registry.get_flow(on_use_flow_id)
+		if registry_graph:
+			_run_graph(registry_graph, context)
 
-func _execute_legacy_effects(context: GameplayFlowContext) -> void:
-	var sorted_effects := effects.duplicate()
-	sorted_effects.sort_custom(func(a: SkillEffectBase, b: SkillEffectBase) -> bool:
-		if a == null:
-			return false
-		if b == null:
-			return true
-		return a.priority < b.priority
-	)
-	for effect in sorted_effects:
-		if effect:
-			effect.apply(context, self)
-
-func _cleanup_effects(context: GameplayFlowContext) -> void:
-	for effect in effects:
-		if effect:
-			effect.cleanup(context, self)
+## 一次性施放：解释器跑到 finished（技能 flow 多为 INSTANT 动作链）。
+## 含迭代守卫——防误配 FOREVER 不结束的 graph 导致死循环（这类应交棒给子弹/buff 宿主，不放 skill）。
+func _run_graph(graph: FlowGraph, context: GameplayFlowContext) -> void:
+	var interp := FlowInterpreter.new()
+	interp.start(graph.deep_duplicate(), context, skill_owner)
+	var guard := 0
+	while not interp.is_finished() and guard < 256:
+		interp.advance(0.0)
+		guard += 1
+	if not interp.is_finished():
+		push_warning("SkillBase: graph '%s' 未在 256 次推进内结束（误配 FOREVER？技能 flow 应一次性）" % graph.flow_id)
 
 func activate_passive() -> void:
 	if skill_owner == null:
 		return
 	var context := GameplayFlowContext.create_simple(skill_owner)
 	context.skill = self
-	_execute_legacy_effects(context)
 	_execute_flows(context)
 
 func update_cooldown(delta: float) -> void:

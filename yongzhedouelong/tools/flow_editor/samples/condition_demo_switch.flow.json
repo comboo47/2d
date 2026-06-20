@@ -1,0 +1,31 @@
+{
+  "flow_id": "condition_demo_switch",
+  "flow_name": "Condition switch 演示（按 stack 分档：0→无，1→小伤，其余→大伤）",
+  "schema_version": 1,
+  "entry": "c0",
+  "nodes": [
+    {
+      "id": "c0", "type": "condition", "pos": [120, 200],
+      "expression": "min(stack, 2)",
+      "use_switch": true
+    },
+    {
+      "id": "d_case1", "type": "duration", "pos": [380, 120],
+      "lifetime_mode": "INSTANT",
+      "children": [
+        { "kind": "action", "action_name": "deal_damage", "opts": { "base": 3.0, "tags": ["switch"] } }
+      ]
+    },
+    {
+      "id": "d_default", "type": "duration", "pos": [380, 300],
+      "lifetime_mode": "INSTANT",
+      "children": [
+        { "kind": "action", "action_name": "deal_damage", "opts": { "base": 12.0, "tags": ["switch"] } }
+      ]
+    }
+  ],
+  "connections": [
+    { "from": "c0", "from_pin": "case_1", "to": "d_case1" },
+    { "from": "c0", "from_pin": "default", "to": "d_default" }
+  ]
+}

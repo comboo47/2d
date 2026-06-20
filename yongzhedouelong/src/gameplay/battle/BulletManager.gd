@@ -44,6 +44,14 @@ func handle_bullet_spawn(bullet_packed, spawn_position, arg2, arg3, arg4, arg5=n
 			# 有重力
 			bullet.set_axis_velocity(arg2.normalized() * arg3)
 
+		# 应用武器的子弹定义（外观/伤害/运动/穿透）。初速已在上方设好，不重复设置。
+		# 双重守卫：无 definition 的武器、不支持 apply_definition 的旧子弹均不受影响。
+		if owner and owner.has_meta("CurrentWeapon"):
+			var w = owner.get_meta("CurrentWeapon")
+			if w and "definition" in w and w.definition and w.definition.bullet_def:
+				if bullet.has_method("apply_definition"):
+					bullet.apply_definition(w.definition.bullet_def)
+
 	elif arg2 is float:
 		# 旧格式: rotation 是 float
 		bullet.rotation = arg2

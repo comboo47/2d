@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://ci8ucccp2fny3"]
+
+[ext_resource type="Script" path="res://src/gameplay/levels/LevelActorDefinition.gd" id="1_actor_def"]
+[ext_resource type="PackedScene" uid="uid://bt2jh8isph5xr" path="res://scenes/actors/enemies/DamageTestEnemey.tscn" id="2_enemy"]
+[ext_resource type="Resource" uid="uid://dactrinit0001" path="res://resources/gameplay/actors/data/actor_init_sample.tres" id="3_init"]
+[ext_resource type="Script" path="res://src/gameplay/levels/LevelDefinition.gd" id="4_level"]
+
+[sub_resource type="Resource" id="Resource_enemy_a"]
+script = ExtResource("1_actor_def")
+actor_scene = ExtResource("2_enemy")
+position = Vector2(420, 240)
+is_enemy = true
+init_data = ExtResource("3_init")
+
+[sub_resource type="Resource" id="Resource_enemy_b"]
+script = ExtResource("1_actor_def")
+actor_scene = ExtResource("2_enemy")
+position = Vector2(560, 240)
+is_enemy = true
+init_data = ExtResource("3_init")
+
+[resource]
+script = ExtResource("4_level")
+level_id = "level_sample_actorflow"
+level_name = "ActorFlow 样例关"
+next_level_id = ""
+level_order = 99
+show_in_select = false
+initial_actors = Array[ExtResource("1_actor_def")]([SubResource("Resource_enemy_a"), SubResource("Resource_enemy_b")])

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://lgxujiltixnu"]
+
+[ext_resource type="Script" uid="uid://b61xfb12xovxb" path="res://src/gameplay/weapons/WeaponDefinition.gd" id="1_wdef"]
+[ext_resource type="Resource" path="res://resources/gameplay/bullets/b_bow_normal.tres" id="2_bullet"]
+[ext_resource type="Script" uid="uid://djs0icl32lyxa" path="res://src/gameplay/weapons/WeaponInputMode.gd" id="3_im"]
+[ext_resource type="Script" path="res://src/gameplay/weapons/WeaponCadence.gd" id="5_cad"]
+[ext_resource type="Script" path="res://src/gameplay/weapons/WeaponInputBinding.gd" id="6_bind"]
+[ext_resource type="Resource" uid="uid://dskbowfire001" path="res://resources/gameplay/skills/skill_bow_fire.tres" id="7_skill"]
+
+[sub_resource type="Resource" id="Resource_im"]
+script = ExtResource("3_im")
+mode = 2
+
+[sub_resource type="Resource" id="Resource_cad"]
+script = ExtResource("5_cad")
+mode = 2
+charge_threshold = 0.7
+min_fire_interval = 0.3
+
+[sub_resource type="Resource" id="Resource_bind"]
+script = ExtResource("6_bind")
+action_name = &"fire"
+cadence = SubResource("Resource_cad")
+skill = ExtResource("7_skill")
+consume_energy = false
+
+[resource]
+script = ExtResource("1_wdef")
+weapon_id = "weapon_bow"
+display_name = "弓"
+input_mode = SubResource("Resource_im")
+min_fire_interval = 0.3
+bullet_def = ExtResource("2_bullet")
+charge_time = 0.0
+input_bindings = Array[ExtResource("6_bind")]([SubResource("Resource_bind")])

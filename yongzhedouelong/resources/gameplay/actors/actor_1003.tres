@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ActorDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/actors/ActorDefinition.gd" id="1_adef"]
+[ext_resource type="PackedScene" uid="uid://bt2jh8isph5xr" path="res://scenes/actors/enemies/DamageTestEnemey.tscn" id="2_prefab"]
+
+[resource]
+script = ExtResource("1_adef")
+actor_id = 1003
+actor_name = "DamageTestEnemy"
+display_name = "伤害测试敌人"
+description = "测试用敌人，高血量，无攻击能力"
+prefab = ExtResource("2_prefab")
+attributes = {
+"armor": 0.0,
+"attack": 0.0,
+"jump_power": 0.0,
+"max_hp": 100.0,
+"speed": 0.0
+}
+drop_table_id = ""

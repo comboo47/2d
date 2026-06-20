@@ -3,22 +3,31 @@ extends SceneTree
 const SaveManagerScript = preload("res://src/app/SaveManager.gd")
 const TEST_SAVE_PATH := "user://save_manager_test/progress.json"
 
-class RecordingEffect extends FlowEffectBase:
-	var label := ""
+## 测试用脚本叶子：往 event_data["order"] 记录标签（第十三期 skill/level graph 验证）。
+## label 用 @export，因 skill _run_graph / level run_oneshot 会 deep_duplicate（只拷导出属性）。
+class RecordingLeaf extends FlowLeaf:
+	@export var label := ""
 
-	func _init(effect_label := "", effect_priority := 0) -> void:
-		label = effect_label
-		priority = effect_priority
+	func run(ctx: GameplayFlowContext, _host = null) -> void:
+		if not ctx.event_data.has("order"):
+			ctx.event_data["order"] = []
+		ctx.event_data["order"].append(label)
 
-	func apply(context: GameplayFlowContext) -> void:
-		if not context.event_data.has("order"):
-			context.event_data["order"] = []
-		context.event_data["order"].append(label)
+## 把一个记录叶子包成单 INSTANT Duration 的 FlowGraph。
+static func _make_recording_graph(label: String) -> FlowGraph:
+	var leaf := RecordingLeaf.new()
+	leaf.label = label
+	var act := FlowGraph.leaf_action(leaf)
+	return FlowGraph.single(FlowGraph.instant([act] as Array[FlowNode]))
 
-class DamageBonusEffect extends FlowEffectBase:
-	func apply(context: GameplayFlowContext) -> void:
-		if context.damage_request:
-			context.damage_request.amount += 5.0
+## 测试用 buff_flow：FlowGraph(FOREVER + Trigger(BUFF_TICK,NEVER) → deal_damage)。
+static func _make_burn_tick_graph() -> FlowGraph:
+	var dmg := FlowGraph.action("deal_damage", {
+		"base": 1.0, "use_atk": false, "use_armor": false,
+		"formula": "source_attr(\"Atk\") + buff.stack",
+	})
+	var trig := FlowGraph.trigger(int(GameplayEvent.EventType.BUFF_TICK), [dmg] as Array[FlowNode], FlowTrigger.EndMode.NEVER)
+	return FlowGraph.single(FlowGraph.forever([trig] as Array[FlowNode]))
 
 class StubWeapon extends Node:
 	## 模拟武器：记录 trigger_skill_by_type 被以哪种触发类型调用
@@ -31,16 +40,6 @@ class StubWeapon extends Node:
 		elif trigger_type == WeaponSkillSlot.TriggerType.ON_KILL:
 			kill_triggered = true
 
-class EventCountingFlow extends GameplayFlowBase:
-	var count := 0
-
-	func _init() -> void:
-		effects = [RecordingEffect.new("event", 0)]
-
-	func start(context: GameplayFlowContext) -> bool:
-		count += 1
-		return super.start(context)
-
 var _failures := 0
 var _test_nodes: Array[Node] = []
 
@@ -49,6 +48,10 @@ func _initialize() -> void:
 	_run("damage_resolver_applies_request_and_emits_events", _test_damage_resolver_applies_request_and_emits_events)
 	_run("bullet_hit_resolves_damage_and_triggers_on_hit", _test_bullet_hit_resolves_damage_and_triggers_on_hit)
 	_run("bullet_hit_lethal_triggers_on_kill", _test_bullet_hit_lethal_triggers_on_kill)
+	_run("damage_emits_actor_hit", _test_damage_emits_actor_hit)
+	_run("lethal_emits_actor_died_and_kill", _test_lethal_emits_actor_died_and_kill)
+	_run("double_lethal_emits_died_once", _test_double_lethal_emits_died_once)
+	_run("actor_hit_carries_source_target", _test_actor_hit_carries_source_target)
 	_run("buff_tick_event_triggers_flow", _test_buff_tick_event_triggers_flow)
 	_run("skill_triggers_configured_flow", _test_skill_triggers_configured_flow)
 	_run("level_runner_initializes_actors_buffs_and_start_flow", _test_level_runner_initializes_actors_buffs_and_start_flow)
@@ -71,21 +74,14 @@ func _run(test_name: String, test_callable: Callable) -> void:
 	_cleanup_test_nodes()
 
 func _test_flow_executes_effects_by_priority() -> Variant:
-	var flow := GameplayFlowBase.new()
-	flow.effects = [
-		RecordingEffect.new("late", 20),
-		RecordingEffect.new("early", 0),
-		RecordingEffect.new("middle", 10)
-	]
-
+	# 第十三期：flow 是节点树，经 FlowInterpreter 跑。验证单 INSTANT 叶子被执行。
+	var graph := _make_recording_graph("ran")
 	var context := GameplayFlowContext.new()
 	context.event_data["order"] = []
-	var executed := flow.start(context)
+	FlowInterpreter.run_oneshot(graph, context)
 
-	if executed != true:
-		return "flow.start should return true"
-	if context.event_data["order"] != ["early", "middle", "late"]:
-		return "unexpected effect order: %s" % [context.event_data["order"]]
+	if context.event_data["order"] != ["ran"]:
+		return "flow graph 叶子应执行，got: %s" % [context.event_data["order"]]
 	return true
 
 func _test_damage_resolver_applies_request_and_emits_events() -> Variant:
@@ -114,13 +110,6 @@ func _test_damage_resolver_applies_request_and_emits_events() -> Variant:
 func _test_buff_tick_event_triggers_flow() -> Variant:
 	var source := _make_actor(0.0, 5.0, 0.0)
 	var target := _make_actor(40.0, 0.0, 0.0)
-	var flow := GameplayFlowBase.new()
-	var damage_effect := FE_Damage.new()
-	damage_effect.base_damage = 1.0
-	damage_effect.damage_expression = "source_attr(\"Atk\") + buff.stack"
-	damage_effect.use_attack_bonus = false
-	damage_effect.use_armor_reduction = false
-	flow.effects = [damage_effect]
 
 	var buff := AttributeBuff.new()
 	buff.buff_id = "burn_test"
@@ -129,9 +118,7 @@ func _test_buff_tick_event_triggers_flow() -> Variant:
 	buff.buffPeriod = 1
 	buff.max_stack = 5
 	buff.stack = 2
-	buff.event_flows = {
-		GameplayEvent.EventType.BUFF_TICK: [flow]
-	}
+	buff.buff_flow = _make_burn_tick_graph()
 	target.buffManager.apply_buff(buff, source, target)
 	target.buffManager._physics_process(1.0)
 
@@ -147,9 +134,8 @@ func _test_skill_triggers_configured_flow() -> Variant:
 	skill.skill_type = SkillConfig.SkillType.ACTIVE
 	skill.cost_type = SkillConfig.CostType.NONE
 	skill.cooldown_time = 0.0
-	var flow := GameplayFlowBase.new()
-	flow.effects = [RecordingEffect.new("skill_flow", 0)]
-	skill.flow_refs = [flow]
+	var flow := _make_recording_graph("skill_flow")
+	skill.graph_refs = [flow] as Array[FlowGraph]
 	skill.initialize(source)
 
 	var context := GameplayFlowContext.create_simple(source)
@@ -169,8 +155,7 @@ func _test_level_runner_initializes_actors_buffs_and_start_flow() -> Variant:
 	actor_def.position = Vector2(12, 8)
 	level.initial_actors = [actor_def]
 
-	var start_flow := GameplayFlowBase.new()
-	start_flow.effects = [RecordingEffect.new("level_start", 0)]
+	var start_flow := _make_recording_graph("level_start")
 	level.event_flows = {
 		GameplayEvent.EventType.LEVEL_START: [start_flow]
 	}
@@ -257,6 +242,19 @@ func _has_event(event_type: GameplayEvent.EventType) -> bool:
 		if event.event_type == event_type:
 			return true
 	return false
+
+func _count_event(event_type: GameplayEvent.EventType) -> int:
+	var n := 0
+	for event in GameplayEventBus.emitted_events:
+		if event.event_type == event_type:
+			n += 1
+	return n
+
+func _first_event(event_type: GameplayEvent.EventType) -> GameplayEvent:
+	for event in GameplayEventBus.emitted_events:
+		if event.event_type == event_type:
+			return event
+	return null
 
 func _track_node(node: Node) -> void:
 	if node and not _test_nodes.has(node):
@@ -439,4 +437,81 @@ func _test_bullet_hit_lethal_triggers_on_kill() -> Variant:
 		return "expected ON_HIT to trigger on lethal hit"
 	if not weapon.kill_triggered:
 		return "expected ON_KILL to trigger when target hp drops to 0"
+	return true
+
+func _test_damage_emits_actor_hit() -> Variant:
+	# 造成伤害 → ACTOR_HIT；零伤害 → 无 ACTOR_HIT。
+	GameplayEventBus.clear_history()
+	var source := _make_actor(0.0, 0.0, 0.0)
+	var target := _make_actor(50.0, 0.0, 0.0)
+	var request := DamageRequest.new()
+	request.source = source
+	request.target = target
+	request.amount = 10.0
+	DamageResolver.resolve(request)
+	if not _has_event(GameplayEvent.EventType.ACTOR_HIT):
+		return "expected ACTOR_HIT when damage dealt"
+
+	GameplayEventBus.clear_history()
+	var target2 := _make_actor(50.0, 0.0, 100.0)  # armor 100 → 公式无，amount=0
+	var req2 := DamageRequest.new()
+	req2.source = source
+	req2.target = target2
+	req2.amount = 0.0
+	DamageResolver.resolve(req2)
+	if _has_event(GameplayEvent.EventType.ACTOR_HIT):
+		return "should not emit ACTOR_HIT when no damage dealt"
+	return true
+
+func _test_lethal_emits_actor_died_and_kill() -> Variant:
+	GameplayEventBus.clear_history()
+	var source := _make_actor(0.0, 0.0, 0.0)
+	var target := _make_actor(10.0, 0.0, 0.0)
+	var request := DamageRequest.new()
+	request.source = source
+	request.target = target
+	request.amount = 15.0
+	DamageResolver.resolve(request)
+	if not _has_event(GameplayEvent.EventType.ACTOR_DIED):
+		return "expected ACTOR_DIED on lethal damage"
+	if not _has_event(GameplayEvent.EventType.ACTOR_KILL):
+		return "expected ACTOR_KILL on lethal damage with source"
+	if not target.is_dead:
+		return "expected target.is_dead == true after lethal damage"
+	return true
+
+func _test_double_lethal_emits_died_once() -> Variant:
+	# 连打两次致命伤，ACTOR_DIED 只应 emit 一次（防重入）。
+	GameplayEventBus.clear_history()
+	var source := _make_actor(0.0, 0.0, 0.0)
+	var target := _make_actor(10.0, 0.0, 0.0)
+	for i in 2:
+		var request := DamageRequest.new()
+		request.source = source
+		request.target = target
+		request.amount = 15.0
+		DamageResolver.resolve(request)
+	var died_count := _count_event(GameplayEvent.EventType.ACTOR_DIED)
+	if died_count != 1:
+		return "expected ACTOR_DIED emitted exactly once, got %d" % died_count
+	return true
+
+func _test_actor_hit_carries_source_target() -> Variant:
+	GameplayEventBus.clear_history()
+	var source := _make_actor(0.0, 0.0, 0.0)
+	var target := _make_actor(50.0, 0.0, 0.0)
+	var request := DamageRequest.new()
+	request.source = source
+	request.target = target
+	request.amount = 12.0
+	DamageResolver.resolve(request)
+	var hit := _first_event(GameplayEvent.EventType.ACTOR_HIT)
+	if hit == null:
+		return "expected an ACTOR_HIT event"
+	if hit.source != source:
+		return "ACTOR_HIT.source should be the attacker"
+	if hit.target != target:
+		return "ACTOR_HIT.target should be the victim"
+	if not is_equal_approx(float(hit.event_data.get("damage", 0.0)), 12.0):
+		return "ACTOR_HIT.event_data.damage should be 12, got %s" % hit.event_data.get("damage")
 	return true

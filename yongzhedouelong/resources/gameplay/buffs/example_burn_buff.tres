@@ -7,13 +7,11 @@
 script = ExtResource("1_buff")
 id = "example_burn"
 name = "Example Burn"
-buff_id = "example_burn"
 buff_Name = "Example Burn"
+buff_id = "example_burn"
 buff_name = "Example Burn"
 buffDuration = 5.0
 buffPeriod = 1
 duration = 5.0
 max_stack = 3
-event_flows = {
-9: [ExtResource("2_tick_flow")]
-}
+buff_flow = ExtResource("2_tick_flow")

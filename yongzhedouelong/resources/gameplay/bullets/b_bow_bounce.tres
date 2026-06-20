@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="BulletDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/bullets/BulletDefinition.gd" id="1_bdef"]
+[ext_resource type="PackedScene" uid="uid://bccgwgg6qrf05" path="res://scenes/weapons/Bow/bullet_bow.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_bdef")
+bullet_id = "b_bow_bounce"
+display_name = "示例·弹射弓箭"
+bullet_scene = ExtResource("2_scene")
+modulate = Color(0.6, 1, 0.6, 1)
+base_damage = 10.0
+damage_buff_id = "1001"
+speed = 250.0
+lifetime = 10.0
+motion_key = &"straight"
+bullet_type = 1
+gravity_scale_override = 0.0
+pierce_count = 0
+aoe_radius = 0.0
+explode_on_hit = false
+traits = Array[String](["trait_bounce"])

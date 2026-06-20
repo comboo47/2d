@@ -1,0 +1,239 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://yongzhedouelong/flow.schema.json",
+  "title": "Flow (.flow.json)",
+  "description": "数据契约：运行时 FlowGraph.from_dict() 直接加载的 flow 文档。\n主线节点（duration/condition）带 id + pos + 执行 pin，靠 connections 连边；\nTrigger/Action 是 Duration 的并行 children（非主线图节点），数据走 ctx。\n只表达执行流 pin（下一步走哪），不做数据 pin。",
+  "type": "object",
+  "required": ["flow_id", "entry", "nodes", "connections"],
+  "additionalProperties": false,
+  "properties": {
+    "flow_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "唯一标识，FlowRegistry 按此查表；宿主用 *_flow_id 引用。"
+    },
+    "flow_name": {
+      "type": "string",
+      "description": "可读名（调试/编辑器显示）。"
+    },
+    "schema_version": {
+      "type": "integer",
+      "default": 1,
+      "description": "格式版本，预留迁移用。"
+    },
+    "entry": {
+      "type": "string",
+      "minLength": 1,
+      "description": "入口主线节点 id（解释器从此开始推进）。必须命中 nodes[*].id。"
+    },
+    "nodes": {
+      "type": "array",
+      "description": "主线图节点。只有 duration / condition 两种。",
+      "items": { "$ref": "#/definitions/mainline_node" }
+    },
+    "connections": {
+      "type": "array",
+      "description": "执行 pin 连边，与 GraphEdit/LiteGraph link 同构。",
+      "items": { "$ref": "#/definitions/connection" }
+    }
+  },
+
+  "definitions": {
+
+    "lifetime_mode": {
+      "type": "string",
+      "enum": ["INSTANT", "FRAMES", "SECONDS", "FOREVER"],
+      "description": "Duration 生命周期（对应 FlowDuration.LifetimeMode）。"
+    },
+
+    "end_mode": {
+      "type": "string",
+      "enum": ["ONCE", "COUNT", "NEVER"],
+      "description": "Trigger 结束语义（对应 FlowTrigger.EndMode）。"
+    },
+
+    "event_type": {
+      "type": "string",
+      "description": "GameplayEvent.EventType 的枚举名（字符串名，from_dict 转 int）。",
+      "enum": [
+        "LEVEL_START", "LEVEL_END",
+        "ACTOR_SPAWNED", "ACTOR_DIED", "ACTOR_HIT", "ACTOR_KILL",
+        "SKILL_USED",
+        "BUFF_APPLIED", "BUFF_REMOVED", "BUFF_TICK", "BUFF_STACK_CHANGED",
+        "DAMAGE_REQUESTED", "DAMAGE_APPLIED",
+        "WEAPON_FIRE_PRESSED", "WEAPON_FIRE_HELD", "WEAPON_FIRE_RELEASED",
+        "BULLET_SPAWNED", "BULLET_PROCESS", "BULLET_HIT", "BULLET_RELEASED"
+      ]
+    },
+
+    "pos": {
+      "type": "array",
+      "description": "编辑器画布坐标 [x, y]（运行时忽略）。",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+
+    "script_ref": {
+      "type": ["object", "null"],
+      "description": "脚本引用 + 属性灌注：FlowLeaf 子类 / filter / predicate。\nfrom_dict 按 script load() 脚本并 .new()，再灌 props（Resource 类型属性的 res:// 字符串会 load）。",
+      "required": ["script"],
+      "additionalProperties": false,
+      "properties": {
+        "script": {
+          "type": "string",
+          "pattern": "^res://.*\\.gd$",
+          "description": "GDScript res:// 路径（FlowLeaf 子类）。"
+        },
+        "props": {
+          "type": "object",
+          "description": "@export 属性键值。值为 res:// 字符串且属性是 Resource 类型时 load 回资源（如 bullet_scene）。",
+          "default": {}
+        }
+      }
+    },
+
+    "action": {
+      "type": "object",
+      "description": "瞬时动作子节点。数据 Action（action_name+opts）或脚本叶子 Action（leaf）。leaf 非空时优先。",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "action" },
+        "node_name": { "type": "string", "description": "调试名（可选）。" },
+        "action_name": {
+          "type": "string",
+          "description": "FlowActions 静态方法名。",
+          "enum": ["", "fire_projectile", "deal_damage", "modify_attr", "apply_buff", "spawn_entity", "play_vfx", "finish"]
+        },
+        "opts": {
+          "type": "object",
+          "description": "原样喂给 FlowActions 的参数（JSON 原生 Dictionary）。",
+          "default": {}
+        },
+        "buff_res": {
+          "type": ["string", "null"],
+          "pattern": "^res://.*\\.tres$",
+          "description": "apply_buff 用：buff 资源 res:// 路径（from_dict load 回 AttributeBuff）。"
+        },
+        "leaf": { "$ref": "#/definitions/script_ref" }
+      }
+    },
+
+    "trigger": {
+      "type": "object",
+      "description": "持续事件监听子节点。命中时执行 actions，可选 finish 所属 Duration。",
+      "required": ["kind", "event_type"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "const": "trigger" },
+        "node_name": { "type": "string" },
+        "event_type": { "$ref": "#/definitions/event_type" },
+        "end_mode": { "$ref": "#/definitions/end_mode", "default": "ONCE" },
+        "count": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1,
+          "description": "COUNT 模式触发次数。"
+        },
+        "finish_parent": {
+          "type": "boolean",
+          "default": false,
+          "description": "触发后是否 finish 所属 Duration（主线走 Duration 的 out 边）。"
+        },
+        "filter_script": { "$ref": "#/definitions/script_ref" },
+        "actions": {
+          "type": "array",
+          "description": "触发时顺序执行的动作（只含 action 子节点）。",
+          "items": { "$ref": "#/definitions/action" }
+        }
+      }
+    },
+
+    "child": {
+      "description": "Duration 的并行子节点：trigger 或 action（按 kind 区分）。",
+      "oneOf": [
+        { "$ref": "#/definitions/trigger" },
+        { "$ref": "#/definitions/action" }
+      ]
+    },
+
+    "duration_node": {
+      "type": "object",
+      "description": "主线生命周期壳节点。执行 pin：out（到期/被 finish_parent 后走的边）。",
+      "required": ["id", "type", "lifetime_mode"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "const": "duration" },
+        "node_name": { "type": "string" },
+        "pos": { "$ref": "#/definitions/pos" },
+        "lifetime_mode": { "$ref": "#/definitions/lifetime_mode" },
+        "lifetime_value": {
+          "type": "number",
+          "default": 0.0,
+          "description": "FRAMES 取整为帧数 / SECONDS 为秒数；INSTANT/FOREVER 忽略。"
+        },
+        "children": {
+          "type": "array",
+          "description": "并行子节点（trigger/action）。",
+          "items": { "$ref": "#/definitions/child" }
+        }
+      }
+    },
+
+    "condition_node": {
+      "type": "object",
+      "description": "分支节点（本期新增）。求值表达式/predicate → 选 pin → 走对应边。无占时，同帧连跳（解释器 MAX_HOPS 守卫）。",
+      "required": ["id", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "const": "condition" },
+        "node_name": { "type": "string" },
+        "pos": { "$ref": "#/definitions/pos" },
+        "expression": {
+          "type": "string",
+          "description": "白名单布尔表达式（复用伤害公式引擎）。白名单：source/target/event_data/stack + source_attr/target_attr/event_value/has_tag。predicate 非空时忽略。",
+          "default": ""
+        },
+        "predicate": { "$ref": "#/definitions/script_ref" },
+        "use_switch": {
+          "type": "boolean",
+          "default": false,
+          "description": "false：bool 分支，输出 pin = true/false。true：switch，表达式求 int，输出 pin = case_0..case_N + default。"
+        }
+      }
+    },
+
+    "mainline_node": {
+      "description": "主线节点：duration 或 condition（按 type 区分）。",
+      "oneOf": [
+        { "$ref": "#/definitions/duration_node" },
+        { "$ref": "#/definitions/condition_node" }
+      ]
+    },
+
+    "connection": {
+      "type": "object",
+      "description": "一条执行 pin 连边。from 节点的 from_pin 输出连到 to 节点。",
+      "required": ["from", "from_pin", "to"],
+      "additionalProperties": false,
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "源主线节点 id。"
+        },
+        "from_pin": {
+          "type": "string",
+          "description": "源节点输出 pin 名。duration→\"out\"；condition(bool)→\"true\"/\"false\"；condition(switch)→\"case_0\"..\"case_N\"/\"default\"。",
+          "default": "out"
+        },
+        "to": {
+          "type": "string",
+          "description": "目标主线节点 id（可指回上游 = loop 回边）。"
+        }
+      }
+    }
+  }
+}

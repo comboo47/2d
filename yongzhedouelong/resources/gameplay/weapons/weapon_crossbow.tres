@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://cxyqkedfdwh43"]
+
+[ext_resource type="Script" uid="uid://b61xfb12xovxb" path="res://src/gameplay/weapons/WeaponDefinition.gd" id="1_wdef"]
+[ext_resource type="Resource" path="res://resources/gameplay/bullets/b_crossbow_straight.tres" id="2_bullet"]
+[ext_resource type="Script" path="res://src/gameplay/weapons/WeaponCadence.gd" id="5_cad"]
+[ext_resource type="Script" path="res://src/gameplay/weapons/WeaponInputBinding.gd" id="6_bind"]
+[ext_resource type="Resource" uid="uid://dskcrossbowfir1" path="res://resources/gameplay/skills/skill_crossbow_fire.tres" id="7_skill"]
+
+[sub_resource type="Resource" id="Resource_cad"]
+script = ExtResource("5_cad")
+mode = 3
+charge_threshold = 0.7
+repeat_interval = 0.1
+min_fire_interval = 0.1
+
+[sub_resource type="Resource" id="Resource_bind"]
+script = ExtResource("6_bind")
+action_name = &"fire"
+cadence = SubResource("Resource_cad")
+skill = ExtResource("7_skill")
+consume_energy = true
+energy_cost = 10.0
+
+[resource]
+script = ExtResource("1_wdef")
+weapon_id = "weapon_crossbow"
+display_name = "弩"
+weapon_type = 2
+bullet_def = ExtResource("2_bullet")
+bullet_type = 1
+max_energy = 100.0
+energy_cost = 10.0
+energy_regen = 3.0
+input_bindings = Array[ExtResource("6_bind")]([SubResource("Resource_bind")])

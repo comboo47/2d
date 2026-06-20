@@ -1,8 +1,35 @@
 [gd_resource type="Resource" script_class="SkillBase" format=3]
 
 [ext_resource type="Script" path="res://src/gameplay/skills/SkillBase.gd" id="1_skill"]
-[ext_resource type="Script" path="res://src/gameplay/flows/GameplayFlowBase.gd" id="2_flow_script"]
-[ext_resource type="Resource" path="res://resources/gameplay/flows/example_skill_damage_flow.tres" id="3_skill_flow"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowGraph.gd" id="2_graph"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowDuration.gd" id="3_dur"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowAction.gd" id="4_act"]
+[ext_resource type="Resource" path="res://resources/gameplay/buffs/example_burn_buff.tres" id="5_buff"]
+
+[sub_resource type="Resource" id="Resource_dmg"]
+script = ExtResource("4_act")
+action_name = "deal_damage"
+opts = {
+"base": 6.0,
+"formula": "damage.amount + level",
+"tags": ["skill", "fire"]
+}
+
+[sub_resource type="Resource" id="Resource_buff"]
+script = ExtResource("4_act")
+action_name = "apply_buff"
+buff_res = ExtResource("5_buff")
+
+[sub_resource type="Resource" id="Resource_dur"]
+script = ExtResource("3_dur")
+lifetime_mode = 0
+children = Array[Resource]([SubResource("Resource_dmg"), SubResource("Resource_buff")])
+
+[sub_resource type="Resource" id="Resource_graph"]
+script = ExtResource("2_graph")
+flow_id = "example_skill_damage"
+flow_name = "Example Skill Damage"
+durations = Array[Resource]([SubResource("Resource_dur")])
 
 [resource]
 script = ExtResource("1_skill")
@@ -11,4 +38,4 @@ skill_name = "Example Firebolt"
 skill_description = "Deals fire damage and applies Example Burn."
 cost_type = 4
 cooldown_time = 0.0
-flow_refs = Array[ExtResource("2_flow_script")]([ExtResource("3_skill_flow")])
+graph_refs = Array[ExtResource("2_graph")]([SubResource("Resource_graph")])

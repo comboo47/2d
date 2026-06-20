@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ActorDefinition" format=3 uid="uid://cu4a5m3kcpap6"]
+
+[ext_resource type="Script" uid="uid://dkwrihpi0kobp" path="res://src/gameplay/attributes/AttributeSysscript/AttributeBuff.gd" id="1_c5pus"]
+[ext_resource type="Script" uid="uid://ca6l5ayaxsb4o" path="res://src/gameplay/actors/ActorDefinition.gd" id="2_ptvy5"]
+[ext_resource type="Script" uid="uid://b5i0i0ntbo5h1" path="res://src/gameplay/skills/SkillBase.gd" id="3_ow6qv"]
+
+[resource]
+script = ExtResource("2_ptvy5")
+actor_id = 1004
+display_name = "新角色 1004"

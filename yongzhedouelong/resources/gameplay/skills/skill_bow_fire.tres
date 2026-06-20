@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="SkillBase" format=3 uid="uid://dskbowfire001"]
+
+[ext_resource type="Script" path="res://src/gameplay/skills/SkillBase.gd" id="1_skill"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowGraph.gd" id="2_graph"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowDuration.gd" id="3_dur"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowAction.gd" id="4_act"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/leaves/FlowLeaf_BowShot.gd" id="5_leaf"]
+[ext_resource type="PackedScene" uid="uid://bccgwgg6qrf05" path="res://scenes/weapons/Bow/bullet_bow.tscn" id="6_bullet"]
+
+[sub_resource type="Resource" id="Resource_leaf"]
+script = ExtResource("5_leaf")
+bullet_scene = ExtResource("6_bullet")
+base_speed = 250.0
+bullet_type = 0
+max_charge_speed = 650.0
+
+[sub_resource type="Resource" id="Resource_act"]
+script = ExtResource("4_act")
+leaf = SubResource("Resource_leaf")
+
+[sub_resource type="Resource" id="Resource_dur"]
+script = ExtResource("3_dur")
+lifetime_mode = 0
+children = Array[Resource]([SubResource("Resource_act")])
+
+[sub_resource type="Resource" id="Resource_graph"]
+script = ExtResource("2_graph")
+flow_id = "bow_shot"
+durations = Array[Resource]([SubResource("Resource_dur")])
+
+[resource]
+script = ExtResource("1_skill")
+skill_id = "skill_bow_fire"
+skill_name = "弓·射击"
+skill_type = 0
+cost_type = 4
+cooldown_time = 0.0
+graph_refs = Array[ExtResource("2_graph")]([SubResource("Resource_graph")])

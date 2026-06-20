@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BulletDefinition" format=3 uid="uid://cl18n6x8dvieh"]
+
+[ext_resource type="Script" uid="uid://drvibc7qi2aga" path="res://src/gameplay/bullets/BulletDefinition.gd" id="1_bdef"]
+[ext_resource type="PackedScene" uid="uid://55v5vcl1nnyx" path="res://scenes/weapons/CrossBow/bullet_crossbow.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_bdef")
+bullet_id = "WeaponTemplate_Bullet"
+display_name = "模板手枪·子弹"
+bullet_scene = ExtResource("2_scene")
+modulate = Color(1, 0.85, 0.4, 1)
+base_damage = 4.0
+damage_buff_id = "WeaponTemplate_Buff"
+speed = 600.0
+lifetime = 3.0
+motion_key = &"straight"
+bullet_type = 1
+gravity_scale_override = 0.0

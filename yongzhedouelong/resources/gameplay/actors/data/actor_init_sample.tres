@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="ActorInitData" format=3 uid="uid://dactrinit0001"]
+
+[ext_resource type="Script" path="res://src/gameplay/actors/ActorInitData.gd" id="1_init"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowGraph.gd" id="2_graph"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowDuration.gd" id="3_dur"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowAction.gd" id="4_act"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/leaves/FlowLeaf_EnemySpawn.gd" id="5_spawn_leaf"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/leaves/FlowLeaf_EnemyDeath.gd" id="6_death_leaf"]
+
+[sub_resource type="Resource" id="Res_spawn_leaf"]
+script = ExtResource("5_spawn_leaf")
+
+[sub_resource type="Resource" id="Res_spawn_act"]
+script = ExtResource("4_act")
+leaf = SubResource("Res_spawn_leaf")
+
+[sub_resource type="Resource" id="Res_spawn_dur"]
+script = ExtResource("3_dur")
+lifetime_mode = 0
+children = Array[Resource]([SubResource("Res_spawn_act")])
+
+[sub_resource type="Resource" id="Res_spawn_graph"]
+script = ExtResource("2_graph")
+flow_id = "enemy_spawn_sample"
+durations = Array[Resource]([SubResource("Res_spawn_dur")])
+
+[sub_resource type="Resource" id="Res_death_leaf"]
+script = ExtResource("6_death_leaf")
+
+[sub_resource type="Resource" id="Res_death_act"]
+script = ExtResource("4_act")
+leaf = SubResource("Res_death_leaf")
+
+[sub_resource type="Resource" id="Res_death_dur_fx"]
+script = ExtResource("3_dur")
+lifetime_mode = 0
+children = Array[Resource]([SubResource("Res_death_act")])
+
+[sub_resource type="Resource" id="Res_death_dur_delay"]
+script = ExtResource("3_dur")
+lifetime_mode = 2
+lifetime_value = 1.0
+
+[sub_resource type="Resource" id="Res_death_graph"]
+script = ExtResource("2_graph")
+flow_id = "enemy_death_sample"
+durations = Array[Resource]([SubResource("Res_death_dur_fx"), SubResource("Res_death_dur_delay")])
+
+[resource]
+script = ExtResource("1_init")
+spawn_flow = SubResource("Res_spawn_graph")
+death_flow = SubResource("Res_death_graph")

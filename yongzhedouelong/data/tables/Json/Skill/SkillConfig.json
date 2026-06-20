@@ -1,9 +1,0 @@
-{
-	"1021001": {
-		"cooldown": 5.0,
-		"damage": 20.0,
-		"description": "进阶攻击技能",
-		"level": 2.0,
-		"range": 150.0
-	}
-}

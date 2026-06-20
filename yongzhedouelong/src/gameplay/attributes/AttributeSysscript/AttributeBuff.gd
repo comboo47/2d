@@ -9,12 +9,17 @@ class_name AttributeBuff extends Resource
 @export var buffDuration := 0.0
 @export var buffPeriod := 0
 @export var isLeaveReset := false
-@export var BuffEffects: Array[AttributeBuffEffect] = []
 @export var duration: float = 0.0
 @export var merging := DurationMerging.Restart
 @export var stack: int = 1
 @export var max_stack: int = 1
-@export var event_flows: Dictionary = {}
+
+## 双轨：BuffFlow（轨道一，FlowGraph 节点树，随 buff apply 拉起、remove cancel，
+## 由 buff 自身宿主经 FlowInterpreter 驱动）+ effects（轨道二，
+## 选已定义的 EffectBase：ModifierEffect 改面板属性可逆 / StateEffect 高维状态）。
+## 第十三期：buff_flow 从 GameplayFlowBase 改为 FlowGraph 节点树。
+@export var buff_flow: FlowGraph = null
+@export var effects: Array[EffectBase] = []
 
 enum DurationMerging {
 	Restart,
@@ -24,20 +29,20 @@ enum DurationMerging {
 
 var BuffSource: BattleActor = null
 var BuffTarget: BattleActor = null
-var attribute_modifier: AttributeModifier = null
 var remaining_time: float = 0.0
 var is_pending_remove := false
 var applied_attribute = null
 var _tick_elapsed := 0.0
+
+## BuffFlow 运行时解释器（buff 自身宿主，节点树经 FlowInterpreter 驱动）+ 其 context。
+var _buff_interp: FlowInterpreter = null
+var _buff_ctx: GameplayFlowContext = null
 
 func write_all_children_data() -> void:
 	pass
 
 func Create(_source: BattleActor, _target: BattleActor) -> void:
 	initialize_runtime(_source, _target)
-	for effect in BuffEffects:
-		if effect:
-			effect.Create(_source, _target, self)
 
 func initialize_runtime(_source: BattleActor, _target: BattleActor) -> void:
 	_normalize_legacy_fields()
@@ -64,30 +69,61 @@ func run_process(delta: float) -> Array[GameplayEvent]:
 		if is_zero_approx(remaining_time):
 			is_pending_remove = true
 
+	# 驱动 BuffFlow 解释器每帧推进
+	if _buff_interp:
+		_buff_interp.advance(delta)
+
 	if buffPeriod > 0:
 		_tick_elapsed += delta
 		while _tick_elapsed >= float(buffPeriod):
 			_tick_elapsed -= float(buffPeriod)
+			# 周期到点：产出 BUFF_TICK 事件；BuffManager 会经 handle_gameplay_event 转给 buff_flow.on_event。
 			events.append(_make_event(GameplayEvent.EventType.BUFF_TICK))
 
 	return events
 
+#region 第八期：双轨生命周期驱动（由 BuffManager 在 apply/remove 时调用）
+## buff 应用时：拉起 BuffFlow + 生效所有 effects。
+func on_applied() -> void:
+	_buff_ctx = _make_ctx()
+	if buff_flow:
+		_buff_interp = FlowInterpreter.new()
+		_buff_interp.start(buff_flow.deep_duplicate(), _buff_ctx, BuffTarget)
+	for eff in effects:
+		if eff:
+			eff.apply(_buff_ctx, self)
+
+## buff 移除时：cancel BuffFlow + 逆序还原所有 effects。
+func on_removed() -> void:
+	if _buff_ctx == null:
+		_buff_ctx = _make_ctx()
+	for i in range(effects.size() - 1, -1, -1):
+		if effects[i]:
+			effects[i].remove(_buff_ctx, self)
+	if _buff_interp:
+		_buff_interp.cancel()
+		_buff_interp = null
+
+func _make_ctx() -> GameplayFlowContext:
+	var ctx := GameplayFlowContext.new()
+	ctx.source = BuffSource
+	ctx.target = BuffTarget
+	ctx.buff = self
+	ctx.stack = stack
+	return ctx
+#endregion
+
+## 第八期：总线/生命周期事件转发给 BuffFlow（替代旧 event_flows 字典）。
+## BuffManager 把与本 buff source/target 相关的事件、以及 BUFF_APPLIED/REMOVED/TICK 转到这里。
 func handle_gameplay_event(event: GameplayEvent) -> void:
 	if event == null or is_pending_remove:
 		return
-	if not event_flows.has(event.event_type):
+	if _buff_interp == null:
 		return
-
-	var context := GameplayFlowContext.create_from_event(event)
-	context.buff = self
-	context.source = BuffSource
-	if context.target == null:
-		context.target = BuffTarget
-	context.stack = stack
-
-	for flow in event_flows[event.event_type]:
-		if flow is GameplayFlowBase:
-			flow.deep_duplicate().execute(context)
+	if _buff_ctx == null:
+		_buff_ctx = _make_ctx()
+	_buff_ctx.stack = stack
+	_buff_interp.deliver_event(event)
 
 func emit_lifecycle_event(type: GameplayEvent.EventType) -> void:
 	var event := _make_event(type)
@@ -106,11 +142,6 @@ func restart_duration() -> void:
 func extend_duration(time: float) -> void:
 	remaining_time += time
 
-func operate(base_value: float) -> float:
-	if attribute_modifier:
-		return attribute_modifier.operate(base_value)
-	return base_value
-
 func set_merging(_merging: DurationMerging) -> void:
 	merging = _merging
 
@@ -119,11 +150,6 @@ func set_duration(time: float) -> AttributeBuff:
 	buffDuration = time
 	remaining_time = time
 	return self
-
-func buff_execute() -> void:
-	for effect in BuffEffects:
-		if effect:
-			effect.EffectGo()
 
 func _make_event(type: GameplayEvent.EventType) -> GameplayEvent:
 	var event := GameplayEvent.create(type, BuffSource, BuffTarget)

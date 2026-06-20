@@ -63,17 +63,19 @@ static func resolve_bullet_hit(source: BattleActor, target: BattleActor, amount:
 	request.amount = amount
 	request.formula = formula
 	request.tags = ["weapon", "bullet"]
+	var was_dead: bool = target.is_dead
 	var result := DamageResolver.resolve(request)
 
 	# 附加状态 Buff（燃烧/减速等）；纯伤害值已由 DamageResolver 处理
 	if not status_buff_id.is_empty():
 		ApplyBuff(source, target, status_buff_id)
 
-	# 触发武器技能槽：命中 → ON_HIT；若目标血量归零 → ON_KILL
+	# 触发武器技能槽：命中 → ON_HIT；若本次为致命一击（命中前未死、命中后血量归零）→ ON_KILL。
+	# 注：死亡判定/ACTOR_* 事件已由 DamageResolver 全权收口；这里仅触发武器自身技能槽。
 	if weapon and is_instance_valid(weapon) and weapon.has_method("trigger_skill_by_type"):
 		var ctx := GameplayFlowContext.create_attack(source, target, result.final_amount)
 		weapon.trigger_skill_by_type(WeaponSkillSlot.TriggerType.ON_HIT, ctx)
-		if result.target_hp_after <= 0.0:
+		if not was_dead and result.target_hp_after <= 0.0:
 			weapon.trigger_skill_by_type(WeaponSkillSlot.TriggerType.ON_KILL, ctx)
 
 	return result
@@ -124,14 +126,14 @@ static func PlayVfxFollow(vfx_type: VfxConfigClass.VfxType, target: Node2D, offs
 #endregion
 
 #region Flow 相关方法
-## 执行 GameplayFlow
+## 执行 GameplayFlow（第十三期：FlowRegistry 返回 FlowGraph，经解释器一次性跑完）
 static func ExecuteFlow(flow_id: String, context: GameplayFlowContext) -> void:
 	if FlowRegistry.instance == null:
 		return
 
 	var flow = FlowRegistry.instance.get_flow(flow_id)
 	if flow:
-		flow.execute(context)
+		FlowInterpreter.run_oneshot(flow, context)
 
 ## 触发角色的受伤 Flow
 static func TriggerHitFlow(target: BattleActor, damage: float, source: BattleActor = null) -> void:

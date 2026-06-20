@@ -1,0 +1,27 @@
+{
+  "flow_id": "bow_shot",
+  "flow_name": "弓·射击",
+  "schema_version": 1,
+  "entry": "d0",
+  "nodes": [
+    {
+      "id": "d0", "type": "duration", "pos": [120, 80],
+      "lifetime_mode": "INSTANT",
+      "children": [
+        {
+          "kind": "action",
+          "leaf": {
+            "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_BowShot.gd",
+            "props": {
+              "bullet_scene": "res://scenes/weapons/Bow/bullet_bow.tscn",
+              "base_speed": 250.0,
+              "bullet_type": 0,
+              "max_charge_speed": 650.0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "connections": []
+}

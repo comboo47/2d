@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="SkillBase" format=3 uid="uid://djom4ip2skffs"]
+
+[ext_resource type="Script" uid="uid://b5i0i0ntbo5h1" path="res://src/gameplay/skills/SkillBase.gd" id="1_skill"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowGraph.gd" id="2_graph"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowDuration.gd" id="3_dur"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowAction.gd" id="4_act"]
+[ext_resource type="Resource" path="res://resources/gameplay/buffs/WeaponTemplate_Buff.tres" id="5_buff"]
+
+[sub_resource type="Resource" id="Resource_dmg"]
+script = ExtResource("4_act")
+action_name = "deal_damage"
+opts = {
+"base": 6.0,
+"formula": "damage.amount",
+"tags": ["pistol", "skill", "burst"]
+}
+
+[sub_resource type="Resource" id="Resource_buff"]
+script = ExtResource("4_act")
+action_name = "apply_buff"
+buff_res = ExtResource("5_buff")
+
+[sub_resource type="Resource" id="Resource_dur"]
+script = ExtResource("3_dur")
+lifetime_mode = 0
+children = Array[Resource]([SubResource("Resource_dmg"), SubResource("Resource_buff")])
+
+[sub_resource type="Resource" id="Resource_graph"]
+script = ExtResource("2_graph")
+flow_id = "weapon_template_skill"
+flow_name = "WeaponTemplate Skill"
+durations = Array[Resource]([SubResource("Resource_dur")])
+
+[resource]
+script = ExtResource("1_skill")
+skill_id = "WeaponTemplate_Skill"
+skill_name = "模板手枪·命中追击"
+skill_description = "手枪命中目标时触发：追加一段伤害，并叠加一层命中标记（持续掉血）。"
+skill_type = 2
+cost_type = 3
+cooldown_time = 0.0
+graph_refs = Array[ExtResource("2_graph")]([SubResource("Resource_graph")])

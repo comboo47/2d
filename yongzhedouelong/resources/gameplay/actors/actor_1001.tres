@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ActorDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/gameplay/actors/ActorDefinition.gd" id="1_adef"]
+[ext_resource type="PackedScene" uid="uid://bn5q4clyianrt" path="res://scenes/actors/enemies/First_Enemy.tscn" id="2_prefab"]
+[ext_resource type="BehaviorTree" uid="uid://74vcupsxdkg3" path="res://src/gameplay/ai/HSM&BT/BehaviorTree/BTTree/FirstEnemyTree.tres" id="3_bt"]
+
+[resource]
+script = ExtResource("1_adef")
+actor_id = 1001
+actor_name = "FirstEnemy"
+display_name = "初级敌人"
+description = "基础敌人，无护甲，移动速度较快"
+prefab = ExtResource("2_prefab")
+behavior_tree = ExtResource("3_bt")
+attributes = {
+"armor": 0.0,
+"attack": 2.0,
+"jump_power": 30.0,
+"max_hp": 12.0,
+"new_attr": 0.0,
+"speed": 50.0
+}
+drop_table_id = "drop_001"

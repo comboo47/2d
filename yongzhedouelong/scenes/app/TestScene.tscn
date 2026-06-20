@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://k7cva55fyfsi" path="res://scenes/app/TestScene.gdshader" id="4_wq34x"]
 [ext_resource type="PackedScene" uid="uid://bsf4te0cyp1e2" path="res://scenes/actors/player/First_Player.tscn" id="5_player"]
 [ext_resource type="PackedScene" uid="uid://bd1xbvg3u736y" path="res://scenes/app/superJump.tscn" id="6_syxvn"]
+[ext_resource type="Script" uid="uid://ckdsb5xcegjnv" path="res://src/gameplay/levels/LevelRunner.gd" id="7_levelrunner"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtu8f"]
 texture = ExtResource("2_8pwmi")
@@ -160,8 +161,9 @@ gizmo_extents = 35.8
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1971936173]
 position = Vector2(384, 241)
 
-[node name="DamageTestEnemy" parent="." unique_id=2015680375 instance=ExtResource("3_kbtsn")]
-position = Vector2(236, 224)
+[node name="LevelRunner" type="Node" parent="." unique_id=2015680375]
+script = ExtResource("7_levelrunner")
+actor_parent = NodePath("..")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=318485571]
 material = SubResource("ShaderMaterial_syxvn")

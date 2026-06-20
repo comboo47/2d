@@ -1,19 +1,34 @@
-[gd_resource type="Resource" script_class="GameplayFlowBase" format=3 uid="uid://b88x4rji53uuc"]
+[gd_resource type="Resource" script_class="FlowGraph" format=3 uid="uid://b88x4rji53uuc"]
 
-[ext_resource type="Script" uid="uid://lsnherm2b74m" path="res://src/gameplay/flows/FlowEffect/FlowEffectBase.gd" id="1_f7duc"]
-[ext_resource type="Script" uid="uid://cmtc2bl6sicdp" path="res://src/gameplay/flows/FlowEffect/FE_Damage.gd" id="2_ammqp"]
-[ext_resource type="Script" uid="uid://bi7m46qb0kiq7" path="res://src/gameplay/flows/GameplayFlowBase.gd" id="3_pr341"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowGraph.gd" id="1_graph"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowDuration.gd" id="2_dur"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowTrigger.gd" id="3_trig"]
+[ext_resource type="Script" path="res://src/gameplay/flows/graph/FlowAction.gd" id="4_act"]
 
-[sub_resource type="Resource" id="Resource_82bho"]
-script = ExtResource("2_ammqp")
-base_damage = 1.0
-use_attack_bonus = false
-use_armor_reduction = false
-damage_expression = "source_attr(\"Atk\") + stack"
-damage_tags = Array[String](["fire", "dot", "burn"])
+[sub_resource type="Resource" id="Resource_dmg"]
+script = ExtResource("4_act")
+action_name = "deal_damage"
+opts = {
+"base": 1.0,
+"use_atk": false,
+"use_armor": false,
+"formula": "source_attr(\"Atk\") + stack",
+"tags": ["fire", "dot", "burn"]
+}
+
+[sub_resource type="Resource" id="Resource_trig"]
+script = ExtResource("3_trig")
+event_type = 9
+end_mode = 2
+actions = Array[Resource]([SubResource("Resource_dmg")])
+
+[sub_resource type="Resource" id="Resource_dur"]
+script = ExtResource("2_dur")
+lifetime_mode = 3
+children = Array[Resource]([SubResource("Resource_trig")])
 
 [resource]
-script = ExtResource("3_pr341")
+script = ExtResource("1_graph")
 flow_id = "example_burn_tick"
 flow_name = "Example Burn Tick"
-effects = Array[ExtResource("1_f7duc")]([SubResource("Resource_82bho")])
+durations = Array[Resource]([SubResource("Resource_dur")])

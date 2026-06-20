@@ -3,7 +3,9 @@ class_name EnemyConfigLoader extends RefCounted
 ## 从 JSON 文件加载敌人配置和掉落配置
 
 ## 配置文件路径
-const ENEMY_CONFIG_PATH := "res://data/tables/Json/Enemy/EnemyConfig.json"
+## 敌人配置已迁移为 res://resources/gameplay/actors/ 下的 ActorDefinition .tres，
+## 不再读 EnemyConfig.json（该 JSON 仅作历史归档）。掉落仍读 DropConfig.json。
+const ACTOR_DEF_DIR := "res://resources/gameplay/actors/"
 const DROP_CONFIG_PATH := "res://data/tables/Json/Enemy/DropConfig.json"
 
 ## 配置缓存
@@ -16,7 +18,7 @@ var _loaded: bool = false
 
 ## 加载所有配置
 func load_configs() -> bool:
-	_enemy_configs = _load_json_file(ENEMY_CONFIG_PATH)
+	_enemy_configs = _load_actor_definitions(ACTOR_DEF_DIR)
 	_drop_configs = _load_json_file(DROP_CONFIG_PATH)
 
 	# 提取全局掉落配置
@@ -30,6 +32,27 @@ func load_configs() -> bool:
 		push_warning("EnemyConfigLoader: 配置加载失败")
 
 	return _loaded
+
+## 扫描 actors 目录，把每个 ActorDefinition.tres 转成与旧 JSON 同形态的 config dict。
+## key 为 str(actor_id)，与 get_enemy_config 的查询方式一致。
+func _load_actor_definitions(dir_path: String) -> Dictionary:
+	var configs: Dictionary = {}
+	var dir = DirAccess.open(dir_path)
+	if dir == null:
+		push_warning("EnemyConfigLoader: 无法打开角色目录 %s" % dir_path)
+		return configs
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	while file_name != "":
+		if not dir.current_is_dir() and file_name.ends_with(".tres"):
+			var res = load(dir_path + file_name)
+			if res is ActorDefinition and res.actor_id > 0:
+				configs[str(res.actor_id)] = res.to_config_dict()
+			else:
+				push_warning("EnemyConfigLoader: %s 不是有效的 ActorDefinition" % file_name)
+		file_name = dir.get_next()
+	dir.list_dir_end()
+	return configs
 
 ## 加载 JSON 文件
 func _load_json_file(path: String) -> Dictionary:

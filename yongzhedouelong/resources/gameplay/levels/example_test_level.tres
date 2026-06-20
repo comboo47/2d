@@ -24,4 +24,5 @@ position = Vector2(420, 240)
 script = ExtResource("6_level")
 level_id = "example_test_level"
 level_name = "Example Test Level"
+show_in_select = false
 initial_actors = Array[ExtResource("1_actor_def")]([SubResource("Resource_player_def"), SubResource("Resource_enemy_def")])

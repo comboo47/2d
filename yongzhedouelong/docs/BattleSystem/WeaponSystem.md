@@ -1,5 +1,13 @@
 # 武器系统说明文档
 
+> ⚠️ **本文档已过时（2026/06/13）**。下文描述的 `WeaponBase` + `WeaponBow/Bottle/Crossbow`
+> 子类模型已在第三期重构中**删除**。当前武器系统为 **Flow 驱动**：
+> 武器 = `WeaponDefinition` 数据（持有 `input_mode` + `fire_flow`），开火逻辑写在继承
+> `WeaponFireFlowBase` 的常驻 Flow 里，由通用节点 `WeaponDriver` + autoload `FlowRuntime` 驱动。
+>
+> **新增武器请看 → [AddNewWeapon.md](AddNewWeapon.md)**。
+> 下文仅作历史参考，类继承图与 weapon_base 相关内容均已失效。
+
 ## 类继承关系图
 
 ```

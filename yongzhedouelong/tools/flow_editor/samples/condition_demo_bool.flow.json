@@ -1,0 +1,43 @@
+{
+  "flow_id": "condition_demo_bool",
+  "flow_name": "Condition 演示（蓄满分支：满→三连散射，否则→单发）",
+  "schema_version": 1,
+  "entry": "c0",
+  "nodes": [
+    {
+      "id": "c0", "type": "condition", "pos": [120, 160],
+      "expression": "event_value(\"charge_ratio\") >= 1.0",
+      "use_switch": false
+    },
+    {
+      "id": "d_full", "type": "duration", "pos": [380, 80],
+      "lifetime_mode": "INSTANT",
+      "children": [
+        {
+          "kind": "action", "action_name": "fire_projectile",
+          "opts": {
+            "bullet": "res://scenes/weapons/Bottle/bullet_bottle.tscn",
+            "speed": 300.0, "spread_count": 3, "spread_angle": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "d_single", "type": "duration", "pos": [380, 260],
+      "lifetime_mode": "INSTANT",
+      "children": [
+        {
+          "kind": "action", "action_name": "fire_projectile",
+          "opts": {
+            "bullet": "res://scenes/weapons/Bottle/bullet_bottle.tscn",
+            "speed": 300.0, "spread_count": 1, "spread_angle": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "connections": [
+    { "from": "c0", "from_pin": "true", "to": "d_full" },
+    { "from": "c0", "from_pin": "false", "to": "d_single" }
+  ]
+}

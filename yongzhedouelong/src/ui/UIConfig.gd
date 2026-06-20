@@ -24,6 +24,7 @@ const MENU_MAIN := "MainMenu"
 const MENU_PAUSE := "PauseMenu"
 const MENU_SETTINGS := "Settings"
 const MENU_LEVEL_SELECT := "LevelSelect"
+const MENU_LEVEL_RESULT := "LevelResult"
 const MENU_LOADING := "Loading"
 
 const HUD_BATTLE := "BattleHUD"
@@ -68,6 +69,12 @@ const WINDOWS := {
 	},
 	MENU_LEVEL_SELECT: {
 		KEY_PATH: "res://scenes/ui/menu/LevelSelect.tscn",
+		KEY_LAYER: UILayerType.SCREEN,
+		KEY_CACHE: true,
+		KEY_EXCLUSIVE: true,
+	},
+	MENU_LEVEL_RESULT: {
+		KEY_PATH: "res://scenes/ui/menu/LevelResult.tscn",
 		KEY_LAYER: UILayerType.SCREEN,
 		KEY_CACHE: true,
 		KEY_EXCLUSIVE: true,

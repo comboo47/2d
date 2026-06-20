@@ -41,15 +41,17 @@ There is no general CLI build step. `tests/` are plain `extends SceneTree` scrip
 
 ### Gameplay runtime core: Flow → Effect → Context
 
-The unifying protocol (`src/gameplay/flows/`, `core/`, `damage/`). Levels, skills, and buffs all drive logic through the same pieces — prefer this over older bespoke systems:
+The unifying protocol (`src/gameplay/flows/`, `core/`, `damage/`, `effects/`). Levels, skills, and buffs all drive logic through the same pieces — prefer this over older bespoke systems:
 
-- `GameplayFlowBase` holds `effects: Array[FlowEffectBase]`, executed in ascending `priority`.
+- **Flow = a Duration/Trigger/Action node tree run by a per-instance interpreter (第十三期).** A `FlowGraph` (`src/gameplay/flows/graph/`) holds `durations: Array[FlowDuration]` (main line, serial). A `FlowDuration` is a lifetime shell (`LifetimeMode` INSTANT/FRAMES/SECONDS/FOREVER) holding parallel `children` — `FlowTrigger` (a persistent event listener with `EndMode` ONCE/COUNT/NEVER, fires its `actions` and may `finish_parent`) and `FlowAction` (instant: `action_name`+`opts` dispatched to the static `FlowActions` library, or a `FlowLeaf` script for computation like bow-charge lerp). `FlowInterpreter` (`extends RefCounted`, per-host, **not** an autoload and **not** subscribed to any bus) drives it: hosts call `start(graph,ctx,host)` / `advance(delta)` (feed frames) / `deliver_event(event)` (bridge events) / `cancel()` (deterministic sync teardown — replaces leak-prone coroutine await); `FlowInterpreter.run_oneshot(graph,ctx,host)` runs a graph to completion for one-shot hosts. The old `GameplayFlowBase` script-class model and `FlowRuntime` autoload were **deleted** in 第十三期; `FlowActions` (the stateless static action implementations) is unchanged and reused by the interpreter and leaves. There is **no `effects` data-assembly array** on flows (the old `FlowEffectBase`/`FE_*` were deleted in 第八期).
+- **Effect = logic carried by a buff (`src/gameplay/effects/`).** `EffectBase` with `apply(ctx, buff)`/`remove(ctx, buff)`; subclasses `ModifierEffect` (reversible panel-attribute change via `Attribute` modifier-source stack, keyed by buff runtime id) and `StateEffect` (invincible/stealth/vision, set on apply / cleared on remove). Effects only attach to buffs.
+- **Buff = lifecycle data + dual track.** `AttributeBuff` carries `buff_flow` (now a `FlowGraph` node tree, driven by a `FlowInterpreter` the buff hosts — `on_applied`→start, `run_process`→advance, `handle_gameplay_event`→deliver_event, `on_removed`→cancel) **and** `effects: Array[EffectBase]` (applied on add, reverted on remove). The old `event_flows` dict / `BuffEffects` / `attribute_modifier` were removed; `BuffManager.apply_buff/remove_buff` calls `on_applied()/on_removed()`.
+- **Attribute layering.** Panel attributes (Atk/Armor/MaxHP/Crit) use `base_value + 修改源栈` → `computed` (never mutated in place; buff/flow push removable sources via `add_modifier_source/remove_modifier_source`). Resource values (current HP/energy) use immediate `add/sub` (damage still routed through DamageResolver).
 - `GameplayFlowContext` carries `source`, `target`, `skill`, `buff`, `level`, `gameplay_event`, `damage_request`, `stack`, `event_data`.
-- `FlowEffectBase` is the base for new effects (`FE_Damage`, `FE_ApplyBuff`, `FE_SpawnEntity`, …). Legacy `SkillEffectBase` / `AttributeBuffEffect` remain only as a compatibility layer.
 - `GameplayEventBus` (`src/gameplay/core/`) is a **static** event bus, intentionally not an autoload, so the core doesn't couple to `project.godot`.
-- **Damage never bypasses the resolver:** `FE_Damage` builds a `DamageRequest` → `DamageResolver.resolve()` broadcasts `DAMAGE_REQUESTED` (buffs can mutate the request) → evaluates the formula → deducts HP → broadcasts `DAMAGE_APPLIED`. Formulas use a whitelist with helpers `source_attr("Atk")`, `target_attr("Armor")`, `event_value(...)`, `has_tag(...)`. See `Docs/BattleSystem/GameplayRuntimeCore.md`.
+- **Damage never bypasses the resolver:** flow/skill/buff damage builds a `DamageRequest` → `DamageResolver.resolve()` broadcasts `DAMAGE_REQUESTED` (buffs can mutate the request) → evaluates the formula → deducts HP → broadcasts `DAMAGE_APPLIED`. Formulas use a whitelist with helpers `source_attr("Atk")`, `target_attr("Armor")`, `event_value(...)`, `has_tag(...)`. **The resolver is the single chokepoint that judges death and emits the actor lifecycle:** after deducting HP it broadcasts `ACTOR_HIT` (damage>0, carries source), `ACTOR_DIED` (HP≤0, killer in event_data) and `ACTOR_KILL` (lethal blow with a source), and drives `BattleActor.kill()` → `_on_death()`. All damage funnels through it (`FlowActions.deal_damage` and `modify_attr` for Hp-SUB); self-cost like skill HP sacrifice does not. The old `BattleActor` `actor_*` signals are deleted — everything goes through `GameplayEventBus`. See `Docs/BattleSystem/GameplayRuntimeCore.md` and `GameplayLifecycle.md`.
 
-Event-driven buffs: `AttributeBuff.event_flows` maps `GameplayEvent.EventType` (e.g. `BUFF_TICK`, `DAMAGE_REQUESTED`) → flows. `BuffManager` fires `BUFF_TICK` per `buffPeriod`.
+Event-driven buffs: a buff's `buff_flow` is driven by the buff's own lifecycle — `BuffManager` fires `BUFF_TICK` per `buffPeriod`, and the buff forwards bus/lifecycle events to its interpreter via `deliver_event` (a FOREVER Duration + `FlowTrigger(BUFF_TICK, NEVER)` → `deal_damage` is the burn/DoT pattern). (`LevelDefinition.event_flows` is unrelated — that's level-lifecycle, now a `{EventType → FlowGraph[]}` map run via `FlowInterpreter.run_oneshot`.)
 
 ### Data-driven resources + registries
 
@@ -60,7 +62,7 @@ Gameplay content is `.tres` resources scanned at startup (autoloads in `project.
 - `FlowRegistry` (`GameplayFlowRegistry`) — `res://resources/gameplay/flows/`.
 - Levels/campaign/enemies live under the sibling `resources/gameplay/` folders.
 
-Skills reference flows by `flow_refs` (direct) or `on_use_flow_id` (looked up via `/root/FlowRegistry`).
+Skills reference flows by `graph_refs: Array[FlowGraph]` (direct) or `on_use_flow_id` (looked up via `/root/FlowRegistry`, which now caches `FlowGraph` templates and returns `deep_duplicate()` copies).
 
 **Runtime actors must duplicate resources, not mutate shared resource state** — attributes/buffs are shared `.tres` assets.
 

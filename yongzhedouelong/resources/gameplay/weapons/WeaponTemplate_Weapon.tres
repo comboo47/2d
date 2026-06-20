@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" format=3 uid="uid://7hvvy1tfa1y2"]
+
+[ext_resource type="Script" uid="uid://b61xfb12xovxb" path="res://src/gameplay/weapons/WeaponDefinition.gd" id="1_wdef"]
+[ext_resource type="Resource" uid="uid://cl18n6x8dvieh" path="res://resources/gameplay/bullets/WeaponTemplate_Bullet.tres" id="2_bullet"]
+[ext_resource type="Script" uid="uid://dd5macrvqxt5a" path="res://src/gameplay/weapons/WeaponSkillSlot.gd" id="3_slot"]
+[ext_resource type="Resource" uid="uid://djom4ip2skffs" path="res://resources/gameplay/skills/WeaponTemplate_Skill.tres" id="4_skill"]
+[ext_resource type="Script" path="res://src/gameplay/weapons/WeaponCadence.gd" id="5_cad"]
+[ext_resource type="Script" path="res://src/gameplay/weapons/WeaponInputBinding.gd" id="6_bind"]
+[ext_resource type="Resource" uid="uid://dskpistolfire01" path="res://resources/gameplay/skills/skill_pistol_fire.tres" id="7_skill"]
+
+[sub_resource type="Resource" id="Resource_hit_slot"]
+script = ExtResource("3_slot")
+skill = ExtResource("4_skill")
+trigger_type = 1
+
+[sub_resource type="Resource" id="Resource_cad"]
+script = ExtResource("5_cad")
+mode = 1
+repeat_interval = 0.12
+min_fire_interval = 0.12
+
+[sub_resource type="Resource" id="Resource_bind"]
+script = ExtResource("6_bind")
+action_name = &"fire"
+cadence = SubResource("Resource_cad")
+skill = ExtResource("7_skill")
+consume_energy = true
+energy_cost = 8.0
+
+[resource]
+script = ExtResource("1_wdef")
+weapon_id = "WeaponTemplate_Weapon"
+display_name = "模板手枪"
+weapon_type = 2
+bullet_def = ExtResource("2_bullet")
+bullet_type = 1
+base_speed = 600.0
+base_damage = 4.0
+damage_buff_id = "WeaponTemplate_Buff"
+max_energy = 120.0
+energy_cost = 8.0
+energy_regen = 12.0
+input_bindings = Array[ExtResource("6_bind")]([SubResource("Resource_bind")])
+primary_skill_slot = SubResource("Resource_hit_slot")

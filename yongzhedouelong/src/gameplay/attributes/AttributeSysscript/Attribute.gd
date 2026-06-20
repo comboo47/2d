@@ -22,6 +22,13 @@ var is_initialized_base_value = false
 ## 储存对属性值产生影响Buff的缓存
 var buffs: Array[AttributeBuff] = []
 
+## 面板属性可逆修改源栈（第八期）。
+## 每项 {source_id:String, type:AttributeModifier.OperationType, value:float}。
+## 面板属性（攻击/护甲/最大HP/暴击）的加成走这里：以 base_value 为基准、顺序过所有源算 computed，
+## 永不原地改 base。buff 加成压带 source_id 的源、移除时按 id 弹出还原（可叠加可逆）。
+## 资源值（当前HP/能量）不用此栈，走 add/sub 即时增减（伤害仍走 DamageResolver）。
+var _mod_sources: Array = []
+
 var old_value:float
 
 ## 该属性位于的属性集
@@ -110,6 +117,31 @@ func div(_value: float):
 
 func get_buff_size() -> int:
 	return buffs.size()
+
+
+#region 面板属性修改源栈（第八期，可叠加可逆）
+## 压入一个带 source_id 的修改源并重算。同一 source_id 可多次压入（叠加）。
+func add_modifier_source(source_id: String, type: AttributeModifier.OperationType, value: float) -> void:
+	_mod_sources.append({"source_id": source_id, "type": type, "value": value})
+	_recompute_from_sources()
+
+## 移除某 source_id 的全部修改源并重算（buff 移除时还原）。
+func remove_modifier_source(source_id: String) -> void:
+	var changed := false
+	for i in range(_mod_sources.size() - 1, -1, -1):
+		if _mod_sources[i].get("source_id", "") == source_id:
+			_mod_sources.remove_at(i)
+			changed = true
+	if changed:
+		_recompute_from_sources()
+
+## 以 base_value 为起点，顺序过所有修改源算出 computed_value（再走派生/clamp）。
+func _recompute_from_sources() -> void:
+	var v := base_value
+	for src in _mod_sources:
+		v = AttributeModifier.create(src["type"], src["value"]).operate(v)
+	computed_value = _compute_value(v)
+#endregion
 
 
 func apply_buff_operation(_buff: AttributeBuff):

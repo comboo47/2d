@@ -434,6 +434,12 @@ func _handle_panel_action(action_name: String, payload: Dictionary, id: String, 
 		"start_game":
 			var scene_path: String = str(payload.get("scene_path", GameManager.DEFAULT_GAME_SCENE))
 			GameManager.start_game(scene_path)
+		"start_level":
+			GameManager.start_level(str(payload.get("level_id", "")))
+		"to_level_select":
+			GameManager.return_to_level_select()
+		"retry_level":
+			GameManager.start_level(str(payload.get("level_id", "")))
 		"resume_game":
 			InputManager.lock_inputs(float(payload.get("lock_duration", 0.3)))
 			GameManager.change_state(GameManager.GameState.PLAYING)

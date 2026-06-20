@@ -27,6 +27,7 @@ func apply_buff(buff: AttributeBuff, source: BattleActor, target: BattleActor) -
 
 	var runtime_buff := buff.deep_duplicate(source, target)
 	buffList.append(runtime_buff)
+	runtime_buff.on_applied()
 	runtime_buff.emit_lifecycle_event(GameplayEvent.EventType.BUFF_APPLIED)
 	return runtime_buff
 
@@ -35,6 +36,7 @@ func remove_buff(buff: AttributeBuff) -> void:
 		return
 	if buffList.has(buff):
 		buff.emit_lifecycle_event(GameplayEvent.EventType.BUFF_REMOVED)
+		buff.on_removed()
 		buffList.erase(buff)
 
 func find_buff(buff_id: String) -> AttributeBuff:

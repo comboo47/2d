@@ -1,57 +1,68 @@
 # Gameplay Runtime Core Baseline
 
-本文档记录第一版 Gameplay 运行时核心的使用方式和验收边界。当前目标是把 `Flow -> Effect -> Context` 作为统一协议，让 Level、Actor、Skill、Buff 都通过同一套 Flow/Effect 执行玩法逻辑。
+> **第十三期更新（2026/06/15）**：Flow 已从「脚本类 `GameplayFlowBase`」重构为 **Duration/Trigger/Action 节点树（`FlowGraph`）+ per-instance `FlowInterpreter`**。`GameplayFlowBase` 与 `FlowRuntime` autoload 已删除。**Flow 的权威文档见 [`FlowSystem.md`](FlowSystem.md)**（终态架构 + 设计取舍 + 待办）。下文「运行时协议」中关于 `GameplayFlowBase`/`_execute_flow`/`is_persistent`/`FlowRuntime` 的描述为旧态；`FlowActions` 动作库静态实现不变，被解释器与 `FlowLeaf` 叶子复用。
+>
+> 现态要点：`FlowGraph.durations`（主线串行）→ `FlowDuration`（生命周期壳 INSTANT/FRAMES/SECONDS/FOREVER，children 并行）→ `FlowTrigger`（事件监听，EndMode ONCE/COUNT/NEVER，可 finish_parent）/ `FlowAction`（瞬时，action_name+opts 调 FlowActions，或 `FlowLeaf` 脚本叶子）。`FlowInterpreter`（RefCounted，per-host，不进树不订阅总线）：`start/advance(delta)/deliver_event(event)/cancel()`；`run_oneshot(graph,ctx,host)` 供一次性宿主。六类宿主（skill `graph_refs`、buff `buff_flow`、actor `spawn/death_flow`、trait `trait_flow`、level `event_flows`、weapon 已转 skill）均 per-instance 持解释器。
+
+本文档记录 Gameplay 运行时核心的使用方式和验收边界。`Flow / Effect / Buff` 经第八期重构为清晰三层：**Flow = gameplay 编排**，**Effect = 挂在 buff 上的逻辑承载**，**Buff = 生命周期数据 + buff_flow + effects 双轨**。Level、Actor、Skill、Buff 都通过这套统一协议执行玩法逻辑。
 
 ## 运行时协议
 
-- `GameplayFlowBase` 是流程容器，持有 `effects: Array[FlowEffectBase]`，按 `priority` 从小到大执行。
+- `GameplayFlowBase` 是流程基类。一次性 flow 重写 `_execute_flow(ctx)`；常驻 flow（`is_persistent=true`）重写 `on_start/on_tick/on_event/on_stop`，由 `FlowRuntime` 承载。**已无 `effects` 数据拼装数组**（第八期删除旧 `FlowEffectBase`/`FE_*`）。
+- **Flow 动作库**：逻辑写在脚本里，用 `GameplayFlowBase` 上的薄方法 `fire_projectile`/`deal_damage`/`apply_buff`/`modify_attr`/`spawn_entity`/`play_vfx`（委托无状态静态类 `FlowActions`，`src/gameplay/flows/FlowActions.gd`）。
 - `GameplayFlowContext` 是执行上下文，传递 `source`、`target`、`skill`、`buff`、`level`、`gameplay_event`、`damage_request`、`stack`、`event_data`。
-- `FlowEffectBase` 是新 Effect 基类。新玩法效果优先继承它，旧 `SkillEffectBase` 和 `AttributeBuffEffect` 只作为兼容层保留。
-- `GameplayEventBus` 当前作为静态事件总线使用，不依赖 autoload，避免第一版核心和 `project.godot` 的项目级改动耦合。
+- **Effect**（`src/gameplay/effects/`）：`EffectBase` 提供 `apply(ctx, buff)`/`remove(ctx, buff)`。`ModifierEffect` 改面板属性（走 Attribute 修改源栈，按 buff runtime id 可逆）；`StateEffect` 管高维状态（无敌/隐身/视野，apply 设、remove 清）。Effect 只挂 buff。
+- `GameplayEventBus` 作为静态事件总线，不依赖 autoload，避免核心和 `project.godot` 的项目级改动耦合。
 
 ## Skill -> Flow
 
 策划创建或编辑 `SkillBase` Resource 时，技能本体只保留冷却、消耗、等级和目标选择等施放信息。
 
-- 直接引用 Flow：把 `GameplayFlowBase` Resource 填入 `flow_refs`。
+- 直接引用 Flow：把 `GameplayFlowBase` 脚本类实例（.tres 壳）填入 `flow_refs`。
 - 通过注册表引用 Flow：填写 `on_use_flow_id`，运行时会从 `/root/FlowRegistry` 查找。
-- 兼容旧内容：`effects: Array[SkillEffectBase]` 仍会先执行，但新内容应优先迁移到 `FlowEffectBase`。
+- skill 不再有 `effects` 字段（第八期删除 `SkillEffectBase`/`SE_*`）——技能逻辑一律走 flow 脚本 + 动作库。
 
 调用 `skill.use(context)` 后，系统会写入 `context.skill`、`skill_id`、`skill_level`，消耗资源并启动冷却，然后执行 Flow，最后广播 `GameplayEvent.EventType.SKILL_USED`。
 
-## Buff Event -> Flow
+## Buff = buff_flow + effects（双轨）
 
-`AttributeBuff` 现在由事件驱动。Buff Resource 上的 `event_flows` 字典把事件类型映射到 Flow 列表，例如：
+`AttributeBuff` 自带生命周期数据（`duration`/`buffPeriod`/`stack`/`merging`），并有两条挂逻辑的轨道：
+
+- **buff_flow**（轨道一）：单个常驻 flow，buff apply 时 `deep_duplicate` 拉起并 `on_start`，每帧 `on_tick`，每 `buffPeriod` 收到 `BUFF_TICK` 经 `on_event` 响应，remove 时 `on_stop`。燃烧/标记跳伤这类周期逻辑写在 buff_flow 里（见 `Flow_BurnTick`）。
+- **effects**（轨道二）：`Array[EffectBase]`，apply 时 `apply()` 生效、remove 时逆序 `remove()` 还原。属性加成用 `ModifierEffect`（可逆），状态用 `StateEffect`。
 
 ```gdscript
-buff.event_flows = {
-	GameplayEvent.EventType.BUFF_TICK: [burn_tick_flow],
-	GameplayEvent.EventType.DAMAGE_REQUESTED: [damage_modify_flow],
-}
+buff.buff_flow = preload("res://.../Flow_BurnTick.gd").new()   # 周期伤害逻辑
+buff.effects = [modifier_effect]                                # +攻击力等可逆加成
 ```
 
-常用事件入口：
+驱动入口：`BuffManager.apply_buff` → `runtime_buff.on_applied()`（拉 buff_flow + apply effects）；`remove_buff` → `on_removed()`（revert effects + stop buff_flow）。buff 把与自身 source/target 相关的总线事件转发给 `buff_flow.on_event`。
 
-- `BUFF_APPLIED`：Buff 应用时触发。
-- `BUFF_REMOVED`：Buff 移除时触发。
-- `BUFF_TICK`：`BuffManager` 根据 `buffPeriod` 触发。
-- `BUFF_STACK_CHANGED`：层数变化时触发。
-- `DAMAGE_REQUESTED`：伤害结算前触发，可修改 `DamageRequest`。
-- `DAMAGE_APPLIED`：伤害扣血后触发，可读取最终伤害和目标血量变化。
-- `SKILL_USED`：技能使用后触发。
+> 注：旧的 `event_flows` 字典 / `BuffEffects` / `attribute_modifier` 已删除。`LevelDefinition.event_flows`（关卡级 `{事件→flows}`）与此无关，仍保留。
 
-旧 Buff 字段已做兼容映射：`id -> buff_id`，`name/buff_Name -> buff_name`，`buffDuration -> duration`。新资源建议直接填写 `buff_id`、`buff_name`、`duration`。
+旧 Buff 字段仍做兼容映射：`id -> buff_id`，`name/buff_Name -> buff_name`，`buffDuration -> duration`。
 
-## FE_Damage -> DamageRequest
+## 伤害动作 -> DamageRequest
 
 `FE_Damage` 不直接扣血，而是创建 `DamageRequest` 并交给 `DamageResolver.resolve()`。
 
 伤害流程：
 
-1. `FE_Damage` 根据 `base_damage`、攻击属性、护甲属性得到初始 `amount`。
+1. `FlowActions.deal_damage` 根据 `base`、攻击属性、护甲属性得到初始 `amount`（攻防加成折进 amount）。
 2. `DamageResolver` 广播 `DAMAGE_REQUESTED`，Buff 可在这个阶段修改 `damage_request.amount`、`tags` 或 `event_data`。
 3. `DamageRequest.evaluate_amount()` 执行表达式公式。
 4. `DamageResolver` 统一扣除目标 HP，并广播 `DAMAGE_APPLIED`。
+5. **生命周期收口**（第七期）：扣血后 `DamageResolver` 全权判定并广播 `ACTOR_HIT`（final_amount>0，带 source）/ `ACTOR_DIED`（HP≤0，event_data 带 killer）/ `ACTOR_KILL`（致命一击且 source 非空）；同时直接调 `target.trigger_hit_flow/kill()` 与 `source.trigger_kill_flow()` 驱动 actor 配置的生命周期 flow。
+
+### 伤害管线终态（唯一收口）
+
+**所有伤害都必须走 `DamageResolver.resolve()`，不得直接 `hp.sub()`。** 这是判死与 `ACTOR_*` 事件的唯一来源：
+
+- 入口：子弹/武器走 `BattleManager.resolve_bullet_hit()`；flow/skill/buff 的伤害走动作库 `FlowActions.deal_damage`（或 `modify_attr` 对 Hp 做 SUB 时收口，其余属性变更直接操作）。全部内部构建 `DamageRequest` 交给 `resolve()`。
+- 判死唯一化：`resolve()` 用 `was_dead` 守卫 + `BattleActor.is_dead`（基类防重入），HP≤0 只触发一次 `ACTOR_DIED` 与 `kill()`。`BattleManager.resolve_bullet_hit` 用 resolve **前** 的 `was_dead` 快照判武器 ON_KILL 槽，避免被 resolver 内部置位的 `is_dead` 破坏。
+- 死亡驱动：`BattleActor.kill(killer)` 是通用死亡入口（防重入 + 跑 death_flow + 调虚方法 `_on_death`）。敌人 `base_enemy._on_death` 做掉落+消失动画+queue_free；玩家死亡未纳入（见 GameplayLifecycle.md 待补清单）。
+- 旧的 `BattleActor` Godot signal（`actor_hit/died/kill/spawned`）已删除——一律走 `GameplayEventBus`。
+- 自身消耗（如技能血祭 `SkillBase._subtract_attribute`）**不**收口为伤害：无攻击者，不应触发受击/死亡事件。
 
 公式白名单变量：
 

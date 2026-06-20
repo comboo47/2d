@@ -1,0 +1,207 @@
+{
+  "$comment": "编辑器调色板/节点注册清单。从 GDScript 自省的代码事实派生（FlowActions 方法 / EventType / LifetimeMode / EndMode / leaf 脚本及其 @export）。HTML 编辑器读此注册节点，使编辑器永远跟代码同步。初期手维护，后续由生成脚本 scan GDScript 重出。数据契约（节点取值约束）见 flow.schema.json。",
+  "schema_version": 1,
+  "generated": "manual",
+
+  "enums": {
+    "lifetime_mode": ["INSTANT", "FRAMES", "SECONDS", "FOREVER"],
+    "end_mode": ["ONCE", "COUNT", "NEVER"],
+    "event_type": [
+      "LEVEL_START", "LEVEL_END",
+      "ACTOR_SPAWNED", "ACTOR_DIED", "ACTOR_HIT", "ACTOR_KILL",
+      "SKILL_USED",
+      "BUFF_APPLIED", "BUFF_REMOVED", "BUFF_TICK", "BUFF_STACK_CHANGED",
+      "DAMAGE_REQUESTED", "DAMAGE_APPLIED",
+      "WEAPON_FIRE_PRESSED", "WEAPON_FIRE_HELD", "WEAPON_FIRE_RELEASED",
+      "BULLET_SPAWNED", "BULLET_PROCESS", "BULLET_HIT", "BULLET_RELEASED"
+    ],
+    "attribute_name": ["Hp", "Armor", "Atk", "Mana", "Crit"],
+    "vfx_type": [
+      "JUMP_PARTICLE", "HIT_IMPACT", "DEATH_EFFECT", "BULLET_HIT", "SKILL_EFFECT",
+      "BUFF_APPLY", "BUFF_REMOVE", "SPAWN_EFFECT", "MISS_EFFECT", "AURA_EFFECT"
+    ]
+  },
+
+  "expression": {
+    "$comment": "Condition.expression / deal_damage.opts.formula 共用的白名单表达式引擎（Expression.parse）。",
+    "variables": ["source", "target", "skill", "buff", "event_data", "damage", "level", "stack"],
+    "helpers": [
+      { "name": "source_attr", "args": ["attr_name:String"], "returns": "float" },
+      { "name": "target_attr", "args": ["attr_name:String"], "returns": "float" },
+      { "name": "event_value", "args": ["key:String", "default=0.0"], "returns": "Variant" },
+      { "name": "has_tag", "args": ["tag:String"], "returns": "bool" }
+    ]
+  },
+
+  "mainline_nodes": [
+    {
+      "type": "duration",
+      "title": "Duration",
+      "desc": "生命周期壳，主线串行单元。children 并行挂 trigger/action。",
+      "fields": [
+        { "name": "lifetime_mode", "kind": "enum", "enum": "lifetime_mode", "default": "INSTANT" },
+        { "name": "lifetime_value", "kind": "number", "default": 0.0, "shown_when": "lifetime_mode in [FRAMES, SECONDS]" }
+      ],
+      "out_pins": ["out"],
+      "children": ["trigger", "action"]
+    },
+    {
+      "type": "condition",
+      "title": "Condition",
+      "desc": "分支：求值 → 选 pin。bool 模式 true/false；switch 模式 case_0..case_N/default。",
+      "fields": [
+        { "name": "expression", "kind": "expr", "default": "" },
+        { "name": "predicate", "kind": "script_ref", "optional": true },
+        { "name": "use_switch", "kind": "bool", "default": false }
+      ],
+      "out_pins_bool": ["true", "false"],
+      "out_pins_switch": ["case_0", "case_1", "...", "default"]
+    }
+  ],
+
+  "child_nodes": [
+    {
+      "kind": "trigger",
+      "title": "Trigger",
+      "desc": "事件监听，命中执行 actions，可 finish 所属 Duration。",
+      "fields": [
+        { "name": "event_type", "kind": "enum", "enum": "event_type" },
+        { "name": "end_mode", "kind": "enum", "enum": "end_mode", "default": "ONCE" },
+        { "name": "count", "kind": "int", "default": 1, "shown_when": "end_mode == COUNT" },
+        { "name": "finish_parent", "kind": "bool", "default": false },
+        { "name": "filter_script", "kind": "script_ref", "optional": true }
+      ],
+      "contains": ["action"]
+    },
+    {
+      "kind": "action",
+      "title": "Action",
+      "desc": "瞬时动作。data 形态（action_name+opts）或 leaf 形态（脚本叶子，优先）。",
+      "fields": [
+        { "name": "action_name", "kind": "enum", "enum_inline": ["", "fire_projectile", "deal_damage", "modify_attr", "apply_buff", "spawn_entity", "play_vfx", "finish"] },
+        { "name": "opts", "kind": "dict" },
+        { "name": "buff_res", "kind": "res_path", "ext": ".tres", "shown_when": "action_name == apply_buff" },
+        { "name": "leaf", "kind": "script_ref", "optional": true }
+      ]
+    }
+  ],
+
+  "actions": [
+    {
+      "name": "fire_projectile",
+      "desc": "发射子弹（含散射）。",
+      "opts": [
+        { "name": "bullet", "type": "PackedScene", "required": true },
+        { "name": "position", "type": "Vector2", "default": "ctx.get_position()" },
+        { "name": "direction", "type": "Vector2", "default": "RIGHT" },
+        { "name": "speed", "type": "float", "default": 250.0 },
+        { "name": "bullet_type", "type": "int", "default": 0 },
+        { "name": "owner", "type": "BattleActor", "default": "ctx.source" },
+        { "name": "spread_count", "type": "int", "default": 1 },
+        { "name": "spread_angle", "type": "float", "default": 0.0 }
+      ]
+    },
+    {
+      "name": "deal_damage",
+      "desc": "造成伤害（走 DamageResolver 收口）。",
+      "opts": [
+        { "name": "base", "type": "float", "default": 10.0 },
+        { "name": "use_atk", "type": "bool", "default": true },
+        { "name": "use_armor", "type": "bool", "default": true },
+        { "name": "formula", "type": "expr", "default": "" },
+        { "name": "tags", "type": "Array[String]", "default": [] }
+      ]
+    },
+    {
+      "name": "modify_attr",
+      "desc": "修改属性（Hp 的 sub 走 DamageResolver）。",
+      "opts": [
+        { "name": "attr", "type": "enum:attribute_name", "required": true },
+        { "name": "op", "type": "enum_inline", "values": ["add", "sub", "set", "mult"], "default": "add" },
+        { "name": "value", "type": "float", "default": 0.0 }
+      ]
+    },
+    {
+      "name": "apply_buff",
+      "desc": "应用 buff（buff_res 资源引用 或 opts.buff_id 字符串）。",
+      "opts": [
+        { "name": "buff_id", "type": "String", "note": "buff_res 为空时用" },
+        { "name": "use_source_owner", "type": "bool", "default": true },
+        { "name": "apply_to_source", "type": "bool", "default": false }
+      ]
+    },
+    {
+      "name": "spawn_entity",
+      "desc": "生成实体。",
+      "opts": [
+        { "name": "scene", "type": "PackedScene", "required": true },
+        { "name": "offset", "type": "Vector2", "default": "ZERO" },
+        { "name": "as_child_of_target", "type": "bool", "default": false },
+        { "name": "init_data", "type": "Dictionary", "default": {} }
+      ]
+    },
+    {
+      "name": "play_vfx",
+      "desc": "播放特效。",
+      "opts": [
+        { "name": "vfx_type", "type": "enum:vfx_type", "default": "HIT_IMPACT" },
+        { "name": "offset", "type": "Vector2", "default": "ZERO" },
+        { "name": "follow_target", "type": "bool", "default": false }
+      ]
+    },
+    {
+      "name": "finish",
+      "desc": "调用 ctx.event_data['on_finish'] 回调并清除（宿主死亡门控通知用）。",
+      "opts": []
+    }
+  ],
+
+  "leaves": [
+    {
+      "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_Shot.gd",
+      "title": "Shot（武器发射基类）",
+      "exports": [
+        { "name": "bullet_scene", "type": "PackedScene" },
+        { "name": "base_speed", "type": "float", "default": 250.0 },
+        { "name": "bullet_type", "type": "int", "default": 0 }
+      ]
+    },
+    {
+      "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_BowShot.gd",
+      "title": "BowShot（弓·蓄力变速）",
+      "extends": "FlowLeaf_Shot",
+      "exports": [
+        { "name": "bullet_scene", "type": "PackedScene" },
+        { "name": "base_speed", "type": "float", "default": 250.0 },
+        { "name": "bullet_type", "type": "int", "default": 0 },
+        { "name": "max_charge_speed", "type": "float", "default": 650.0 }
+      ]
+    },
+    {
+      "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_BottleShot.gd",
+      "title": "BottleShot（瓶·蓄满三连散射）",
+      "extends": "FlowLeaf_Shot",
+      "exports": [
+        { "name": "bullet_scene", "type": "PackedScene" },
+        { "name": "base_speed", "type": "float", "default": 250.0 },
+        { "name": "bullet_type", "type": "int", "default": 0 },
+        { "name": "spread_angle", "type": "float", "default": 0.25 }
+      ]
+    },
+    {
+      "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_Bounce.gd",
+      "title": "Bounce（弹射特质）",
+      "exports": []
+    },
+    {
+      "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_EnemySpawn.gd",
+      "title": "EnemySpawn（出生标记+特效）",
+      "exports": []
+    },
+    {
+      "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_EnemyDeath.gd",
+      "title": "EnemyDeath（死亡特效，延时靠 SECONDS Duration）",
+      "exports": []
+    }
+  ]
+}

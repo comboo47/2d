@@ -1,0 +1,27 @@
+{
+  "flow_id": "trait_bounce_flow",
+  "flow_name": "弹射特质Flow",
+  "schema_version": 1,
+  "entry": "d0",
+  "nodes": [
+    {
+      "id": "d0", "type": "duration", "pos": [120, 80],
+      "lifetime_mode": "FOREVER",
+      "children": [
+        {
+          "kind": "trigger", "event_type": "BULLET_HIT", "end_mode": "NEVER",
+          "actions": [
+            {
+              "kind": "action",
+              "leaf": {
+                "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_Bounce.gd",
+                "props": {}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "connections": []
+}

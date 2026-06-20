@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="LevelDefinition" format=3 uid="uid://dlvl02reg0002"]
+
+[ext_resource type="Script" path="res://src/gameplay/levels/LevelActorDefinition.gd" id="1_actor_def"]
+[ext_resource type="PackedScene" uid="uid://bt2jh8isph5xr" path="res://scenes/actors/enemies/DamageTestEnemey.tscn" id="2_enemy"]
+[ext_resource type="Script" path="res://src/gameplay/levels/LevelDefinition.gd" id="3_level"]
+
+[sub_resource type="Resource" id="Resource_enemy_a"]
+script = ExtResource("1_actor_def")
+actor_scene = ExtResource("2_enemy")
+position = Vector2(380, 200)
+is_enemy = true
+
+[sub_resource type="Resource" id="Resource_enemy_b"]
+script = ExtResource("1_actor_def")
+actor_scene = ExtResource("2_enemy")
+position = Vector2(500, 280)
+is_enemy = true
+
+[sub_resource type="Resource" id="Resource_enemy_c"]
+script = ExtResource("1_actor_def")
+actor_scene = ExtResource("2_enemy")
+position = Vector2(620, 200)
+is_enemy = true
+
+[resource]
+script = ExtResource("3_level")
+level_id = "level_02"
+level_name = "第二关"
+next_level_id = ""
+level_order = 2
+initial_actors = Array[ExtResource("1_actor_def")]([SubResource("Resource_enemy_a"), SubResource("Resource_enemy_b"), SubResource("Resource_enemy_c")])

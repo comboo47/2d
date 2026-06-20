@@ -33,36 +33,30 @@ func updateWeapon():
 		if old_weapon.has_method("on_weapon_exit"):
 			old_weapon.on_weapon_exit()
 
-	# 2. 触发新武器的进入事件
+	# 2. 先设 owner_actor（on_weapon_enter 里 _setup_bindings 需要 owner 才能装 skill）
+	if weaponOwner != null and "owner_actor" in new_weapon:
+		new_weapon.owner_actor = weaponOwner
+
+	# 3. 触发新武器的进入事件
 	if new_weapon.has_method("on_weapon_enter"):
 		new_weapon.on_weapon_enter()
 
-	# 3. 更新 meta 数据
-	weaponOwner.set_meta("CurrentWeapon", new_weapon)
+	# 3. 更新 meta 数据（weaponOwner 可能为 null：组件场景被单独运行时无玩家父节点）
+	if weaponOwner != null:
+		weaponOwner.set_meta("CurrentWeapon", new_weapon)
 
-	# 4. 连接 BulletManager 信号
-	var bullet_manager = get_node("/root/BulletManager")
-
-	if new_weapon.has_signal("weapon_fired"):
-		if not new_weapon.is_connected("weapon_fired",Callable(bullet_manager,"handle_bullet_spawn")):
-			new_weapon.connect("weapon_fired",Callable(bullet_manager,"handle_bullet_spawn"))
-	elif new_weapon.has_signal("player_fired_bullet"):
-		# 兼容旧信号格式
-		if not new_weapon.is_connected("player_fired_bullet",Callable(bullet_manager,"handle_bullet_spawn")):
-			new_weapon.connect("player_fired_bullet",Callable(bullet_manager,"handle_bullet_spawn"))
-
-	# 5. 设置 owner_actor
-	if "owner_actor" in new_weapon:
+	# 4. 设置 owner_actor（已在 step 2 设过，此处保险幂等）
+	if weaponOwner != null and "owner_actor" in new_weapon:
 		new_weapon.owner_actor = weaponOwner
 
-	# 6. 显示/隐藏武器
+	# 5. 显示/隐藏武器
 	for i:Node2D in weapons:
 		if i == new_weapon:
 			i.show()
 		else:
 			i.hide()
 
-	# 7. 更新上一个武器索引
+	# 6. 更新上一个武器索引
 	_previous_weapon = currentWeapon
 
 func setCurrentWeapon(i:int):

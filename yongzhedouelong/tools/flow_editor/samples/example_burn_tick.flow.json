@@ -1,0 +1,28 @@
+{
+  "flow_id": "example_burn_tick",
+  "flow_name": "Example Burn Tick",
+  "schema_version": 1,
+  "entry": "d0",
+  "nodes": [
+    {
+      "id": "d0", "type": "duration", "pos": [120, 80],
+      "lifetime_mode": "FOREVER",
+      "children": [
+        {
+          "kind": "trigger", "event_type": "BUFF_TICK", "end_mode": "NEVER",
+          "actions": [
+            {
+              "kind": "action", "action_name": "deal_damage",
+              "opts": {
+                "base": 1.0, "use_atk": false, "use_armor": false,
+                "formula": "source_attr(\"Atk\") + stack",
+                "tags": ["fire", "dot", "burn"]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "connections": []
+}

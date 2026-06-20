@@ -70,6 +70,13 @@ func remove_skill(skill_id: String) -> void:
 			skills.erase(skill)
 			break
 
+## 是否已有指定 id 的技能。
+func has_skill(skill_id: String) -> bool:
+	for skill in skills:
+		if skill.skill_id == skill_id:
+			return true
+	return false
+
 ## 清空所有技能
 func clear_skills() -> void:
 	skills.clear()

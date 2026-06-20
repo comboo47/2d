@@ -35,20 +35,28 @@ JsonLoader="*res://data/tables/Json/settings.gd"
 VfxManager="*res://src/gameplay/vfx/VfxManager.gd"
 FlowRegistry="*res://src/gameplay/flows/GameplayFlowRegistry.gd"
 SkillRegistry="*res://src/gameplay/skills/SkillRegistry.gd"
+BulletRegistry="*res://src/gameplay/bullets/BulletRegistry.gd"
+WeaponRegistry="*res://src/gameplay/weapons/WeaponRegistry.gd"
 MCPRuntime="*uid://c2dataui15dpl"
+ActorRegistry="*res://src/gameplay/actors/ActorRegistry.gd"
+TraitRegistry="*res://src/gameplay/traits/TraitRegistry.gd"
+LevelRegistry="*res://src/gameplay/levels/LevelRegistry.gd"
+SaveManager="*res://src/app/SaveManager.gd"
+_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]
 
-window/size/viewport_width=768
-window/size/viewport_height=480
+window/size/viewport_width=1536
+window/size/viewport_height=960
 window/size/initial_position_type=0
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
+window/stretch/scale=2.0
 window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/battleeditor/plugin.cfg", "res://addons/buffresourceplugin/plugin.cfg", "res://addons/auto_reload/plugin.cfg", "res://addons/godot_mcp_editor/plugin.cfg", "res://addons/godot_mcp_runtime/plugin.cfg")
+enabled=PackedStringArray("res://addons/auto_reload/plugin.cfg", "res://addons/buffresourceplugin/plugin.cfg", "res://addons/godot_ai/plugin.cfg", "res://addons/gpmanager/plugin.cfg")
 
 [file_customization]
 
@@ -105,3 +113,5 @@ testButton={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+viewport/hdr_2d=true
+2d/snap/snap_2d_transforms_to_pixel=true

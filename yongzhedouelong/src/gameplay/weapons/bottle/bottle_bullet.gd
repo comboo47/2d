@@ -1,43 +1,37 @@
-extends RigidBody2D
+extends BulletBase
+## 瓶子子弹：命中即范围爆炸（BoomArea 内全体结算）+ 爆炸动画后销毁。
+## 共享逻辑（hurt_somebody/_releaseSelf/apply_definition/运动）在 BulletBase。
+## 保留自身的命中分发与 boomDisplay()，行为与改造前一致。
 
-@export var damagebuffid:String = ""
-@export var base_damage: float = 10.0
+## 飞行速度（保留在子类：weapon_base._ready 读取它作为 base_speed 默认；bottle=300）。
 @export var speed = 300
-var bulletOwner:BattleActor
-var source_weapon = null
-# Called when the node enters the scene tree for the first time.
+
 @onready var a = $"."
 
 func _ready():
 	$AnimatedSprite2D.play("default")
-	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	# 先驱动可选运动策略（无 definition 时为空操作），再让朝向跟随速度。
+	super._physics_process(delta)
 	$".".look_at($".".linear_velocity)
-	pass
-func _releaseSelf():
-	$".".queue_free()
-	
-func _on_bullet_hit(body:Node):
-	#hurt_somebody(body)
-	var boomBody = $BoomArea.get_overlapping_bodies()
-	for i in boomBody:
-		hurt_somebody(i)
-	boomDisplay()
+
+func _on_bullet_hit(body: Node):
+	_explode()
+
 func _on_body_entered(body):
+	_explode()
+
+## 范围结算：对 BoomArea 内所有目标造成伤害，然后播放爆炸表现。
+func _explode() -> void:
 	var boomBody = $BoomArea.get_overlapping_bodies()
 	for i in boomBody:
 		hurt_somebody(i)
 	boomDisplay()
-	
-	pass # Replace with function body.
-func hurt_somebody(body:Node):
-	if body.has_method("_beHurt"):
-		BattleManager.resolve_bullet_hit(bulletOwner, body, base_damage, "", damagebuffid, source_weapon)
+
 func boomDisplay():
-	$".".set_deferred("freeze_mode",1)
-	$".".set_deferred("freeze",true)
+	$".".set_deferred("freeze_mode", 1)
+	$".".set_deferred("freeze", true)
 	$BoomAnimated.visible = true
 	$BoomAnimated.rotation = randf()
 	$BoomAnimated.play("default")
@@ -47,7 +41,7 @@ func boomDisplay():
 	tween.set_ease(Tween.EASE_OUT)
 	var colorValue = $BoomAnimated.modulate
 	colorValue.a = 0.2
-	tween.tween_property($BoomAnimated,"scale",Vector2(2,2),0.35)
-	tween.tween_property($BoomAnimated,"modulate",colorValue,0.25)
+	tween.tween_property($BoomAnimated, "scale", Vector2(2, 2), 0.35)
+	tween.tween_property($BoomAnimated, "modulate", colorValue, 0.25)
 	await tween.finished
 	_releaseSelf()

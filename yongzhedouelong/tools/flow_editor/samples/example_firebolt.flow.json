@@ -1,0 +1,27 @@
+{
+  "flow_id": "example_skill_damage",
+  "flow_name": "Example Skill Damage",
+  "schema_version": 1,
+  "entry": "d0",
+  "nodes": [
+    {
+      "id": "d0", "type": "duration", "pos": [120, 80],
+      "lifetime_mode": "INSTANT",
+      "children": [
+        {
+          "kind": "action", "action_name": "deal_damage",
+          "opts": {
+            "base": 6.0,
+            "formula": "damage.amount + level",
+            "tags": ["skill", "fire"]
+          }
+        },
+        {
+          "kind": "action", "action_name": "apply_buff",
+          "buff_res": "res://resources/gameplay/buffs/example_burn_buff.tres"
+        }
+      ]
+    }
+  ],
+  "connections": []
+}

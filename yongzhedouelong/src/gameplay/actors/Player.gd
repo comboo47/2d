@@ -47,20 +47,8 @@ func _process(delta):
 			if i.get_node("canPickUp"):
 				i.get_node("canPickUp").pickUp(self)
 				#print(i)
-	if $".".get_meta("CurrentWeapon") != null:
-		var weapon = $".".get_meta("CurrentWeapon")
-		# 按下 fire 立即开始蓄力
-		if Input.is_action_just_pressed("fire"):
-			if weapon.has_method("hold_fire"):
-				weapon.hold_fire()
-		# 按住 fire 期间（可选：持续调用 hold_fire 或只调用一次）
-		if Input.is_action_pressed("fire"):
-			holdFireTime += delta
-		# 释放 fire 发射
-		if Input.is_action_just_released("fire"):
-			holdFireTime = 0
-			if weapon.has_method("fire"):
-				weapon.fire()
+	# 第十二期：开火输入已剖离到 WeaponDriver（默认 PlayerInputSource 经 InputManager 轮询），
+	# Player 不再手写 fire 输入。
 	AnimControle()
 	position = position.clamp(Vector2.ZERO, screen_size)
 	if hsm.get_active_state() != jump_state && self.velocity.y >0:

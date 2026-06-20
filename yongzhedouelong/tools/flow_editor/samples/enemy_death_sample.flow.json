@@ -1,0 +1,29 @@
+{
+  "flow_id": "enemy_death_sample",
+  "flow_name": "样例敌人死亡（特效 + 延时门控）",
+  "schema_version": 1,
+  "entry": "d_fx",
+  "nodes": [
+    {
+      "id": "d_fx", "type": "duration", "pos": [120, 80],
+      "lifetime_mode": "INSTANT",
+      "children": [
+        {
+          "kind": "action",
+          "leaf": {
+            "script": "res://src/gameplay/flows/graph/leaves/FlowLeaf_EnemyDeath.gd",
+            "props": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": "d_delay", "type": "duration", "pos": [120, 240],
+      "lifetime_mode": "SECONDS", "lifetime_value": 1.0,
+      "children": []
+    }
+  ],
+  "connections": [
+    { "from": "d_fx", "from_pin": "out", "to": "d_delay" }
+  ]
+}

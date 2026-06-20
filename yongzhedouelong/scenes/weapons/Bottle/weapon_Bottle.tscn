@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://chgpllnygnq30"]
 
-[ext_resource type="Script" uid="uid://f4n2o2dh1rot" path="res://src/gameplay/weapons/bottle/Weapon_Bottle.gd" id="1_r6uvf"]
-[ext_resource type="PackedScene" uid="uid://emyqoa2k5c5v" path="res://scenes/weapons/Bottle/bullet_bottle.tscn" id="2_732it"]
+[ext_resource type="Script" uid="uid://ce5wb4vodsy34" path="res://src/gameplay/weapons/WeaponDriver.gd" id="1_r6uvf"]
+[ext_resource type="Resource" path="res://resources/gameplay/weapons/weapon_bottle.tres" id="2_732it"]
 [ext_resource type="Texture2D" uid="uid://daio65xu0bmcw" path="res://assets/gameplay/Weapon/Weapon61.tres" id="3_4n3mk"]
 [ext_resource type="Texture2D" uid="uid://lel1ebrmufag" path="res://assets/gameplay/1bitpack_kenney/Tilesheet/monochrome_transparent.png" id="4_ft53f"]
 [ext_resource type="Texture2D" uid="uid://b4jj3yfv2unya" path="res://assets/gameplay/1bitpack_kenney/Tilesheet/colored_transparent.png" id="5_vbqe6"]
@@ -58,7 +58,7 @@ animations = [{
 [node name="Weapon_Bottle" type="Node2D" unique_id=1094276276]
 position = Vector2(-7.62939e-06, 0)
 script = ExtResource("1_r6uvf")
-bullet = ExtResource("2_732it")
+definition = ExtResource("2_732it")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=335213956]
 z_index = 50
